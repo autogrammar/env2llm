@@ -82,3 +82,21 @@ def ensure_environment_map(
     os.environ.setdefault("ENV2LLM_CONTEXT", str(path))
     os.environ.setdefault("NLP2DSL_DOQL_CONTEXT", str(path))
     return path
+
+
+def ensure_doql_registry(
+    example_dir: Path | str,
+    *,
+    example_id: str | None = None,
+    attachment: bool | None = None,
+    auto_execute: bool | None = None,
+    client: Any | None = None,
+) -> Path:
+    """nlp2dsl-compatible alias for :func:`ensure_environment_map`."""
+    return ensure_environment_map(
+        example_dir,
+        project_id=example_id,
+        attachment=attachment,
+        auto_execute=auto_execute,
+        client=client,
+    )
