@@ -1,0 +1,78 @@
+# SCENARIO: Auto-generated from Python Tests
+# TYPE: integration
+# GENERATED: true
+
+CONFIG[2]{key, value}:
+  base_url, ${api_url:-http://localhost:8101}
+  timeout_ms, 10000
+
+# Converted 68 assertions from pytest
+ASSERT[68]{field, operator, expected}:
+  worker.status, ==, "available"
+  ctx.example_name, ==, "01-invoice"
+  ctx.generated_at, ==, "2026-06-06T08:00:00+00:00"
+  ctx.environment.NLP2DSL_BACKEND_URL, ==, "http://localhost:8010"
+  ctx.data.send_invoice.amount, ==, 1500
+  ctx.capabilities, ==, ["send_invoice"
+  ctx.workflow_history, ==, {"count": 2
+  ctx.process.mode, ==, "deterministic"
+  ctx.process.nlp_parser, ==, "rules_first"
+  ctx.process.nlp_confidence_min, ==, 0.75
+  ctx.process.llm_reasoning, ==, "deep"
+  ctx.process.llm_temperature, ==, 0.1
+  ctx.process.autonomous_max_rounds, ==, 3
+  ctx.process.ask_user, ==, "never"
+  ctx.process.agent, ==, "user"
+  ctx.process.allow_resource_areas, ==, ["files:project"]
+  ctx.process.deny_resource_areas, ==, ["mullm:rag"
+  ctx.process.paths_read, ==, ["fixtures/**"]
+  ctx.process.paths_write, ==, ["generated/**"]
+  ctx.artifacts[0].values.amount, ==, 1500
+  ctx.commands[0].required, ==, ["amount"
+  ctx.commands[0].runtime, ==, "executor:worker"
+  ctx.resources[0].id, ==, "mullm:rag"
+  ctx.access[0].effect, ==, "deny"
+  ctx.runtimes[0].status, ==, "available"
+  loaded.example_name, ==, "roundtrip"
+  loaded.data.send_invoice.amount, ==, 99
+  loaded.commands[0].name, ==, "send_invoice"
+  loaded.runtimes[0].health, ==, "http://localhost:8004/health"
+  len(ctx.validations), ==, 2
+  ctx.validations[0].code, ==, "profile.dsl_action"
+  ctx.validations[0].action, ==, "send_invoice"
+  ctx.validations[1].code, ==, "profile.execution_completed"
+  ctx.validations[1].status, ==, "completed"
+  worker.status, ==, "available"
+  ctx.example_name, ==, "01-invoice"
+  ctx.generated_at, ==, "2026-06-06T08:00:00+00:00"
+  ctx.environment.NLP2DSL_BACKEND_URL, ==, "http://localhost:8010"
+  ctx.data.send_invoice.amount, ==, 1500
+  ctx.capabilities, ==, ["send_invoice"
+  ctx.workflow_history, ==, {"count": 2
+  ctx.process.mode, ==, "deterministic"
+  ctx.process.nlp_parser, ==, "rules_first"
+  ctx.process.nlp_confidence_min, ==, 0.75
+  ctx.process.llm_reasoning, ==, "deep"
+  ctx.process.llm_temperature, ==, 0.1
+  ctx.process.autonomous_max_rounds, ==, 3
+  ctx.process.ask_user, ==, "never"
+  ctx.process.agent, ==, "user"
+  ctx.process.allow_resource_areas, ==, ["files:project"]
+  ctx.process.deny_resource_areas, ==, ["mullm:rag"
+  ctx.process.paths_read, ==, ["fixtures/**"]
+  ctx.process.paths_write, ==, ["generated/**"]
+  ctx.artifacts[0].values.amount, ==, 1500
+  ctx.commands[0].required, ==, ["amount"
+  ctx.commands[0].runtime, ==, "executor:worker"
+  ctx.resources[0].id, ==, "mullm:rag"
+  ctx.access[0].effect, ==, "deny"
+  ctx.runtimes[0].status, ==, "available"
+  loaded.example_name, ==, "roundtrip"
+  loaded.data.send_invoice.amount, ==, 99
+  loaded.commands[0].name, ==, "send_invoice"
+  loaded.runtimes[0].health, ==, "http://localhost:8004/health"
+  len(ctx.validations), ==, 2
+  ctx.validations[0].code, ==, "profile.dsl_action"
+  ctx.validations[0].action, ==, "send_invoice"
+  ctx.validations[1].code, ==, "profile.execution_completed"
+  ctx.validations[1].status, ==, "completed"

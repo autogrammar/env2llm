@@ -1,0 +1,349 @@
+# env2llm | 48f 4815L | python:45,shell:2,less:1 | 2026-06-06
+# stats: 190 func | 26 cls | 48 mod | CC̄=5.0 | critical:26 | cycles:0
+# alerts[5]: CC test_load_doql_context_all_supported_blocks=34; CC task_context_to_system_map=25; CC render_markdown=22; CC enrich_task_context_from_client=19; CC collect_task_context=19
+# hotspots[5]: collect_task_context fan=26; ensure_environment_map fan=21; task_context_to_system_map fan=20; render_system_map_doql fan=20; render_doql_context fan=16
+# evolution: baseline
+# Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
+M[48]:
+  app.doql.less,231
+  project.sh,59
+  src/env2llm/__init__.py,34
+  src/env2llm/__main__.py,4
+  src/env2llm/_runtime_health.py,30
+  src/env2llm/artifact_layout.py,2
+  src/env2llm/bootstrap.py,103
+  src/env2llm/bridge.py,226
+  src/env2llm/cli.py,58
+  src/env2llm/doql/__init__.py,49
+  src/env2llm/doql/context_blocks.py,235
+  src/env2llm/doql/models.py,135
+  src/env2llm/doql/parse.py,483
+  src/env2llm/doql/render.py,50
+  src/env2llm/doql/runtime.py,207
+  src/env2llm/doql_context.py,27
+  src/env2llm/env.py,73
+  src/env2llm/formats/__init__.py,60
+  src/env2llm/formats/doql_less.py,12
+  src/env2llm/formats/json_fmt.py,14
+  src/env2llm/formats/markdown.py,53
+  src/env2llm/formats/yaml_fmt.py,14
+  src/env2llm/generate.py,203
+  src/env2llm/ir.py,275
+  src/env2llm/layout.py,267
+  src/env2llm/policy/__init__.py,5
+  src/env2llm/policy/invoice.py,53
+  src/env2llm/policy/process.py,338
+  src/env2llm/policy/validations.py,74
+  src/env2llm/registry.py,231
+  src/env2llm/render/__init__.py,4
+  src/env2llm/render/doql/__init__.py,6
+  src/env2llm/render/doql/blocks.py,301
+  src/env2llm/render/doql/helpers.py,46
+  src/env2llm/render/doql/render.py,49
+  src/env2llm/runtimes.py,175
+  src/env2llm/sources.py,68
+  src/env2llm/system_map_bridge.py,2
+  src/env2llm/system_map_generator.py,2
+  src/env2llm/system_map_ir.py,2
+  src/env2llm/system_map_models.py,49
+  src/env2llm/system_map_render.py,2
+  src/env2llm/system_map_runtimes.py,2
+  tests/conftest.py,24
+  tests/test_doql_context.py,312
+  tests/test_formats.py,24
+  tests/test_system_map_ir.py,140
+  tree.sh,2
+D:
+  src/env2llm/__init__.py:
+  src/env2llm/__main__.py:
+  src/env2llm/_runtime_health.py:
+    e: runtime_id_for_intent
+    runtime_id_for_intent(intent)
+  src/env2llm/artifact_layout.py:
+  src/env2llm/bootstrap.py:
+    e: project_artifact_root,ensure_environment_map,ensure_doql_registry
+    project_artifact_root(project_dir)
+    ensure_environment_map(project_dir)
+    ensure_doql_registry(example_dir)
+  src/env2llm/bridge.py:
+    e: _mime_for_artifact,_process_from_ctx,task_context_to_system_map,_command_to_ir,doql_file_to_system_map
+    _mime_for_artifact(art)
+    _process_from_ctx(ctx)
+    task_context_to_system_map(ctx)
+    _command_to_ir(cmd)
+    doql_file_to_system_map(path)
+  src/env2llm/cli.py:
+    e: build_parser,main
+    build_parser()
+    main(argv)
+  src/env2llm/doql/__init__.py:
+  src/env2llm/doql/context_blocks.py:
+    e: render_context_header,render_context_environment,render_context_data,render_context_artifacts,render_context_commands,render_context_resources,render_context_access,render_context_runtimes,render_context_capabilities,render_context_workflow_history,render_context_process,render_context_process_access,render_context_paths,render_context_conversation
+    render_context_header(ctx)
+    render_context_environment(ctx)
+    render_context_data(ctx)
+    render_context_artifacts(ctx)
+    render_context_commands(ctx)
+    render_context_resources(ctx)
+    render_context_access(ctx)
+    render_context_runtimes(ctx)
+    render_context_capabilities(ctx)
+    render_context_workflow_history(ctx)
+    render_context_process(ctx)
+    render_context_process_access(ctx)
+    render_context_paths(ctx)
+    render_context_conversation(ctx)
+  src/env2llm/doql/models.py:
+    e: DoqlArtifact,DoqlRuntime,DoqlCommand,DoqlResource,DoqlAccess,DoqlProcessPolicy,DoqlTaskContext
+    DoqlArtifact:
+    DoqlRuntime:  # Execution environment (where command effects run).
+    DoqlCommand:  # Schema kroku CMD — akcja workflow + wymagane pola + runtime 
+    DoqlResource:
+    DoqlAccess:
+    DoqlProcessPolicy:
+    DoqlTaskContext: entity_values(1),command(1),required_fields_for(1),runtime_for(1)
+  src/env2llm/doql/parse.py:
+    e: _parse_value,_parse_block_body,_split_csv,_parse_command_body,_parse_resource_body,_parse_access_body,_parse_runtime_body,_parse_validation_body,_parse_artifact_body,_apply_context_metadata,_apply_conversation_block,_apply_capabilities_block,_apply_process_block,_apply_process_access_block,_apply_paths_block,_apply_context_block,_append_collection_blocks,load_doql_context,_repo_root_from_example,_command_transport,load_platform_map,load_commands_from_services_yaml,enrich_task_context_from_client,parse_fixture_metadata,collect_task_context
+    _parse_value(raw)
+    _parse_block_body(body)
+    _split_csv(raw)
+    _parse_command_body(body)
+    _parse_resource_body(body)
+    _parse_access_body(body)
+    _parse_runtime_body(body)
+    _parse_validation_body(body)
+    _parse_artifact_body(body)
+    _apply_context_metadata(ctx;text)
+    _apply_conversation_block(ctx;kv)
+    _apply_capabilities_block(ctx;kv)
+    _apply_process_block(ctx;kv)
+    _apply_process_access_block(ctx;kv)
+    _apply_paths_block(ctx;kv)
+    _apply_context_block(ctx;block_type;kv)
+    _append_collection_blocks(ctx;text)
+    load_doql_context(path)
+    _repo_root_from_example(example_dir)
+    _command_transport(action)
+    load_platform_map(repo_root)
+    load_commands_from_services_yaml(path)
+    enrich_task_context_from_client(ctx;client)
+    parse_fixture_metadata(path)
+    collect_task_context(example_dir)
+  src/env2llm/doql/render.py:
+    e: render_doql_context,write_doql_context
+    render_doql_context(ctx)
+    write_doql_context(path;ctx)
+  src/env2llm/doql/runtime.py:
+    e: resolve_doql_context_path,context_inline_payload,load_doql_inline_from_env,merge_inline_context,autofill_entities,_inline_data_key,_apply_conversation_flag,_add_short_inline_alias,_split_missing_ref,_canonical_field,_autofill_value,_candidate_data_keys,_value_from_data,_value_from_artifacts,_needs_field
+    resolve_doql_context_path()
+    context_inline_payload(ctx)
+    load_doql_inline_from_env()
+    merge_inline_context(ctx;inline)
+    autofill_entities(entities;missing_refs;ctx)
+    _inline_data_key(key)
+    _apply_conversation_flag(ctx;flag;value)
+    _add_short_inline_alias(merged_data;key;mapped;value)
+    _split_missing_ref(ref;entities)
+    _canonical_field(field)
+    _autofill_value(action;field;ctx)
+    _candidate_data_keys(action;field)
+    _value_from_data(candidates;ctx)
+    _value_from_artifacts(field;ctx)
+    _needs_field(entities;field)
+  src/env2llm/doql_context.py:
+  src/env2llm/env.py:
+    e: mask_secret,collect_environment,merge_environment
+    mask_secret(value)
+    collect_environment()
+    merge_environment(base;override)
+  src/env2llm/formats/__init__.py:
+    e: normalize_format,render_format,default_output_name
+    normalize_format(name)
+    render_format(ir;fmt)
+    default_output_name(fmt)
+  src/env2llm/formats/doql_less.py:
+    e: render_doql_less
+    render_doql_less(ir;_ctx)
+  src/env2llm/formats/json_fmt.py:
+    e: render_json
+    render_json(ir;_ctx)
+  src/env2llm/formats/markdown.py:
+    e: render_markdown
+    render_markdown(ir;_ctx)
+  src/env2llm/formats/yaml_fmt.py:
+    e: render_yaml
+    render_yaml(ir;_ctx)
+  src/env2llm/generate.py:
+    e: build_introspection_payload,_bootstrap_system_map,_litellm_complete,_parse_llm_json,generate_system_map
+    build_introspection_payload(example_dir)
+    _bootstrap_system_map(example_dir)
+    _litellm_complete(system;user)
+    _parse_llm_json(raw)
+    generate_system_map(example_dir)
+  src/env2llm/ir.py:
+    e: MimeTypeSpec,RuntimeSpecIR,ProtocolSpec,FieldSpec,CommandSchemaIR,ResourceSpecIR,AccessGrantIR,ArtifactSpecIR,ConversationPolicyIR,ProcessAccessScopeIR,ProcessPathsIR,ProcessPolicyIR,ScheduleSpecIR,GeneratedServiceIR,DeploySpecIR,ProfileValidationIR,SystemMapIR
+    MimeTypeSpec:  # Artifact or payload MIME + optional Pydantic schema referenc
+    RuntimeSpecIR:  # Execution environment available to the example (where effect
+    ProtocolSpec:  # Transport / execution protocol for a command step.
+    FieldSpec:  # Single command parameter with optional MIME/schema.
+    CommandSchemaIR: required_names(0),optional_names(0)  # CMD layer schema — one workflow action / service call.
+    ResourceSpecIR:
+    AccessGrantIR:
+    ArtifactSpecIR:
+    ConversationPolicyIR:
+    ProcessAccessScopeIR:  # Process-level ACL scope (subset of platform grants).
+    ProcessPathsIR:  # Filesystem paths available to the process agent.
+    ProcessPolicyIR:  # Per-example process behaviour — workflow style, NLP/LLM, Int
+    ScheduleSpecIR:  # Cron / trigger schedule bound to a workflow or NL task.
+    GeneratedServiceIR:  # Optional service stub emitted under .nlp2dsl/generated/servi
+    DeploySpecIR:  # Docker Compose deployment descriptor for transparent process
+    ProfileValidationIR:  # Example-profile acceptance check — maps example-profiles.yam
+    SystemMapIR: command(1),runtime(1),runtime_for_command(1),validate_step_config(2)  # env2llm.system_map.v1 — canonical map of available system ca
+  src/env2llm/layout.py:
+    e: artifact_root,_chmod_writable,_force_remove_path,clean_artifact_root,clean_all_example_artifacts,example_fixtures_dir,ensure_layout,resolve_registry_path,write_registry,current_run_id,run_dir,write_turn_snapshot,write_reflection_snapshot,write_last_run_report
+    artifact_root(example_dir)
+    _chmod_writable(path)
+    _force_remove_path(path)
+    clean_artifact_root(example_dir)
+    clean_all_example_artifacts(examples_dir)
+    example_fixtures_dir(example_dir)
+    ensure_layout(root)
+    resolve_registry_path()
+    write_registry(root;content)
+    current_run_id(root)
+    run_dir(root;run_id)
+    write_turn_snapshot(artifact_root_path)
+    write_reflection_snapshot(artifact_root_path)
+    write_last_run_report(root;payload)
+  src/env2llm/policy/__init__.py:
+  src/env2llm/policy/invoice.py:
+    e: is_invoice_example,apply_invoice_policies,apply_invoice_context
+    is_invoice_example(example_id)
+    apply_invoice_policies(ir)
+    apply_invoice_context(ctx)
+  src/env2llm/policy/process.py:
+    e: _as_list,_deep_merge_process,_load_nlp2dsl_payload,load_platform_process_defaults,_merge_access,_merge_paths,process_policy_from_profile_block,_mapping_block,_apply_nlp_policy,_apply_autonomous_policy,_apply_llm_policy,_intract_flags,_normalized_mode,_process_policy_from_parts,_merge_conversation_from_profile,merge_process_config,apply_process_policies,effective_nlp_parser_mode,process_policy_to_doql_dict,process_scope_denied
+    _as_list(raw)
+    _deep_merge_process(base;override)
+    _load_nlp2dsl_payload(repo_root)
+    load_platform_process_defaults(repo_root)
+    _merge_access(raw)
+    _merge_paths(raw)
+    process_policy_from_profile_block(raw)
+    _mapping_block(raw;key)
+    _apply_nlp_policy(preset;nlp)
+    _apply_autonomous_policy(preset;autonomous)
+    _apply_llm_policy(preset;llm)
+    _intract_flags(intract)
+    _normalized_mode(mode)
+    _process_policy_from_parts()
+    _merge_conversation_from_profile(ir;raw)
+    merge_process_config()
+    apply_process_policies(ir)
+    effective_nlp_parser_mode(process)
+    process_policy_to_doql_dict(process)
+    process_scope_denied(process)
+  src/env2llm/policy/validations.py:
+    e: _parse_profile_validation_by_code,_parse_profile_validation_by_type,_parse_profile_validation_shorthand,parse_profile_validation,parse_profile_validations,apply_profile_validations
+    _parse_profile_validation_by_code(raw)
+    _parse_profile_validation_by_type(raw)
+    _parse_profile_validation_shorthand(raw)
+    parse_profile_validation(raw)
+    parse_profile_validations(raw_list)
+    apply_profile_validations(ir;profile)
+  src/env2llm/registry.py:
+    e: entities_to_data,merge_execution_observation,_merge_execution_header,_execution_steps,_merge_execution_step,_step_output,_merge_send_invoice_output,_merge_generate_invoice_output,_merge_workflow_id,merge_registry_observations,refresh_doql_registry,refresh_doql_registry_from_state
+    entities_to_data(intent;entities)
+    merge_execution_observation(ir_data;workflow_history;execution)
+    _merge_execution_header(history;execution)
+    _execution_steps(execution)
+    _merge_execution_step(data;history;step)
+    _step_output(step)
+    _merge_send_invoice_output(data;history;output)
+    _merge_generate_invoice_output(data;output)
+    _merge_workflow_id(history;execution)
+    merge_registry_observations(ir;path)
+    refresh_doql_registry(path)
+    refresh_doql_registry_from_state(path)
+  src/env2llm/render/__init__.py:
+  src/env2llm/render/doql/__init__.py:
+  src/env2llm/render/doql/blocks.py:
+    e: render_header,render_environment_block,render_data_block,render_artifacts_block,render_runtimes_block,render_commands_block,render_resources_block,render_access_block,render_capabilities_block,render_workflow_history_block,render_conversation_block,render_process_block,render_process_access_block,render_paths_block,render_schedules_block,render_deploy_block,render_generated_services_block,render_validations_block
+    render_header(ir)
+    render_environment_block(ir)
+    render_data_block(ir)
+    render_artifacts_block(ir)
+    render_runtimes_block(ir)
+    render_commands_block(ir)
+    render_resources_block(ir)
+    render_access_block(ir)
+    render_capabilities_block(ir)
+    render_workflow_history_block(ir)
+    render_conversation_block(ir)
+    render_process_block(ir)
+    render_process_access_block(ir)
+    render_paths_block(ir)
+    render_schedules_block(ir)
+    render_deploy_block(ir)
+    render_generated_services_block(ir)
+    render_validations_block(ir)
+  src/env2llm/render/doql/helpers.py:
+    e: esc_str,esc_str_full,bool_lit,join_csv,data_value_line,history_value_line,process_field_line
+    esc_str(value)
+    esc_str_full(value)
+    bool_lit(value)
+    join_csv(items)
+    data_value_line(key;val)
+    history_value_line(key;val)
+    process_field_line(key;val)
+  src/env2llm/render/doql/render.py:
+    e: render_system_map_doql
+    render_system_map_doql(ir)
+  src/env2llm/runtimes.py:
+    e: _repo_root_from_example,load_example_profile,resolve_command_runtime,build_runtimes_for_example
+    _repo_root_from_example(example_dir)
+    load_example_profile(example_id;repo_root)
+    resolve_command_runtime(action)
+    build_runtimes_for_example(example_id)
+  src/env2llm/sources.py:
+    e: EnvironmentSources,DefaultEnvironmentSources
+    EnvironmentSources: example_profile(2),platform_config(1),services_snapshot(1)
+    DefaultEnvironmentSources: example_profile(2),platform_config(1),services_snapshot(1)  # Read nlp2dsl-style YAML layouts (example-profiles.yaml, nlp2
+  src/env2llm/system_map_bridge.py:
+  src/env2llm/system_map_generator.py:
+  src/env2llm/system_map_ir.py:
+  src/env2llm/system_map_models.py:
+    e: _annotation_for_field,command_input_model,build_command_registry,validate_config_against_map
+    _annotation_for_field(field)
+    command_input_model(cmd)
+    build_command_registry(ir)
+    validate_config_against_map(ir;action;config)
+  src/env2llm/system_map_render.py:
+  src/env2llm/system_map_runtimes.py:
+  tests/conftest.py:
+    e: nlp2dsl_root,invoice_example_dir
+    nlp2dsl_root()
+    invoice_example_dir()
+  tests/test_doql_context.py:
+    e: test_load_doql_context_all_supported_blocks,test_doql_roundtrip_preserves_core_fields,test_autofill_entities_from_data_and_aliases,test_autofill_entities_from_artifact_values,test_autofill_entities_skips_optional_attachment_path,test_merge_inline_context_promotes_short_aliases,test_autofill_entities_disabled_returns_original_object,test_load_doql_context_parses_validations,test_validations_doql_roundtrip_via_system_map
+    test_load_doql_context_all_supported_blocks(tmp_path)
+    test_doql_roundtrip_preserves_core_fields(tmp_path)
+    test_autofill_entities_from_data_and_aliases()
+    test_autofill_entities_from_artifact_values()
+    test_autofill_entities_skips_optional_attachment_path()
+    test_merge_inline_context_promotes_short_aliases()
+    test_autofill_entities_disabled_returns_original_object()
+    test_load_doql_context_parses_validations(tmp_path)
+    test_validations_doql_roundtrip_via_system_map(tmp_path)
+  tests/test_formats.py:
+    e: test_render_json_yaml_markdown
+    test_render_json_yaml_markdown()
+  tests/test_system_map_ir.py:
+    e: test_system_map_validate_step_config,test_dynamic_command_input_model,test_task_context_to_system_map_and_render,test_build_runtimes_for_01_invoice,test_resolve_command_runtime,test_doql_roundtrip_runtimes,test_generate_system_map_01_invoice
+    test_system_map_validate_step_config()
+    test_dynamic_command_input_model()
+    test_task_context_to_system_map_and_render(invoice_example_dir)
+    test_build_runtimes_for_01_invoice(invoice_example_dir)
+    test_resolve_command_runtime()
+    test_doql_roundtrip_runtimes(tmp_path)
+    test_generate_system_map_01_invoice(invoice_example_dir)

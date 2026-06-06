@@ -1,0 +1,1125 @@
+source: code2llm
+# generated in 0.05s
+schema: code2llm.planfile_tickets.v1
+project_root: /home/tom/github/semcod/env2llm
+tickets:
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: src.env2llm.bridge.task_context_to_system_map
+    (CC=25)'
+  description: 'code2llm reports `src.env2llm.bridge.task_context_to_system_map` at
+    `src/env2llm/bridge.py:85` with cyclomatic complexity 25 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - src/env2llm/bridge.py
+  dedupe_key: code2llm:cc:src/env2llm/bridge.py:src.env2llm.bridge.task_context_to_system_map
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: context_inline_payload'
+  description: 'code2llm reports `God Function: context_inline_payload` in `src/env2llm/doql/runtime.py:19`.
+
+
+    Function ''context_inline_payload'' is oversized: CC=14, fan-out=11, mutations=21.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/runtime.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/runtime.py:19:God Function:
+    context_inline_payload'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: ensure_environment_map'
+  description: 'code2llm reports `God Function: ensure_environment_map` in `src/env2llm/bootstrap.py:22`.
+
+
+    Function ''ensure_environment_map'' is oversized: CC=9, fan-out=22, mutations=17.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/bootstrap.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/bootstrap.py:22:God Function:
+    ensure_environment_map'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: action'
+  description: 'code2llm reports `Shotgun Surgery: action` in `src/env2llm/registry.py:21`.
+
+
+    Mutation of variable ''action'' spans 5 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/registry.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/registry.py:21:Shotgun Surgery:
+    action'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: base'
+  description: 'code2llm reports `Shotgun Surgery: base` in `src/env2llm/layout.py:191`.
+
+
+    Mutation of variable ''base'' spans 8 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/layout.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/layout.py:191:Shotgun Surgery:
+    base'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: ctx'
+  description: 'code2llm reports `Shotgun Surgery: ctx` in `src/env2llm/doql/parse.py:158`.
+
+
+    Mutation of variable ''ctx'' spans 17 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/doql/parse.py:158:Shotgun
+    Surgery: ctx'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: ir'
+  description: 'code2llm reports `Shotgun Surgery: ir` in `src/env2llm/policy/process.py:253`.
+
+
+    Mutation of variable ''ir'' spans 9 functions. Changing this logic requires work
+    in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/policy/process.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/policy/process.py:253:Shotgun
+    Surgery: ir'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: key'
+  description: 'code2llm reports `Shotgun Surgery: key` in `src/env2llm/registry.py:21`.
+
+
+    Mutation of variable ''key'' spans 11 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/registry.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/registry.py:21:Shotgun Surgery:
+    key'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: kv'
+  description: 'code2llm reports `Shotgun Surgery: kv` in `src/env2llm/doql/parse.py:112`.
+
+
+    Mutation of variable ''kv'' spans 6 functions. Changing this logic requires work
+    in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/doql/parse.py:112:Shotgun
+    Surgery: kv'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: lines'
+  description: 'code2llm reports `Shotgun Surgery: lines` in `src/env2llm/render/doql/render.py:28`.
+
+
+    Mutation of variable ''lines'' spans 31 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/render/doql/render.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/render/doql/render.py:28:Shotgun
+    Surgery: lines'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: out'
+  description: 'code2llm reports `Shotgun Surgery: out` in `src/env2llm/registry.py:21`.
+
+
+    Mutation of variable ''out'' spans 9 functions. Changing this logic requires work
+    in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/registry.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/registry.py:21:Shotgun Surgery:
+    out'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: path'
+  description: 'code2llm reports `Shotgun Surgery: path` in `src/env2llm/cli.py:43`.
+
+
+    Mutation of variable ''path'' spans 18 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/cli.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/cli.py:43:Shotgun Surgery:
+    path'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: payload'
+  description: 'code2llm reports `Shotgun Surgery: payload` in `src/env2llm/doql/parse.py:283`.
+
+
+    Mutation of variable ''payload'' spans 9 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/doql/parse.py:283:Shotgun
+    Surgery: payload'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: proc'
+  description: 'code2llm reports `Shotgun Surgery: proc` in `src/env2llm/render/doql/blocks.py:182`.
+
+
+    Mutation of variable ''proc'' spans 5 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/render/doql/blocks.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/render/doql/blocks.py:182:Shotgun
+    Surgery: proc'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: profile'
+  description: 'code2llm reports `Shotgun Surgery: profile` in `src/env2llm/policy/process.py:253`.
+
+
+    Mutation of variable ''profile'' spans 6 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/policy/process.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/policy/process.py:253:Shotgun
+    Surgery: profile'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: raw'
+  description: 'code2llm reports `Shotgun Surgery: raw` in `src/env2llm/doql/parse.py:175`.
+
+
+    Mutation of variable ''raw'' spans 5 functions. Changing this logic requires work
+    in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/doql/parse.py:175:Shotgun
+    Surgery: raw'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: repo_root'
+  description: 'code2llm reports `Shotgun Surgery: repo_root` in `src/env2llm/generate.py:39`.
+
+
+    Mutation of variable ''repo_root'' spans 5 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/generate.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/generate.py:39:Shotgun Surgery:
+    repo_root'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: root'
+  description: 'code2llm reports `Shotgun Surgery: root` in `src/env2llm/policy/process.py:253`.
+
+
+    Mutation of variable ''root'' spans 11 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/policy/process.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/policy/process.py:253:Shotgun
+    Surgery: root'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: value'
+  description: 'code2llm reports `Shotgun Surgery: value` in `src/env2llm/policy/validations.py:32`.
+
+
+    Mutation of variable ''value'' spans 5 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/env2llm/policy/validations.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/env2llm/policy/validations.py:32:Shotgun
+    Surgery: value'
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: src.env2llm.doql.context_blocks.render_context_process
+    (CC=18)'
+  description: 'code2llm reports `src.env2llm.doql.context_blocks.render_context_process`
+    at `src/env2llm/doql/context_blocks.py:150` with cyclomatic complexity 18 (limit
+    15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - src/env2llm/doql/context_blocks.py
+  dedupe_key: code2llm:cc:src/env2llm/doql/context_blocks.py:src.env2llm.doql.context_blocks.render_context_process
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: src.env2llm.doql.parse.collect_task_context
+    (CC=19)'
+  description: 'code2llm reports `src.env2llm.doql.parse.collect_task_context` at
+    `src/env2llm/doql/parse.py:425` with cyclomatic complexity 19 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: code2llm:cc:src/env2llm/doql/parse.py:src.env2llm.doql.parse.collect_task_context
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: src.env2llm.doql.parse.enrich_task_context_from_client
+    (CC=19)'
+  description: 'code2llm reports `src.env2llm.doql.parse.enrich_task_context_from_client`
+    at `src/env2llm/doql/parse.py:355` with cyclomatic complexity 19 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: code2llm:cc:src/env2llm/doql/parse.py:src.env2llm.doql.parse.enrich_task_context_from_client
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: src.env2llm.doql.parse.load_platform_map (CC=18)'
+  description: 'code2llm reports `src.env2llm.doql.parse.load_platform_map` at `src/env2llm/doql/parse.py:283`
+    with cyclomatic complexity 18 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: code2llm:cc:src/env2llm/doql/parse.py:src.env2llm.doql.parse.load_platform_map
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: src.env2llm.formats.markdown.render_markdown
+    (CC=22)'
+  description: 'code2llm reports `src.env2llm.formats.markdown.render_markdown` at
+    `src/env2llm/formats/markdown.py:9` with cyclomatic complexity 22 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - src/env2llm/formats/markdown.py
+  dedupe_key: code2llm:cc:src/env2llm/formats/markdown.py:src.env2llm.formats.markdown.render_markdown
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: src.env2llm.runtimes.build_runtimes_for_example
+    (CC=18)'
+  description: 'code2llm reports `src.env2llm.runtimes.build_runtimes_for_example`
+    at `src/env2llm/runtimes.py:62` with cyclomatic complexity 18 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - src/env2llm/runtimes.py
+  dedupe_key: code2llm:cc:src/env2llm/runtimes.py:src.env2llm.runtimes.build_runtimes_for_example
+- signal: code2llm_smell_data_clump
+  title: 'Address code smell: Data Clump: project_id, self, repo_root'
+  description: 'code2llm reports `Data Clump: project_id, self, repo_root` in `src/env2llm/sources.py:13`.
+
+
+    Arguments (project_id, self, repo_root) are used together in multiple functions:
+    src.env2llm.sources.EnvironmentSources.example_profile, src.env2llm.sources.DefaultEnvironmentSources.example_profile.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - data-clump
+  files:
+  - src/env2llm/sources.py
+  dedupe_key: 'code2llm:smell:data_clump:src/env2llm/sources.py:13:Data Clump: project_id,
+    self, repo_root'
+- signal: code2llm_smell_data_clump
+  title: 'Address code smell: Data Clump: project_id, self, repo_root'
+  description: 'code2llm reports `Data Clump: project_id, self, repo_root` in `src/env2llm/sources.py:28`.
+
+
+    Arguments (project_id, self, repo_root) are used together in multiple functions:
+    src.env2llm.sources.EnvironmentSources.example_profile, src.env2llm.sources.DefaultEnvironmentSources.example_profile.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - data-clump
+  files:
+  - src/env2llm/sources.py
+  dedupe_key: 'code2llm:smell:data_clump:src/env2llm/sources.py:28:Data Clump: project_id,
+    self, repo_root'
+- signal: code2llm_smell_feature_envy
+  title: 'Address code smell: Feature Envy: _append_collection_blocks'
+  description: 'code2llm reports `Feature Envy: _append_collection_blocks` in `src/env2llm/doql/parse.py:233`.
+
+
+    Function ''_append_collection_blocks'' mutates multiple variables in other modules:
+    ctx.validations, ctx.resources, ctx.commands, ctx.runtimes, ctx.artifacts, ctx.access.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - feature-envy
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: 'code2llm:smell:feature_envy:src/env2llm/doql/parse.py:233:Feature Envy:
+    _append_collection_blocks'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: _add_short_inline_alias'
+  description: 'code2llm reports `God Function: _add_short_inline_alias` in `src/env2llm/doql/runtime.py:143`.
+
+
+    Function ''_add_short_inline_alias'' is oversized: CC=5, fan-out=4, mutations=7.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/runtime.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/runtime.py:143:God Function:
+    _add_short_inline_alias'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: _append_collection_blocks'
+  description: 'code2llm reports `God Function: _append_collection_blocks` in `src/env2llm/doql/parse.py:233`.
+
+
+    Function ''_append_collection_blocks'' is oversized: CC=12, fan-out=18, mutations=11.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/parse.py:233:God Function:
+    _append_collection_blocks'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: _command_to_ir'
+  description: 'code2llm reports `God Function: _command_to_ir` in `src/env2llm/bridge.py:185`.
+
+
+    Function ''_command_to_ir'' is oversized: CC=12, fan-out=8, mutations=15.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/bridge.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/bridge.py:185:God Function:
+    _command_to_ir'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: _load_nlp2dsl_payload'
+  description: 'code2llm reports `God Function: _load_nlp2dsl_payload` in `src/env2llm/policy/process.py:70`.
+
+
+    Function ''_load_nlp2dsl_payload'' is oversized: CC=12, fan-out=9, mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/policy/process.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/policy/process.py:70:God Function:
+    _load_nlp2dsl_payload'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: _split_missing_ref'
+  description: 'code2llm reports `God Function: _split_missing_ref` in `src/env2llm/doql/runtime.py:157`.
+
+
+    Function ''_split_missing_ref'' is oversized: CC=4, fan-out=4, mutations=8.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/runtime.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/runtime.py:157:God Function:
+    _split_missing_ref'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: apply_invoice_context'
+  description: 'code2llm reports `God Function: apply_invoice_context` in `src/env2llm/policy/invoice.py:41`.
+
+
+    Function ''apply_invoice_context'' is oversized: CC=3, fan-out=6, mutations=8.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/policy/invoice.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/policy/invoice.py:41:God Function:
+    apply_invoice_context'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: apply_invoice_policies'
+  description: 'code2llm reports `God Function: apply_invoice_policies` in `src/env2llm/policy/invoice.py:14`.
+
+
+    Function ''apply_invoice_policies'' is oversized: CC=5, fan-out=5, mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/policy/invoice.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/policy/invoice.py:14:God Function:
+    apply_invoice_policies'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: apply_process_policies'
+  description: 'code2llm reports `God Function: apply_process_policies` in `src/env2llm/policy/process.py:253`.
+
+
+    Function ''apply_process_policies'' is oversized: CC=8, fan-out=10, mutations=7.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/policy/process.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/policy/process.py:253:God Function:
+    apply_process_policies'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: autofill_entities'
+  description: 'code2llm reports `God Function: autofill_entities` in `src/env2llm/doql/runtime.py:91`.
+
+
+    Function ''autofill_entities'' is oversized: CC=8, fan-out=6, mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/runtime.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/runtime.py:91:God Function:
+    autofill_entities'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: build_introspection_payload'
+  description: 'code2llm reports `God Function: build_introspection_payload` in `src/env2llm/generate.py:39`.
+
+
+    Function ''build_introspection_payload'' is oversized: CC=11, fan-out=19, mutations=11.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/generate.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/generate.py:39:God Function:
+    build_introspection_payload'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: collect_environment'
+  description: 'code2llm reports `God Function: collect_environment` in `src/env2llm/env.py:34`.
+
+
+    Function ''collect_environment'' is oversized: CC=13, fan-out=10, mutations=11.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/env.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/env.py:34:God Function: collect_environment'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: generate_system_map'
+  description: 'code2llm reports `God Function: generate_system_map` in `src/env2llm/generate.py:142`.
+
+
+    Function ''generate_system_map'' is oversized: CC=8, fan-out=14, mutations=11.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/generate.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/generate.py:142:God Function:
+    generate_system_map'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: load_commands_from_services_yaml'
+  description: 'code2llm reports `God Function: load_commands_from_services_yaml`
+    in `src/env2llm/doql/parse.py:325`.
+
+
+    Function ''load_commands_from_services_yaml'' is oversized: CC=14, fan-out=11,
+    mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/parse.py:325:God Function:
+    load_commands_from_services_yaml'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: merge_inline_context'
+  description: 'code2llm reports `God Function: merge_inline_context` in `src/env2llm/doql/runtime.py:63`.
+
+
+    Function ''merge_inline_context'' is oversized: CC=8, fan-out=9, mutations=7.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/runtime.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/runtime.py:63:God Function:
+    merge_inline_context'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: merge_registry_observations'
+  description: 'code2llm reports `God Function: merge_registry_observations` in `src/env2llm/registry.py:117`.
+
+
+    Function ''merge_registry_observations'' is oversized: CC=11, fan-out=9, mutations=7.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/registry.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/registry.py:117:God Function:
+    merge_registry_observations'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: parse_fixture_metadata'
+  description: 'code2llm reports `God Function: parse_fixture_metadata` in `src/env2llm/doql/parse.py:399`.
+
+
+    Function ''parse_fixture_metadata'' is oversized: CC=10, fan-out=12, mutations=14.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/parse.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/parse.py:399:God Function:
+    parse_fixture_metadata'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: process_policy_from_profile_block'
+  description: 'code2llm reports `God Function: process_policy_from_profile_block`
+    in `src/env2llm/policy/process.py:123`.
+
+
+    Function ''process_policy_from_profile_block'' is oversized: CC=5, fan-out=15,
+    mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/policy/process.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/policy/process.py:123:God Function:
+    process_policy_from_profile_block'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: refresh_doql_registry'
+  description: 'code2llm reports `God Function: refresh_doql_registry` in `src/env2llm/registry.py:161`.
+
+
+    Function ''refresh_doql_registry'' is oversized: CC=10, fan-out=16, mutations=18.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/registry.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/registry.py:161:God Function:
+    refresh_doql_registry'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_artifacts_block'
+  description: 'code2llm reports `God Function: render_artifacts_block` in `src/env2llm/render/doql/blocks.py:47`.
+
+
+    Function ''render_artifacts_block'' is oversized: CC=6, fan-out=6, mutations=8.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/render/doql/blocks.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/render/doql/blocks.py:47:God
+    Function: render_artifacts_block'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_commands_block'
+  description: 'code2llm reports `God Function: render_commands_block` in `src/env2llm/render/doql/blocks.py:89`.
+
+
+    Function ''render_commands_block'' is oversized: CC=9, fan-out=5, mutations=12.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/render/doql/blocks.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/render/doql/blocks.py:89:God
+    Function: render_commands_block'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_context_commands'
+  description: 'code2llm reports `God Function: render_context_commands` in `src/env2llm/doql/context_blocks.py:51`.
+
+
+    Function ''render_context_commands'' is oversized: CC=6, fan-out=5, mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/context_blocks.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/context_blocks.py:51:God
+    Function: render_context_commands'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_context_runtimes'
+  description: 'code2llm reports `God Function: render_context_runtimes` in `src/env2llm/doql/context_blocks.py:99`.
+
+
+    Function ''render_context_runtimes'' is oversized: CC=10, fan-out=4, mutations=11.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/context_blocks.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/context_blocks.py:99:God
+    Function: render_context_runtimes'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_doql_context'
+  description: 'code2llm reports `God Function: render_doql_context` in `src/env2llm/doql/render.py:26`.
+
+
+    Function ''render_doql_context'' is oversized: CC=1, fan-out=16, mutations=14.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/doql/render.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/doql/render.py:26:God Function:
+    render_doql_context'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_generated_services_block'
+  description: 'code2llm reports `God Function: render_generated_services_block` in
+    `src/env2llm/render/doql/blocks.py:271`.
+
+
+    Function ''render_generated_services_block'' is oversized: CC=6, fan-out=5, mutations=7.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/render/doql/blocks.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/render/doql/blocks.py:271:God
+    Function: render_generated_services_block'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_runtimes_block'
+  description: 'code2llm reports `God Function: render_runtimes_block` in `src/env2llm/render/doql/blocks.py:66`.
+
+
+    Function ''render_runtimes_block'' is oversized: CC=8, fan-out=4, mutations=11.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/render/doql/blocks.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/render/doql/blocks.py:66:God
+    Function: render_runtimes_block'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_schedules_block'
+  description: 'code2llm reports `God Function: render_schedules_block` in `src/env2llm/render/doql/blocks.py:232`.
+
+
+    Function ''render_schedules_block'' is oversized: CC=3, fan-out=5, mutations=8.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/render/doql/blocks.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/render/doql/blocks.py:232:God
+    Function: render_schedules_block'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: render_system_map_doql'
+  description: 'code2llm reports `God Function: render_system_map_doql` in `src/env2llm/render/doql/render.py:28`.
+
+
+    Function ''render_system_map_doql'' is oversized: CC=1, fan-out=20, mutations=18.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/render/doql/render.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/render/doql/render.py:28:God
+    Function: render_system_map_doql'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: resolve_registry_path'
+  description: 'code2llm reports `God Function: resolve_registry_path` in `src/env2llm/layout.py:141`.
+
+
+    Function ''resolve_registry_path'' is oversized: CC=9, fan-out=7, mutations=7.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/layout.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/layout.py:141:God Function:
+    resolve_registry_path'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: write_turn_snapshot'
+  description: 'code2llm reports `God Function: write_turn_snapshot` in `src/env2llm/layout.py:199`.
+
+
+    Function ''write_turn_snapshot'' is oversized: CC=4, fan-out=14, mutations=8.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/layout.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/layout.py:199:God Function:
+    write_turn_snapshot'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Module: src.env2llm.ir'
+  description: 'code2llm reports `God Module: src.env2llm.ir` in `src/env2llm/ir.py:1`.
+
+
+    Module ''src.env2llm.ir'' is too large (4 functions, 17 classes). Consider splitting
+    into sub-modules.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/env2llm/ir.py
+  dedupe_key: 'code2llm:smell:god_function:src/env2llm/ir.py:1:God Module: src.env2llm.ir'
+applied: []
+skipped: []

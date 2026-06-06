@@ -1,0 +1,69 @@
+# code2llm/evolution | 185 func | 28f | 2026-06-06
+# generated in 0.00s
+
+NEXT[7] (ranked by impact):
+  [1] !! SPLIT-FUNC      task_context_to_system_map  CC=25  fan=20
+      WHY: CC=25 exceeds 15
+      EFFORT: ~1h  IMPACT: 500
+
+  [2] !  SPLIT-FUNC      collect_task_context  CC=19  fan=26
+      WHY: CC=19 exceeds 15
+      EFFORT: ~1h  IMPACT: 494
+
+  [3] !  SPLIT-FUNC      load_platform_map  CC=18  fan=14
+      WHY: CC=18 exceeds 15
+      EFFORT: ~1h  IMPACT: 252
+
+  [4] !  SPLIT-FUNC      build_runtimes_for_example  CC=18  fan=13
+      WHY: CC=18 exceeds 15
+      EFFORT: ~1h  IMPACT: 234
+
+  [5] !  SPLIT-FUNC      enrich_task_context_from_client  CC=19  fan=12
+      WHY: CC=19 exceeds 15
+      EFFORT: ~1h  IMPACT: 228
+
+  [6] !  SPLIT-FUNC      render_markdown  CC=22  fan=8
+      WHY: CC=22 exceeds 15
+      EFFORT: ~1h  IMPACT: 176
+
+  [7] !! SPLIT           goal.yaml
+      WHY: 511L, 0 classes, max CC=0
+      EFFORT: ~4h  IMPACT: 0
+
+
+RISKS[1]:
+  ⚠ Splitting goal.yaml may break 0 import paths
+
+METRICS-TARGET:
+  CC̄:          4.8 → ≤3.4
+  max-CC:      25 → ≤12
+  god-modules: 1 → 0
+  high-CC(≥15): 7 → ≤3
+  hub-types:   0 → ≤0
+
+PATTERNS (language parser shared logic):
+  _extract_declarations() in base.py — unified extraction for:
+    - TypeScript: interfaces, types, classes, functions, arrow funcs
+    - PHP: namespaces, traits, classes, functions, includes
+    - Ruby: modules, classes, methods, requires
+    - C++: classes, structs, functions, #includes
+    - C#: classes, interfaces, methods, usings
+    - Java: classes, interfaces, methods, imports
+    - Go: packages, functions, structs
+    - Rust: modules, functions, traits, use statements
+
+  Shared regex patterns per language:
+    - import: language-specific import/require/using patterns
+    - class: class/struct/trait declarations with inheritance
+    - function: function/method signatures with visibility
+    - brace_tracking: for C-family languages ({ })
+    - end_keyword_tracking: for Ruby (module/class/def...end)
+
+  Benefits:
+    - Consistent extraction logic across all languages
+    - Reduced code duplication (~70% reduction in parser LOC)
+    - Easier maintenance: fix once, apply everywhere
+    - Standardized FunctionInfo/ClassInfo models
+
+HISTORY:
+  (first run — no previous data)

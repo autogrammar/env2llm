@@ -1,0 +1,26 @@
+flowchart TD
+%% generated in 0.01s
+
+    %% Entry points (blue)
+    classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
+
+    subgraph Core
+        src__env2llm__formats__markdown__render_markdown["render_markdown"]
+        src__env2llm__formats__yaml_fmt__render_yaml["render_yaml"]
+        src__env2llm__formats__json_fmt__render_json["render_json"]
+        src__env2llm__formats__doql_less__render_doql_less["render_doql_less"]
+        src__env2llm__policy__process__apply_process_policies("apply_process_policies CC=8")
+        src__env2llm__policy__process__effective_nlp_parser_mode["effective_nlp_parser_mode"]
+        src__env2llm__policy__process__process_policy_to_doql_dict["process_policy_to_doql_dict"]
+        src__env2llm__policy__process__process_scope_denied["process_scope_denied"]
+        src__env2llm__policy__validations___parse_profile_validation_shorthand("_parse_profile_validation_shor CC=10")
+        src__env2llm__policy__validations__parse_profile_validation["parse_profile_validation"]
+        src__env2llm__policy__validations__parse_profile_validations["parse_profile_validations"]
+        src__env2llm__policy__validations__apply_profile_validations["apply_profile_validations"]
+        src__env2llm__doql__runtime__load_doql_inline_from_env["load_doql_inline_from_env"]
+        src__env2llm__doql__runtime__merge_inline_context["merge_inline_context"]
+        src__env2llm__doql__runtime__autofill_entities["autofill_entities"]
+        ...["+37 more"]
+    end
+
+    class src__env2llm__formats__markdown__render_markdown,src__env2llm__formats__yaml_fmt__render_yaml,src__env2llm__formats__json_fmt__render_json,src__env2llm__formats__doql_less__render_doql_less,src__env2llm__policy__process__effective_nlp_parser_mode,src__env2llm__policy__process__process_policy_to_doql_dict,src__env2llm__policy__process__process_scope_denied,src__env2llm__doql__runtime__load_doql_inline_from_env,src__env2llm__doql__runtime__merge_inline_context,src__env2llm__doql__runtime__autofill_entities entry

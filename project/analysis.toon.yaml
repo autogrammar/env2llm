@@ -1,0 +1,135 @@
+# code2llm | 46f 4838L | python:41,shell:2,yaml:1,toml:1 | 2026-06-06
+# generated in 0.01s
+# CC̅=4.8 | critical:7/185 | dups:0 | cycles:0
+
+HEALTH[7]:
+  🟡 CC    render_markdown CC=22 (limit:15)
+  🟡 CC    render_context_process CC=18 (limit:15)
+  🟡 CC    build_runtimes_for_example CC=18 (limit:15)
+  🟡 CC    load_platform_map CC=18 (limit:15)
+  🟡 CC    enrich_task_context_from_client CC=19 (limit:15)
+  🟡 CC    collect_task_context CC=19 (limit:15)
+  🟡 CC    task_context_to_system_map CC=25 (limit:15)
+
+REFACTOR[1]:
+  1. split 7 high-CC methods  (CC>15)
+
+PIPELINES[30]:
+  [1] Src [render_markdown]: render_markdown
+      PURITY: 100% pure
+  [2] Src [render_yaml]: render_yaml
+      PURITY: 100% pure
+  [3] Src [render_json]: render_json
+      PURITY: 100% pure
+  [4] Src [render_doql_less]: render_doql_less → render_system_map_doql → render_header
+      PURITY: 100% pure
+  [5] Src [effective_nlp_parser_mode]: effective_nlp_parser_mode
+      PURITY: 100% pure
+  [6] Src [process_scope_denied]: process_scope_denied
+      PURITY: 100% pure
+  [7] Src [load_doql_inline_from_env]: load_doql_inline_from_env → resolve_doql_context_path → resolve_registry_path → artifact_root
+      PURITY: 100% pure
+  [8] Src [merge_inline_context]: merge_inline_context → _inline_data_key
+      PURITY: 100% pure
+  [9] Src [autofill_entities]: autofill_entities → _split_missing_ref → _canonical_field
+      PURITY: 100% pure
+  [10] Src [write_doql_context]: write_doql_context → render_doql_context → render_context_header
+      PURITY: 100% pure
+  [11] Src [clean_all_example_artifacts]: clean_all_example_artifacts → clean_artifact_root → artifact_root
+      PURITY: 100% pure
+  [12] Src [example_fixtures_dir]: example_fixtures_dir
+      PURITY: 100% pure
+  [13] Src [write_turn_snapshot]: write_turn_snapshot → run_dir → current_run_id
+      PURITY: 100% pure
+  [14] Src [write_reflection_snapshot]: write_reflection_snapshot → run_dir → current_run_id
+      PURITY: 100% pure
+  [15] Src [write_last_run_report]: write_last_run_report → ensure_layout
+      PURITY: 100% pure
+  [16] Src [main]: main → normalize_format
+      PURITY: 100% pure
+  [17] Src [build_command_registry]: build_command_registry → command_input_model → _annotation_for_field
+      PURITY: 100% pure
+  [18] Src [validate_config_against_map]: validate_config_against_map → command_input_model → _annotation_for_field
+      PURITY: 100% pure
+  [19] Src [_litellm_complete]: _litellm_complete
+      PURITY: 100% pure
+  [20] Src [example_profile]: example_profile
+      PURITY: 100% pure
+  [21] Src [platform_config]: platform_config
+      PURITY: 100% pure
+  [22] Src [services_snapshot]: services_snapshot
+      PURITY: 100% pure
+  [23] Src [runtime_for_command]: runtime_for_command
+      PURITY: 100% pure
+  [24] Src [validate_step_config]: validate_step_config
+      PURITY: 100% pure
+  [25] Src [refresh_doql_registry_from_state]: refresh_doql_registry_from_state → refresh_doql_registry → load_doql_context → _apply_context_metadata
+      PURITY: 100% pure
+  [26] Src [doql_file_to_system_map]: doql_file_to_system_map → load_doql_context → _apply_context_metadata
+      PURITY: 100% pure
+  [27] Src [ensure_doql_registry]: ensure_doql_registry → ensure_environment_map → project_artifact_root
+      PURITY: 100% pure
+  [28] Src [entity_values]: entity_values
+      PURITY: 100% pure
+  [29] Src [required_fields_for]: required_fields_for
+      PURITY: 100% pure
+  [30] Src [runtime_for]: runtime_for → runtime_id_for_intent
+      PURITY: 100% pure
+
+LAYERS:
+  src/                            CC̄=4.8    ←in:0  →out:0
+  │ !! parse                      482L  0C   25m  CC=19     ←5
+  │ process                    337L  0C   20m  CC=12     ←2
+  │ blocks                     300L  0C   18m  CC=9      ←1
+  │ ir                         274L  17C    4m  CC=7      ←0
+  │ layout                     266L  0C   14m  CC=9      ←3
+  │ !! context_blocks             234L  0C   14m  CC=18     ←1
+  │ registry                   230L  0C   12m  CC=11     ←1
+  │ !! bridge                     225L  0C    5m  CC=25     ←2
+  │ runtime                    206L  0C   15m  CC=14     ←0
+  │ generate                   202L  0C    5m  CC=11     ←1
+  │ !! runtimes                   174L  0C    4m  CC=18     ←3
+  │ models                     134L  7C    4m  CC=6      ←0
+  │ bootstrap                  102L  0C    3m  CC=9      ←1
+  │ validations                 73L  0C    6m  CC=10     ←1
+  │ env                         72L  0C    3m  CC=13     ←1
+  │ sources                     67L  2C    6m  CC=12     ←0
+  │ __init__                    59L  0C    3m  CC=2      ←2
+  │ cli                         57L  0C    2m  CC=1      ←0
+  │ !! markdown                    52L  0C    1m  CC=22     ←0
+  │ invoice                     52L  0C    3m  CC=5      ←3
+  │ render                      49L  0C    2m  CC=1      ←0
+  │ render                      48L  0C    1m  CC=1      ←2
+  │ system_map_models           48L  0C    4m  CC=11     ←0
+  │ __init__                    48L  0C    0m  CC=0.0    ←0
+  │ helpers                     45L  0C    7m  CC=4      ←2
+  │ __init__                    33L  0C    0m  CC=0.0    ←0
+  │ _runtime_health             29L  0C    1m  CC=5      ←1
+  │ doql_context                26L  0C    0m  CC=0.0    ←0
+  │ yaml_fmt                    13L  0C    1m  CC=1      ←0
+  │ json_fmt                    13L  0C    1m  CC=1      ←0
+  │ doql_less                   11L  0C    1m  CC=1      ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     4L  0C    0m  CC=0.0    ←0
+  │ __init__                     3L  0C    0m  CC=0.0    ←0
+  │ __main__                     3L  0C    0m  CC=0.0    ←0
+  │ system_map_generator         1L  0C    0m  CC=0.0    ←0
+  │ system_map_render            1L  0C    0m  CC=0.0    ←0
+  │ artifact_layout              1L  0C    0m  CC=0.0    ←0
+  │ system_map_runtimes          1L  0C    0m  CC=0.0    ←0
+  │ system_map_bridge            1L  0C    0m  CC=0.0    ←0
+  │ system_map_ir                1L  0C    0m  CC=0.0    ←0
+  │
+  ./                              CC̄=0.0    ←in:0  →out:0
+  │ !! goal.yaml                  511L  0C    0m  CC=0.0    ←0
+  │ Makefile                   222L  0C    0m  CC=0.0    ←0
+  │ pyproject.toml              63L  0C    0m  CC=0.0    ←0
+  │ project.sh                  59L  0C    0m  CC=0.0    ←0
+  │ tree.sh                      1L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING: no cross-package imports detected
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

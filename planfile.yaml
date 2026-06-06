@@ -1,0 +1,760 @@
+name: Code Quality Improvement
+project_name: ''
+project_type: prefactoring
+domain: dev-tools
+goal: Improve code quality using prefact
+goals:
+- Fix all prefact-detected issues
+- Improve code maintainability
+- Ensure consistent code style
+quality_gates:
+- metric: Prefact Issues
+  threshold: '0'
+sprints:
+- id: sprint-1
+  name: Code Quality Improvements
+  duration: 2 weeks
+  objectives:
+  - Fix code quality issues
+  task_patterns:
+  - id: ticket-537f149b
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/_runtime_health.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/_runtime_health.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8818c5fb
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/bootstrap.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/bootstrap.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-518cc4af
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/__init__.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6dfcfdb9
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in src/env2llm/cli.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/env2llm/cli.py
+    rule_id: unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8b0517e8
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in src/env2llm/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/cli.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b0610e94
+    name: Fix relative-imports issues
+    description: Resolve 8 relative-imports issues in src/env2llm/doql/__init__.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/env2llm/doql/__init__.py
+    rule_id: relative-imports
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2feb9b3a
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/bridge.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/bridge.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-57b324b5
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/env2llm/doql/context_blocks.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/doql/context_blocks.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ec3df14b
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/doql/context_blocks.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/doql/context_blocks.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fbb3de56
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/doql/models.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/doql/models.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0495258f
+    name: Fix relative-imports issues
+    description: Resolve 4 relative-imports issues in src/env2llm/doql/runtime.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/env2llm/doql/runtime.py
+    rule_id: relative-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-17926eec
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/doql/runtime.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/doql/runtime.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-dacbdc26
+    name: Fix relative-imports issues
+    description: Resolve 4 relative-imports issues in src/env2llm/doql/render.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/env2llm/doql/render.py
+    rule_id: relative-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6f101812
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/doql/render.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/doql/render.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8608ccb5
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/env2llm/doql/parse.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/doql/parse.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8488b8df
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in src/env2llm/doql/parse.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/env2llm/doql/parse.py
+    rule_id: unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-933ef443
+    name: Fix wildcard-imports issues
+    description: Resolve 2 wildcard-imports issues in src/env2llm/doql_context.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/doql_context.py
+    rule_id: wildcard-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b057bdce
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/doql_context.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/doql_context.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a3cd5d53
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/env.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/env.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d57bee6b
+    name: Fix relative-imports issues
+    description: Resolve 8 relative-imports issues in src/env2llm/formats/__init__.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/env2llm/formats/__init__.py
+    rule_id: relative-imports
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f24c38d5
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/formats/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/formats/__init__.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-42ae3811
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/formats/doql_less.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/formats/doql_less.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d51fdf60
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in src/env2llm/formats/json_fmt.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/formats/json_fmt.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-63a0ac67
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/formats/json_fmt.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/formats/json_fmt.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-98ffe7ed
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/formats/yaml_fmt.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/formats/yaml_fmt.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d7c30269
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in src/env2llm/formats/markdown.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/formats/markdown.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b184ca69
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/formats/markdown.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/formats/markdown.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1f642459
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/generate.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/generate.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6c1c5e73
+    name: Fix magic-numbers issues
+    description: Resolve 2 magic-numbers issues in src/env2llm/generate.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/generate.py
+    rule_id: magic-numbers
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-97df6371
+    name: Fix string-concat issues
+    description: Resolve 4 string-concat issues in src/env2llm/layout.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/env2llm/layout.py
+    rule_id: string-concat
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-4ea2d55b
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/layout.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/layout.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7dcf906c
+    name: Fix llm-hallucinations issues
+    description: Resolve 1 llm-hallucinations issues in src/env2llm/layout.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/layout.py
+    rule_id: llm-hallucinations
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-996c7441
+    name: Fix magic-numbers issues
+    description: Resolve 2 magic-numbers issues in src/env2llm/layout.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/layout.py
+    rule_id: magic-numbers
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-522bc559
+    name: Fix llm-generated-code issues
+    description: Resolve 1 llm-generated-code issues in src/env2llm/layout.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/layout.py
+    rule_id: llm-generated-code
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f4e5f136
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/policy/invoice.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/policy/invoice.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-23f02e84
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/policy/process.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/policy/process.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-891337f5
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/policy/validations.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/policy/validations.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6b0f4354
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/registry.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/registry.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a8e0b1d4
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/env2llm/render/doql/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/render/doql/__init__.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-866dfe7a
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/ir.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/ir.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-693c60f9
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/render/doql/helpers.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/render/doql/helpers.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6d07db9d
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/env2llm/render/doql/blocks.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/render/doql/blocks.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5f937a03
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/render/doql/blocks.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/render/doql/blocks.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d5b0f434
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/env2llm/render/doql/render.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/render/doql/render.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3d6afaf8
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/render/doql/render.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/render/doql/render.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bcc33e35
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/runtimes.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/runtimes.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0b95abeb
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in src/env2llm/system_map_render.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/env2llm/system_map_render.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7c0a3699
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in src/env2llm/sources.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/env2llm/sources.py
+    rule_id: unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-64e4ba67
+    name: Fix llm-hallucinations issues
+    description: Resolve 2 llm-hallucinations issues in src/env2llm/sources.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/sources.py
+    rule_id: llm-hallucinations
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0de4a1ff
+    name: Fix llm-generated-code issues
+    description: Resolve 2 llm-generated-code issues in src/env2llm/sources.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/sources.py
+    rule_id: llm-generated-code
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-56520637
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in tests/conftest.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/conftest.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-652e73a7
+    name: Fix string-concat issues
+    description: Resolve 3 string-concat issues in tests/test_doql_context.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/test_doql_context.py
+    rule_id: string-concat
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5c09f8bd
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in tests/test_doql_context.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/test_doql_context.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9a6f93fb
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in tests/test_formats.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/test_formats.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ed4232ee
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in src/env2llm/system_map_models.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/system_map_models.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-acb7f5da
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/system_map_models.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/system_map_models.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b52e3015
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in tests/test_system_map_ir.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/test_system_map_ir.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
