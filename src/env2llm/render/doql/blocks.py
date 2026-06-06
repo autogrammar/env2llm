@@ -79,13 +79,66 @@ def render_desktop_block(ir: SystemMapIR) -> list[str]:
         lines.append(f'  probed_at: "{esc_str(probe.probed_at)}";')
     if probe.tools_used:
         lines.append(f"  tools_used: {join_csv(probe.tools_used)};")
+    if probe.canvas_width is not None:
+        lines.append(f"  canvas_width: {probe.canvas_width};")
+    if probe.canvas_height is not None:
+        lines.append(f"  canvas_height: {probe.canvas_height};")
     lines.extend(["}", ""])
+
+    if probe.pointer is not None:
+        pointer = probe.pointer
+        lines.append("desktop_pointer {")
+        lines.append(f"  x: {pointer.x};")
+        lines.append(f"  y: {pointer.y};")
+        if pointer.screen is not None:
+            lines.append(f"  screen: {pointer.screen};")
+        if pointer.window_id:
+            lines.append(f'  window_id: "{esc_str(pointer.window_id)}";')
+        if pointer.display_id:
+            lines.append(f'  display_id: "{esc_str(pointer.display_id)}";')
+        if pointer.display_output:
+            lines.append(f'  display_output: "{esc_str(pointer.display_output)}";')
+        if pointer.display_x is not None:
+            lines.append(f"  display_x: {pointer.display_x};")
+        if pointer.display_y is not None:
+            lines.append(f"  display_y: {pointer.display_y};")
+        lines.extend(["}", ""])
 
     for idx, display in enumerate(probe.displays):
         lines.append(f"desktop_displays[{idx}] {{")
         lines.append(f'  id: "{esc_str(display.id)}";')
         lines.append(f"  width: {display.width};")
         lines.append(f"  height: {display.height};")
+        lines.append(f"  left: {display.left};")
+        lines.append(f"  top: {display.top};")
+        lines.append(f"  is_primary: {bool_lit(display.is_primary)};")
+        if display.output:
+            lines.append(f'  output: "{esc_str(display.output)}";')
+        if display.index is not None:
+            lines.append(f"  index: {display.index};")
+        lines.extend(["}", ""])
+
+    for idx, calibration in enumerate(probe.ide_calibrations):
+        lines.append(f"desktop_ide_calibrations[{idx}] {{")
+        lines.append(f'  ide: "{esc_str(calibration.ide)}";')
+        lines.append(f"  chat_x: {calibration.chat_x};")
+        lines.append(f"  chat_y: {calibration.chat_y};")
+        if calibration.config_path:
+            lines.append(f'  config_path: "{esc_str_full(calibration.config_path)}";')
+        if calibration.source:
+            lines.append(f'  source: "{esc_str(calibration.source)}";')
+        if calibration.display_id:
+            lines.append(f'  display_id: "{esc_str(calibration.display_id)}";')
+        if calibration.display_output:
+            lines.append(f'  display_output: "{esc_str(calibration.display_output)}";')
+        if calibration.display_x is not None:
+            lines.append(f"  display_x: {calibration.display_x};")
+        if calibration.display_y is not None:
+            lines.append(f"  display_y: {calibration.display_y};")
+        if calibration.window_id is not None:
+            lines.append(f"  window_id: {calibration.window_id};")
+        if calibration.calibrated_at:
+            lines.append(f'  calibrated_at: "{esc_str(calibration.calibrated_at)}";')
         lines.extend(["}", ""])
 
     for idx, window in enumerate(probe.windows):

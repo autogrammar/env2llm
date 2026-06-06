@@ -228,11 +228,45 @@ class DesktopWindowIR(BaseModel):
 
 
 class DesktopDisplayIR(BaseModel):
-    """Display geometry when available from the probe tools."""
+    """Single monitor geometry in the virtual desktop canvas."""
 
     id: str = "primary"
     width: int = 0
     height: int = 0
+    left: int = 0
+    top: int = 0
+    is_primary: bool = False
+    output: str | None = None
+    index: int | None = None
+
+
+class DesktopPointerIR(BaseModel):
+    """Mouse pointer position in global and display-local coordinates."""
+
+    x: int = 0
+    y: int = 0
+    screen: int | None = None
+    window_id: str | None = None
+    display_id: str | None = None
+    display_output: str | None = None
+    display_x: int | None = None
+    display_y: int | None = None
+
+
+class DesktopIdeCalibrationIR(BaseModel):
+    """Saved OS-injector chat anchor for an IDE (``ide-os-injector.json``)."""
+
+    ide: str
+    chat_x: int
+    chat_y: int
+    config_path: str = ""
+    source: str = "global"
+    display_id: str | None = None
+    display_output: str | None = None
+    display_x: int | None = None
+    display_y: int | None = None
+    window_id: int | None = None
+    calibrated_at: str | None = None
 
 
 class DesktopProbeIR(BaseModel):
@@ -247,7 +281,11 @@ class DesktopProbeIR(BaseModel):
     compositor: str | None = None
     display_server: str | None = None
     tools_used: list[str] = Field(default_factory=list)
+    canvas_width: int | None = None
+    canvas_height: int | None = None
     displays: list[DesktopDisplayIR] = Field(default_factory=list)
+    pointer: DesktopPointerIR | None = None
+    ide_calibrations: list[DesktopIdeCalibrationIR] = Field(default_factory=list)
     windows: list[DesktopWindowIR] = Field(default_factory=list)
     probed_at: str = ""
     status: Literal["available", "unavailable", "unknown"] = "unknown"

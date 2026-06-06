@@ -53,7 +53,7 @@ class RegistryService:
     ) -> SystemMapIR:
         """Regenerate registry (probes, policies) and optionally persist + MQTT publish."""
         if write:
-            path = ensure_environment_map(
+            ensure_environment_map(
                 self.project_dir,
                 project_id=self.project_id,
                 output_format=output_format,
@@ -62,7 +62,9 @@ class RegistryService:
                 probe_mcp=self.probe_mcp,
                 probe_testql=self.probe_testql,
             )
-            self._cached_ir = doql_file_to_system_map(path)
+            # DOQL round-trip does not yet restore desktop probe blocks; keep
+            # the freshly generated in-memory IR so API/MQTT slices stay live.
+            self._cached_ir = self._generate_ir(write=False)
         else:
             self._cached_ir = self._generate_ir(write=False)
 
@@ -130,6 +132,7 @@ class RegistryService:
         from env2llm.policy.desktop import apply_desktop_probe
         from env2llm.policy.invoice import apply_invoice_policies
         from env2llm.policy.mcp import apply_mcp_probe
+        from env2llm.policy.browser_stack import apply_browser_stack_probe
         from env2llm.policy.testql import apply_testql_probe
         from env2llm.policy.process import apply_process_policies
         from env2llm.registry import merge_registry_observations
@@ -150,9 +153,10 @@ class RegistryService:
         )
         apply_process_policies(ir, example_id=self.project_id, repo_root=repo_root)
         apply_invoice_policies(ir, example_id=self.project_id)
-        apply_desktop_probe(ir, enabled=self.probe_desktop)
+        apply_desktop_probe(ir, enabled=self.probe_desktop, project_dir=self.project_dir)
         apply_mcp_probe(ir, enabled=self.probe_mcp, project_dir=self.project_dir)
         apply_testql_probe(ir, enabled=self.probe_testql, project_dir=self.project_dir)
+        apply_browser_stack_probe(ir)
         return ir
 
     def _publish_mqtt(self) -> None:

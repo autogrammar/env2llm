@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 from env2llm.ir import (
     AccessGrantIR,
@@ -132,6 +133,30 @@ def _mirror_desktop_summary(ir: SystemMapIR) -> None:
     probe = ir.desktop
     ir.data["desktop.session"] = probe.session
     ir.data["desktop.platform"] = probe.platform
+    ir.data["desktop.display_count"] = len(probe.displays)
+    if probe.canvas_width is not None:
+        ir.data["desktop.canvas_width"] = probe.canvas_width
+    if probe.canvas_height is not None:
+        ir.data["desktop.canvas_height"] = probe.canvas_height
+    if probe.displays:
+        ir.data["desktop.displays"] = [display.model_dump() for display in probe.displays]
+    if probe.pointer is not None:
+        ir.data["desktop.pointer"] = probe.pointer.model_dump()
+        ir.data["desktop.pointer_x"] = probe.pointer.x
+        ir.data["desktop.pointer_y"] = probe.pointer.y
+        if probe.pointer.display_id:
+            ir.data["desktop.pointer_display"] = probe.pointer.display_id
+        if probe.pointer.display_x is not None:
+            ir.data["desktop.pointer_display_x"] = probe.pointer.display_x
+        if probe.pointer.display_y is not None:
+            ir.data["desktop.pointer_display_y"] = probe.pointer.display_y
+    if probe.ide_calibrations:
+        ir.data["desktop.ide_calibrations"] = [
+            entry.model_dump() for entry in probe.ide_calibrations
+        ]
+        ir.data["desktop.ide_calibration_count"] = len(probe.ide_calibrations)
+        for entry in probe.ide_calibrations:
+            ir.data[f"desktop.ide_calibration.{entry.ide}"] = entry.model_dump()
     ir.data["desktop.window_count"] = len(probe.windows)
     ir.data["desktop.browser_window_count"] = sum(1 for w in probe.windows if w.is_browser)
     if probe.windows:
@@ -145,16 +170,22 @@ def _mirror_desktop_summary(ir: SystemMapIR) -> None:
         ir.data["desktop.browser_windows"] = browsers
 
 
-def apply_desktop_probe(ir: SystemMapIR, *, enabled: bool | None = None) -> SystemMapIR:
+def apply_desktop_probe(
+    ir: SystemMapIR,
+    *,
+    enabled: bool | None = None,
+    project_dir: Path | str | None = None,
+) -> SystemMapIR:
     """Attach a live desktop snapshot and desktop automation catalog to *ir*."""
     if not desktop_probe_enabled(explicit=enabled):
         return ir
 
-    probe = collect_desktop_probe()
+    probe = collect_desktop_probe(project_dir=project_dir)
     ir.desktop = probe
     ir.metadata["desktop_probe"] = {
         "tools": probe.tools_used,
         "window_count": len(probe.windows),
+        "ide_calibration_count": len(probe.ide_calibrations),
         "probed_at": probe.probed_at,
     }
 

@@ -12,6 +12,7 @@ from env2llm.generate import generate_system_map
 from env2llm.layout import ensure_layout, write_registry
 from env2llm.policy.desktop import apply_desktop_probe
 from env2llm.policy.mcp import apply_mcp_probe
+from env2llm.policy.browser_stack import apply_browser_stack_probe
 from env2llm.policy.testql import apply_testql_probe
 from env2llm.policy.invoice import apply_invoice_policies
 from env2llm.policy.process import apply_process_policies
@@ -71,9 +72,10 @@ def ensure_environment_map(
     repo_root = root.parent.parent if root.parent.name == "examples" else root.parent
     apply_process_policies(ir, example_id=project, repo_root=repo_root)
     apply_invoice_policies(ir, example_id=project, attachment=attachment)
-    apply_desktop_probe(ir, enabled=probe_desktop)
+    apply_desktop_probe(ir, enabled=probe_desktop, project_dir=root)
     apply_mcp_probe(ir, enabled=probe_mcp, project_dir=root)
     apply_testql_probe(ir, enabled=probe_testql, project_dir=root)
+    apply_browser_stack_probe(ir)
 
     content = render_format(ir, output_format)
     out_name = default_output_name(output_format)

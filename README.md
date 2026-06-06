@@ -3,13 +3,13 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.1.8-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$1.16-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.9h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.1.11-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$1.62-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-3.4h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $1.1624 (4 commits)
-- 👤 **Human dev:** ~$287 (2.9h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $1.6232 (5 commits)
+- 👤 **Human dev:** ~$337 (3.4h @ $100/h, 30min dedup)
 
-Generated on 2026-06-06 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
+Generated on 2026-06-07 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
 ---
 
@@ -62,13 +62,17 @@ Writes to `.nlp2dsl/registry/environment.<ext>` (and mirrors legacy paths for DO
 
 When `--probe-desktop` or `ENV2LLM_DESKTOP_PROBE=1` is set, env2llm adds:
 
-- `desktop { ... }` and `desktop_windows[N] { title, x, y, width, height, ... }` DOQL blocks
+- `desktop { canvas_width, canvas_height, compositor, display_server, ... }`
+- `desktop_displays[N] { id, output, left, top, width, height, is_primary, index }` — full multi-monitor layout (`xrandr` or `mss`)
+- `desktop_pointer { x, y, display_id, display_x, display_y, ... }` — mouse position in global and display-local coords (`xdotool`)
+- `desktop_ide_calibrations[N] { ide, chat_x, chat_y, config_path, display_id, ... }` — Koru OS-injector chat anchors from `~/.koru/ide-os-injector.json` and `<project>/.koru/ide-os-injector.json`
+- `desktop_windows[N] { title, x, y, width, height, ... }` — top-level windows (`wmctrl`)
 - runtime `probe:desktop` (`desktop://session`) for GUI automation via nlp2uri
 - commands `desktop_focus_window`, `desktop_move_window`, `desktop_screenshot_*`, `desktop_open_app`
-- summary keys in `data` (`desktop.window_titles`, `desktop.browser_windows`, …)
+- summary keys in `data` (`desktop.displays`, `desktop.pointer`, `desktop.pointer_display`, `desktop.window_titles`, …)
 
-**Requires** (Linux): `wmctrl` and/or `xdotool` on a graphical session. Headless hosts get
-`status: unknown` without failing workflow maps.
+**Requires** (Linux): `xrandr` (preferred) or Python `mss` for monitor layout; `xdotool` for pointer;
+`wmctrl` for window titles/geometry. Headless hosts get `status: unknown` without failing workflow maps.
 
 **Browser window titles** are detected heuristically (Firefox, Chrome, Edge, …). Page DOM/content
 is not scraped — use **testql** / Playwright for that layer.

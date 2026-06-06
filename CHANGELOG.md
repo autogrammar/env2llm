@@ -94,6 +94,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.11] - 2026-06-07
+
+### Docs
+- Update README.md
+
+### Test
+- Update tests/test_browser_stack_probe.py
+- Update tests/test_desktop_probe.py
+- Update tests/test_ide_os_injector_probe.py
+
+### Other
+- Update VERSION
+- Update uv.lock
+
 ## [0.1.8] - 2026-06-06
 
 ### Docs

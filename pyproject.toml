@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "env2llm"
-version = "0.1.8"
+version = "0.1.11"
 description = "Generate environment maps (services, artifacts, env vars) for LLM decision-making"
 readme = "README.md"
 requires-python = ">=3.10"
