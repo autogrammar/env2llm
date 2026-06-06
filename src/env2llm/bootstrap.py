@@ -10,6 +10,9 @@ from env2llm.env import collect_environment, merge_environment
 from env2llm.formats import default_output_name, render_format
 from env2llm.generate import generate_system_map
 from env2llm.layout import ensure_layout, write_registry
+from env2llm.policy.desktop import apply_desktop_probe
+from env2llm.policy.mcp import apply_mcp_probe
+from env2llm.policy.testql import apply_testql_probe
 from env2llm.policy.invoice import apply_invoice_policies
 from env2llm.policy.process import apply_process_policies
 from env2llm.registry import merge_registry_observations
@@ -29,6 +32,9 @@ def ensure_environment_map(
     merge_existing: bool = True,
     attachment: bool | None = None,
     auto_execute: bool | None = None,
+    probe_desktop: bool | None = None,
+    probe_mcp: bool | None = None,
+    probe_testql: bool | None = None,
 ) -> Path:
     """
     Generate and write the environment map for LLM/orchestrator context.
@@ -65,6 +71,9 @@ def ensure_environment_map(
     repo_root = root.parent.parent if root.parent.name == "examples" else root.parent
     apply_process_policies(ir, example_id=project, repo_root=repo_root)
     apply_invoice_policies(ir, example_id=project, attachment=attachment)
+    apply_desktop_probe(ir, enabled=probe_desktop)
+    apply_mcp_probe(ir, enabled=probe_mcp, project_dir=root)
+    apply_testql_probe(ir, enabled=probe_testql, project_dir=root)
 
     content = render_format(ir, output_format)
     out_name = default_output_name(output_format)

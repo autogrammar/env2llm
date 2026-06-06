@@ -37,6 +37,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Do not merge observations from an existing registry file",
     )
+    parser.add_argument(
+        "--probe-desktop",
+        action="store_true",
+        help="Attach live desktop/GUI snapshot (wmctrl/xdotool; Linux)",
+    )
+    parser.add_argument(
+        "--probe-mcp",
+        action="store_true",
+        help="Attach MCP tool catalog (auto for Koru projects when koruapi installed)",
+    )
     return parser
 
 
@@ -48,6 +58,8 @@ def main(argv: list[str] | None = None) -> int:
         project_id=args.project_id,
         output_format=fmt,
         merge_existing=not args.no_merge,
+        probe_desktop=args.probe_desktop,
+        probe_mcp=args.probe_mcp,
     )
     print(path)
     return 0

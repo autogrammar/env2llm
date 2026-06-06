@@ -1,54 +1,54 @@
-# env2llm | 185 func | 28f | 4838L | python | 2026-06-06
+# env2llm | 253 func | 38f | 7258L | python | 2026-06-06
 # generated in 0.00s
 
 HEALTH:
-  CC̄=4.8  critical=25 (limit:10)  dup=0  cycles=0
+  CC̄=4.5  critical=30 (limit:10)  dup=0  cycles=0
 
 ALERTS[20]:
   !!! high_fan_out     collect_task_context = 26 (limit:10)
   !!! cc_exceeded      task_context_to_system_map = 25 (limit:15)
-  !!! high_fan_out     ensure_environment_map = 22 (limit:10)
-  !!! high_fan_out     render_system_map_doql = 20 (limit:10)
+  !!! high_fan_out     ensure_environment_map = 23 (limit:10)
+  !!! high_fan_out     build_introspection_payload = 22 (limit:10)
+  !!! high_fan_out     render_system_map_doql = 21 (limit:10)
   !!! high_fan_out     task_context_to_system_map = 20 (limit:10)
   !!  cc_exceeded      render_markdown = 22 (limit:15)
-  !!  high_fan_out     build_introspection_payload = 19 (limit:10)
+  !!  high_fan_out     RestAdapter.dispatch = 19 (limit:10)
   !!  high_fan_out     _append_collection_blocks = 18 (limit:10)
-  !!  high_fan_out     render_doql_context = 16 (limit:10)
   !!  high_fan_out     refresh_doql_registry = 16 (limit:10)
 
-MODULES[46] (top by size):
+MODULES[65] (top by size):
+  M[planfile.yaml] 760L C:0 F:0 CC↑0 D:0 (yaml)
   M[goal.yaml] 511L C:0 F:0 CC↑0 D:0 (yaml)
   M[src/env2llm/doql/parse.py] 482L C:0 F:25 CC↑19 D:5 (python)
-  M[src/env2llm/policy/process.py] 337L C:0 F:20 CC↑12 D:2 (python)
-  M[src/env2llm/render/doql/blocks.py] 300L C:0 F:18 CC↑9 D:1 (python)
-  M[src/env2llm/ir.py] 274L C:17 F:4 CC↑7 D:0 (python)
-  M[src/env2llm/layout.py] 266L C:0 F:14 CC↑9 D:3 (python)
+  M[src/env2llm/render/doql/blocks.py] 340L C:0 F:19 CC↑9 D:1 (python)
+  M[src/env2llm/policy/process.py] 337L C:0 F:20 CC↑12 D:3 (python)
+  M[src/env2llm/ir.py] 315L C:20 F:4 CC↑7 D:0 (python)
+  M[src/env2llm/layout.py] 266L C:0 F:14 CC↑9 D:4 (python)
   M[src/env2llm/doql/context_blocks.py] 234L C:0 F:14 CC↑18 D:1 (python)
-  M[src/env2llm/registry.py] 230L C:0 F:12 CC↑11 D:1 (python)
-  M[src/env2llm/bridge.py] 225L C:0 F:5 CC↑25 D:2 (python)
+  M[src/env2llm/registry.py] 230L C:0 F:12 CC↑11 D:2 (python)
+  M[src/env2llm/bridge.py] 225L C:0 F:5 CC↑25 D:3 (python)
   M[Makefile] 222L C:0 F:0 CC↑0 D:0 ()
+  M[src/env2llm/generate.py] 208L C:0 F:5 CC↑12 D:2 (python)
   M[src/env2llm/doql/runtime.py] 206L C:0 F:15 CC↑14 D:0 (python)
-  M[src/env2llm/generate.py] 202L C:0 F:5 CC↑11 D:1 (python)
-  M[src/env2llm/runtimes.py] 174L C:0 F:4 CC↑18 D:3 (python)
-  M[src/env2llm/doql/models.py] 134L C:7 F:4 CC↑6 D:0 (python)
-  M[src/env2llm/bootstrap.py] 102L C:0 F:3 CC↑9 D:1 (python)
-  LANGS: python:41/shell:2/other:1/yaml:1/toml:1
+  M[src/env2llm/runtimes.py] 177L C:0 F:4 CC↑18 D:4 (python)
+  M[src/env2llm/policy/desktop.py] 175L C:0 F:7 CC↑12 D:3 (python)
+  LANGS: python:56/yaml:5/shell:2/other:1/toml:1
 
 HOTSPOTS[10]:
   ★ collect_task_context fan=26  // Orchestrates 26 calls
-  ★ ensure_environment_map fan=22  // Generate and write the environment map for LLM/orchestrator context.
+  ★ ensure_environment_map fan=23  // Generate and write the environment map for LLM/orchestrator context.
 
 Default ou
-  ★ render_system_map_doql fan=20  // Orchestrates 20 calls
+  ★ build_introspection_payload fan=22  // Collect raw signals for LLM (filesystem, YAML, live API).
+  ★ render_system_map_doql fan=21  // Orchestrates 21 calls
   ★ task_context_to_system_map fan=20  // Convert hardcoded/bootstrap context into SystemMapIR (migration helper).
-  ★ build_introspection_payload fan=19  // Collect raw signals for LLM (filesystem, YAML, live API).
 
-REFACTOR[11]:
+REFACTOR[13]:
   [1] H/L Split task_context_to_system_map (CC=25)
   [2] H/H Split god module goal.yaml (511L, 0 classes)
-  [3] M/L Split render_markdown (CC=22)
-  [4] M/L Split render_context_process (CC=18)
-  [5] M/L Split build_runtimes_for_example (CC=18)
+  [3] H/H Split god module planfile.yaml (760L, 0 classes)
+  [4] M/L Split render_markdown (CC=22)
+  [5] M/L Split render_context_process (CC=18)
 
 EVOLUTION:
-  2026-06-06 CC̄=4.8 crit=25 4838L // Automated analysis
+  2026-06-06 CC̄=4.5 crit=30 7258L // Automated analysis

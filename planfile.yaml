@@ -758,3 +758,289 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
+  - id: ticket-dc000bc4
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/adapters/rest.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/adapters/rest.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-516a277c
+    name: Fix magic-numbers issues
+    description: Resolve 12 magic-numbers issues in src/env2llm/adapters/rest.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/env2llm/adapters/rest.py
+    rule_id: magic-numbers
+    count: 12
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7edc2311
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/adapters/mcp.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/adapters/mcp.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-85487abf
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/integrators/_service_factory.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/_service_factory.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a5a2f4b9
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in src/env2llm/integrators/mcp_server.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/mcp_server.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9a39a720
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/integrators/mcp_server.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/mcp_server.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6f496464
+    name: Fix magic-numbers issues
+    description: Resolve 2 magic-numbers issues in src/env2llm/integrators/mcp_server.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/mcp_server.py
+    rule_id: magic-numbers
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-71eeb6cc
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in src/env2llm/integrators/mcp_server.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/mcp_server.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0286d247
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in src/env2llm/integrators/mqtt_bridge.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/env2llm/integrators/mqtt_bridge.py
+    rule_id: unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b9380f7a
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in src/env2llm/integrators/mqtt_bridge.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/mqtt_bridge.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1eb4a35f
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/integrators/rest_server.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/rest_server.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2eb1aa35
+    name: Fix magic-numbers issues
+    description: Resolve 2 magic-numbers issues in src/env2llm/integrators/rest_server.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/rest_server.py
+    rule_id: magic-numbers
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3a8d142d
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in src/env2llm/integrators/rest_server.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/integrators/rest_server.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-44a8b476
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/policy/desktop.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/policy/desktop.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-285eee01
+    name: Fix magic-numbers issues
+    description: Resolve 1 magic-numbers issues in src/env2llm/policy/desktop.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/policy/desktop.py
+    rule_id: magic-numbers
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0db2d79a
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/probes/desktop.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/probes/desktop.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-13368205
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/service/registry_service.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/service/registry_service.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c6f008a4
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in tests/test_desktop_probe.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/test_desktop_probe.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-64208112
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in tests/test_integrators.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/test_integrators.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-72e7a8fb
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in tests/test_mqtt.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/test_mqtt.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f60b72d5
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in tests/test_registry_service.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/test_registry_service.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-be8738f3
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/env2llm/transport/mqtt.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/env2llm/transport/mqtt.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced

@@ -1,26 +1,26 @@
 flowchart TD
-%% generated in 0.01s
+%% generated in 0.03s
 
     %% Entry points (blue)
     classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
 
     subgraph Core
-        src__env2llm__formats__markdown__render_markdown["render_markdown"]
-        src__env2llm__formats__yaml_fmt__render_yaml["render_yaml"]
-        src__env2llm__formats__json_fmt__render_json["render_json"]
-        src__env2llm__formats__doql_less__render_doql_less["render_doql_less"]
-        src__env2llm__policy__process__apply_process_policies("apply_process_policies CC=8")
-        src__env2llm__policy__process__effective_nlp_parser_mode["effective_nlp_parser_mode"]
-        src__env2llm__policy__process__process_policy_to_doql_dict["process_policy_to_doql_dict"]
-        src__env2llm__policy__process__process_scope_denied["process_scope_denied"]
-        src__env2llm__policy__validations___parse_profile_validation_shorthand("_parse_profile_validation_shor CC=10")
-        src__env2llm__policy__validations__parse_profile_validation["parse_profile_validation"]
-        src__env2llm__policy__validations__parse_profile_validations["parse_profile_validations"]
-        src__env2llm__policy__validations__apply_profile_validations["apply_profile_validations"]
-        src__env2llm__doql__runtime__load_doql_inline_from_env["load_doql_inline_from_env"]
-        src__env2llm__doql__runtime__merge_inline_context["merge_inline_context"]
-        src__env2llm__doql__runtime__autofill_entities["autofill_entities"]
-        ...["+37 more"]
+        src__env2llm__system_map_models__build_command_registry["build_command_registry"]
+        src__env2llm__system_map_models__validate_config_against_map["validate_config_against_map"]
+        src__env2llm__sources__EnvironmentSources__example_profile["example_profile"]
+        src__env2llm__sources__EnvironmentSources__platform_config["platform_config"]
+        src__env2llm__sources__EnvironmentSources__services_snapshot["services_snapshot"]
+        src__env2llm__sources__DefaultEnvironmentSources__example_profile["example_profile"]
+        src__env2llm__sources__DefaultEnvironmentSources__platform_config["platform_config"]
+        src__env2llm__sources__DefaultEnvironmentSources__services_snapshot["services_snapshot"]
+        src__env2llm__registry__refresh_doql_registry_from_state["refresh_doql_registry_from_sta"]
+        src__env2llm__layout__clean_all_example_artifacts["clean_all_example_artifacts"]
+        src__env2llm__layout__example_fixtures_dir["example_fixtures_dir"]
+        src__env2llm__layout__write_turn_snapshot["write_turn_snapshot"]
+        src__env2llm__layout__write_reflection_snapshot["write_reflection_snapshot"]
+        src__env2llm__layout__write_last_run_report["write_last_run_report"]
+        src__env2llm__bridge__task_context_to_system_map{{task_context_to_system_map CC=25}}
+        ...["+73 more"]
     end
 
-    class src__env2llm__formats__markdown__render_markdown,src__env2llm__formats__yaml_fmt__render_yaml,src__env2llm__formats__json_fmt__render_json,src__env2llm__formats__doql_less__render_doql_less,src__env2llm__policy__process__effective_nlp_parser_mode,src__env2llm__policy__process__process_policy_to_doql_dict,src__env2llm__policy__process__process_scope_denied,src__env2llm__doql__runtime__load_doql_inline_from_env,src__env2llm__doql__runtime__merge_inline_context,src__env2llm__doql__runtime__autofill_entities entry
+    class src__env2llm__system_map_models__build_command_registry,src__env2llm__system_map_models__validate_config_against_map,src__env2llm__sources__EnvironmentSources__example_profile,src__env2llm__sources__EnvironmentSources__platform_config,src__env2llm__sources__EnvironmentSources__services_snapshot,src__env2llm__sources__DefaultEnvironmentSources__example_profile,src__env2llm__sources__DefaultEnvironmentSources__platform_config,src__env2llm__sources__DefaultEnvironmentSources__services_snapshot,src__env2llm__registry__refresh_doql_registry_from_state,src__env2llm__layout__clean_all_example_artifacts entry

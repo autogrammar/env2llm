@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "env2llm"
-version = "0.1.3"
+version = "0.1.8"
 description = "Generate environment maps (services, artifacts, env vars) for LLM decision-making"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,6 +16,10 @@ dependencies = [
 
 [project.optional-dependencies]
 llm = ["litellm>=1.0"]
+mqtt = ["paho-mqtt>=2.0"]
+serve = []
+mcp = []
+nlp2uri = ["nlp2uri[envmap]>=0.4.7"]
 dev = [
     "pytest>=8.0",
     "goal>=2.1.0",
@@ -25,6 +29,9 @@ dev = [
 
 [project.scripts]
 env2llm = "env2llm.cli:main"
+env2llm-serve = "env2llm.integrators.rest_server:main"
+env2llm-mcp = "env2llm.integrators.mcp_server:main"
+env2llm-mqtt = "env2llm.integrators.mqtt_bridge:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

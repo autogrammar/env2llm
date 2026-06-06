@@ -10,6 +10,7 @@ from .blocks import (
     render_commands_block,
     render_conversation_block,
     render_data_block,
+    render_desktop_block,
     render_deploy_block,
     render_environment_block,
     render_generated_services_block,
@@ -32,6 +33,7 @@ def render_system_map_doql(ir: SystemMapIR) -> str:
     lines.extend(render_data_block(ir))
     lines.extend(render_artifacts_block(ir))
     lines.extend(render_runtimes_block(ir))
+    lines.extend(render_desktop_block(ir))
     lines.extend(render_commands_block(ir))
     lines.extend(render_resources_block(ir))
     lines.extend(render_access_block(ir))

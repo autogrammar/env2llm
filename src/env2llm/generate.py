@@ -16,6 +16,7 @@ from typing import Any, Callable, Mapping
 from env2llm.doql import collect_task_context, enrich_task_context_from_client
 from env2llm.bridge import task_context_to_system_map
 from env2llm.ir import SystemMapIR
+from env2llm.policy.desktop import desktop_probe_enabled
 from env2llm.runtimes import load_example_profile
 
 log = logging.getLogger("nlp2dsl.system_map")
@@ -82,6 +83,11 @@ def build_introspection_payload(
             payload["workflow_actions"] = client.workflow_actions()
         except Exception as exc:
             log.debug("workflow_actions introspection failed: %s", exc)
+
+    if desktop_probe_enabled():
+        from env2llm.probes.desktop import collect_desktop_probe
+
+        payload["desktop_probe"] = collect_desktop_probe().model_dump()
 
     return payload
 

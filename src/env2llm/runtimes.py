@@ -26,6 +26,9 @@ _WORKER_ACTIONS = frozenset(
 
 _SYSTEM_ACTION_PREFIX = "system_"
 _MULLM_ACTION_PREFIX = "mullm_"
+_DESKTOP_ACTION_PREFIX = "desktop_"
+_KORU_ACTION_PREFIX = "koru_"
+_TESTQL_ACTION_PREFIX = "testql_"
 
 
 def _repo_root_from_example(example_dir: Path) -> Path:
@@ -49,6 +52,12 @@ def load_example_profile(example_id: str, repo_root: Path | None = None) -> dict
 
 
 def resolve_command_runtime(action: str, *, profile: dict[str, Any] | None = None) -> str:
+    if action.startswith(_TESTQL_ACTION_PREFIX):
+        return "probe:testql"
+    if action.startswith(_KORU_ACTION_PREFIX):
+        return "mcp:koru"
+    if action.startswith(_DESKTOP_ACTION_PREFIX):
+        return "probe:desktop"
     if action.startswith(_MULLM_ACTION_PREFIX):
         return "delegate:mullm"
     if action.startswith(_SYSTEM_ACTION_PREFIX):

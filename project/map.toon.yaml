@@ -1,19 +1,22 @@
-# env2llm | 48f 4815L | python:45,shell:2,less:1 | 2026-06-06
-# stats: 190 func | 26 cls | 48 mod | CC̄=5.0 | critical:26 | cycles:0
+# env2llm | 67f 6616L | python:64,shell:2,less:1 | 2026-06-06
+# stats: 232 func | 35 cls | 67 mod | CC̄=4.9 | critical:29 | cycles:0
 # alerts[5]: CC test_load_doql_context_all_supported_blocks=34; CC task_context_to_system_map=25; CC render_markdown=22; CC enrich_task_context_from_client=19; CC collect_task_context=19
-# hotspots[5]: collect_task_context fan=26; ensure_environment_map fan=21; task_context_to_system_map fan=20; render_system_map_doql fan=20; render_doql_context fan=16
+# hotspots[5]: collect_task_context fan=26; ensure_environment_map fan=22; render_system_map_doql fan=21; task_context_to_system_map fan=20; test_rest_server_health fan=20
 # evolution: baseline
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[48]:
+M[67]:
   app.doql.less,231
   project.sh,59
-  src/env2llm/__init__.py,34
+  src/env2llm/__init__.py,44
   src/env2llm/__main__.py,4
-  src/env2llm/_runtime_health.py,30
+  src/env2llm/_runtime_health.py,32
+  src/env2llm/adapters/__init__.py,7
+  src/env2llm/adapters/mcp.py,143
+  src/env2llm/adapters/rest.py,107
   src/env2llm/artifact_layout.py,2
-  src/env2llm/bootstrap.py,103
+  src/env2llm/bootstrap.py,106
   src/env2llm/bridge.py,226
-  src/env2llm/cli.py,58
+  src/env2llm/cli.py,64
   src/env2llm/doql/__init__.py,49
   src/env2llm/doql/context_blocks.py,235
   src/env2llm/doql/models.py,135
@@ -27,20 +30,30 @@ M[48]:
   src/env2llm/formats/json_fmt.py,14
   src/env2llm/formats/markdown.py,53
   src/env2llm/formats/yaml_fmt.py,14
-  src/env2llm/generate.py,203
-  src/env2llm/ir.py,275
+  src/env2llm/generate.py,209
+  src/env2llm/integrators/__init__.py,2
+  src/env2llm/integrators/_service_factory.py,50
+  src/env2llm/integrators/mcp_server.py,137
+  src/env2llm/integrators/mqtt_bridge.py,146
+  src/env2llm/integrators/rest_server.py,115
+  src/env2llm/ir.py,316
   src/env2llm/layout.py,267
   src/env2llm/policy/__init__.py,5
+  src/env2llm/policy/desktop.py,176
   src/env2llm/policy/invoice.py,53
   src/env2llm/policy/process.py,338
   src/env2llm/policy/validations.py,74
+  src/env2llm/probes/__init__.py,6
+  src/env2llm/probes/desktop.py,143
   src/env2llm/registry.py,231
   src/env2llm/render/__init__.py,4
   src/env2llm/render/doql/__init__.py,6
-  src/env2llm/render/doql/blocks.py,301
+  src/env2llm/render/doql/blocks.py,341
   src/env2llm/render/doql/helpers.py,46
-  src/env2llm/render/doql/render.py,49
-  src/env2llm/runtimes.py,175
+  src/env2llm/render/doql/render.py,51
+  src/env2llm/runtimes.py,178
+  src/env2llm/service/__init__.py,6
+  src/env2llm/service/registry_service.py,166
   src/env2llm/sources.py,68
   src/env2llm/system_map_bridge.py,2
   src/env2llm/system_map_generator.py,2
@@ -48,9 +61,15 @@ M[48]:
   src/env2llm/system_map_models.py,49
   src/env2llm/system_map_render.py,2
   src/env2llm/system_map_runtimes.py,2
+  src/env2llm/transport/__init__.py,6
+  src/env2llm/transport/mqtt.py,153
   tests/conftest.py,24
+  tests/test_desktop_probe.py,69
   tests/test_doql_context.py,312
   tests/test_formats.py,24
+  tests/test_integrators.py,91
+  tests/test_mqtt.py,73
+  tests/test_registry_service.py,92
   tests/test_system_map_ir.py,140
   tree.sh,2
 D:
@@ -59,6 +78,14 @@ D:
   src/env2llm/_runtime_health.py:
     e: runtime_id_for_intent
     runtime_id_for_intent(intent)
+  src/env2llm/adapters/__init__.py:
+  src/env2llm/adapters/mcp.py:
+    e: _mcp_error,McpAdapter
+    McpAdapter: __init__(1),call_tool(2)
+    _mcp_error(message)
+  src/env2llm/adapters/rest.py:
+    e: RestAdapter
+    RestAdapter: __init__(1),match_route(3),dispatch(1),handle_http(2)
   src/env2llm/artifact_layout.py:
   src/env2llm/bootstrap.py:
     e: project_artifact_root,ensure_environment_map,ensure_doql_registry
@@ -180,8 +207,32 @@ D:
     _litellm_complete(system;user)
     _parse_llm_json(raw)
     generate_system_map(example_dir)
+  src/env2llm/integrators/__init__.py:
+  src/env2llm/integrators/_service_factory.py:
+    e: build_registry_service,attach_mqtt_refresh_listener
+    build_registry_service(project_dir)
+    attach_mqtt_refresh_listener(service)
+  src/env2llm/integrators/mcp_server.py:
+    e: _jsonrpc_response,_jsonrpc_error,_write_json,_log,handle_message,run_stdio,main
+    _jsonrpc_response(req_id;result)
+    _jsonrpc_error(req_id;code;message;data)
+    _write_json(payload)
+    _log(message)
+    handle_message(msg)
+    run_stdio()
+    main(argv)
+  src/env2llm/integrators/mqtt_bridge.py:
+    e: run_bridge,publish_once,main
+    run_bridge()
+    publish_once()
+    main(argv)
+  src/env2llm/integrators/rest_server.py:
+    e: run_server,main,Env2LLMRequestHandler
+    Env2LLMRequestHandler: log_message(1),_read_body(0),_send(2),_handle(1),do_GET(0),do_POST(0)
+    run_server()
+    main(argv)
   src/env2llm/ir.py:
-    e: MimeTypeSpec,RuntimeSpecIR,ProtocolSpec,FieldSpec,CommandSchemaIR,ResourceSpecIR,AccessGrantIR,ArtifactSpecIR,ConversationPolicyIR,ProcessAccessScopeIR,ProcessPathsIR,ProcessPolicyIR,ScheduleSpecIR,GeneratedServiceIR,DeploySpecIR,ProfileValidationIR,SystemMapIR
+    e: MimeTypeSpec,RuntimeSpecIR,ProtocolSpec,FieldSpec,CommandSchemaIR,ResourceSpecIR,AccessGrantIR,ArtifactSpecIR,ConversationPolicyIR,ProcessAccessScopeIR,ProcessPathsIR,ProcessPolicyIR,ScheduleSpecIR,GeneratedServiceIR,DeploySpecIR,ProfileValidationIR,DesktopWindowIR,DesktopDisplayIR,DesktopProbeIR,SystemMapIR
     MimeTypeSpec:  # Artifact or payload MIME + optional Pydantic schema referenc
     RuntimeSpecIR:  # Execution environment available to the example (where effect
     ProtocolSpec:  # Transport / execution protocol for a command step.
@@ -198,6 +249,9 @@ D:
     GeneratedServiceIR:  # Optional service stub emitted under .nlp2dsl/generated/servi
     DeploySpecIR:  # Docker Compose deployment descriptor for transparent process
     ProfileValidationIR:  # Example-profile acceptance check — maps example-profiles.yam
+    DesktopWindowIR:  # Single top-level window from a desktop probe (wmctrl/xdotool
+    DesktopDisplayIR:  # Display geometry when available from the probe tools.
+    DesktopProbeIR:  # Live GUI session snapshot for agents (GNOME/X11/Wayland).
     SystemMapIR: command(1),runtime(1),runtime_for_command(1),validate_step_config(2)  # env2llm.system_map.v1 — canonical map of available system ca
   src/env2llm/layout.py:
     e: artifact_root,_chmod_writable,_force_remove_path,clean_artifact_root,clean_all_example_artifacts,example_fixtures_dir,ensure_layout,resolve_registry_path,write_registry,current_run_id,run_dir,write_turn_snapshot,write_reflection_snapshot,write_last_run_report
@@ -216,6 +270,15 @@ D:
     write_reflection_snapshot(artifact_root_path)
     write_last_run_report(root;payload)
   src/env2llm/policy/__init__.py:
+  src/env2llm/policy/desktop.py:
+    e: desktop_probe_enabled,_ensure_desktop_runtime,_ensure_desktop_resource,_ensure_desktop_commands,_ensure_desktop_access,_mirror_desktop_summary,apply_desktop_probe
+    desktop_probe_enabled()
+    _ensure_desktop_runtime(ir)
+    _ensure_desktop_resource(ir)
+    _ensure_desktop_commands(ir)
+    _ensure_desktop_access(ir)
+    _mirror_desktop_summary(ir)
+    apply_desktop_probe(ir)
   src/env2llm/policy/invoice.py:
     e: is_invoice_example,apply_invoice_policies,apply_invoice_context
     is_invoice_example(example_id)
@@ -251,6 +314,15 @@ D:
     parse_profile_validation(raw)
     parse_profile_validations(raw_list)
     apply_profile_validations(ir;profile)
+  src/env2llm/probes/__init__.py:
+  src/env2llm/probes/desktop.py:
+    e: _run_text,_is_browser_title,parse_wmctrl_listing,_probe_display_geometry,_probe_active_window_id,collect_desktop_probe
+    _run_text(argv)
+    _is_browser_title(title)
+    parse_wmctrl_listing(text)
+    _probe_display_geometry()
+    _probe_active_window_id()
+    collect_desktop_probe()
   src/env2llm/registry.py:
     e: entities_to_data,merge_execution_observation,_merge_execution_header,_execution_steps,_merge_execution_step,_step_output,_merge_send_invoice_output,_merge_generate_invoice_output,_merge_workflow_id,merge_registry_observations,refresh_doql_registry,refresh_doql_registry_from_state
     entities_to_data(intent;entities)
@@ -268,11 +340,12 @@ D:
   src/env2llm/render/__init__.py:
   src/env2llm/render/doql/__init__.py:
   src/env2llm/render/doql/blocks.py:
-    e: render_header,render_environment_block,render_data_block,render_artifacts_block,render_runtimes_block,render_commands_block,render_resources_block,render_access_block,render_capabilities_block,render_workflow_history_block,render_conversation_block,render_process_block,render_process_access_block,render_paths_block,render_schedules_block,render_deploy_block,render_generated_services_block,render_validations_block
+    e: render_header,render_environment_block,render_data_block,render_artifacts_block,render_desktop_block,render_runtimes_block,render_commands_block,render_resources_block,render_access_block,render_capabilities_block,render_workflow_history_block,render_conversation_block,render_process_block,render_process_access_block,render_paths_block,render_schedules_block,render_deploy_block,render_generated_services_block,render_validations_block
     render_header(ir)
     render_environment_block(ir)
     render_data_block(ir)
     render_artifacts_block(ir)
+    render_desktop_block(ir)
     render_runtimes_block(ir)
     render_commands_block(ir)
     render_resources_block(ir)
@@ -305,6 +378,10 @@ D:
     load_example_profile(example_id;repo_root)
     resolve_command_runtime(action)
     build_runtimes_for_example(example_id)
+  src/env2llm/service/__init__.py:
+  src/env2llm/service/registry_service.py:
+    e: RegistryService
+    RegistryService: __post_init__(0),registry_path(0),load(0),refresh(0),get_ir(0),render(1),to_dict(0),desktop_payload(0),commands_payload(0),uris_payload(0),mqtt_status(0),_generate_ir(0),_publish_mqtt(0)  # In-memory view over env2llm ``SystemMapIR`` with optional MQ
   src/env2llm/sources.py:
     e: EnvironmentSources,DefaultEnvironmentSources
     EnvironmentSources: example_profile(2),platform_config(1),services_snapshot(1)
@@ -320,10 +397,21 @@ D:
     validate_config_against_map(ir;action;config)
   src/env2llm/system_map_render.py:
   src/env2llm/system_map_runtimes.py:
+  src/env2llm/transport/__init__.py:
+  src/env2llm/transport/mqtt.py:
+    e: mqtt_available,mqtt_missing_message,mqtt_enabled,MqttRegistryBridge
+    MqttRegistryBridge: __init__(0),topic(1),connect(0),disconnect(0),publish_registry(2),publish_desktop(2),publish_event(3),subscribe_refresh(1),_publish(2),_on_connect(5),_on_message(3)  # Publish registry snapshots and listen for remote refresh com
+    mqtt_available()
+    mqtt_missing_message()
+    mqtt_enabled()
   tests/conftest.py:
     e: nlp2dsl_root,invoice_example_dir
     nlp2dsl_root()
     invoice_example_dir()
+  tests/test_desktop_probe.py:
+    e: test_parse_wmctrl_listing_detects_geometry_and_browser,test_apply_desktop_probe_adds_runtime_commands_and_doql_block
+    test_parse_wmctrl_listing_detects_geometry_and_browser()
+    test_apply_desktop_probe_adds_runtime_commands_and_doql_block(monkeypatch)
   tests/test_doql_context.py:
     e: test_load_doql_context_all_supported_blocks,test_doql_roundtrip_preserves_core_fields,test_autofill_entities_from_data_and_aliases,test_autofill_entities_from_artifact_values,test_autofill_entities_skips_optional_attachment_path,test_merge_inline_context_promotes_short_aliases,test_autofill_entities_disabled_returns_original_object,test_load_doql_context_parses_validations,test_validations_doql_roundtrip_via_system_map
     test_load_doql_context_all_supported_blocks(tmp_path)
@@ -338,6 +426,21 @@ D:
   tests/test_formats.py:
     e: test_render_json_yaml_markdown
     test_render_json_yaml_markdown()
+  tests/test_integrators.py:
+    e: _fake_service,test_rest_adapter_routes,test_mcp_adapter_tools,test_rest_server_health
+    _fake_service(tmp_path)
+    test_rest_adapter_routes(tmp_path)
+    test_mcp_adapter_tools(tmp_path)
+    test_rest_server_health(tmp_path)
+  tests/test_mqtt.py:
+    e: _install_fake_paho,test_mqtt_publish_topics,_FakeClient
+    _FakeClient: __init__(0),username_pw_set(2),connect(3),loop_start(0),loop_stop(0),disconnect(0),publish(4),subscribe(2)
+    _install_fake_paho(monkeypatch)
+    test_mqtt_publish_topics(monkeypatch)
+  tests/test_registry_service.py:
+    e: test_registry_service_render_and_desktop,test_registry_service_refresh_publishes_mqtt
+    test_registry_service_render_and_desktop(monkeypatch;tmp_path)
+    test_registry_service_refresh_publishes_mqtt(monkeypatch;tmp_path)
   tests/test_system_map_ir.py:
     e: test_system_map_validate_step_config,test_dynamic_command_input_model,test_task_context_to_system_map_and_render,test_build_runtimes_for_01_invoice,test_resolve_command_runtime,test_doql_roundtrip_runtimes,test_generate_system_map_01_invoice
     test_system_map_validate_step_config()

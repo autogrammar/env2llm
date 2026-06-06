@@ -63,6 +63,46 @@ def render_artifacts_block(ir: SystemMapIR) -> list[str]:
     return lines
 
 
+def render_desktop_block(ir: SystemMapIR) -> list[str]:
+    if ir.desktop is None:
+        return []
+    probe = ir.desktop
+    lines = ["desktop {"]
+    lines.append(f'  platform: "{esc_str(probe.platform)}";')
+    lines.append(f'  session: "{esc_str(probe.session)}";')
+    lines.append(f'  status: "{probe.status}";')
+    if probe.compositor:
+        lines.append(f'  compositor: "{esc_str(probe.compositor)}";')
+    if probe.display_server:
+        lines.append(f'  display_server: "{esc_str(probe.display_server)}";')
+    if probe.probed_at:
+        lines.append(f'  probed_at: "{esc_str(probe.probed_at)}";')
+    if probe.tools_used:
+        lines.append(f"  tools_used: {join_csv(probe.tools_used)};")
+    lines.extend(["}", ""])
+
+    for idx, display in enumerate(probe.displays):
+        lines.append(f"desktop_displays[{idx}] {{")
+        lines.append(f'  id: "{esc_str(display.id)}";')
+        lines.append(f"  width: {display.width};")
+        lines.append(f"  height: {display.height};")
+        lines.extend(["}", ""])
+
+    for idx, window in enumerate(probe.windows):
+        lines.append(f"desktop_windows[{idx}] {{")
+        lines.append(f'  id: "{esc_str(window.id)}";')
+        lines.append(f'  title: "{esc_str_full(window.title)}";')
+        lines.append(f"  x: {window.x};")
+        lines.append(f"  y: {window.y};")
+        lines.append(f"  width: {window.width};")
+        lines.append(f"  height: {window.height};")
+        lines.append(f"  workspace: {window.workspace};")
+        lines.append(f"  is_browser: {bool_lit(window.is_browser)};")
+        lines.append(f"  active: {bool_lit(window.active)};")
+        lines.extend(["}", ""])
+    return lines
+
+
 def render_runtimes_block(ir: SystemMapIR) -> list[str]:
     lines: list[str] = []
     for idx, rt in enumerate(ir.runtimes):

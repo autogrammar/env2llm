@@ -1,324 +1,30 @@
 project: /home/tom/github/semcod/env2llm
 generated_from: code2llm call graph analysis
 stats:
-  total_nodes: 149
-  total_edges: 156
-  modules_count: 23
+  total_nodes: 183
+  total_edges: 206
+  modules_count: 32
 nodes:
-  src.env2llm.policy.process.apply_process_policies:
-    name: apply_process_policies
-    module: src.env2llm.policy.process
-    line: 253
-    cyclomatic_complexity: 8
-    calls_out: 11
-    calls_in: 2
-  src.env2llm.layout.run_dir:
-    name: run_dir
-    module: src.env2llm.layout
-    line: 191
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 2
-  src.env2llm.doql.runtime._split_missing_ref:
-    name: _split_missing_ref
-    module: src.env2llm.doql.runtime
-    line: 157
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.cli.main:
-    name: main
-    module: src.env2llm.cli
-    line: 43
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 0
-  src.env2llm.policy.process._merge_access:
-    name: _merge_access
-    module: src.env2llm.policy.process
-    line: 105
-    cyclomatic_complexity: 5
-    calls_out: 10
-    calls_in: 1
-  src.env2llm.policy.process.load_platform_process_defaults:
-    name: load_platform_process_defaults
-    module: src.env2llm.policy.process
-    line: 96
-    cyclomatic_complexity: 4
-    calls_out: 7
-    calls_in: 1
-  src.env2llm.doql.runtime.load_doql_inline_from_env:
-    name: load_doql_inline_from_env
-    module: src.env2llm.doql.runtime
-    line: 56
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 0
-  src.env2llm.doql.runtime._add_short_inline_alias:
-    name: _add_short_inline_alias
-    module: src.env2llm.doql.runtime
-    line: 143
-    cyclomatic_complexity: 5
-    calls_out: 5
-    calls_in: 1
-  src.env2llm.doql.parse._parse_runtime_body:
-    name: _parse_runtime_body
-    module: src.env2llm.doql.parse
-    line: 122
-    cyclomatic_complexity: 1
-    calls_out: 21
-    calls_in: 1
-  src.env2llm.policy.process._intract_flags:
-    name: _intract_flags
-    module: src.env2llm.policy.process
-    line: 186
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.policy.validations.apply_profile_validations:
-    name: apply_profile_validations
-    module: src.env2llm.policy.validations
-    line: 68
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 1
-  src.env2llm.policy.validations._parse_profile_validation_shorthand:
-    name: _parse_profile_validation_shorthand
-    module: src.env2llm.policy.validations
-    line: 32
-    cyclomatic_complexity: 10
-    calls_out: 10
-    calls_in: 1
-  src.env2llm.render.doql.helpers.bool_lit:
-    name: bool_lit
-    module: src.env2llm.render.doql.helpers
-    line: 16
+  src.env2llm.transport.mqtt.mqtt_missing_message:
+    name: mqtt_missing_message
+    module: src.env2llm.transport.mqtt
+    line: 28
     cyclomatic_complexity: 2
     calls_out: 0
-    calls_in: 9
-  src.env2llm.env.collect_environment:
-    name: collect_environment
-    module: src.env2llm.env
-    line: 34
-    cyclomatic_complexity: 13
-    calls_out: 13
-    calls_in: 1
-  src.env2llm.bootstrap.project_artifact_root:
-    name: project_artifact_root
-    module: src.env2llm.bootstrap
-    line: 18
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  src.env2llm.policy.validations._parse_profile_validation_by_type:
-    name: _parse_profile_validation_by_type
-    module: src.env2llm.policy.validations
-    line: 19
-    cyclomatic_complexity: 5
-    calls_out: 9
-    calls_in: 1
-  src.env2llm.runtimes.load_example_profile:
-    name: load_example_profile
-    module: src.env2llm.runtimes
-    line: 37
-    cyclomatic_complexity: 7
-    calls_out: 7
-    calls_in: 4
-  src.env2llm.bootstrap.ensure_environment_map:
-    name: ensure_environment_map
-    module: src.env2llm.bootstrap
-    line: 22
-    cyclomatic_complexity: 9
-    calls_out: 24
-    calls_in: 2
-  src.env2llm.doql.context_blocks.render_context_conversation:
-    name: render_context_conversation
-    module: src.env2llm.doql.context_blocks
-    line: 215
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 1
-  src.env2llm.formats.render_format:
-    name: render_format
-    module: src.env2llm.formats
-    line: 41
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 1
-  src.env2llm.system_map_models.build_command_registry:
-    name: build_command_registry
-    module: src.env2llm.system_map_models
-    line: 38
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 0
-  src.env2llm.doql.runtime._value_from_data:
-    name: _value_from_data
-    module: src.env2llm.doql.runtime
-    line: 189
-    cyclomatic_complexity: 4
-    calls_out: 0
-    calls_in: 1
-  src.env2llm.registry._merge_generate_invoice_output:
-    name: _merge_generate_invoice_output
-    module: src.env2llm.registry
-    line: 100
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 1
-  src.env2llm.doql.parse._apply_context_metadata:
-    name: _apply_context_metadata
-    module: src.env2llm.doql.parse
-    line: 158
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.doql.parse.load_platform_map:
-    name: load_platform_map
-    module: src.env2llm.doql.parse
-    line: 283
-    cyclomatic_complexity: 18
-    calls_out: 32
-    calls_in: 1
-  src.env2llm.registry._merge_workflow_id:
-    name: _merge_workflow_id
-    module: src.env2llm.registry
-    line: 111
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 1
-  src.env2llm.runtimes.resolve_command_runtime:
-    name: resolve_command_runtime
-    module: src.env2llm.runtimes
-    line: 51
-    cyclomatic_complexity: 7
-    calls_out: 3
-    calls_in: 2
-  src.env2llm.policy.process._process_policy_from_parts:
-    name: _process_policy_from_parts
-    module: src.env2llm.policy.process
-    line: 199
-    cyclomatic_complexity: 1
-    calls_out: 8
-    calls_in: 1
-  src.env2llm.bridge._command_to_ir:
-    name: _command_to_ir
-    module: src.env2llm.bridge
-    line: 185
-    cyclomatic_complexity: 12
-    calls_out: 10
-    calls_in: 1
-  src.env2llm.layout._force_remove_path:
-    name: _force_remove_path
-    module: src.env2llm.layout
-    line: 52
-    cyclomatic_complexity: 7
-    calls_out: 15
-    calls_in: 1
-  src.env2llm.doql.parse._parse_artifact_body:
-    name: _parse_artifact_body
-    module: src.env2llm.doql.parse
-    line: 147
-    cyclomatic_complexity: 3
-    calls_out: 6
-    calls_in: 1
-  src.env2llm.render.doql.helpers.process_field_line:
-    name: process_field_line
-    module: src.env2llm.render.doql.helpers
-    line: 40
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 1
-  src.env2llm.runtimes._repo_root_from_example:
-    name: _repo_root_from_example
-    module: src.env2llm.runtimes
-    line: 31
-    cyclomatic_complexity: 2
-    calls_out: 0
-    calls_in: 1
-  src.env2llm.doql.parse._parse_resource_body:
-    name: _parse_resource_body
-    module: src.env2llm.doql.parse
-    line: 102
-    cyclomatic_complexity: 1
-    calls_out: 12
-    calls_in: 1
-  src.env2llm.doql.parse._command_transport:
-    name: _command_transport
-    module: src.env2llm.doql.parse
-    line: 275
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 2
-  src.env2llm.doql.parse.collect_task_context:
-    name: collect_task_context
-    module: src.env2llm.doql.parse
-    line: 425
-    cyclomatic_complexity: 19
-    calls_out: 32
-    calls_in: 1
-  src.env2llm.doql.parse._parse_value:
-    name: _parse_value
-    module: src.env2llm.doql.parse
-    line: 56
-    cyclomatic_complexity: 10
-    calls_out: 11
-    calls_in: 1
-  src.env2llm.registry._execution_steps:
-    name: _execution_steps
-    module: src.env2llm.registry
-    line: 63
-    cyclomatic_complexity: 4
-    calls_out: 3
-    calls_in: 1
-  src.env2llm.policy.validations._parse_profile_validation_by_code:
-    name: _parse_profile_validation_by_code
-    module: src.env2llm.policy.validations
-    line: 10
-    cyclomatic_complexity: 4
-    calls_out: 8
-    calls_in: 1
-  src.env2llm.doql.context_blocks.render_context_access:
-    name: render_context_access
-    module: src.env2llm.doql.context_blocks
-    line: 85
-    cyclomatic_complexity: 4
-    calls_out: 8
-    calls_in: 1
-  src.env2llm.layout.clean_all_example_artifacts:
-    name: clean_all_example_artifacts
-    module: src.env2llm.layout
-    line: 109
-    cyclomatic_complexity: 5
-    calls_out: 6
-    calls_in: 0
-  src.env2llm.layout.ensure_layout:
-    name: ensure_layout
-    module: src.env2llm.layout
-    line: 131
-    cyclomatic_complexity: 1
-    calls_out: 6
     calls_in: 3
-  src.env2llm.layout.write_registry:
-    name: write_registry
-    module: src.env2llm.layout
-    line: 170
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 2
-  src.env2llm.render.doql.blocks.render_capabilities_block:
-    name: render_capabilities_block
-    module: src.env2llm.render.doql.blocks
-    line: 143
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 1
-  src.env2llm.doql.runtime._canonical_field:
-    name: _canonical_field
-    module: src.env2llm.doql.runtime
-    line: 170
-    cyclomatic_complexity: 1
+  src.env2llm.probes.desktop._run_text:
+    name: _run_text
+    module: src.env2llm.probes.desktop
+    line: 23
+    cyclomatic_complexity: 4
     calls_out: 2
+    calls_in: 3
+  src.env2llm.policy.desktop._ensure_desktop_access:
+    name: _ensure_desktop_access
+    module: src.env2llm.policy.desktop
+    line: 113
+    cyclomatic_complexity: 5
+    calls_out: 3
     calls_in: 1
   src.env2llm.doql.context_blocks.render_context_workflow_history:
     name: render_context_workflow_history
@@ -327,55 +33,132 @@ nodes:
     cyclomatic_complexity: 6
     calls_out: 9
     calls_in: 1
-  src.env2llm.policy.process.process_policy_from_profile_block:
-    name: process_policy_from_profile_block
-    module: src.env2llm.policy.process
-    line: 123
-    cyclomatic_complexity: 5
+  src.env2llm.integrators.mcp_server.handle_message:
+    name: handle_message
+    module: src.env2llm.integrators.mcp_server
+    line: 41
+    cyclomatic_complexity: 9
+    calls_out: 13
+    calls_in: 1
+  src.env2llm.render.doql.helpers.data_value_line:
+    name: data_value_line
+    module: src.env2llm.render.doql.helpers
+    line: 24
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 2
+  src.env2llm.bridge._command_to_ir:
+    name: _command_to_ir
+    module: src.env2llm.bridge
+    line: 185
+    cyclomatic_complexity: 12
+    calls_out: 10
+    calls_in: 1
+  src.env2llm.generate.build_introspection_payload:
+    name: build_introspection_payload
+    module: src.env2llm.generate
+    line: 40
+    cyclomatic_complexity: 12
     calls_out: 23
     calls_in: 1
-  src.env2llm.doql.runtime.resolve_doql_context_path:
-    name: resolve_doql_context_path
-    module: src.env2llm.doql.runtime
-    line: 13
+  src.env2llm.env.collect_environment:
+    name: collect_environment
+    module: src.env2llm.env
+    line: 34
+    cyclomatic_complexity: 13
+    calls_out: 13
+    calls_in: 2
+  src.env2llm.bridge.task_context_to_system_map:
+    name: task_context_to_system_map
+    module: src.env2llm.bridge
+    line: 85
+    cyclomatic_complexity: 25
+    calls_out: 30
+    calls_in: 3
+  src.env2llm.doql.parse._parse_resource_body:
+    name: _parse_resource_body
+    module: src.env2llm.doql.parse
+    line: 102
     cyclomatic_complexity: 1
-    calls_out: 1
+    calls_out: 12
     calls_in: 1
-  src.env2llm.registry.refresh_doql_registry:
-    name: refresh_doql_registry
-    module: src.env2llm.registry
-    line: 161
-    cyclomatic_complexity: 10
-    calls_out: 17
-    calls_in: 1
-  src.env2llm.policy.process._deep_merge_process:
-    name: _deep_merge_process
-    module: src.env2llm.policy.process
-    line: 58
-    cyclomatic_complexity: 5
+  src.env2llm.doql.parse._parse_block_body:
+    name: _parse_block_body
+    module: src.env2llm.doql.parse
+    line: 77
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 7
+  src.env2llm.system_map_models.validate_config_against_map:
+    name: validate_config_against_map
+    module: src.env2llm.system_map_models
+    line: 42
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 0
+  src.env2llm.policy.desktop._ensure_desktop_commands:
+    name: _ensure_desktop_commands
+    module: src.env2llm.policy.desktop
+    line: 94
+    cyclomatic_complexity: 6
     calls_out: 7
     calls_in: 1
-  src.env2llm.policy.validations.parse_profile_validations:
-    name: parse_profile_validations
-    module: src.env2llm.policy.validations
-    line: 59
+  src.env2llm.layout.write_registry:
+    name: write_registry
+    module: src.env2llm.layout
+    line: 170
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 2
+  src.env2llm.registry.merge_execution_observation:
+    name: merge_execution_observation
+    module: src.env2llm.registry
+    line: 33
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 1
+  src.env2llm.service.registry_service.RegistryService.refresh:
+    name: refresh
+    module: src.env2llm.service.registry_service
+    line: 45
     cyclomatic_complexity: 4
-    calls_out: 2
-    calls_in: 1
-  src.env2llm.render.doql.blocks.render_resources_block:
-    name: render_resources_block
-    module: src.env2llm.render.doql.blocks
-    line: 114
-    cyclomatic_complexity: 5
-    calls_out: 9
-    calls_in: 1
-  src.env2llm.generate._parse_llm_json:
-    name: _parse_llm_json
-    module: src.env2llm.generate
-    line: 128
-    cyclomatic_complexity: 5
-    calls_out: 8
-    calls_in: 1
+    calls_out: 4
+    calls_in: 0
+  src.env2llm.env.mask_secret:
+    name: mask_secret
+    module: src.env2llm.env
+    line: 28
+    cyclomatic_complexity: 3
+    calls_out: 1
+    calls_in: 2
+  src.env2llm.doql.parse._split_csv:
+    name: _split_csv
+    module: src.env2llm.doql.parse
+    line: 84
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 9
+  src.env2llm.layout.ensure_layout:
+    name: ensure_layout
+    module: src.env2llm.layout
+    line: 131
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 3
+  src.env2llm.bridge.doql_file_to_system_map:
+    name: doql_file_to_system_map
+    module: src.env2llm.bridge
+    line: 221
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  src.env2llm.runtimes.load_example_profile:
+    name: load_example_profile
+    module: src.env2llm.runtimes
+    line: 38
+    cyclomatic_complexity: 7
+    calls_out: 7
+    calls_in: 4
   src.env2llm.registry._merge_execution_step:
     name: _merge_execution_step
     module: src.env2llm.registry
@@ -390,12 +173,229 @@ nodes:
     cyclomatic_complexity: 1
     calls_out: 6
     calls_in: 0
-  src.env2llm.render.doql.blocks.render_paths_block:
-    name: render_paths_block
+  src.env2llm.doql.runtime._candidate_data_keys:
+    name: _candidate_data_keys
+    module: src.env2llm.doql.runtime
+    line: 185
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 1
+  src.env2llm.integrators.mcp_server._jsonrpc_response:
+    name: _jsonrpc_response
+    module: src.env2llm.integrators.mcp_server
+    line: 21
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 4
+  src.env2llm.layout._chmod_writable:
+    name: _chmod_writable
+    module: src.env2llm.layout
+    line: 45
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 3
+  src.env2llm.transport.mqtt.mqtt_enabled:
+    name: mqtt_enabled
+    module: src.env2llm.transport.mqtt
+    line: 37
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 4
+  src.env2llm.render.doql.blocks.render_conversation_block:
+    name: render_conversation_block
     module: src.env2llm.render.doql.blocks
-    line: 219
+    line: 204
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  src.env2llm.runtimes._repo_root_from_example:
+    name: _repo_root_from_example
+    module: src.env2llm.runtimes
+    line: 32
+    cyclomatic_complexity: 2
+    calls_out: 0
+    calls_in: 1
+  src.env2llm.service.registry_service.RegistryService.render:
+    name: render
+    module: src.env2llm.service.registry_service
+    line: 76
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  src.env2llm.integrators.mcp_server._write_json:
+    name: _write_json
+    module: src.env2llm.integrators.mcp_server
+    line: 32
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 2
+  src.env2llm.service.registry_service.RegistryService.load:
+    name: load
+    module: src.env2llm.service.registry_service
+    line: 36
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 0
+  src.env2llm.integrators._service_factory.attach_mqtt_refresh_listener:
+    name: attach_mqtt_refresh_listener
+    module: src.env2llm.integrators._service_factory
+    line: 33
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 3
+  src.env2llm.doql.parse.load_doql_context:
+    name: load_doql_context
+    module: src.env2llm.doql.parse
+    line: 258
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 5
+  src.env2llm.doql.context_blocks.render_context_process_access:
+    name: render_context_process_access
+    module: src.env2llm.doql.context_blocks
+    line: 187
+    cyclomatic_complexity: 7
+    calls_out: 6
+    calls_in: 1
+  src.env2llm.doql.runtime._add_short_inline_alias:
+    name: _add_short_inline_alias
+    module: src.env2llm.doql.runtime
+    line: 143
     cyclomatic_complexity: 5
     calls_out: 5
+    calls_in: 1
+  src.env2llm.doql.parse.load_platform_map:
+    name: load_platform_map
+    module: src.env2llm.doql.parse
+    line: 283
+    cyclomatic_complexity: 18
+    calls_out: 32
+    calls_in: 1
+  src.env2llm.generate._parse_llm_json:
+    name: _parse_llm_json
+    module: src.env2llm.generate
+    line: 134
+    cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 1
+  src.env2llm.doql.parse._apply_context_metadata:
+    name: _apply_context_metadata
+    module: src.env2llm.doql.parse
+    line: 158
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.policy.process.process_policy_from_profile_block:
+    name: process_policy_from_profile_block
+    module: src.env2llm.policy.process
+    line: 123
+    cyclomatic_complexity: 5
+    calls_out: 23
+    calls_in: 1
+  src.env2llm.doql.runtime.merge_inline_context:
+    name: merge_inline_context
+    module: src.env2llm.doql.runtime
+    line: 63
+    cyclomatic_complexity: 8
+    calls_out: 9
+    calls_in: 0
+  src.env2llm.doql.runtime._canonical_field:
+    name: _canonical_field
+    module: src.env2llm.doql.runtime
+    line: 170
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  src.env2llm.service.registry_service.RegistryService._generate_ir:
+    name: _generate_ir
+    module: src.env2llm.service.registry_service
+    line: 112
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 0
+  src.env2llm.policy.validations.parse_profile_validation:
+    name: parse_profile_validation
+    module: src.env2llm.policy.validations
+    line: 49
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.doql.parse.load_commands_from_services_yaml:
+    name: load_commands_from_services_yaml
+    module: src.env2llm.doql.parse
+    line: 325
+    cyclomatic_complexity: 14
+    calls_out: 19
+    calls_in: 1
+  src.env2llm.doql.parse._apply_conversation_block:
+    name: _apply_conversation_block
+    module: src.env2llm.doql.parse
+    line: 167
+    cyclomatic_complexity: 1
+    calls_out: 10
+    calls_in: 1
+  src.env2llm.bootstrap.ensure_environment_map:
+    name: ensure_environment_map
+    module: src.env2llm.bootstrap
+    line: 23
+    cyclomatic_complexity: 9
+    calls_out: 25
+    calls_in: 4
+  src.env2llm.doql.context_blocks.render_context_conversation:
+    name: render_context_conversation
+    module: src.env2llm.doql.context_blocks
+    line: 215
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.env.merge_environment:
+    name: merge_environment
+    module: src.env2llm.env
+    line: 66
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 2
+  src.env2llm.policy.validations._parse_profile_validation_shorthand:
+    name: _parse_profile_validation_shorthand
+    module: src.env2llm.policy.validations
+    line: 32
+    cyclomatic_complexity: 10
+    calls_out: 10
+    calls_in: 1
+  src.env2llm.registry._merge_send_invoice_output:
+    name: _merge_send_invoice_output
+    module: src.env2llm.registry
+    line: 88
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.cli.build_parser:
+    name: build_parser
+    module: src.env2llm.cli
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 1
+  src.env2llm.render.doql.blocks.render_schedules_block:
+    name: render_schedules_block
+    module: src.env2llm.render.doql.blocks
+    line: 272
+    cyclomatic_complexity: 3
+    calls_out: 11
+    calls_in: 1
+  src.env2llm.runtimes.resolve_command_runtime:
+    name: resolve_command_runtime
+    module: src.env2llm.runtimes
+    line: 52
+    cyclomatic_complexity: 8
+    calls_out: 4
+    calls_in: 3
+  src.env2llm.policy.process._load_nlp2dsl_payload:
+    name: _load_nlp2dsl_payload
+    module: src.env2llm.policy.process
+    line: 70
+    cyclomatic_complexity: 12
+    calls_out: 12
     calls_in: 1
   src.env2llm.doql.parse._apply_capabilities_block:
     name: _apply_capabilities_block
@@ -404,201 +404,54 @@ nodes:
     cyclomatic_complexity: 5
     calls_out: 7
     calls_in: 1
-  src.env2llm.doql.runtime._apply_conversation_flag:
-    name: _apply_conversation_flag
+  src.env2llm.doql.runtime._split_missing_ref:
+    name: _split_missing_ref
     module: src.env2llm.doql.runtime
-    line: 130
-    cyclomatic_complexity: 6
-    calls_out: 5
-    calls_in: 1
-  src.env2llm._runtime_health.runtime_id_for_intent:
-    name: runtime_id_for_intent
-    module: src.env2llm._runtime_health
-    line: 20
-    cyclomatic_complexity: 5
-    calls_out: 2
-    calls_in: 1
-  src.env2llm.doql.parse._parse_command_body:
-    name: _parse_command_body
-    module: src.env2llm.doql.parse
-    line: 88
-    cyclomatic_complexity: 1
-    calls_out: 19
-    calls_in: 1
-  src.env2llm.doql.parse._split_csv:
-    name: _split_csv
-    module: src.env2llm.doql.parse
-    line: 84
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 9
-  src.env2llm.render.doql.blocks.render_access_block:
-    name: render_access_block
-    module: src.env2llm.render.doql.blocks
-    line: 129
+    line: 157
     cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.doql.parse.enrich_task_context_from_client:
+    name: enrich_task_context_from_client
+    module: src.env2llm.doql.parse
+    line: 355
+    cyclomatic_complexity: 19
+    calls_out: 29
+    calls_in: 1
+  src.env2llm.policy.invoice.apply_invoice_context:
+    name: apply_invoice_context
+    module: src.env2llm.policy.invoice
+    line: 41
+    cyclomatic_complexity: 3
     calls_out: 8
     calls_in: 1
-  src.env2llm.system_map_models.command_input_model:
-    name: command_input_model
-    module: src.env2llm.system_map_models
-    line: 29
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 2
-  src.env2llm.render.doql.blocks.render_data_block:
-    name: render_data_block
-    module: src.env2llm.render.doql.blocks
-    line: 37
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.doql.parse._parse_block_body:
-    name: _parse_block_body
+  src.env2llm.doql.parse._parse_access_body:
+    name: _parse_access_body
     module: src.env2llm.doql.parse
-    line: 77
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 7
-  src.env2llm.layout.current_run_id:
-    name: current_run_id
-    module: src.env2llm.layout
-    line: 182
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.render.doql.helpers.history_value_line:
-    name: history_value_line
-    module: src.env2llm.render.doql.helpers
-    line: 32
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.generate._bootstrap_system_map:
-    name: _bootstrap_system_map
-    module: src.env2llm.generate
-    line: 89
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 2
-  src.env2llm.policy.invoice.is_invoice_example:
-    name: is_invoice_example
-    module: src.env2llm.policy.invoice
-    line: 10
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 3
-  src.env2llm.layout.clean_artifact_root:
-    name: clean_artifact_root
-    module: src.env2llm.layout
-    line: 84
-    cyclomatic_complexity: 9
-    calls_out: 9
-    calls_in: 1
-  src.env2llm.policy.process._apply_nlp_policy:
-    name: _apply_nlp_policy
-    module: src.env2llm.policy.process
-    line: 154
-    cyclomatic_complexity: 5
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.doql.runtime._autofill_value:
-    name: _autofill_value
-    module: src.env2llm.doql.runtime
-    line: 178
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 1
-  src.env2llm.layout._chmod_writable:
-    name: _chmod_writable
-    module: src.env2llm.layout
-    line: 45
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 3
-  src.env2llm.render.doql.blocks.render_process_access_block:
-    name: render_process_access_block
-    module: src.env2llm.render.doql.blocks
-    line: 204
-    cyclomatic_complexity: 7
-    calls_out: 6
-    calls_in: 1
-  src.env2llm.registry._merge_execution_header:
-    name: _merge_execution_header
-    module: src.env2llm.registry
-    line: 52
+    line: 112
     cyclomatic_complexity: 1
-    calls_out: 5
-    calls_in: 1
-  src.env2llm.system_map_models.validate_config_against_map:
-    name: validate_config_against_map
-    module: src.env2llm.system_map_models
-    line: 42
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 0
-  src.env2llm.generate.generate_system_map:
-    name: generate_system_map
-    module: src.env2llm.generate
-    line: 142
-    cyclomatic_complexity: 8
-    calls_out: 15
-    calls_in: 1
-  src.env2llm.layout.resolve_registry_path:
-    name: resolve_registry_path
-    module: src.env2llm.layout
-    line: 141
-    cyclomatic_complexity: 9
-    calls_out: 11
-    calls_in: 1
-  src.env2llm.render.doql.helpers.join_csv:
-    name: join_csv
-    module: src.env2llm.render.doql.helpers
-    line: 20
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 23
-  src.env2llm.doql.context_blocks.render_context_capabilities:
-    name: render_context_capabilities
-    module: src.env2llm.doql.context_blocks
-    line: 124
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 1
-  src.env2llm.policy.process._merge_conversation_from_profile:
-    name: _merge_conversation_from_profile
-    module: src.env2llm.policy.process
-    line: 226
-    cyclomatic_complexity: 5
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.doql.parse._apply_process_access_block:
-    name: _apply_process_access_block
-    module: src.env2llm.doql.parse
-    line: 198
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 1
-  src.env2llm.render.doql.helpers.esc_str_full:
-    name: esc_str_full
-    module: src.env2llm.render.doql.helpers
-    line: 12
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 2
-  src.env2llm.policy.process._as_list:
-    name: _as_list
-    module: src.env2llm.policy.process
-    line: 48
-    cyclomatic_complexity: 8
-    calls_out: 9
-    calls_in: 4
-  src.env2llm.doql.parse._apply_process_block:
-    name: _apply_process_block
-    module: src.env2llm.doql.parse
-    line: 183
-    cyclomatic_complexity: 9
     calls_out: 12
+    calls_in: 1
+  src.env2llm.doql.runtime.resolve_doql_context_path:
+    name: resolve_doql_context_path
+    module: src.env2llm.doql.runtime
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  src.env2llm.doql.context_blocks.render_context_resources:
+    name: render_context_resources
+    module: src.env2llm.doql.context_blocks
+    line: 70
+    cyclomatic_complexity: 5
+    calls_out: 9
+    calls_in: 1
+  src.env2llm.integrators.rest_server.run_server:
+    name: run_server
+    module: src.env2llm.integrators.rest_server
+    line: 50
+    cyclomatic_complexity: 3
+    calls_out: 9
     calls_in: 1
   src.env2llm.policy.process._apply_llm_policy:
     name: _apply_llm_policy
@@ -607,55 +460,286 @@ nodes:
     cyclomatic_complexity: 4
     calls_out: 3
     calls_in: 1
-  src.env2llm.env.mask_secret:
-    name: mask_secret
-    module: src.env2llm.env
-    line: 28
-    cyclomatic_complexity: 3
+  src.env2llm.doql.parse._apply_context_block:
+    name: _apply_context_block
+    module: src.env2llm.doql.parse
+    line: 214
+    cyclomatic_complexity: 10
+    calls_out: 10
+    calls_in: 1
+  src.env2llm.doql.parse._append_collection_blocks:
+    name: _append_collection_blocks
+    module: src.env2llm.doql.parse
+    line: 233
+    cyclomatic_complexity: 12
+    calls_out: 18
+    calls_in: 1
+  src.env2llm.integrators.mcp_server._log:
+    name: _log
+    module: src.env2llm.integrators.mcp_server
+    line: 37
+    cyclomatic_complexity: 1
     calls_out: 1
     calls_in: 2
-  src.env2llm.policy.invoice.apply_invoice_policies:
-    name: apply_invoice_policies
-    module: src.env2llm.policy.invoice
-    line: 14
-    cyclomatic_complexity: 5
-    calls_out: 6
+  src.env2llm.doql.parse._parse_runtime_body:
+    name: _parse_runtime_body
+    module: src.env2llm.doql.parse
+    line: 122
+    cyclomatic_complexity: 1
+    calls_out: 21
     calls_in: 1
-  src.env2llm.registry._step_output:
-    name: _step_output
+  src.env2llm.policy.desktop.apply_desktop_probe:
+    name: apply_desktop_probe
+    module: src.env2llm.policy.desktop
+    line: 148
+    cyclomatic_complexity: 6
+    calls_out: 11
+    calls_in: 2
+  src.env2llm.registry._merge_generate_invoice_output:
+    name: _merge_generate_invoice_output
     module: src.env2llm.registry
-    line: 83
-    cyclomatic_complexity: 4
-    calls_out: 3
+    line: 100
+    cyclomatic_complexity: 3
+    calls_out: 2
     calls_in: 1
-  src.env2llm.policy.process._merge_paths:
-    name: _merge_paths
+  src.env2llm.doql.parse._parse_value:
+    name: _parse_value
+    module: src.env2llm.doql.parse
+    line: 56
+    cyclomatic_complexity: 10
+    calls_out: 11
+    calls_in: 1
+  src.env2llm.policy.process.apply_process_policies:
+    name: apply_process_policies
     module: src.env2llm.policy.process
-    line: 115
-    cyclomatic_complexity: 4
-    calls_out: 8
-    calls_in: 1
-  src.env2llm.render.doql.blocks.render_process_block:
-    name: render_process_block
-    module: src.env2llm.render.doql.blocks
-    line: 182
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.env.merge_environment:
-    name: merge_environment
-    module: src.env2llm.env
+    line: 253
+    cyclomatic_complexity: 8
+    calls_out: 11
+    calls_in: 3
+  src.env2llm.probes.desktop._probe_display_geometry:
+    name: _probe_display_geometry
+    module: src.env2llm.probes.desktop
     line: 66
-    cyclomatic_complexity: 3
-    calls_out: 3
+    cyclomatic_complexity: 5
+    calls_out: 7
     calls_in: 1
-  src.env2llm.formats.doql_less.render_doql_less:
-    name: render_doql_less
-    module: src.env2llm.formats.doql_less
-    line: 10
+  src.env2llm.transport.mqtt.mqtt_available:
+    name: mqtt_available
+    module: src.env2llm.transport.mqtt
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 3
+  src.env2llm.integrators.mqtt_bridge.run_bridge:
+    name: run_bridge
+    module: src.env2llm.integrators.mqtt_bridge
+    line: 17
+    cyclomatic_complexity: 5
+    calls_out: 16
+    calls_in: 1
+  src.env2llm.layout.artifact_root:
+    name: artifact_root
+    module: src.env2llm.layout
+    line: 41
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 2
+  src.env2llm.integrators._service_factory.build_registry_service:
+    name: build_registry_service
+    module: src.env2llm.integrators._service_factory
+    line: 12
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 4
+  src.env2llm.registry.refresh_doql_registry_from_state:
+    name: refresh_doql_registry_from_state
+    module: src.env2llm.registry
+    line: 216
     cyclomatic_complexity: 1
     calls_out: 1
     calls_in: 0
+  src.env2llm.layout.resolve_registry_path:
+    name: resolve_registry_path
+    module: src.env2llm.layout
+    line: 141
+    cyclomatic_complexity: 9
+    calls_out: 11
+    calls_in: 2
+  src.env2llm.doql.runtime.context_inline_payload:
+    name: context_inline_payload
+    module: src.env2llm.doql.runtime
+    line: 19
+    cyclomatic_complexity: 14
+    calls_out: 18
+    calls_in: 1
+  src.env2llm.doql.runtime._apply_conversation_flag:
+    name: _apply_conversation_flag
+    module: src.env2llm.doql.runtime
+    line: 130
+    cyclomatic_complexity: 6
+    calls_out: 5
+    calls_in: 1
+  src.env2llm.doql.parse._apply_process_access_block:
+    name: _apply_process_access_block
+    module: src.env2llm.doql.parse
+    line: 198
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  src.env2llm.integrators.mcp_server.main:
+    name: main
+    module: src.env2llm.integrators.mcp_server
+    line: 120
+    cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 0
+  src.env2llm.render.doql.blocks.render_process_access_block:
+    name: render_process_access_block
+    module: src.env2llm.render.doql.blocks
+    line: 244
+    cyclomatic_complexity: 7
+    calls_out: 6
+    calls_in: 1
+  src.env2llm.render.doql.helpers.process_field_line:
+    name: process_field_line
+    module: src.env2llm.render.doql.helpers
+    line: 40
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.policy.process._merge_conversation_from_profile:
+    name: _merge_conversation_from_profile
+    module: src.env2llm.policy.process
+    line: 226
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.render.doql.blocks.render_paths_block:
+    name: render_paths_block
+    module: src.env2llm.render.doql.blocks
+    line: 259
+    cyclomatic_complexity: 5
+    calls_out: 5
+    calls_in: 1
+  src.env2llm.doql.context_blocks.render_context_access:
+    name: render_context_access
+    module: src.env2llm.doql.context_blocks
+    line: 85
+    cyclomatic_complexity: 4
+    calls_out: 8
+    calls_in: 1
+  src.env2llm.render.doql.helpers.history_value_line:
+    name: history_value_line
+    module: src.env2llm.render.doql.helpers
+    line: 32
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.render.doql.blocks.render_validations_block:
+    name: render_validations_block
+    module: src.env2llm.render.doql.blocks
+    line: 328
+    cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 1
+  src.env2llm.policy.validations._parse_profile_validation_by_type:
+    name: _parse_profile_validation_by_type
+    module: src.env2llm.policy.validations
+    line: 19
+    cyclomatic_complexity: 5
+    calls_out: 9
+    calls_in: 1
+  src.env2llm.policy.desktop._mirror_desktop_summary:
+    name: _mirror_desktop_summary
+    module: src.env2llm.policy.desktop
+    line: 129
+    cyclomatic_complexity: 12
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.render.doql.blocks.render_environment_block:
+    name: render_environment_block
+    module: src.env2llm.render.doql.blocks
+    line: 29
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  src.env2llm.policy.process._merge_access:
+    name: _merge_access
+    module: src.env2llm.policy.process
+    line: 105
+    cyclomatic_complexity: 5
+    calls_out: 10
+    calls_in: 1
+  src.env2llm.system_map_models.build_command_registry:
+    name: build_command_registry
+    module: src.env2llm.system_map_models
+    line: 38
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  src.env2llm.policy.validations.apply_profile_validations:
+    name: apply_profile_validations
+    module: src.env2llm.policy.validations
+    line: 68
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 1
+  src.env2llm.formats.render_format:
+    name: render_format
+    module: src.env2llm.formats
+    line: 41
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 2
+  src.env2llm.doql.parse._parse_artifact_body:
+    name: _parse_artifact_body
+    module: src.env2llm.doql.parse
+    line: 147
+    cyclomatic_complexity: 3
+    calls_out: 6
+    calls_in: 1
+  src.env2llm.policy.process._apply_nlp_policy:
+    name: _apply_nlp_policy
+    module: src.env2llm.policy.process
+    line: 154
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.probes.desktop.collect_desktop_probe:
+    name: collect_desktop_probe
+    module: src.env2llm.probes.desktop
+    line: 94
+    cyclomatic_complexity: 15
+    calls_out: 19
+    calls_in: 2
+  src.env2llm.render.doql.blocks.render_access_block:
+    name: render_access_block
+    module: src.env2llm.render.doql.blocks
+    line: 169
+    cyclomatic_complexity: 4
+    calls_out: 8
+    calls_in: 1
+  src.env2llm.layout.run_dir:
+    name: run_dir
+    module: src.env2llm.layout
+    line: 191
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 2
+  src.env2llm.doql.runtime._autofill_value:
+    name: _autofill_value
+    module: src.env2llm.doql.runtime
+    line: 178
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.registry._execution_steps:
+    name: _execution_steps
+    module: src.env2llm.registry
+    line: 63
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 1
   src.env2llm.doql.context_blocks.render_context_environment:
     name: render_context_environment
     module: src.env2llm.doql.context_blocks
@@ -663,13 +747,111 @@ nodes:
     cyclomatic_complexity: 3
     calls_out: 5
     calls_in: 1
-  src.env2llm.render.doql.blocks.render_deploy_block:
-    name: render_deploy_block
-    module: src.env2llm.render.doql.blocks
-    line: 247
+  src.env2llm.policy.process.merge_process_config:
+    name: merge_process_config
+    module: src.env2llm.policy.process
+    line: 238
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  src.env2llm.doql.parse._apply_paths_block:
+    name: _apply_paths_block
+    module: src.env2llm.doql.parse
+    line: 207
     cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.doql.runtime._inline_data_key:
+    name: _inline_data_key
+    module: src.env2llm.doql.runtime
+    line: 117
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  src.env2llm.registry.merge_registry_observations:
+    name: merge_registry_observations
+    module: src.env2llm.registry
+    line: 117
+    cyclomatic_complexity: 11
+    calls_out: 10
+    calls_in: 2
+  src.env2llm.bootstrap.ensure_doql_registry:
+    name: ensure_doql_registry
+    module: src.env2llm.bootstrap
+    line: 90
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  src.env2llm.doql.context_blocks.render_context_paths:
+    name: render_context_paths
+    module: src.env2llm.doql.context_blocks
+    line: 202
+    cyclomatic_complexity: 5
+    calls_out: 5
+    calls_in: 1
+  src.env2llm._runtime_health.runtime_id_for_intent:
+    name: runtime_id_for_intent
+    module: src.env2llm._runtime_health
+    line: 20
+    cyclomatic_complexity: 6
     calls_out: 3
     calls_in: 1
+  src.env2llm.cli.main:
+    name: main
+    module: src.env2llm.cli
+    line: 48
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 0
+  src.env2llm.doql.parse._apply_process_block:
+    name: _apply_process_block
+    module: src.env2llm.doql.parse
+    line: 183
+    cyclomatic_complexity: 9
+    calls_out: 12
+    calls_in: 1
+  src.env2llm.layout.write_reflection_snapshot:
+    name: write_reflection_snapshot
+    module: src.env2llm.layout
+    line: 243
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 0
+  src.env2llm.integrators.mcp_server.run_stdio:
+    name: run_stdio
+    module: src.env2llm.integrators.mcp_server
+    line: 83
+    cyclomatic_complexity: 6
+    calls_out: 12
+    calls_in: 1
+  src.env2llm.policy.validations._parse_profile_validation_by_code:
+    name: _parse_profile_validation_by_code
+    module: src.env2llm.policy.validations
+    line: 10
+    cyclomatic_complexity: 4
+    calls_out: 8
+    calls_in: 1
+  src.env2llm.policy.desktop._ensure_desktop_runtime:
+    name: _ensure_desktop_runtime
+    module: src.env2llm.policy.desktop
+    line: 78
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.policy.process._as_list:
+    name: _as_list
+    module: src.env2llm.policy.process
+    line: 48
+    cyclomatic_complexity: 8
+    calls_out: 9
+    calls_in: 4
+  src.env2llm.adapters.mcp._mcp_error:
+    name: _mcp_error
+    module: src.env2llm.adapters.mcp
+    line: 138
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 2
   src.env2llm.formats.default_output_name:
     name: default_output_name
     module: src.env2llm.formats
@@ -677,6 +859,272 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 1
     calls_in: 1
+  src.env2llm.doql.runtime._value_from_data:
+    name: _value_from_data
+    module: src.env2llm.doql.runtime
+    line: 189
+    cyclomatic_complexity: 4
+    calls_out: 0
+    calls_in: 1
+  src.env2llm.layout.clean_all_example_artifacts:
+    name: clean_all_example_artifacts
+    module: src.env2llm.layout
+    line: 109
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 0
+  src.env2llm.system_map_models.command_input_model:
+    name: command_input_model
+    module: src.env2llm.system_map_models
+    line: 29
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 2
+  src.env2llm.render.doql.blocks.render_process_block:
+    name: render_process_block
+    module: src.env2llm.render.doql.blocks
+    line: 222
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.render.doql.render.render_system_map_doql:
+    name: render_system_map_doql
+    module: src.env2llm.render.doql.render
+    line: 29
+    cyclomatic_complexity: 1
+    calls_out: 39
+    calls_in: 2
+  src.env2llm.doql.parse._parse_validation_body:
+    name: _parse_validation_body
+    module: src.env2llm.doql.parse
+    line: 137
+    cyclomatic_complexity: 1
+    calls_out: 10
+    calls_in: 1
+  src.env2llm.policy.invoice.is_invoice_example:
+    name: is_invoice_example
+    module: src.env2llm.policy.invoice
+    line: 10
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 3
+  src.env2llm.doql.render.render_doql_context:
+    name: render_doql_context
+    module: src.env2llm.doql.render
+    line: 26
+    cyclomatic_complexity: 1
+    calls_out: 29
+    calls_in: 1
+  src.env2llm.integrators.rest_server.main:
+    name: main
+    module: src.env2llm.integrators.rest_server
+    line: 90
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 0
+  src.env2llm.doql.context_blocks.render_context_capabilities:
+    name: render_context_capabilities
+    module: src.env2llm.doql.context_blocks
+    line: 124
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  src.env2llm.formats.normalize_format:
+    name: normalize_format
+    module: src.env2llm.formats
+    line: 31
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 3
+  src.env2llm.render.doql.blocks.render_capabilities_block:
+    name: render_capabilities_block
+    module: src.env2llm.render.doql.blocks
+    line: 183
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  src.env2llm.render.doql.helpers.bool_lit:
+    name: bool_lit
+    module: src.env2llm.render.doql.helpers
+    line: 16
+    cyclomatic_complexity: 2
+    calls_out: 0
+    calls_in: 11
+  src.env2llm.formats.doql_less.render_doql_less:
+    name: render_doql_less
+    module: src.env2llm.formats.doql_less
+    line: 10
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  src.env2llm.integrators.mcp_server._jsonrpc_error:
+    name: _jsonrpc_error
+    module: src.env2llm.integrators.mcp_server
+    line: 25
+    cyclomatic_complexity: 2
+    calls_out: 0
+    calls_in: 2
+  src.env2llm.render.doql.helpers.join_csv:
+    name: join_csv
+    module: src.env2llm.render.doql.helpers
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 24
+  src.env2llm.render.doql.blocks.render_generated_services_block:
+    name: render_generated_services_block
+    module: src.env2llm.render.doql.blocks
+    line: 311
+    cyclomatic_complexity: 6
+    calls_out: 10
+    calls_in: 1
+  src.env2llm.render.doql.helpers.esc_str_full:
+    name: esc_str_full
+    module: src.env2llm.render.doql.helpers
+    line: 12
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  src.env2llm.policy.invoice.apply_invoice_policies:
+    name: apply_invoice_policies
+    module: src.env2llm.policy.invoice
+    line: 14
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 2
+  src.env2llm.doql.parse._parse_command_body:
+    name: _parse_command_body
+    module: src.env2llm.doql.parse
+    line: 88
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 1
+  src.env2llm.render.doql.blocks.render_data_block:
+    name: render_data_block
+    module: src.env2llm.render.doql.blocks
+    line: 37
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.layout.clean_artifact_root:
+    name: clean_artifact_root
+    module: src.env2llm.layout
+    line: 84
+    cyclomatic_complexity: 9
+    calls_out: 9
+    calls_in: 1
+  src.env2llm.system_map_models._annotation_for_field:
+    name: _annotation_for_field
+    module: src.env2llm.system_map_models
+    line: 12
+    cyclomatic_complexity: 11
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.render.doql.blocks.render_deploy_block:
+    name: render_deploy_block
+    module: src.env2llm.render.doql.blocks
+    line: 287
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.adapters.mcp.McpAdapter.call_tool:
+    name: call_tool
+    module: src.env2llm.adapters.mcp
+    line: 89
+    cyclomatic_complexity: 13
+    calls_out: 32
+    calls_in: 0
+  src.env2llm.doql.render.write_doql_context:
+    name: write_doql_context
+    module: src.env2llm.doql.render
+    line: 45
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  src.env2llm.layout._force_remove_path:
+    name: _force_remove_path
+    module: src.env2llm.layout
+    line: 52
+    cyclomatic_complexity: 7
+    calls_out: 15
+    calls_in: 1
+  src.env2llm.doql.runtime.load_doql_inline_from_env:
+    name: load_doql_inline_from_env
+    module: src.env2llm.doql.runtime
+    line: 56
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 0
+  src.env2llm.policy.process._merge_paths:
+    name: _merge_paths
+    module: src.env2llm.policy.process
+    line: 115
+    cyclomatic_complexity: 4
+    calls_out: 8
+    calls_in: 1
+  src.env2llm.render.doql.blocks.render_resources_block:
+    name: render_resources_block
+    module: src.env2llm.render.doql.blocks
+    line: 154
+    cyclomatic_complexity: 5
+    calls_out: 9
+    calls_in: 1
+  src.env2llm.policy.process._process_policy_from_parts:
+    name: _process_policy_from_parts
+    module: src.env2llm.policy.process
+    line: 199
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 1
+  src.env2llm.generate.generate_system_map:
+    name: generate_system_map
+    module: src.env2llm.generate
+    line: 148
+    cyclomatic_complexity: 8
+    calls_out: 15
+    calls_in: 2
+  src.env2llm.registry._merge_execution_header:
+    name: _merge_execution_header
+    module: src.env2llm.registry
+    line: 52
+    cyclomatic_complexity: 1
+    calls_out: 5
+    calls_in: 1
+  src.env2llm.policy.process._deep_merge_process:
+    name: _deep_merge_process
+    module: src.env2llm.policy.process
+    line: 58
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 1
+  src.env2llm.doql.context_blocks.render_context_data:
+    name: render_context_data
+    module: src.env2llm.doql.context_blocks
+    line: 28
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.doql.runtime._value_from_artifacts:
+    name: _value_from_artifacts
+    module: src.env2llm.doql.runtime
+    line: 196
+    cyclomatic_complexity: 6
+    calls_out: 0
+    calls_in: 1
+  src.env2llm.policy.process._intract_flags:
+    name: _intract_flags
+    module: src.env2llm.policy.process
+    line: 186
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.policy.desktop.desktop_probe_enabled:
+    name: desktop_probe_enabled
+    module: src.env2llm.policy.desktop
+    line: 68
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 2
   src.env2llm.doql.parse._repo_root_from_example:
     name: _repo_root_from_example
     module: src.env2llm.doql.parse
@@ -691,89 +1139,40 @@ nodes:
     cyclomatic_complexity: 8
     calls_out: 6
     calls_in: 0
-  src.env2llm.bootstrap.ensure_doql_registry:
-    name: ensure_doql_registry
-    module: src.env2llm.bootstrap
-    line: 87
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  src.env2llm.doql.parse._apply_conversation_block:
-    name: _apply_conversation_block
-    module: src.env2llm.doql.parse
-    line: 167
-    cyclomatic_complexity: 1
-    calls_out: 10
+  src.env2llm.policy.desktop._ensure_desktop_resource:
+    name: _ensure_desktop_resource
+    module: src.env2llm.policy.desktop
+    line: 88
+    cyclomatic_complexity: 3
+    calls_out: 3
     calls_in: 1
-  src.env2llm.runtimes.build_runtimes_for_example:
-    name: build_runtimes_for_example
-    module: src.env2llm.runtimes
-    line: 62
-    cyclomatic_complexity: 18
-    calls_out: 35
-    calls_in: 1
-  src.env2llm.render.doql.blocks.render_generated_services_block:
-    name: render_generated_services_block
+  src.env2llm.render.doql.blocks.render_workflow_history_block:
+    name: render_workflow_history_block
     module: src.env2llm.render.doql.blocks
-    line: 271
-    cyclomatic_complexity: 6
-    calls_out: 10
-    calls_in: 1
-  src.env2llm.layout.write_reflection_snapshot:
-    name: write_reflection_snapshot
-    module: src.env2llm.layout
-    line: 243
-    cyclomatic_complexity: 1
-    calls_out: 8
-    calls_in: 0
-  src.env2llm.layout.write_turn_snapshot:
-    name: write_turn_snapshot
-    module: src.env2llm.layout
-    line: 199
-    cyclomatic_complexity: 4
-    calls_out: 21
-    calls_in: 0
-  src.env2llm.doql.parse._apply_context_block:
-    name: _apply_context_block
-    module: src.env2llm.doql.parse
-    line: 214
-    cyclomatic_complexity: 10
-    calls_out: 10
-    calls_in: 1
-  src.env2llm.bridge.task_context_to_system_map:
-    name: task_context_to_system_map
-    module: src.env2llm.bridge
-    line: 85
-    cyclomatic_complexity: 25
-    calls_out: 30
-    calls_in: 3
-  src.env2llm.render.doql.render.render_system_map_doql:
-    name: render_system_map_doql
-    module: src.env2llm.render.doql.render
-    line: 28
-    cyclomatic_complexity: 1
-    calls_out: 37
-    calls_in: 2
-  src.env2llm.formats.normalize_format:
-    name: normalize_format
-    module: src.env2llm.formats
-    line: 31
-    cyclomatic_complexity: 2
+    line: 194
+    cyclomatic_complexity: 3
     calls_out: 4
-    calls_in: 3
-  src.env2llm.doql.parse.load_commands_from_services_yaml:
-    name: load_commands_from_services_yaml
-    module: src.env2llm.doql.parse
-    line: 325
-    cyclomatic_complexity: 14
-    calls_out: 19
     calls_in: 1
-  src.env2llm.doql.parse._parse_validation_body:
-    name: _parse_validation_body
-    module: src.env2llm.doql.parse
-    line: 137
-    cyclomatic_complexity: 1
-    calls_out: 10
+  src.env2llm.generate._bootstrap_system_map:
+    name: _bootstrap_system_map
+    module: src.env2llm.generate
+    line: 95
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 2
+  src.env2llm.probes.desktop._probe_active_window_id:
+    name: _probe_active_window_id
+    module: src.env2llm.probes.desktop
+    line: 82
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  src.env2llm.registry._step_output:
+    name: _step_output
+    module: src.env2llm.registry
+    line: 83
+    cyclomatic_complexity: 4
+    calls_out: 3
     calls_in: 1
   src.env2llm.render.doql.helpers.esc_str:
     name: esc_str
@@ -781,196 +1180,28 @@ nodes:
     line: 8
     cyclomatic_complexity: 1
     calls_out: 1
-    calls_in: 8
-  src.env2llm.doql.parse._parse_access_body:
-    name: _parse_access_body
-    module: src.env2llm.doql.parse
-    line: 112
-    cyclomatic_complexity: 1
-    calls_out: 12
+    calls_in: 15
+  src.env2llm.runtimes.build_runtimes_for_example:
+    name: build_runtimes_for_example
+    module: src.env2llm.runtimes
+    line: 65
+    cyclomatic_complexity: 18
+    calls_out: 35
     calls_in: 1
-  src.env2llm.doql.runtime._inline_data_key:
-    name: _inline_data_key
-    module: src.env2llm.doql.runtime
-    line: 117
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
-  src.env2llm.render.doql.blocks.render_environment_block:
-    name: render_environment_block
-    module: src.env2llm.render.doql.blocks
-    line: 29
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 1
-  src.env2llm.doql.context_blocks.render_context_resources:
-    name: render_context_resources
-    module: src.env2llm.doql.context_blocks
-    line: 70
-    cyclomatic_complexity: 5
-    calls_out: 9
-    calls_in: 1
-  src.env2llm.cli.build_parser:
-    name: build_parser
-    module: src.env2llm.cli
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  src.env2llm.system_map_models._annotation_for_field:
-    name: _annotation_for_field
-    module: src.env2llm.system_map_models
-    line: 12
-    cyclomatic_complexity: 11
-    calls_out: 3
-    calls_in: 1
-  src.env2llm.generate.build_introspection_payload:
-    name: build_introspection_payload
-    module: src.env2llm.generate
-    line: 39
-    cyclomatic_complexity: 11
-    calls_out: 20
-    calls_in: 1
-  src.env2llm.render.doql.helpers.data_value_line:
-    name: data_value_line
-    module: src.env2llm.render.doql.helpers
-    line: 24
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 2
-  src.env2llm.render.doql.blocks.render_conversation_block:
-    name: render_conversation_block
-    module: src.env2llm.render.doql.blocks
-    line: 164
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 1
-  src.env2llm.doql.render.write_doql_context:
-    name: write_doql_context
-    module: src.env2llm.doql.render
-    line: 45
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 0
-  src.env2llm.policy.validations.parse_profile_validation:
-    name: parse_profile_validation
-    module: src.env2llm.policy.validations
-    line: 49
-    cyclomatic_complexity: 5
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.registry._merge_send_invoice_output:
-    name: _merge_send_invoice_output
-    module: src.env2llm.registry
-    line: 88
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 1
-  src.env2llm.doql.parse.load_doql_context:
-    name: load_doql_context
-    module: src.env2llm.doql.parse
-    line: 258
-    cyclomatic_complexity: 2
-    calls_out: 8
-    calls_in: 5
-  src.env2llm.render.doql.blocks.render_validations_block:
-    name: render_validations_block
-    module: src.env2llm.render.doql.blocks
-    line: 288
-    cyclomatic_complexity: 5
-    calls_out: 8
-    calls_in: 1
-  src.env2llm.layout.artifact_root:
-    name: artifact_root
-    module: src.env2llm.layout
-    line: 41
+  src.env2llm.bootstrap.project_artifact_root:
+    name: project_artifact_root
+    module: src.env2llm.bootstrap
+    line: 19
     cyclomatic_complexity: 1
     calls_out: 2
     calls_in: 2
-  src.env2llm.doql.parse._apply_paths_block:
-    name: _apply_paths_block
+  src.env2llm.doql.parse._command_transport:
+    name: _command_transport
     module: src.env2llm.doql.parse
-    line: 207
+    line: 275
     cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.render.doql.blocks.render_schedules_block:
-    name: render_schedules_block
-    module: src.env2llm.render.doql.blocks
-    line: 232
-    cyclomatic_complexity: 3
-    calls_out: 11
-    calls_in: 1
-  src.env2llm.doql.parse.enrich_task_context_from_client:
-    name: enrich_task_context_from_client
-    module: src.env2llm.doql.parse
-    line: 355
-    cyclomatic_complexity: 19
-    calls_out: 29
-    calls_in: 1
-  src.env2llm.doql.runtime.merge_inline_context:
-    name: merge_inline_context
-    module: src.env2llm.doql.runtime
-    line: 63
-    cyclomatic_complexity: 8
-    calls_out: 9
-    calls_in: 0
-  src.env2llm.doql.runtime._value_from_artifacts:
-    name: _value_from_artifacts
-    module: src.env2llm.doql.runtime
-    line: 196
-    cyclomatic_complexity: 6
-    calls_out: 0
-    calls_in: 1
-  src.env2llm.registry.refresh_doql_registry_from_state:
-    name: refresh_doql_registry_from_state
-    module: src.env2llm.registry
-    line: 216
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  src.env2llm.doql.runtime._candidate_data_keys:
-    name: _candidate_data_keys
-    module: src.env2llm.doql.runtime
-    line: 185
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 1
-  src.env2llm.policy.process.merge_process_config:
-    name: merge_process_config
-    module: src.env2llm.policy.process
-    line: 238
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 1
-  src.env2llm.policy.process._load_nlp2dsl_payload:
-    name: _load_nlp2dsl_payload
-    module: src.env2llm.policy.process
-    line: 70
-    cyclomatic_complexity: 12
-    calls_out: 12
-    calls_in: 1
-  src.env2llm.doql.runtime.context_inline_payload:
-    name: context_inline_payload
-    module: src.env2llm.doql.runtime
-    line: 19
-    cyclomatic_complexity: 14
-    calls_out: 18
-    calls_in: 1
-  src.env2llm.doql.context_blocks.render_context_data:
-    name: render_context_data
-    module: src.env2llm.doql.context_blocks
-    line: 28
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.doql.context_blocks.render_context_process_access:
-    name: render_context_process_access
-    module: src.env2llm.doql.context_blocks
-    line: 187
-    cyclomatic_complexity: 7
-    calls_out: 6
-    calls_in: 1
+    calls_out: 2
+    calls_in: 2
   src.env2llm.doql.models.DoqlTaskContext.runtime_for:
     name: runtime_for
     module: src.env2llm.doql.models
@@ -978,68 +1209,19 @@ nodes:
     cyclomatic_complexity: 6
     calls_out: 3
     calls_in: 0
-  src.env2llm.render.doql.blocks.render_workflow_history_block:
-    name: render_workflow_history_block
-    module: src.env2llm.render.doql.blocks
-    line: 154
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.policy.process._apply_autonomous_policy:
-    name: _apply_autonomous_policy
-    module: src.env2llm.policy.process
-    line: 165
-    cyclomatic_complexity: 5
-    calls_out: 4
-    calls_in: 1
-  src.env2llm.registry.merge_execution_observation:
-    name: merge_execution_observation
+  src.env2llm.registry.refresh_doql_registry:
+    name: refresh_doql_registry
     module: src.env2llm.registry
-    line: 33
-    cyclomatic_complexity: 2
-    calls_out: 6
+    line: 161
+    cyclomatic_complexity: 10
+    calls_out: 17
     calls_in: 1
-  src.env2llm.registry.merge_registry_observations:
-    name: merge_registry_observations
-    module: src.env2llm.registry
-    line: 117
-    cyclomatic_complexity: 11
-    calls_out: 10
-    calls_in: 1
-  src.env2llm.doql.parse._append_collection_blocks:
-    name: _append_collection_blocks
-    module: src.env2llm.doql.parse
-    line: 233
-    cyclomatic_complexity: 12
-    calls_out: 18
-    calls_in: 1
-  src.env2llm.doql.render.render_doql_context:
-    name: render_doql_context
-    module: src.env2llm.doql.render
-    line: 26
-    cyclomatic_complexity: 1
-    calls_out: 29
-    calls_in: 1
-  src.env2llm.doql.context_blocks.render_context_paths:
-    name: render_context_paths
-    module: src.env2llm.doql.context_blocks
-    line: 202
-    cyclomatic_complexity: 5
-    calls_out: 5
-    calls_in: 1
-  src.env2llm.bridge.doql_file_to_system_map:
-    name: doql_file_to_system_map
-    module: src.env2llm.bridge
-    line: 221
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 0
-  src.env2llm.policy.invoice.apply_invoice_context:
-    name: apply_invoice_context
-    module: src.env2llm.policy.invoice
-    line: 41
-    cyclomatic_complexity: 3
-    calls_out: 8
+  src.env2llm.integrators.mqtt_bridge.publish_once:
+    name: publish_once
+    module: src.env2llm.integrators.mqtt_bridge
+    line: 73
+    cyclomatic_complexity: 4
+    calls_out: 9
     calls_in: 1
   src.env2llm.doql.runtime._needs_field:
     name: _needs_field
@@ -1048,7 +1230,159 @@ nodes:
     cyclomatic_complexity: 1
     calls_out: 1
     calls_in: 1
+  src.env2llm.policy.process.load_platform_process_defaults:
+    name: load_platform_process_defaults
+    module: src.env2llm.policy.process
+    line: 96
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 1
+  src.env2llm.service.registry_service.RegistryService.registry_path:
+    name: registry_path
+    module: src.env2llm.service.registry_service
+    line: 32
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 0
+  src.env2llm.policy.validations.parse_profile_validations:
+    name: parse_profile_validations
+    module: src.env2llm.policy.validations
+    line: 59
+    cyclomatic_complexity: 4
+    calls_out: 2
+    calls_in: 1
+  src.env2llm.registry._merge_workflow_id:
+    name: _merge_workflow_id
+    module: src.env2llm.registry
+    line: 111
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  src.env2llm.layout.write_turn_snapshot:
+    name: write_turn_snapshot
+    module: src.env2llm.layout
+    line: 199
+    cyclomatic_complexity: 4
+    calls_out: 21
+    calls_in: 0
+  src.env2llm.doql.parse.collect_task_context:
+    name: collect_task_context
+    module: src.env2llm.doql.parse
+    line: 425
+    cyclomatic_complexity: 19
+    calls_out: 32
+    calls_in: 1
+  src.env2llm.policy.process._apply_autonomous_policy:
+    name: _apply_autonomous_policy
+    module: src.env2llm.policy.process
+    line: 165
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  src.env2llm.layout.current_run_id:
+    name: current_run_id
+    module: src.env2llm.layout
+    line: 182
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
 edges:
+- caller: src.env2llm.system_map_models.command_input_model
+  callee: src.env2llm.system_map_models._annotation_for_field
+  call_type: resolved
+- caller: src.env2llm.system_map_models.build_command_registry
+  callee: src.env2llm.system_map_models.command_input_model
+  call_type: resolved
+- caller: src.env2llm.system_map_models.validate_config_against_map
+  callee: src.env2llm.system_map_models.command_input_model
+  call_type: resolved
+- caller: src.env2llm.registry.merge_execution_observation
+  callee: src.env2llm.registry._merge_execution_header
+  call_type: resolved
+- caller: src.env2llm.registry.merge_execution_observation
+  callee: src.env2llm.registry._execution_steps
+  call_type: resolved
+- caller: src.env2llm.registry.merge_execution_observation
+  callee: src.env2llm.registry._merge_workflow_id
+  call_type: resolved
+- caller: src.env2llm.registry.merge_execution_observation
+  callee: src.env2llm.registry._merge_execution_step
+  call_type: resolved
+- caller: src.env2llm.registry._merge_execution_step
+  callee: src.env2llm.registry._step_output
+  call_type: resolved
+- caller: src.env2llm.registry._merge_execution_step
+  callee: src.env2llm.registry._merge_send_invoice_output
+  call_type: resolved
+- caller: src.env2llm.registry._merge_execution_step
+  callee: src.env2llm.registry._merge_generate_invoice_output
+  call_type: resolved
+- caller: src.env2llm.registry.merge_registry_observations
+  callee: src.env2llm.doql.parse.load_doql_context
+  call_type: resolved
+- caller: src.env2llm.registry.merge_registry_observations
+  callee: src.env2llm.policy.invoice.is_invoice_example
+  call_type: resolved
+- caller: src.env2llm.registry.refresh_doql_registry
+  callee: src.env2llm.doql.parse.load_doql_context
+  call_type: resolved
+- caller: src.env2llm.registry.refresh_doql_registry
+  callee: src.env2llm.bridge.task_context_to_system_map
+  call_type: resolved
+- caller: src.env2llm.registry.refresh_doql_registry
+  callee: src.env2llm.render.doql.render.render_system_map_doql
+  call_type: resolved
+- caller: src.env2llm.registry.refresh_doql_registry_from_state
+  callee: src.env2llm.registry.refresh_doql_registry
+  call_type: resolved
+- caller: src.env2llm.layout._force_remove_path
+  callee: src.env2llm.layout._chmod_writable
+  call_type: resolved
+- caller: src.env2llm.layout.clean_artifact_root
+  callee: src.env2llm.layout.artifact_root
+  call_type: resolved
+- caller: src.env2llm.layout.clean_artifact_root
+  callee: src.env2llm.layout._force_remove_path
+  call_type: resolved
+- caller: src.env2llm.layout.clean_all_example_artifacts
+  callee: src.env2llm.layout.clean_artifact_root
+  call_type: resolved
+- caller: src.env2llm.layout.resolve_registry_path
+  callee: src.env2llm.layout.artifact_root
+  call_type: resolved
+- caller: src.env2llm.layout.write_registry
+  callee: src.env2llm.layout.ensure_layout
+  call_type: resolved
+- caller: src.env2llm.layout.run_dir
+  callee: src.env2llm.layout.current_run_id
+  call_type: resolved
+- caller: src.env2llm.layout.write_turn_snapshot
+  callee: src.env2llm.layout.run_dir
+  call_type: resolved
+- caller: src.env2llm.layout.write_reflection_snapshot
+  callee: src.env2llm.layout.run_dir
+  call_type: resolved
+- caller: src.env2llm.layout.write_last_run_report
+  callee: src.env2llm.layout.ensure_layout
+  call_type: resolved
+- caller: src.env2llm.bridge.task_context_to_system_map
+  callee: src.env2llm.runtimes.load_example_profile
+  call_type: resolved
+- caller: src.env2llm.bridge.task_context_to_system_map
+  callee: src.env2llm.policy.process.apply_process_policies
+  call_type: resolved
+- caller: src.env2llm.bridge.task_context_to_system_map
+  callee: src.env2llm.bridge._command_to_ir
+  call_type: resolved
+- caller: src.env2llm.bridge._command_to_ir
+  callee: src.env2llm.runtimes.resolve_command_runtime
+  call_type: resolved
+- caller: src.env2llm.bridge.doql_file_to_system_map
+  callee: src.env2llm.doql.parse.load_doql_context
+  call_type: resolved
+- caller: src.env2llm.bridge.doql_file_to_system_map
+  callee: src.env2llm.bridge.task_context_to_system_map
+  call_type: resolved
 - caller: src.env2llm.env.collect_environment
   callee: src.env2llm.env.mask_secret
   call_type: resolved
@@ -1208,135 +1542,6 @@ edges:
 - caller: src.env2llm.doql.context_blocks.render_context_conversation
   callee: src.env2llm.render.doql.helpers.bool_lit
   call_type: resolved
-- caller: src.env2llm.runtimes.build_runtimes_for_example
-  callee: src.env2llm.runtimes._repo_root_from_example
-  call_type: resolved
-- caller: src.env2llm.layout._force_remove_path
-  callee: src.env2llm.layout._chmod_writable
-  call_type: resolved
-- caller: src.env2llm.layout.clean_artifact_root
-  callee: src.env2llm.layout.artifact_root
-  call_type: resolved
-- caller: src.env2llm.layout.clean_artifact_root
-  callee: src.env2llm.layout._force_remove_path
-  call_type: resolved
-- caller: src.env2llm.layout.clean_all_example_artifacts
-  callee: src.env2llm.layout.clean_artifact_root
-  call_type: resolved
-- caller: src.env2llm.layout.resolve_registry_path
-  callee: src.env2llm.layout.artifact_root
-  call_type: resolved
-- caller: src.env2llm.layout.write_registry
-  callee: src.env2llm.layout.ensure_layout
-  call_type: resolved
-- caller: src.env2llm.layout.run_dir
-  callee: src.env2llm.layout.current_run_id
-  call_type: resolved
-- caller: src.env2llm.layout.write_turn_snapshot
-  callee: src.env2llm.layout.run_dir
-  call_type: resolved
-- caller: src.env2llm.layout.write_reflection_snapshot
-  callee: src.env2llm.layout.run_dir
-  call_type: resolved
-- caller: src.env2llm.layout.write_last_run_report
-  callee: src.env2llm.layout.ensure_layout
-  call_type: resolved
-- caller: src.env2llm.cli.main
-  callee: src.env2llm.formats.normalize_format
-  call_type: resolved
-- caller: src.env2llm.cli.main
-  callee: src.env2llm.bootstrap.ensure_environment_map
-  call_type: resolved
-- caller: src.env2llm.cli.main
-  callee: src.env2llm.cli.build_parser
-  call_type: resolved
-- caller: src.env2llm.system_map_models.command_input_model
-  callee: src.env2llm.system_map_models._annotation_for_field
-  call_type: resolved
-- caller: src.env2llm.system_map_models.build_command_registry
-  callee: src.env2llm.system_map_models.command_input_model
-  call_type: resolved
-- caller: src.env2llm.system_map_models.validate_config_against_map
-  callee: src.env2llm.system_map_models.command_input_model
-  call_type: resolved
-- caller: src.env2llm.render.doql.helpers.data_value_line
-  callee: src.env2llm.render.doql.helpers.esc_str_full
-  call_type: resolved
-- caller: src.env2llm.render.doql.helpers.data_value_line
-  callee: src.env2llm.render.doql.helpers.bool_lit
-  call_type: resolved
-- caller: src.env2llm.render.doql.helpers.process_field_line
-  callee: src.env2llm.render.doql.helpers.bool_lit
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_environment_block
-  callee: src.env2llm.render.doql.helpers.esc_str
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_data_block
-  callee: src.env2llm.render.doql.helpers.data_value_line
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_resources_block
-  callee: src.env2llm.render.doql.helpers.esc_str
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_resources_block
-  callee: src.env2llm.render.doql.helpers.join_csv
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_access_block
-  callee: src.env2llm.render.doql.helpers.join_csv
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_capabilities_block
-  callee: src.env2llm.render.doql.helpers.join_csv
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_workflow_history_block
-  callee: src.env2llm.render.doql.helpers.history_value_line
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_conversation_block
-  callee: src.env2llm.render.doql.helpers.bool_lit
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_process_block
-  callee: src.env2llm.render.doql.helpers.process_field_line
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_process_access_block
-  callee: src.env2llm.render.doql.helpers.join_csv
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_paths_block
-  callee: src.env2llm.render.doql.helpers.join_csv
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_schedules_block
-  callee: src.env2llm.render.doql.helpers.esc_str_full
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_deploy_block
-  callee: src.env2llm.render.doql.helpers.join_csv
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_generated_services_block
-  callee: src.env2llm.render.doql.helpers.esc_str
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_generated_services_block
-  callee: src.env2llm.render.doql.helpers.join_csv
-  call_type: resolved
-- caller: src.env2llm.render.doql.blocks.render_validations_block
-  callee: src.env2llm.render.doql.helpers.esc_str
-  call_type: resolved
-- caller: src.env2llm.generate.build_introspection_payload
-  callee: src.env2llm.runtimes.load_example_profile
-  call_type: resolved
-- caller: src.env2llm.generate._bootstrap_system_map
-  callee: src.env2llm.doql.parse.collect_task_context
-  call_type: resolved
-- caller: src.env2llm.generate._bootstrap_system_map
-  callee: src.env2llm.bridge.task_context_to_system_map
-  call_type: resolved
-- caller: src.env2llm.generate._bootstrap_system_map
-  callee: src.env2llm.doql.parse.enrich_task_context_from_client
-  call_type: resolved
-- caller: src.env2llm.generate.generate_system_map
-  callee: src.env2llm.generate.build_introspection_payload
-  call_type: resolved
-- caller: src.env2llm.generate.generate_system_map
-  callee: src.env2llm.generate._bootstrap_system_map
-  call_type: resolved
-- caller: src.env2llm.generate.generate_system_map
-  callee: src.env2llm.generate._parse_llm_json
-  call_type: resolved
 - caller: src.env2llm.doql.parse._parse_block_body
   callee: src.env2llm.doql.parse._parse_value
   call_type: resolved
@@ -1430,62 +1635,17 @@ edges:
 - caller: src.env2llm.doql.parse.collect_task_context
   callee: src.env2llm.policy.invoice.apply_invoice_context
   call_type: resolved
-- caller: src.env2llm.registry.merge_execution_observation
-  callee: src.env2llm.registry._merge_execution_header
+- caller: src.env2llm.doql.models.DoqlTaskContext.runtime_for
+  callee: src.env2llm._runtime_health.runtime_id_for_intent
   call_type: resolved
-- caller: src.env2llm.registry.merge_execution_observation
-  callee: src.env2llm.registry._execution_steps
+- caller: src.env2llm.render.doql.helpers.data_value_line
+  callee: src.env2llm.render.doql.helpers.esc_str_full
   call_type: resolved
-- caller: src.env2llm.registry.merge_execution_observation
-  callee: src.env2llm.registry._merge_workflow_id
+- caller: src.env2llm.render.doql.helpers.data_value_line
+  callee: src.env2llm.render.doql.helpers.bool_lit
   call_type: resolved
-- caller: src.env2llm.registry.merge_execution_observation
-  callee: src.env2llm.registry._merge_execution_step
-  call_type: resolved
-- caller: src.env2llm.registry._merge_execution_step
-  callee: src.env2llm.registry._step_output
-  call_type: resolved
-- caller: src.env2llm.registry._merge_execution_step
-  callee: src.env2llm.registry._merge_send_invoice_output
-  call_type: resolved
-- caller: src.env2llm.registry._merge_execution_step
-  callee: src.env2llm.registry._merge_generate_invoice_output
-  call_type: resolved
-- caller: src.env2llm.registry.merge_registry_observations
-  callee: src.env2llm.doql.parse.load_doql_context
-  call_type: resolved
-- caller: src.env2llm.registry.merge_registry_observations
-  callee: src.env2llm.policy.invoice.is_invoice_example
-  call_type: resolved
-- caller: src.env2llm.registry.refresh_doql_registry
-  callee: src.env2llm.doql.parse.load_doql_context
-  call_type: resolved
-- caller: src.env2llm.registry.refresh_doql_registry
-  callee: src.env2llm.bridge.task_context_to_system_map
-  call_type: resolved
-- caller: src.env2llm.registry.refresh_doql_registry
-  callee: src.env2llm.render.doql.render.render_system_map_doql
-  call_type: resolved
-- caller: src.env2llm.registry.refresh_doql_registry_from_state
-  callee: src.env2llm.registry.refresh_doql_registry
-  call_type: resolved
-- caller: src.env2llm.bridge.task_context_to_system_map
-  callee: src.env2llm.runtimes.load_example_profile
-  call_type: resolved
-- caller: src.env2llm.bridge.task_context_to_system_map
-  callee: src.env2llm.policy.process.apply_process_policies
-  call_type: resolved
-- caller: src.env2llm.bridge.task_context_to_system_map
-  callee: src.env2llm.bridge._command_to_ir
-  call_type: resolved
-- caller: src.env2llm.bridge._command_to_ir
-  callee: src.env2llm.runtimes.resolve_command_runtime
-  call_type: resolved
-- caller: src.env2llm.bridge.doql_file_to_system_map
-  callee: src.env2llm.doql.parse.load_doql_context
-  call_type: resolved
-- caller: src.env2llm.bridge.doql_file_to_system_map
-  callee: src.env2llm.bridge.task_context_to_system_map
+- caller: src.env2llm.render.doql.helpers.process_field_line
+  callee: src.env2llm.render.doql.helpers.bool_lit
   call_type: resolved
 - caller: src.env2llm.bootstrap.ensure_environment_map
   callee: src.env2llm.bootstrap.project_artifact_root
@@ -1506,6 +1666,9 @@ edges:
   callee: src.env2llm.policy.invoice.apply_invoice_policies
   call_type: resolved
 - caller: src.env2llm.bootstrap.ensure_environment_map
+  callee: src.env2llm.policy.desktop.apply_desktop_probe
+  call_type: resolved
+- caller: src.env2llm.bootstrap.ensure_environment_map
   callee: src.env2llm.formats.render_format
   call_type: resolved
 - caller: src.env2llm.bootstrap.ensure_environment_map
@@ -1514,12 +1677,240 @@ edges:
 - caller: src.env2llm.bootstrap.ensure_doql_registry
   callee: src.env2llm.bootstrap.ensure_environment_map
   call_type: resolved
-- caller: src.env2llm.doql.models.DoqlTaskContext.runtime_for
-  callee: src.env2llm._runtime_health.runtime_id_for_intent
+- caller: src.env2llm.cli.main
+  callee: src.env2llm.formats.normalize_format
+  call_type: resolved
+- caller: src.env2llm.cli.main
+  callee: src.env2llm.bootstrap.ensure_environment_map
+  call_type: resolved
+- caller: src.env2llm.cli.main
+  callee: src.env2llm.cli.build_parser
+  call_type: resolved
+- caller: src.env2llm.generate.build_introspection_payload
+  callee: src.env2llm.runtimes.load_example_profile
+  call_type: resolved
+- caller: src.env2llm.generate.build_introspection_payload
+  callee: src.env2llm.policy.desktop.desktop_probe_enabled
+  call_type: resolved
+- caller: src.env2llm.generate._bootstrap_system_map
+  callee: src.env2llm.doql.parse.collect_task_context
+  call_type: resolved
+- caller: src.env2llm.generate._bootstrap_system_map
+  callee: src.env2llm.bridge.task_context_to_system_map
+  call_type: resolved
+- caller: src.env2llm.generate._bootstrap_system_map
+  callee: src.env2llm.doql.parse.enrich_task_context_from_client
+  call_type: resolved
+- caller: src.env2llm.generate.generate_system_map
+  callee: src.env2llm.generate.build_introspection_payload
+  call_type: resolved
+- caller: src.env2llm.generate.generate_system_map
+  callee: src.env2llm.generate._bootstrap_system_map
+  call_type: resolved
+- caller: src.env2llm.generate.generate_system_map
+  callee: src.env2llm.generate._parse_llm_json
+  call_type: resolved
+- caller: src.env2llm.runtimes.build_runtimes_for_example
+  callee: src.env2llm.runtimes._repo_root_from_example
+  call_type: resolved
+- caller: src.env2llm.integrators.mqtt_bridge.run_bridge
+  callee: src.env2llm.integrators._service_factory.build_registry_service
+  call_type: resolved
+- caller: src.env2llm.integrators.mqtt_bridge.run_bridge
+  callee: src.env2llm.integrators._service_factory.attach_mqtt_refresh_listener
+  call_type: resolved
+- caller: src.env2llm.integrators.mqtt_bridge.run_bridge
+  callee: src.env2llm.transport.mqtt.mqtt_available
+  call_type: resolved
+- caller: src.env2llm.integrators.mqtt_bridge.publish_once
+  callee: src.env2llm.integrators._service_factory.build_registry_service
+  call_type: resolved
+- caller: src.env2llm.integrators.mqtt_bridge.publish_once
+  callee: src.env2llm.transport.mqtt.mqtt_available
+  call_type: resolved
+- caller: src.env2llm.integrators.mqtt_bridge.publish_once
+  callee: src.env2llm.transport.mqtt.mqtt_missing_message
+  call_type: resolved
+- caller: src.env2llm.integrators._service_factory.build_registry_service
+  callee: src.env2llm.transport.mqtt.mqtt_enabled
+  call_type: resolved
+- caller: src.env2llm.integrators._service_factory.build_registry_service
+  callee: src.env2llm.transport.mqtt.mqtt_available
+  call_type: resolved
+- caller: src.env2llm.integrators.rest_server.run_server
+  callee: src.env2llm.integrators._service_factory.build_registry_service
+  call_type: resolved
+- caller: src.env2llm.integrators.rest_server.run_server
+  callee: src.env2llm.integrators._service_factory.attach_mqtt_refresh_listener
+  call_type: resolved
+- caller: src.env2llm.integrators.rest_server.main
+  callee: src.env2llm.integrators.rest_server.run_server
+  call_type: resolved
+- caller: src.env2llm.integrators.rest_server.main
+  callee: src.env2llm.transport.mqtt.mqtt_enabled
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.handle_message
+  callee: src.env2llm.integrators.mcp_server._jsonrpc_error
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.handle_message
+  callee: src.env2llm.integrators.mcp_server._jsonrpc_response
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.run_stdio
+  callee: src.env2llm.integrators._service_factory.build_registry_service
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.run_stdio
+  callee: src.env2llm.integrators._service_factory.attach_mqtt_refresh_listener
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.run_stdio
+  callee: src.env2llm.integrators.mcp_server._log
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.run_stdio
+  callee: src.env2llm.integrators.mcp_server.handle_message
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.run_stdio
+  callee: src.env2llm.integrators.mcp_server._write_json
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.main
+  callee: src.env2llm.integrators.mcp_server.run_stdio
+  call_type: resolved
+- caller: src.env2llm.integrators.mcp_server.main
+  callee: src.env2llm.transport.mqtt.mqtt_enabled
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService.registry_path
+  callee: src.env2llm.layout.resolve_registry_path
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService.load
+  callee: src.env2llm.bridge.doql_file_to_system_map
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService.refresh
+  callee: src.env2llm.bootstrap.ensure_environment_map
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService.refresh
+  callee: src.env2llm.bridge.doql_file_to_system_map
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService.render
+  callee: src.env2llm.formats.render_format
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.env.merge_environment
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.generate.generate_system_map
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.policy.process.apply_process_policies
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.policy.invoice.apply_invoice_policies
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.policy.desktop.apply_desktop_probe
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.bootstrap.ensure_environment_map
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.bridge.doql_file_to_system_map
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.env.collect_environment
+  call_type: resolved
+- caller: src.env2llm.service.registry_service.RegistryService._generate_ir
+  callee: src.env2llm.registry.merge_registry_observations
+  call_type: resolved
+- caller: src.env2llm.probes.desktop._probe_display_geometry
+  callee: src.env2llm.probes.desktop._run_text
+  call_type: resolved
+- caller: src.env2llm.probes.desktop._probe_active_window_id
+  callee: src.env2llm.probes.desktop._run_text
+  call_type: resolved
+- caller: src.env2llm.probes.desktop.collect_desktop_probe
+  callee: src.env2llm.probes.desktop._probe_display_geometry
+  call_type: resolved
+- caller: src.env2llm.probes.desktop.collect_desktop_probe
+  callee: src.env2llm.probes.desktop._probe_active_window_id
+  call_type: resolved
+- caller: src.env2llm.probes.desktop.collect_desktop_probe
+  callee: src.env2llm.probes.desktop._run_text
+  call_type: resolved
+- caller: src.env2llm.policy.desktop.apply_desktop_probe
+  callee: src.env2llm.probes.desktop.collect_desktop_probe
+  call_type: resolved
+- caller: src.env2llm.policy.desktop.apply_desktop_probe
+  callee: src.env2llm.policy.desktop._ensure_desktop_runtime
+  call_type: resolved
+- caller: src.env2llm.policy.desktop.apply_desktop_probe
+  callee: src.env2llm.policy.desktop._ensure_desktop_resource
+  call_type: resolved
+- caller: src.env2llm.policy.desktop.apply_desktop_probe
+  callee: src.env2llm.policy.desktop._ensure_desktop_commands
+  call_type: resolved
+- caller: src.env2llm.policy.desktop.apply_desktop_probe
+  callee: src.env2llm.policy.desktop._ensure_desktop_access
+  call_type: resolved
+- caller: src.env2llm.policy.desktop.apply_desktop_probe
+  callee: src.env2llm.policy.desktop._mirror_desktop_summary
+  call_type: resolved
+- caller: src.env2llm.policy.desktop.apply_desktop_probe
+  callee: src.env2llm.policy.desktop.desktop_probe_enabled
+  call_type: resolved
+- caller: src.env2llm.adapters.mcp.McpAdapter.call_tool
+  callee: src.env2llm.adapters.mcp._mcp_error
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_environment_block
+  callee: src.env2llm.render.doql.helpers.esc_str
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_data_block
+  callee: src.env2llm.render.doql.helpers.data_value_line
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_resources_block
+  callee: src.env2llm.render.doql.helpers.esc_str
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_resources_block
+  callee: src.env2llm.render.doql.helpers.join_csv
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_access_block
+  callee: src.env2llm.render.doql.helpers.join_csv
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_capabilities_block
+  callee: src.env2llm.render.doql.helpers.join_csv
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_workflow_history_block
+  callee: src.env2llm.render.doql.helpers.history_value_line
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_conversation_block
+  callee: src.env2llm.render.doql.helpers.bool_lit
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_process_block
+  callee: src.env2llm.render.doql.helpers.process_field_line
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_process_access_block
+  callee: src.env2llm.render.doql.helpers.join_csv
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_paths_block
+  callee: src.env2llm.render.doql.helpers.join_csv
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_schedules_block
+  callee: src.env2llm.render.doql.helpers.esc_str_full
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_deploy_block
+  callee: src.env2llm.render.doql.helpers.join_csv
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_generated_services_block
+  callee: src.env2llm.render.doql.helpers.esc_str
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_generated_services_block
+  callee: src.env2llm.render.doql.helpers.join_csv
+  call_type: resolved
+- caller: src.env2llm.render.doql.blocks.render_validations_block
+  callee: src.env2llm.render.doql.helpers.esc_str
   call_type: resolved
 modules:
   src.env2llm._runtime_health:
   - src.env2llm._runtime_health.runtime_id_for_intent
+  src.env2llm.adapters.mcp:
+  - src.env2llm.adapters.mcp.McpAdapter.call_tool
+  - src.env2llm.adapters.mcp._mcp_error
   src.env2llm.bootstrap:
   - src.env2llm.bootstrap.ensure_doql_registry
   - src.env2llm.bootstrap.ensure_environment_map
@@ -1602,6 +1993,23 @@ modules:
   - src.env2llm.generate._parse_llm_json
   - src.env2llm.generate.build_introspection_payload
   - src.env2llm.generate.generate_system_map
+  src.env2llm.integrators._service_factory:
+  - src.env2llm.integrators._service_factory.attach_mqtt_refresh_listener
+  - src.env2llm.integrators._service_factory.build_registry_service
+  src.env2llm.integrators.mcp_server:
+  - src.env2llm.integrators.mcp_server._jsonrpc_error
+  - src.env2llm.integrators.mcp_server._jsonrpc_response
+  - src.env2llm.integrators.mcp_server._log
+  - src.env2llm.integrators.mcp_server._write_json
+  - src.env2llm.integrators.mcp_server.handle_message
+  - src.env2llm.integrators.mcp_server.main
+  - src.env2llm.integrators.mcp_server.run_stdio
+  src.env2llm.integrators.mqtt_bridge:
+  - src.env2llm.integrators.mqtt_bridge.publish_once
+  - src.env2llm.integrators.mqtt_bridge.run_bridge
+  src.env2llm.integrators.rest_server:
+  - src.env2llm.integrators.rest_server.main
+  - src.env2llm.integrators.rest_server.run_server
   src.env2llm.layout:
   - src.env2llm.layout._chmod_writable
   - src.env2llm.layout._force_remove_path
@@ -1616,6 +2024,14 @@ modules:
   - src.env2llm.layout.write_reflection_snapshot
   - src.env2llm.layout.write_registry
   - src.env2llm.layout.write_turn_snapshot
+  src.env2llm.policy.desktop:
+  - src.env2llm.policy.desktop._ensure_desktop_access
+  - src.env2llm.policy.desktop._ensure_desktop_commands
+  - src.env2llm.policy.desktop._ensure_desktop_resource
+  - src.env2llm.policy.desktop._ensure_desktop_runtime
+  - src.env2llm.policy.desktop._mirror_desktop_summary
+  - src.env2llm.policy.desktop.apply_desktop_probe
+  - src.env2llm.policy.desktop.desktop_probe_enabled
   src.env2llm.policy.invoice:
   - src.env2llm.policy.invoice.apply_invoice_context
   - src.env2llm.policy.invoice.apply_invoice_policies
@@ -1643,6 +2059,11 @@ modules:
   - src.env2llm.policy.validations.apply_profile_validations
   - src.env2llm.policy.validations.parse_profile_validation
   - src.env2llm.policy.validations.parse_profile_validations
+  src.env2llm.probes.desktop:
+  - src.env2llm.probes.desktop._probe_active_window_id
+  - src.env2llm.probes.desktop._probe_display_geometry
+  - src.env2llm.probes.desktop._run_text
+  - src.env2llm.probes.desktop.collect_desktop_probe
   src.env2llm.registry:
   - src.env2llm.registry._execution_steps
   - src.env2llm.registry._merge_execution_header
@@ -1685,14 +2106,29 @@ modules:
   - src.env2llm.runtimes.build_runtimes_for_example
   - src.env2llm.runtimes.load_example_profile
   - src.env2llm.runtimes.resolve_command_runtime
+  src.env2llm.service.registry_service:
+  - src.env2llm.service.registry_service.RegistryService._generate_ir
+  - src.env2llm.service.registry_service.RegistryService.load
+  - src.env2llm.service.registry_service.RegistryService.refresh
+  - src.env2llm.service.registry_service.RegistryService.registry_path
+  - src.env2llm.service.registry_service.RegistryService.render
   src.env2llm.system_map_models:
   - src.env2llm.system_map_models._annotation_for_field
   - src.env2llm.system_map_models.build_command_registry
   - src.env2llm.system_map_models.command_input_model
   - src.env2llm.system_map_models.validate_config_against_map
+  src.env2llm.transport.mqtt:
+  - src.env2llm.transport.mqtt.mqtt_available
+  - src.env2llm.transport.mqtt.mqtt_enabled
+  - src.env2llm.transport.mqtt.mqtt_missing_message
 entry_points:
+- src.env2llm.adapters.mcp.McpAdapter.__init__
+- src.env2llm.adapters.mcp.McpAdapter.call_tool
+- src.env2llm.adapters.rest.RestAdapter.__init__
+- src.env2llm.adapters.rest.RestAdapter.dispatch
+- src.env2llm.adapters.rest.RestAdapter.handle_http
+- src.env2llm.adapters.rest.RestAdapter.match_route
 - src.env2llm.bootstrap.ensure_doql_registry
-- src.env2llm.bridge.doql_file_to_system_map
 - src.env2llm.cli.main
 - src.env2llm.doql.models.DoqlTaskContext.command
 - src.env2llm.doql.models.DoqlTaskContext.entity_values
@@ -1707,6 +2143,15 @@ entry_points:
 - src.env2llm.formats.markdown.render_markdown
 - src.env2llm.formats.yaml_fmt.render_yaml
 - src.env2llm.generate._litellm_complete
+- src.env2llm.integrators.mcp_server.main
+- src.env2llm.integrators.mqtt_bridge.main
+- src.env2llm.integrators.rest_server.Env2LLMRequestHandler._handle
+- src.env2llm.integrators.rest_server.Env2LLMRequestHandler._read_body
+- src.env2llm.integrators.rest_server.Env2LLMRequestHandler._send
+- src.env2llm.integrators.rest_server.Env2LLMRequestHandler.do_GET
+- src.env2llm.integrators.rest_server.Env2LLMRequestHandler.do_POST
+- src.env2llm.integrators.rest_server.Env2LLMRequestHandler.log_message
+- src.env2llm.integrators.rest_server.main
 - src.env2llm.ir.SystemMapIR.command
 - src.env2llm.ir.SystemMapIR.runtime
 - src.env2llm.ir.SystemMapIR.runtime_for_command
@@ -1720,6 +2165,19 @@ entry_points:
 - src.env2llm.policy.process.process_policy_to_doql_dict
 - src.env2llm.policy.process.process_scope_denied
 - src.env2llm.registry.refresh_doql_registry_from_state
+- src.env2llm.service.registry_service.RegistryService.__post_init__
+- src.env2llm.service.registry_service.RegistryService._generate_ir
+- src.env2llm.service.registry_service.RegistryService._publish_mqtt
+- src.env2llm.service.registry_service.RegistryService.commands_payload
+- src.env2llm.service.registry_service.RegistryService.desktop_payload
+- src.env2llm.service.registry_service.RegistryService.get_ir
+- src.env2llm.service.registry_service.RegistryService.load
+- src.env2llm.service.registry_service.RegistryService.mqtt_status
+- src.env2llm.service.registry_service.RegistryService.refresh
+- src.env2llm.service.registry_service.RegistryService.registry_path
+- src.env2llm.service.registry_service.RegistryService.render
+- src.env2llm.service.registry_service.RegistryService.to_dict
+- src.env2llm.service.registry_service.RegistryService.uris_payload
 - src.env2llm.sources.DefaultEnvironmentSources.example_profile
 - src.env2llm.sources.DefaultEnvironmentSources.platform_config
 - src.env2llm.sources.DefaultEnvironmentSources.services_snapshot
@@ -1728,3 +2186,14 @@ entry_points:
 - src.env2llm.sources.EnvironmentSources.services_snapshot
 - src.env2llm.system_map_models.build_command_registry
 - src.env2llm.system_map_models.validate_config_against_map
+- src.env2llm.transport.mqtt.MqttRegistryBridge.__init__
+- src.env2llm.transport.mqtt.MqttRegistryBridge._on_connect
+- src.env2llm.transport.mqtt.MqttRegistryBridge._on_message
+- src.env2llm.transport.mqtt.MqttRegistryBridge._publish
+- src.env2llm.transport.mqtt.MqttRegistryBridge.connect
+- src.env2llm.transport.mqtt.MqttRegistryBridge.disconnect
+- src.env2llm.transport.mqtt.MqttRegistryBridge.publish_desktop
+- src.env2llm.transport.mqtt.MqttRegistryBridge.publish_event
+- src.env2llm.transport.mqtt.MqttRegistryBridge.publish_registry
+- src.env2llm.transport.mqtt.MqttRegistryBridge.subscribe_refresh
+- src.env2llm.transport.mqtt.MqttRegistryBridge.topic

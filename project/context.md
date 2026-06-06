@@ -5,12 +5,12 @@
 
 - **Project**: /home/tom/github/semcod/env2llm
 - **Primary Language**: python
-- **Languages**: python: 41, shell: 2, yaml: 1, toml: 1
+- **Languages**: python: 56, yaml: 5, shell: 2, toml: 1
 - **Analysis Mode**: static
-- **Total Functions**: 185
-- **Total Classes**: 26
-- **Modules**: 46
-- **Entry Points**: 37
+- **Total Functions**: 253
+- **Total Classes**: 34
+- **Modules**: 65
+- **Entry Points**: 75
 
 ## Architecture by Module
 
@@ -23,83 +23,91 @@
 - **File**: `process.py`
 
 ### src.env2llm.render.doql.blocks
-- **Functions**: 18
+- **Functions**: 19
 - **File**: `blocks.py`
 
 ### src.env2llm.doql.runtime
 - **Functions**: 15
 - **File**: `runtime.py`
 
+### src.env2llm.layout
+- **Functions**: 14
+- **File**: `layout.py`
+
 ### src.env2llm.doql.context_blocks
 - **Functions**: 14
 - **File**: `context_blocks.py`
 
-### src.env2llm.layout
+### src.env2llm.transport.mqtt
 - **Functions**: 14
-- **File**: `layout.py`
+- **Classes**: 1
+- **File**: `mqtt.py`
+
+### src.env2llm.service.registry_service
+- **Functions**: 13
+- **Classes**: 1
+- **File**: `registry_service.py`
 
 ### src.env2llm.registry
 - **Functions**: 12
 - **File**: `registry.py`
 
+### src.env2llm.integrators.rest_server
+- **Functions**: 8
+- **Classes**: 1
+- **File**: `rest_server.py`
+
 ### src.env2llm.render.doql.helpers
 - **Functions**: 7
 - **File**: `helpers.py`
 
-### src.env2llm.policy.validations
-- **Functions**: 6
-- **File**: `validations.py`
+### src.env2llm.integrators.mcp_server
+- **Functions**: 7
+- **File**: `mcp_server.py`
+
+### src.env2llm.policy.desktop
+- **Functions**: 7
+- **File**: `desktop.py`
 
 ### src.env2llm.sources
 - **Functions**: 6
 - **Classes**: 2
 - **File**: `sources.py`
 
-### src.env2llm.generate
-- **Functions**: 5
-- **File**: `generate.py`
+### src.env2llm.policy.validations
+- **Functions**: 6
+- **File**: `validations.py`
+
+### src.env2llm.probes.desktop
+- **Functions**: 6
+- **File**: `desktop.py`
 
 ### src.env2llm.bridge
 - **Functions**: 5
 - **File**: `bridge.py`
 
-### src.env2llm.runtimes
-- **Functions**: 4
-- **File**: `runtimes.py`
+### src.env2llm.generate
+- **Functions**: 5
+- **File**: `generate.py`
 
 ### src.env2llm.system_map_models
 - **Functions**: 4
 - **File**: `system_map_models.py`
-
-### src.env2llm.ir
-- **Functions**: 4
-- **Classes**: 17
-- **File**: `ir.py`
 
 ### src.env2llm.doql.models
 - **Functions**: 4
 - **Classes**: 7
 - **File**: `models.py`
 
-### src.env2llm.env
-- **Functions**: 3
-- **File**: `env.py`
-
-### src.env2llm.formats
-- **Functions**: 3
-- **File**: `__init__.py`
-
-### src.env2llm.policy.invoice
-- **Functions**: 3
-- **File**: `invoice.py`
-
-### src.env2llm.bootstrap
-- **Functions**: 3
-- **File**: `bootstrap.py`
-
 ## Key Entry Points
 
 Main execution flows into the system:
+
+### src.env2llm.adapters.mcp.McpAdapter.call_tool
+- **Calls**: src.env2llm.adapters.mcp._mcp_error, self.service.to_dict, str, self.service.render, self.service.refresh, self.service.registry_path, json.dumps, bool
+
+### src.env2llm.adapters.rest.RestAdapter.dispatch
+- **Calls**: parse_qs, query.lstrip, params.get, None.lower, _bool, None.lower, self.service.render, self.service.refresh
 
 ### src.env2llm.formats.markdown.render_markdown
 - **Calls**: sorted, lines.extend, lines.extend, None.items, lines.append, None.join, lines.append, None.join
@@ -108,12 +116,27 @@ Main execution flows into the system:
 > Persist one conversation turn under runs/{run_id}/.
 - **Calls**: None.resolve, src.env2llm.layout.run_dir, out_path.write_text, None.replace, response.get, None.isoformat, response.get, response.get
 
+### src.env2llm.integrators.mqtt_bridge.main
+- **Calls**: argparse.ArgumentParser, parser.add_subparsers, sub.add_parser, p_bridge.add_argument, p_bridge.add_argument, p_bridge.add_argument, p_bridge.add_argument, sub.add_parser
+
+### src.env2llm.transport.mqtt.MqttRegistryBridge.__init__
+- **Calls**: int, None.strip, mqtt.Client, threading.Lock, RuntimeError, os.environ.get, os.environ.get, os.environ.get
+
+### src.env2llm.service.registry_service.RegistryService._generate_ir
+- **Calls**: src.env2llm.env.merge_environment, src.env2llm.generate.generate_system_map, src.env2llm.policy.process.apply_process_policies, src.env2llm.policy.invoice.apply_invoice_policies, src.env2llm.policy.desktop.apply_desktop_probe, src.env2llm.bootstrap.ensure_environment_map, src.env2llm.bridge.doql_file_to_system_map, src.env2llm.env.collect_environment
+
 ### src.env2llm.sources.DefaultEnvironmentSources.services_snapshot
 - **Calls**: isinstance, isinstance, path.is_file, yaml.safe_load, isinstance, path.read_text, doc.get, doc.get
+
+### src.env2llm.integrators.rest_server.main
+- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args
 
 ### src.env2llm.doql.runtime.merge_inline_context
 > Merge portable chat context_json values into a DOQL task context.
 - **Calls**: dict, inline.items, src.env2llm.doql.runtime._inline_data_key, conv_key.startswith, src.env2llm.doql.runtime._add_short_inline_alias, key.startswith, src.env2llm.doql.runtime._apply_conversation_flag, bool
+
+### src.env2llm.integrators.rest_server.Env2LLMRequestHandler._send
+- **Calls**: None.encode, self.send_response, self.send_header, self.send_header, self.end_headers, self.wfile.write, str, json.dumps
 
 ### src.env2llm.layout.write_reflection_snapshot
 > Persist reflection report under runs/{run_id}/reflect-NN-{phase}.json.
@@ -122,13 +145,21 @@ Main execution flows into the system:
 ### src.env2llm.generate._litellm_complete
 - **Calls**: os.getenv, os.getenv, litellm.completion, str, float, int, os.getenv, os.getenv
 
+### src.env2llm.integrators.mcp_server.main
+- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args, src.env2llm.integrators.mcp_server.run_stdio, src.env2llm.transport.mqtt.mqtt_enabled
+
+### src.env2llm.transport.mqtt.MqttRegistryBridge._on_message
+- **Calls**: msg.topic.split, self._refresh_handler, msg.payload.decode, raw.strip, len, len, json.loads, isinstance
+
+### src.env2llm.service.registry_service.RegistryService._publish_mqtt
+- **Calls**: self._cached_ir.model_dump, self.mqtt.publish_registry, self.desktop_payload, self.mqtt.publish_event, self.mqtt.publish_desktop, len, len, desktop.get
+
 ### src.env2llm.policy.process.process_scope_denied
 > Return user message when action is outside process_access scope.
 - **Calls**: None.strip, set, set, action.startswith, deny.intersection, None.join, sorted
 
-### src.env2llm.doql.runtime.autofill_entities
-> Fill missing action.field slots from ctx.data. Returns (updated_entities, filled_keys).
-- **Calls**: dict, list, src.env2llm.doql.runtime._split_missing_ref, src.env2llm.doql.runtime._autofill_value, src.env2llm.doql.runtime._needs_field, filled.append
+### src.env2llm.sources.DefaultEnvironmentSources.example_profile
+- **Calls**: doc.get, isinstance, path.is_file, yaml.safe_load, isinstance, path.read_text
 
 ### src.env2llm.layout.clean_all_example_artifacts
 > Clean ``.nlp2dsl/`` for every ``examples/*/`` directory.
@@ -137,11 +168,15 @@ Main execution flows into the system:
 ### src.env2llm.layout.write_last_run_report
 - **Calls**: None.resolve, src.env2llm.layout.ensure_layout, path.write_text, Path, json.dumps, dict
 
+### src.env2llm.doql.runtime.autofill_entities
+> Fill missing action.field slots from ctx.data. Returns (updated_entities, filled_keys).
+- **Calls**: dict, list, src.env2llm.doql.runtime._split_missing_ref, src.env2llm.doql.runtime._autofill_value, src.env2llm.doql.runtime._needs_field, filled.append
+
 ### src.env2llm.cli.main
 - **Calls**: None.parse_args, src.env2llm.formats.normalize_format, src.env2llm.bootstrap.ensure_environment_map, print, Path, src.env2llm.cli.build_parser
 
-### src.env2llm.sources.DefaultEnvironmentSources.example_profile
-- **Calls**: doc.get, isinstance, path.is_file, yaml.safe_load, isinstance, path.read_text
+### src.env2llm.adapters.rest.RestAdapter.handle_http
+- **Calls**: self.match_route, urlparse, self.dispatch, urlparse, json.loads, body.decode
 
 ### src.env2llm.system_map_models.validate_config_against_map
 > Validate config with dynamic model; raises ValidationError on failure.
@@ -154,125 +189,109 @@ Main execution flows into the system:
 > Return missing field names for action against this map.
 - **Calls**: self.command, config.get, missing.append, isinstance, val.strip
 
+### src.env2llm.service.registry_service.RegistryService.mqtt_status
+- **Calls**: bool, getattr, getattr, getattr, getattr
+
 ### src.env2llm.doql.render.write_doql_context
 - **Calls**: Path, path.parent.mkdir, path.write_text, src.env2llm.doql.render.render_doql_context
 
-### src.env2llm.doql.runtime.load_doql_inline_from_env
-- **Calls**: src.env2llm.doql.runtime.resolve_doql_context_path, src.env2llm.doql.runtime.context_inline_payload, src.env2llm.doql.parse.load_doql_context
+### src.env2llm.service.registry_service.RegistryService.refresh
+> Regenerate registry (probes, policies) and optionally persist + MQTT publish.
+- **Calls**: src.env2llm.bootstrap.ensure_environment_map, src.env2llm.bridge.doql_file_to_system_map, self._generate_ir, self._publish_mqtt
 
-### src.env2llm.bridge.doql_file_to_system_map
-> Parse environment.doql.less → SystemMapIR (round-trip via DoqlTaskContext).
-- **Calls**: Path, src.env2llm.doql.parse.load_doql_context, src.env2llm.bridge.task_context_to_system_map
-
-### src.env2llm.doql.models.DoqlTaskContext.entity_values
-- **Calls**: self.data.items, key.startswith, len
-
-### src.env2llm.doql.models.DoqlTaskContext.runtime_for
-- **Calls**: self.command, src.env2llm._runtime_health.runtime_id_for_intent, any
-
-### src.env2llm.formats.yaml_fmt.render_yaml
-- **Calls**: ir.model_dump, yaml.safe_dump
-
-### src.env2llm.formats.json_fmt.render_json
-- **Calls**: ir.model_dump, json.dumps
-
-### src.env2llm.layout.example_fixtures_dir
-> Static fixtures outside generated .nlp2dsl (not removed on clean).
-- **Calls**: None.resolve, Path
-
-### src.env2llm.ir.SystemMapIR.runtime_for_command
-- **Calls**: self.command, self.runtime
-
-### src.env2llm.doql.models.DoqlTaskContext.required_fields_for
-- **Calls**: self.command, list
-
-### src.env2llm.formats.doql_less.render_doql_less
-- **Calls**: src.env2llm.render.doql.render.render_system_map_doql
-
-### src.env2llm.policy.process.effective_nlp_parser_mode
-> Map DOQL nlp_parser → runtime parser mode (rules | llm | auto).
-- **Calls**: None.lower
-
-### src.env2llm.system_map_models.build_command_registry
-- **Calls**: src.env2llm.system_map_models.command_input_model
-
-### src.env2llm.registry.refresh_doql_registry_from_state
-- **Calls**: src.env2llm.registry.refresh_doql_registry
-
-### src.env2llm.bootstrap.ensure_doql_registry
-> nlp2dsl-compatible alias for :func:`ensure_environment_map`.
-- **Calls**: src.env2llm.bootstrap.ensure_environment_map
+### src.env2llm.adapters.rest.RestAdapter.match_route
+- **Calls**: method.upper, method.upper, path.rstrip, path.rstrip
 
 ## Process Flows
 
 Key execution flows identified:
 
-### Flow 1: render_markdown
+### Flow 1: call_tool
+```
+call_tool [src.env2llm.adapters.mcp.McpAdapter]
+  └─ →> _mcp_error
+```
+
+### Flow 2: dispatch
+```
+dispatch [src.env2llm.adapters.rest.RestAdapter]
+```
+
+### Flow 3: render_markdown
 ```
 render_markdown [src.env2llm.formats.markdown]
 ```
 
-### Flow 2: write_turn_snapshot
+### Flow 4: write_turn_snapshot
 ```
 write_turn_snapshot [src.env2llm.layout]
   └─> run_dir
       └─> current_run_id
 ```
 
-### Flow 3: services_snapshot
+### Flow 5: main
+```
+main [src.env2llm.integrators.mqtt_bridge]
+```
+
+### Flow 6: __init__
+```
+__init__ [src.env2llm.transport.mqtt.MqttRegistryBridge]
+```
+
+### Flow 7: _generate_ir
+```
+_generate_ir [src.env2llm.service.registry_service.RegistryService]
+  └─ →> merge_environment
+  └─ →> generate_system_map
+      └─> build_introspection_payload
+          └─ →> load_example_profile
+      └─> _bootstrap_system_map
+  └─ →> apply_process_policies
+      └─> merge_process_config
+          └─> load_platform_process_defaults
+          └─> _deep_merge_process
+```
+
+### Flow 8: services_snapshot
 ```
 services_snapshot [src.env2llm.sources.DefaultEnvironmentSources]
 ```
 
-### Flow 4: merge_inline_context
+### Flow 9: merge_inline_context
 ```
 merge_inline_context [src.env2llm.doql.runtime]
   └─> _inline_data_key
   └─> _add_short_inline_alias
 ```
 
-### Flow 5: write_reflection_snapshot
+### Flow 10: _send
 ```
-write_reflection_snapshot [src.env2llm.layout]
-  └─> run_dir
-      └─> current_run_id
-```
-
-### Flow 6: _litellm_complete
-```
-_litellm_complete [src.env2llm.generate]
-```
-
-### Flow 7: process_scope_denied
-```
-process_scope_denied [src.env2llm.policy.process]
-```
-
-### Flow 8: autofill_entities
-```
-autofill_entities [src.env2llm.doql.runtime]
-  └─> _split_missing_ref
-      └─> _canonical_field
-  └─> _autofill_value
-      └─> _value_from_data
-      └─> _value_from_artifacts
-```
-
-### Flow 9: clean_all_example_artifacts
-```
-clean_all_example_artifacts [src.env2llm.layout]
-  └─> clean_artifact_root
-      └─> artifact_root
-      └─> _force_remove_path
-```
-
-### Flow 10: write_last_run_report
-```
-write_last_run_report [src.env2llm.layout]
-  └─> ensure_layout
+_send [src.env2llm.integrators.rest_server.Env2LLMRequestHandler]
 ```
 
 ## Key Classes
+
+### src.env2llm.service.registry_service.RegistryService
+> In-memory view over env2llm ``SystemMapIR`` with optional MQTT fan-out.
+- **Methods**: 13
+- **Key Methods**: src.env2llm.service.registry_service.RegistryService.__post_init__, src.env2llm.service.registry_service.RegistryService.registry_path, src.env2llm.service.registry_service.RegistryService.load, src.env2llm.service.registry_service.RegistryService.refresh, src.env2llm.service.registry_service.RegistryService.get_ir, src.env2llm.service.registry_service.RegistryService.render, src.env2llm.service.registry_service.RegistryService.to_dict, src.env2llm.service.registry_service.RegistryService.desktop_payload, src.env2llm.service.registry_service.RegistryService.commands_payload, src.env2llm.service.registry_service.RegistryService.uris_payload
+
+### src.env2llm.transport.mqtt.MqttRegistryBridge
+> Publish registry snapshots and listen for remote refresh commands.
+
+Topics (default prefix ``env2llm
+- **Methods**: 11
+- **Key Methods**: src.env2llm.transport.mqtt.MqttRegistryBridge.__init__, src.env2llm.transport.mqtt.MqttRegistryBridge.topic, src.env2llm.transport.mqtt.MqttRegistryBridge.connect, src.env2llm.transport.mqtt.MqttRegistryBridge.disconnect, src.env2llm.transport.mqtt.MqttRegistryBridge.publish_registry, src.env2llm.transport.mqtt.MqttRegistryBridge.publish_desktop, src.env2llm.transport.mqtt.MqttRegistryBridge.publish_event, src.env2llm.transport.mqtt.MqttRegistryBridge.subscribe_refresh, src.env2llm.transport.mqtt.MqttRegistryBridge._publish, src.env2llm.transport.mqtt.MqttRegistryBridge._on_connect
+
+### src.env2llm.integrators.rest_server.Env2LLMRequestHandler
+- **Methods**: 6
+- **Key Methods**: src.env2llm.integrators.rest_server.Env2LLMRequestHandler.log_message, src.env2llm.integrators.rest_server.Env2LLMRequestHandler._read_body, src.env2llm.integrators.rest_server.Env2LLMRequestHandler._send, src.env2llm.integrators.rest_server.Env2LLMRequestHandler._handle, src.env2llm.integrators.rest_server.Env2LLMRequestHandler.do_GET, src.env2llm.integrators.rest_server.Env2LLMRequestHandler.do_POST
+- **Inherits**: BaseHTTPRequestHandler
+
+### src.env2llm.doql.models.DoqlTaskContext
+- **Methods**: 4
+- **Key Methods**: src.env2llm.doql.models.DoqlTaskContext.entity_values, src.env2llm.doql.models.DoqlTaskContext.command, src.env2llm.doql.models.DoqlTaskContext.required_fields_for, src.env2llm.doql.models.DoqlTaskContext.runtime_for
 
 ### src.env2llm.ir.SystemMapIR
 > env2llm.system_map.v1 — canonical map of available system capabilities.
@@ -282,9 +301,9 @@ Generated at runtime by Sys
 - **Key Methods**: src.env2llm.ir.SystemMapIR.command, src.env2llm.ir.SystemMapIR.runtime, src.env2llm.ir.SystemMapIR.runtime_for_command, src.env2llm.ir.SystemMapIR.validate_step_config
 - **Inherits**: BaseModel
 
-### src.env2llm.doql.models.DoqlTaskContext
+### src.env2llm.adapters.rest.RestAdapter
 - **Methods**: 4
-- **Key Methods**: src.env2llm.doql.models.DoqlTaskContext.entity_values, src.env2llm.doql.models.DoqlTaskContext.command, src.env2llm.doql.models.DoqlTaskContext.required_fields_for, src.env2llm.doql.models.DoqlTaskContext.runtime_for
+- **Key Methods**: src.env2llm.adapters.rest.RestAdapter.__init__, src.env2llm.adapters.rest.RestAdapter.match_route, src.env2llm.adapters.rest.RestAdapter.dispatch, src.env2llm.adapters.rest.RestAdapter.handle_http
 
 ### src.env2llm.sources.EnvironmentSources
 - **Methods**: 3
@@ -301,6 +320,30 @@ Generated at runtime by Sys
 - **Methods**: 2
 - **Key Methods**: src.env2llm.ir.CommandSchemaIR.required_names, src.env2llm.ir.CommandSchemaIR.optional_names
 - **Inherits**: BaseModel
+
+### src.env2llm.adapters.mcp.McpAdapter
+- **Methods**: 2
+- **Key Methods**: src.env2llm.adapters.mcp.McpAdapter.__init__, src.env2llm.adapters.mcp.McpAdapter.call_tool
+
+### src.env2llm.doql.models.DoqlArtifact
+- **Methods**: 0
+
+### src.env2llm.doql.models.DoqlRuntime
+> Execution environment (where command effects run).
+- **Methods**: 0
+
+### src.env2llm.doql.models.DoqlCommand
+> Schema kroku CMD — akcja workflow + wymagane pola + runtime + transport.
+- **Methods**: 0
+
+### src.env2llm.doql.models.DoqlResource
+- **Methods**: 0
+
+### src.env2llm.doql.models.DoqlAccess
+- **Methods**: 0
+
+### src.env2llm.doql.models.DoqlProcessPolicy
+- **Methods**: 0
 
 ### src.env2llm.ir.MimeTypeSpec
 > Artifact or payload MIME + optional Pydantic schema reference.
@@ -326,62 +369,16 @@ Maps to Propact fenced blocks (propact:shell, pr
 - **Methods**: 0
 - **Inherits**: BaseModel
 
-### src.env2llm.ir.ResourceSpecIR
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.AccessGrantIR
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.ArtifactSpecIR
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.ConversationPolicyIR
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.ProcessAccessScopeIR
-> Process-level ACL scope (subset of platform grants).
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.ProcessPathsIR
-> Filesystem paths available to the process agent.
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.ProcessPolicyIR
-> Per-example process behaviour — workflow style, NLP/LLM, Intract, paths.
-
-Merged from examples/examp
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.ScheduleSpecIR
-> Cron / trigger schedule bound to a workflow or NL task.
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.GeneratedServiceIR
-> Optional service stub emitted under .nlp2dsl/generated/services/.
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.DeploySpecIR
-> Docker Compose deployment descriptor for transparent process execution.
-- **Methods**: 0
-- **Inherits**: BaseModel
-
-### src.env2llm.ir.ProfileValidationIR
-> Example-profile acceptance check — maps example-profiles.yaml validations → runtime codes.
-- **Methods**: 0
-- **Inherits**: BaseModel
-
 ## Data Transformation Functions
 
 Key functions that process and transform data:
+
+### src.env2llm.system_map_models.validate_config_against_map
+> Validate config with dynamic model; raises ValidationError on failure.
+- **Output to**: ir.command, src.env2llm.system_map_models.command_input_model, None.model_dump, ValueError, model.model_validate
+
+### src.env2llm.bridge._process_from_ctx
+- **Output to**: getattr, isinstance, ProcessPolicyIR, ProcessPolicyIR, getattr
 
 ### src.env2llm.formats.normalize_format
 - **Output to**: None.lstrip, aliases.get, None.lower, None.strip
@@ -443,73 +440,72 @@ Key functions that process and transform data:
 ### src.env2llm.doql.context_blocks.render_context_process_access
 - **Output to**: lines.append, lines.append, lines.append, lines.append, src.env2llm.render.doql.helpers.join_csv
 
-### src.env2llm.cli.build_parser
-- **Output to**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument
+### src.env2llm.doql.parse._parse_value
+- **Output to**: None.rstrip, text.lower, text.startswith, text.endswith, None.replace
 
-### src.env2llm.system_map_models.validate_config_against_map
-> Validate config with dynamic model; raises ValidationError on failure.
-- **Output to**: ir.command, src.env2llm.system_map_models.command_input_model, None.model_dump, ValueError, model.model_validate
+### src.env2llm.doql.parse._parse_block_body
+- **Output to**: _KV_RE.finditer, src.env2llm.doql.parse._parse_value, match.group, match.group
 
-### src.env2llm.render.doql.helpers.process_field_line
-- **Output to**: isinstance, isinstance, src.env2llm.render.doql.helpers.bool_lit
+### src.env2llm.doql.parse._parse_command_body
+- **Output to**: src.env2llm.doql.parse._parse_block_body, str, DoqlCommand, kv.get, kv.get
 
-### src.env2llm.render.doql.blocks.render_process_block
-- **Output to**: lines.extend, lines.append, lines.append, src.env2llm.render.doql.helpers.process_field_line
+### src.env2llm.doql.parse._parse_resource_body
+- **Output to**: src.env2llm.doql.parse._parse_block_body, DoqlResource, str, str, str
 
-### src.env2llm.render.doql.blocks.render_process_access_block
-- **Output to**: lines.extend, lines.append, lines.append, lines.append, src.env2llm.render.doql.helpers.join_csv
+### src.env2llm.doql.parse._parse_access_body
+- **Output to**: src.env2llm.doql.parse._parse_block_body, DoqlAccess, str, str, src.env2llm.doql.parse._split_csv
 
-### src.env2llm.generate._parse_llm_json
-- **Output to**: raw.strip, text.startswith, json.loads, text.splitlines, None.join
+## Behavioral Patterns
 
-### src.env2llm.ir.SystemMapIR.validate_step_config
-> Return missing field names for action against this map.
-- **Output to**: self.command, config.get, missing.append, isinstance, val.strip
+### state_machine_MqttRegistryBridge
+- **Type**: state_machine
+- **Confidence**: 0.70
+- **Functions**: src.env2llm.transport.mqtt.MqttRegistryBridge.__init__, src.env2llm.transport.mqtt.MqttRegistryBridge.topic, src.env2llm.transport.mqtt.MqttRegistryBridge.connect, src.env2llm.transport.mqtt.MqttRegistryBridge.disconnect, src.env2llm.transport.mqtt.MqttRegistryBridge.publish_registry
 
 ## Public API Surface
 
 Functions exposed as public API (no underscore prefix):
 
-- `src.env2llm.render.doql.render.render_system_map_doql` - 37 calls
+- `src.env2llm.render.doql.render.render_system_map_doql` - 39 calls
+- `src.env2llm.render.doql.blocks.render_desktop_block` - 37 calls
 - `src.env2llm.runtimes.build_runtimes_for_example` - 35 calls
 - `src.env2llm.doql.parse.load_platform_map` - 32 calls
 - `src.env2llm.doql.parse.collect_task_context` - 32 calls
+- `src.env2llm.adapters.mcp.McpAdapter.call_tool` - 32 calls
 - `src.env2llm.bridge.task_context_to_system_map` - 30 calls
+- `src.env2llm.adapters.rest.RestAdapter.dispatch` - 30 calls
 - `src.env2llm.doql.render.render_doql_context` - 29 calls
 - `src.env2llm.doql.parse.enrich_task_context_from_client` - 29 calls
-- `src.env2llm.bootstrap.ensure_environment_map` - 24 calls
+- `src.env2llm.bootstrap.ensure_environment_map` - 25 calls
 - `src.env2llm.formats.markdown.render_markdown` - 23 calls
 - `src.env2llm.policy.process.process_policy_from_profile_block` - 23 calls
+- `src.env2llm.generate.build_introspection_payload` - 23 calls
 - `src.env2llm.layout.write_turn_snapshot` - 21 calls
-- `src.env2llm.generate.build_introspection_payload` - 20 calls
 - `src.env2llm.doql.parse.load_commands_from_services_yaml` - 19 calls
+- `src.env2llm.probes.desktop.collect_desktop_probe` - 19 calls
 - `src.env2llm.doql.runtime.context_inline_payload` - 18 calls
 - `src.env2llm.registry.refresh_doql_registry` - 17 calls
-- `src.env2llm.render.doql.blocks.render_commands_block` - 15 calls
+- `src.env2llm.integrators.mqtt_bridge.main` - 17 calls
+- `src.env2llm.integrators.mqtt_bridge.run_bridge` - 16 calls
 - `src.env2llm.generate.generate_system_map` - 15 calls
+- `src.env2llm.render.doql.blocks.render_commands_block` - 15 calls
 - `src.env2llm.env.collect_environment` - 13 calls
 - `src.env2llm.doql.context_blocks.render_context_commands` - 13 calls
 - `src.env2llm.doql.context_blocks.render_context_runtimes` - 13 calls
-- `src.env2llm.render.doql.blocks.render_runtimes_block` - 13 calls
 - `src.env2llm.doql.parse.parse_fixture_metadata` - 13 calls
+- `src.env2llm.integrators.mcp_server.handle_message` - 13 calls
+- `src.env2llm.probes.desktop.parse_wmctrl_listing` - 13 calls
+- `src.env2llm.render.doql.blocks.render_runtimes_block` - 13 calls
 - `src.env2llm.doql.context_blocks.render_context_process` - 12 calls
+- `src.env2llm.integrators.mcp_server.run_stdio` - 12 calls
 - `src.env2llm.render.doql.blocks.render_artifacts_block` - 12 calls
-- `src.env2llm.policy.process.apply_process_policies` - 11 calls
 - `src.env2llm.layout.resolve_registry_path` - 11 calls
+- `src.env2llm.policy.process.apply_process_policies` - 11 calls
+- `src.env2llm.policy.desktop.apply_desktop_probe` - 11 calls
 - `src.env2llm.render.doql.blocks.render_schedules_block` - 11 calls
-- `src.env2llm.doql.context_blocks.render_context_artifacts` - 10 calls
-- `src.env2llm.render.doql.blocks.render_generated_services_block` - 10 calls
 - `src.env2llm.sources.DefaultEnvironmentSources.services_snapshot` - 10 calls
 - `src.env2llm.registry.merge_registry_observations` - 10 calls
-- `src.env2llm.doql.runtime.merge_inline_context` - 9 calls
-- `src.env2llm.doql.context_blocks.render_context_resources` - 9 calls
-- `src.env2llm.doql.context_blocks.render_context_workflow_history` - 9 calls
-- `src.env2llm.layout.clean_artifact_root` - 9 calls
-- `src.env2llm.render.doql.blocks.render_resources_block` - 9 calls
-- `src.env2llm.policy.invoice.apply_invoice_context` - 8 calls
-- `src.env2llm.doql.context_blocks.render_context_access` - 8 calls
-- `src.env2llm.layout.write_reflection_snapshot` - 8 calls
-- `src.env2llm.render.doql.blocks.render_access_block` - 8 calls
+- `src.env2llm.doql.context_blocks.render_context_artifacts` - 10 calls
 
 ## System Interactions
 
@@ -517,6 +513,16 @@ How components interact:
 
 ```mermaid
 graph TD
+    call_tool --> _mcp_error
+    call_tool --> to_dict
+    call_tool --> str
+    call_tool --> render
+    call_tool --> refresh
+    dispatch --> parse_qs
+    dispatch --> lstrip
+    dispatch --> get
+    dispatch --> lower
+    dispatch --> _bool
     render_markdown --> sorted
     render_markdown --> extend
     render_markdown --> items
@@ -526,27 +532,17 @@ graph TD
     write_turn_snapshot --> write_text
     write_turn_snapshot --> replace
     write_turn_snapshot --> get
-    services_snapshot --> isinstance
-    services_snapshot --> is_file
-    services_snapshot --> safe_load
-    merge_inline_context --> dict
-    merge_inline_context --> items
-    merge_inline_context --> _inline_data_key
-    merge_inline_context --> startswith
-    merge_inline_context --> _add_short_inline_al
-    write_reflection_sna --> resolve
-    write_reflection_sna --> run_dir
-    write_reflection_sna --> write_text
-    write_reflection_sna --> replace
-    write_reflection_sna --> Path
-    _litellm_complete --> getenv
-    _litellm_complete --> completion
-    _litellm_complete --> str
-    _litellm_complete --> float
-    process_scope_denied --> strip
-    process_scope_denied --> set
-    process_scope_denied --> startswith
-    process_scope_denied --> intersection
+    main --> ArgumentParser
+    main --> add_subparsers
+    main --> add_parser
+    main --> add_argument
+    __init__ --> int
+    __init__ --> strip
+    __init__ --> Client
+    __init__ --> Lock
+    __init__ --> RuntimeError
+    _generate_ir --> merge_environment
+    _generate_ir --> generate_system_map
 ```
 
 ## Reverse Engineering Guidelines

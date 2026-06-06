@@ -592,7 +592,7 @@ wheels = [
 
 [[package]]
 name = "env2llm"
-version = "0.1.3"
+version = "0.1.8"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
@@ -609,18 +609,26 @@ dev = [
 llm = [
     { name = "litellm" },
 ]
+mqtt = [
+    { name = "paho-mqtt" },
+]
+nlp2uri = [
+    { name = "nlp2uri", extra = ["envmap"] },
+]
 
 [package.metadata]
 requires-dist = [
     { name = "costs", marker = "extra == 'dev'", specifier = ">=0.1.20" },
     { name = "goal", marker = "extra == 'dev'", specifier = ">=2.1.0" },
     { name = "litellm", marker = "extra == 'llm'", specifier = ">=1.0" },
+    { name = "nlp2uri", extras = ["envmap"], marker = "extra == 'nlp2uri'", specifier = ">=0.4.7" },
+    { name = "paho-mqtt", marker = "extra == 'mqtt'", specifier = ">=2.0" },
     { name = "pfix", marker = "extra == 'dev'", specifier = ">=0.1.60" },
     { name = "pydantic", specifier = ">=2.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pyyaml", specifier = ">=6.0" },
 ]
-provides-extras = ["llm", "dev"]
+provides-extras = ["llm", "mqtt", "serve", "mcp", "nlp2uri", "dev"]
 
 [[package]]
 name = "exceptiongroup"
@@ -852,6 +860,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d5/8d/1c51c094345df128ca4a990d633fe1a0ff28726c9e6b3c41ba65087bba1d/fsspec-2026.4.0.tar.gz", hash = "sha256:301d8ac70ae90ef3ad05dcf94d6c3754a097f9b5fe4667d2787aa359ec7df7e4", size = 312760, upload-time = "2026-04-29T20:42:38.635Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d5/0c/043d5e551459da400957a1395e0febbf771446ff34291afcbe3d8be2a279/fsspec-2026.4.0-py3-none-any.whl", hash = "sha256:11ef7bb35dab8a394fde6e608221d5cf3e8499401c249bebaeaad760a1a8dec2", size = 203402, upload-time = "2026-04-29T20:42:36.842Z" },
+]
+
+[[package]]
+name = "getv"
+version = "0.2.10"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "click" },
+    { name = "python-dotenv" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c9/cd/f78124ed2f992f46f73ec8c82c2389d8a9b14859e027edb43aa853c37411/getv-0.2.10.tar.gz", hash = "sha256:1279a3909eda281e14ab7e064e64b3cc327e147902d75b30f13adb8285b57b46", size = 49912, upload-time = "2026-02-20T21:58:42.331Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0f/e0/b5b1d1ee93e24f1d2a9392f4258a1c5e883f2e6ed06da41071de218ba178/getv-0.2.10-py3-none-any.whl", hash = "sha256:ad2edcfb399c7e24b74686a344e90ae4c042b2c2abeebff2f496a9deed925a9c", size = 44410, upload-time = "2026-02-20T21:58:40.991Z" },
 ]
 
 [[package]]
@@ -1578,6 +1599,24 @@ wheels = [
 ]
 
 [[package]]
+name = "nlp2uri"
+version = "0.4.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/15/0a/c8487f117a496bd74b10ead6549cafb4e3221ed8a45d2ae586bb50bb5194/nlp2uri-0.4.7.tar.gz", hash = "sha256:3ebef864e9565f2d5364f4a049e93284361104158a21824eda3ba48ff7b5aa15", size = 69515, upload-time = "2026-06-06T20:00:21.184Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f0/f2/a37c9aebf26d65c9dd19010af1c8479d7802cee0ba1b253b714e832e88dd/nlp2uri-0.4.7-py3-none-any.whl", hash = "sha256:df8bb9777e35cb08b11a6f422b1fc9d56f60268682fea4af71b6e13a6c1b5931", size = 80003, upload-time = "2026-06-06T20:00:19.593Z" },
+]
+
+[package.optional-dependencies]
+envmap = [
+    { name = "env2llm" },
+    { name = "getv" },
+]
+
+[[package]]
 name = "numpy"
 version = "2.2.6"
 source = { registry = "https://pypi.org/simple" }
@@ -1755,6 +1794,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz", hash = "sha256:ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661", size = 228134, upload-time = "2026-04-24T20:15:23.917Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl", hash = "sha256:5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e", size = 100195, upload-time = "2026-04-24T20:15:22.081Z" },
+]
+
+[[package]]
+name = "paho-mqtt"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/39/15/0a6214e76d4d32e7f663b109cf71fb22561c2be0f701d67f93950cd40542/paho_mqtt-2.1.0.tar.gz", hash = "sha256:12d6e7511d4137555a3f6ea167ae846af2c7357b10bc6fa4f7c3968fc1723834", size = 148848, upload-time = "2024-04-29T19:52:55.591Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c4/cb/00451c3cf31790287768bb12c6bec834f5d292eaf3022afc88e14b8afc94/paho_mqtt-2.1.0-py3-none-any.whl", hash = "sha256:6db9ba9b34ed5bc6b6e3812718c7e06e2fd7444540df2455d2c51bd58808feee", size = 67219, upload-time = "2024-04-29T19:52:48.345Z" },
 ]
 
 [[package]]

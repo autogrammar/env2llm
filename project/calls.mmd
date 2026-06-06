@@ -1,156 +1,222 @@
 flowchart LR
-%% generated in 0.01s
+%% generated in 0.03s
     subgraph src__env2llm
-        src__env2llm__policy__process__apply_process_policies["apply_process_policies"]
-        src__env2llm__layout__run_dir["run_dir"]
-        src__env2llm__doql__runtime___split_missing_ref["_split_missing_ref"]
-        src__env2llm__cli__main["main"]
-        src__env2llm__policy__process___merge_access["_merge_access"]
-        src__env2llm__policy__process__load_platform_process_defaults["load_platform_process_defaults"]
-        src__env2llm__doql__runtime__load_doql_inline_from_env["load_doql_inline_from_env"]
-        src__env2llm__doql__runtime___add_short_inline_alias["_add_short_inline_alias"]
-        src__env2llm__doql__parse___parse_runtime_body["_parse_runtime_body"]
-        src__env2llm__policy__process___intract_flags["_intract_flags"]
-        src__env2llm__policy__validations__apply_profile_validations["apply_profile_validations"]
-        src__env2llm__policy__validations___parse_profile_validation_shorthand["_parse_profile_validation_shor"]
-        src__env2llm__render__doql__helpers__bool_lit["bool_lit"]
-        src__env2llm__env__collect_environment["collect_environment"]
-        src__env2llm__bootstrap__project_artifact_root["project_artifact_root"]
-        src__env2llm__policy__validations___parse_profile_validation_by_type["_parse_profile_validation_by_t"]
-        src__env2llm__runtimes__load_example_profile["load_example_profile"]
-        src__env2llm__bootstrap__ensure_environment_map["ensure_environment_map"]
-        src__env2llm__doql__context_blocks__render_context_conversation["render_context_conversation"]
-        src__env2llm__formats__render_format["render_format"]
-        src__env2llm__system_map_models__build_command_registry["build_command_registry"]
-        src__env2llm__doql__runtime___value_from_data["_value_from_data"]
-        src__env2llm__registry___merge_generate_invoice_output["_merge_generate_invoice_output"]
-        src__env2llm__doql__parse___apply_context_metadata["_apply_context_metadata"]
-        src__env2llm__doql__parse__load_platform_map["load_platform_map"]
-        src__env2llm__registry___merge_workflow_id["_merge_workflow_id"]
-        src__env2llm__runtimes__resolve_command_runtime["resolve_command_runtime"]
-        src__env2llm__policy__process___process_policy_from_parts["_process_policy_from_parts"]
-        src__env2llm__bridge___command_to_ir["_command_to_ir"]
-        src__env2llm__layout___force_remove_path["_force_remove_path"]
-        src__env2llm__doql__parse___parse_artifact_body["_parse_artifact_body"]
-        src__env2llm__render__doql__helpers__process_field_line["process_field_line"]
-        src__env2llm__runtimes___repo_root_from_example["_repo_root_from_example"]
-        src__env2llm__doql__parse___parse_resource_body["_parse_resource_body"]
-        src__env2llm__doql__parse___command_transport["_command_transport"]
-        src__env2llm__doql__parse__collect_task_context["collect_task_context"]
-        src__env2llm__doql__parse___parse_value["_parse_value"]
-        src__env2llm__registry___execution_steps["_execution_steps"]
-        src__env2llm__policy__validations___parse_profile_validation_by_code["_parse_profile_validation_by_c"]
-        src__env2llm__doql__context_blocks__render_context_access["render_context_access"]
-        src__env2llm__layout__clean_all_example_artifacts["clean_all_example_artifacts"]
-        src__env2llm__layout__ensure_layout["ensure_layout"]
-        src__env2llm__layout__write_registry["write_registry"]
-        src__env2llm__render__doql__blocks__render_capabilities_block["render_capabilities_block"]
-        src__env2llm__doql__runtime___canonical_field["_canonical_field"]
+        src__env2llm__transport__mqtt__mqtt_missing_message["mqtt_missing_message"]
+        src__env2llm__probes__desktop___run_text["_run_text"]
+        src__env2llm__policy__desktop___ensure_desktop_access["_ensure_desktop_access"]
         src__env2llm__doql__context_blocks__render_context_workflow_history["render_context_workflow_histor"]
-        src__env2llm__policy__process__process_policy_from_profile_block["process_policy_from_profile_bl"]
-        src__env2llm__doql__runtime__resolve_doql_context_path["resolve_doql_context_path"]
-        src__env2llm__registry__refresh_doql_registry["refresh_doql_registry"]
-        src__env2llm__policy__process___deep_merge_process["_deep_merge_process"]
-        src__env2llm__policy__validations__parse_profile_validations["parse_profile_validations"]
-        src__env2llm__render__doql__blocks__render_resources_block["render_resources_block"]
-        src__env2llm__generate___parse_llm_json["_parse_llm_json"]
+        src__env2llm__integrators__mcp_server__handle_message["handle_message"]
+        src__env2llm__render__doql__helpers__data_value_line["data_value_line"]
+        src__env2llm__bridge___command_to_ir["_command_to_ir"]
+        src__env2llm__generate__build_introspection_payload["build_introspection_payload"]
+        src__env2llm__env__collect_environment["collect_environment"]
+        src__env2llm__bridge__task_context_to_system_map["task_context_to_system_map"]
+        src__env2llm__doql__parse___parse_resource_body["_parse_resource_body"]
+        src__env2llm__doql__parse___parse_block_body["_parse_block_body"]
+        src__env2llm__system_map_models__validate_config_against_map["validate_config_against_map"]
+        src__env2llm__policy__desktop___ensure_desktop_commands["_ensure_desktop_commands"]
+        src__env2llm__layout__write_registry["write_registry"]
+        src__env2llm__registry__merge_execution_observation["merge_execution_observation"]
+        src__env2llm__service__registry_service__RegistryService__refresh["refresh"]
+        src__env2llm__env__mask_secret["mask_secret"]
+        src__env2llm__doql__parse___split_csv["_split_csv"]
+        src__env2llm__layout__ensure_layout["ensure_layout"]
+        src__env2llm__bridge__doql_file_to_system_map["doql_file_to_system_map"]
+        src__env2llm__runtimes__load_example_profile["load_example_profile"]
         src__env2llm__registry___merge_execution_step["_merge_execution_step"]
         src__env2llm__layout__write_last_run_report["write_last_run_report"]
-        src__env2llm__render__doql__blocks__render_paths_block["render_paths_block"]
-        src__env2llm__doql__parse___apply_capabilities_block["_apply_capabilities_block"]
-        src__env2llm__doql__runtime___apply_conversation_flag["_apply_conversation_flag"]
-        src__env2llm___runtime_health__runtime_id_for_intent["runtime_id_for_intent"]
-        src__env2llm__doql__parse___parse_command_body["_parse_command_body"]
-        src__env2llm__doql__parse___split_csv["_split_csv"]
-        src__env2llm__render__doql__blocks__render_access_block["render_access_block"]
-        src__env2llm__system_map_models__command_input_model["command_input_model"]
-        src__env2llm__render__doql__blocks__render_data_block["render_data_block"]
-        src__env2llm__doql__parse___parse_block_body["_parse_block_body"]
-        src__env2llm__layout__current_run_id["current_run_id"]
-        src__env2llm__render__doql__helpers__history_value_line["history_value_line"]
-        src__env2llm__generate___bootstrap_system_map["_bootstrap_system_map"]
-        src__env2llm__policy__invoice__is_invoice_example["is_invoice_example"]
-        src__env2llm__layout__clean_artifact_root["clean_artifact_root"]
-        src__env2llm__policy__process___apply_nlp_policy["_apply_nlp_policy"]
-        src__env2llm__doql__runtime___autofill_value["_autofill_value"]
+        src__env2llm__doql__runtime___candidate_data_keys["_candidate_data_keys"]
+        src__env2llm__integrators__mcp_server___jsonrpc_response["_jsonrpc_response"]
         src__env2llm__layout___chmod_writable["_chmod_writable"]
-        src__env2llm__render__doql__blocks__render_process_access_block["render_process_access_block"]
-        src__env2llm__registry___merge_execution_header["_merge_execution_header"]
-        src__env2llm__system_map_models__validate_config_against_map["validate_config_against_map"]
-        src__env2llm__generate__generate_system_map["generate_system_map"]
-        src__env2llm__layout__resolve_registry_path["resolve_registry_path"]
-        src__env2llm__render__doql__helpers__join_csv["join_csv"]
-        src__env2llm__doql__context_blocks__render_context_capabilities["render_context_capabilities"]
-        src__env2llm__policy__process___merge_conversation_from_profile["_merge_conversation_from_profi"]
-        src__env2llm__doql__parse___apply_process_access_block["_apply_process_access_block"]
-        src__env2llm__render__doql__helpers__esc_str_full["esc_str_full"]
-        src__env2llm__policy__process___as_list["_as_list"]
-        src__env2llm__doql__parse___apply_process_block["_apply_process_block"]
-        src__env2llm__policy__process___apply_llm_policy["_apply_llm_policy"]
-        src__env2llm__env__mask_secret["mask_secret"]
-        src__env2llm__policy__invoice__apply_invoice_policies["apply_invoice_policies"]
-        src__env2llm__registry___step_output["_step_output"]
-        src__env2llm__policy__process___merge_paths["_merge_paths"]
-        src__env2llm__render__doql__blocks__render_process_block["render_process_block"]
+        src__env2llm__transport__mqtt__mqtt_enabled["mqtt_enabled"]
+        src__env2llm__render__doql__blocks__render_conversation_block["render_conversation_block"]
+        src__env2llm__runtimes___repo_root_from_example["_repo_root_from_example"]
+        src__env2llm__service__registry_service__RegistryService__render["render"]
+        src__env2llm__integrators__mcp_server___write_json["_write_json"]
+        src__env2llm__service__registry_service__RegistryService__load["load"]
+        src__env2llm__integrators___service_factory__attach_mqtt_refresh_listener["attach_mqtt_refresh_listener"]
+        src__env2llm__doql__parse__load_doql_context["load_doql_context"]
+        src__env2llm__doql__context_blocks__render_context_process_access["render_context_process_access"]
+        src__env2llm__doql__runtime___add_short_inline_alias["_add_short_inline_alias"]
+        src__env2llm__doql__parse__load_platform_map["load_platform_map"]
+        src__env2llm__generate___parse_llm_json["_parse_llm_json"]
+        src__env2llm__doql__parse___apply_context_metadata["_apply_context_metadata"]
+        src__env2llm__policy__process__process_policy_from_profile_block["process_policy_from_profile_bl"]
+        src__env2llm__doql__runtime__merge_inline_context["merge_inline_context"]
+        src__env2llm__doql__runtime___canonical_field["_canonical_field"]
+        src__env2llm__service__registry_service__RegistryService___generate_ir["_generate_ir"]
+        src__env2llm__policy__validations__parse_profile_validation["parse_profile_validation"]
+        src__env2llm__doql__parse__load_commands_from_services_yaml["load_commands_from_services_ya"]
+        src__env2llm__doql__parse___apply_conversation_block["_apply_conversation_block"]
+        src__env2llm__bootstrap__ensure_environment_map["ensure_environment_map"]
+        src__env2llm__doql__context_blocks__render_context_conversation["render_context_conversation"]
         src__env2llm__env__merge_environment["merge_environment"]
-        src__env2llm__formats__doql_less__render_doql_less["render_doql_less"]
+        src__env2llm__policy__validations___parse_profile_validation_shorthand["_parse_profile_validation_shor"]
+        src__env2llm__registry___merge_send_invoice_output["_merge_send_invoice_output"]
+        src__env2llm__cli__build_parser["build_parser"]
+        src__env2llm__render__doql__blocks__render_schedules_block["render_schedules_block"]
+        src__env2llm__runtimes__resolve_command_runtime["resolve_command_runtime"]
+        src__env2llm__policy__process___load_nlp2dsl_payload["_load_nlp2dsl_payload"]
+        src__env2llm__doql__parse___apply_capabilities_block["_apply_capabilities_block"]
+        src__env2llm__doql__runtime___split_missing_ref["_split_missing_ref"]
+        src__env2llm__doql__parse__enrich_task_context_from_client["enrich_task_context_from_clien"]
+        src__env2llm__policy__invoice__apply_invoice_context["apply_invoice_context"]
+        src__env2llm__doql__parse___parse_access_body["_parse_access_body"]
+        src__env2llm__doql__runtime__resolve_doql_context_path["resolve_doql_context_path"]
+        src__env2llm__doql__context_blocks__render_context_resources["render_context_resources"]
+        src__env2llm__integrators__rest_server__run_server["run_server"]
+        src__env2llm__policy__process___apply_llm_policy["_apply_llm_policy"]
+        src__env2llm__doql__parse___apply_context_block["_apply_context_block"]
+        src__env2llm__doql__parse___append_collection_blocks["_append_collection_blocks"]
+        src__env2llm__integrators__mcp_server___log["_log"]
+        src__env2llm__doql__parse___parse_runtime_body["_parse_runtime_body"]
+        src__env2llm__policy__desktop__apply_desktop_probe["apply_desktop_probe"]
+        src__env2llm__registry___merge_generate_invoice_output["_merge_generate_invoice_output"]
+        src__env2llm__doql__parse___parse_value["_parse_value"]
+        src__env2llm__policy__process__apply_process_policies["apply_process_policies"]
+        src__env2llm__probes__desktop___probe_display_geometry["_probe_display_geometry"]
+        src__env2llm__transport__mqtt__mqtt_available["mqtt_available"]
+        src__env2llm__integrators__mqtt_bridge__run_bridge["run_bridge"]
+        src__env2llm__layout__artifact_root["artifact_root"]
+        src__env2llm__integrators___service_factory__build_registry_service["build_registry_service"]
+        src__env2llm__registry__refresh_doql_registry_from_state["refresh_doql_registry_from_sta"]
+        src__env2llm__layout__resolve_registry_path["resolve_registry_path"]
+        src__env2llm__doql__runtime__context_inline_payload["context_inline_payload"]
+        src__env2llm__doql__runtime___apply_conversation_flag["_apply_conversation_flag"]
+        src__env2llm__doql__parse___apply_process_access_block["_apply_process_access_block"]
+        src__env2llm__integrators__mcp_server__main["main"]
+        src__env2llm__render__doql__blocks__render_process_access_block["render_process_access_block"]
+        src__env2llm__render__doql__helpers__process_field_line["process_field_line"]
+        src__env2llm__policy__process___merge_conversation_from_profile["_merge_conversation_from_profi"]
+        src__env2llm__render__doql__blocks__render_paths_block["render_paths_block"]
+        src__env2llm__doql__context_blocks__render_context_access["render_context_access"]
+        src__env2llm__render__doql__helpers__history_value_line["history_value_line"]
+        src__env2llm__render__doql__blocks__render_validations_block["render_validations_block"]
+        src__env2llm__policy__validations___parse_profile_validation_by_type["_parse_profile_validation_by_t"]
+        src__env2llm__policy__desktop___mirror_desktop_summary["_mirror_desktop_summary"]
+        src__env2llm__render__doql__blocks__render_environment_block["render_environment_block"]
+        src__env2llm__policy__process___merge_access["_merge_access"]
+        src__env2llm__system_map_models__build_command_registry["build_command_registry"]
+        src__env2llm__policy__validations__apply_profile_validations["apply_profile_validations"]
+        src__env2llm__formats__render_format["render_format"]
+        src__env2llm__doql__parse___parse_artifact_body["_parse_artifact_body"]
+        src__env2llm__policy__process___apply_nlp_policy["_apply_nlp_policy"]
+        src__env2llm__probes__desktop__collect_desktop_probe["collect_desktop_probe"]
+        src__env2llm__render__doql__blocks__render_access_block["render_access_block"]
+        src__env2llm__layout__run_dir["run_dir"]
+        src__env2llm__doql__runtime___autofill_value["_autofill_value"]
+        src__env2llm__registry___execution_steps["_execution_steps"]
         src__env2llm__doql__context_blocks__render_context_environment["render_context_environment"]
-        src__env2llm__render__doql__blocks__render_deploy_block["render_deploy_block"]
+        src__env2llm__policy__process__merge_process_config["merge_process_config"]
+        src__env2llm__doql__parse___apply_paths_block["_apply_paths_block"]
+        src__env2llm__doql__runtime___inline_data_key["_inline_data_key"]
+        src__env2llm__registry__merge_registry_observations["merge_registry_observations"]
+        src__env2llm__bootstrap__ensure_doql_registry["ensure_doql_registry"]
+        src__env2llm__doql__context_blocks__render_context_paths["render_context_paths"]
+        src__env2llm___runtime_health__runtime_id_for_intent["runtime_id_for_intent"]
+        src__env2llm__cli__main["main"]
+        src__env2llm__doql__parse___apply_process_block["_apply_process_block"]
+        src__env2llm__layout__write_reflection_snapshot["write_reflection_snapshot"]
+        src__env2llm__integrators__mcp_server__run_stdio["run_stdio"]
+        src__env2llm__policy__validations___parse_profile_validation_by_code["_parse_profile_validation_by_c"]
+        src__env2llm__policy__desktop___ensure_desktop_runtime["_ensure_desktop_runtime"]
+        src__env2llm__policy__process___as_list["_as_list"]
+        src__env2llm__adapters__mcp___mcp_error["_mcp_error"]
         src__env2llm__formats__default_output_name["default_output_name"]
+        src__env2llm__doql__runtime___value_from_data["_value_from_data"]
+        src__env2llm__layout__clean_all_example_artifacts["clean_all_example_artifacts"]
+        src__env2llm__system_map_models__command_input_model["command_input_model"]
+        src__env2llm__render__doql__blocks__render_process_block["render_process_block"]
+        src__env2llm__render__doql__render__render_system_map_doql["render_system_map_doql"]
+        src__env2llm__doql__parse___parse_validation_body["_parse_validation_body"]
+        src__env2llm__policy__invoice__is_invoice_example["is_invoice_example"]
+        src__env2llm__doql__render__render_doql_context["render_doql_context"]
+        src__env2llm__integrators__rest_server__main["main"]
+        src__env2llm__doql__context_blocks__render_context_capabilities["render_context_capabilities"]
+        src__env2llm__formats__normalize_format["normalize_format"]
+        src__env2llm__render__doql__blocks__render_capabilities_block["render_capabilities_block"]
+        src__env2llm__render__doql__helpers__bool_lit["bool_lit"]
+        src__env2llm__formats__doql_less__render_doql_less["render_doql_less"]
+        src__env2llm__integrators__mcp_server___jsonrpc_error["_jsonrpc_error"]
+        src__env2llm__render__doql__helpers__join_csv["join_csv"]
+        src__env2llm__render__doql__blocks__render_generated_services_block["render_generated_services_bloc"]
+        src__env2llm__render__doql__helpers__esc_str_full["esc_str_full"]
+        src__env2llm__policy__invoice__apply_invoice_policies["apply_invoice_policies"]
+        src__env2llm__doql__parse___parse_command_body["_parse_command_body"]
+        src__env2llm__render__doql__blocks__render_data_block["render_data_block"]
+        src__env2llm__layout__clean_artifact_root["clean_artifact_root"]
+        src__env2llm__system_map_models___annotation_for_field["_annotation_for_field"]
+        src__env2llm__render__doql__blocks__render_deploy_block["render_deploy_block"]
+        src__env2llm__adapters__mcp__McpAdapter__call_tool["call_tool"]
+        src__env2llm__doql__render__write_doql_context["write_doql_context"]
+        src__env2llm__layout___force_remove_path["_force_remove_path"]
+        src__env2llm__doql__runtime__load_doql_inline_from_env["load_doql_inline_from_env"]
+        src__env2llm__policy__process___merge_paths["_merge_paths"]
+        src__env2llm__render__doql__blocks__render_resources_block["render_resources_block"]
+        src__env2llm__policy__process___process_policy_from_parts["_process_policy_from_parts"]
+        src__env2llm__generate__generate_system_map["generate_system_map"]
+        src__env2llm__registry___merge_execution_header["_merge_execution_header"]
+        src__env2llm__policy__process___deep_merge_process["_deep_merge_process"]
+        src__env2llm__doql__context_blocks__render_context_data["render_context_data"]
+        src__env2llm__doql__runtime___value_from_artifacts["_value_from_artifacts"]
+        src__env2llm__policy__process___intract_flags["_intract_flags"]
+        src__env2llm__policy__desktop__desktop_probe_enabled["desktop_probe_enabled"]
         src__env2llm__doql__parse___repo_root_from_example["_repo_root_from_example"]
         src__env2llm__doql__runtime__autofill_entities["autofill_entities"]
-        src__env2llm__bootstrap__ensure_doql_registry["ensure_doql_registry"]
-        src__env2llm__doql__parse___apply_conversation_block["_apply_conversation_block"]
-        src__env2llm__runtimes__build_runtimes_for_example["build_runtimes_for_example"]
-        src__env2llm__render__doql__blocks__render_generated_services_block["render_generated_services_bloc"]
-        src__env2llm__layout__write_reflection_snapshot["write_reflection_snapshot"]
-        src__env2llm__layout__write_turn_snapshot["write_turn_snapshot"]
-        src__env2llm__doql__parse___apply_context_block["_apply_context_block"]
-        src__env2llm__bridge__task_context_to_system_map["task_context_to_system_map"]
-        src__env2llm__render__doql__render__render_system_map_doql["render_system_map_doql"]
-        src__env2llm__formats__normalize_format["normalize_format"]
-        src__env2llm__doql__parse__load_commands_from_services_yaml["load_commands_from_services_ya"]
-        src__env2llm__doql__parse___parse_validation_body["_parse_validation_body"]
-        src__env2llm__render__doql__helpers__esc_str["esc_str"]
-        src__env2llm__doql__parse___parse_access_body["_parse_access_body"]
-        src__env2llm__doql__runtime___inline_data_key["_inline_data_key"]
-        src__env2llm__render__doql__blocks__render_environment_block["render_environment_block"]
-        src__env2llm__doql__context_blocks__render_context_resources["render_context_resources"]
-        src__env2llm__cli__build_parser["build_parser"]
-        src__env2llm__system_map_models___annotation_for_field["_annotation_for_field"]
-        src__env2llm__generate__build_introspection_payload["build_introspection_payload"]
-        src__env2llm__render__doql__helpers__data_value_line["data_value_line"]
-        src__env2llm__render__doql__blocks__render_conversation_block["render_conversation_block"]
-        src__env2llm__doql__render__write_doql_context["write_doql_context"]
-        src__env2llm__policy__validations__parse_profile_validation["parse_profile_validation"]
-        src__env2llm__registry___merge_send_invoice_output["_merge_send_invoice_output"]
-        src__env2llm__doql__parse__load_doql_context["load_doql_context"]
-        src__env2llm__render__doql__blocks__render_validations_block["render_validations_block"]
-        src__env2llm__layout__artifact_root["artifact_root"]
-        src__env2llm__doql__parse___apply_paths_block["_apply_paths_block"]
-        src__env2llm__render__doql__blocks__render_schedules_block["render_schedules_block"]
-        src__env2llm__doql__parse__enrich_task_context_from_client["enrich_task_context_from_clien"]
-        src__env2llm__doql__runtime__merge_inline_context["merge_inline_context"]
-        src__env2llm__doql__runtime___value_from_artifacts["_value_from_artifacts"]
-        src__env2llm__registry__refresh_doql_registry_from_state["refresh_doql_registry_from_sta"]
-        src__env2llm__doql__runtime___candidate_data_keys["_candidate_data_keys"]
-        src__env2llm__policy__process__merge_process_config["merge_process_config"]
-        src__env2llm__policy__process___load_nlp2dsl_payload["_load_nlp2dsl_payload"]
-        src__env2llm__doql__runtime__context_inline_payload["context_inline_payload"]
-        src__env2llm__doql__context_blocks__render_context_data["render_context_data"]
-        src__env2llm__doql__context_blocks__render_context_process_access["render_context_process_access"]
-        src__env2llm__doql__models__DoqlTaskContext__runtime_for["runtime_for"]
+        src__env2llm__policy__desktop___ensure_desktop_resource["_ensure_desktop_resource"]
         src__env2llm__render__doql__blocks__render_workflow_history_block["render_workflow_history_block"]
-        src__env2llm__policy__process___apply_autonomous_policy["_apply_autonomous_policy"]
-        src__env2llm__registry__merge_execution_observation["merge_execution_observation"]
-        src__env2llm__registry__merge_registry_observations["merge_registry_observations"]
-        src__env2llm__doql__parse___append_collection_blocks["_append_collection_blocks"]
-        src__env2llm__doql__render__render_doql_context["render_doql_context"]
-        src__env2llm__doql__context_blocks__render_context_paths["render_context_paths"]
-        src__env2llm__bridge__doql_file_to_system_map["doql_file_to_system_map"]
-        src__env2llm__policy__invoice__apply_invoice_context["apply_invoice_context"]
+        src__env2llm__generate___bootstrap_system_map["_bootstrap_system_map"]
+        src__env2llm__probes__desktop___probe_active_window_id["_probe_active_window_id"]
+        src__env2llm__registry___step_output["_step_output"]
+        src__env2llm__render__doql__helpers__esc_str["esc_str"]
+        src__env2llm__runtimes__build_runtimes_for_example["build_runtimes_for_example"]
+        src__env2llm__bootstrap__project_artifact_root["project_artifact_root"]
+        src__env2llm__doql__parse___command_transport["_command_transport"]
+        src__env2llm__doql__models__DoqlTaskContext__runtime_for["runtime_for"]
+        src__env2llm__registry__refresh_doql_registry["refresh_doql_registry"]
+        src__env2llm__integrators__mqtt_bridge__publish_once["publish_once"]
         src__env2llm__doql__runtime___needs_field["_needs_field"]
+        src__env2llm__policy__process__load_platform_process_defaults["load_platform_process_defaults"]
+        src__env2llm__service__registry_service__RegistryService__registry_path["registry_path"]
+        src__env2llm__policy__validations__parse_profile_validations["parse_profile_validations"]
+        src__env2llm__registry___merge_workflow_id["_merge_workflow_id"]
+        src__env2llm__layout__write_turn_snapshot["write_turn_snapshot"]
+        src__env2llm__doql__parse__collect_task_context["collect_task_context"]
+        src__env2llm__policy__process___apply_autonomous_policy["_apply_autonomous_policy"]
+        src__env2llm__layout__current_run_id["current_run_id"]
     end
+    src__env2llm__system_map_models__command_input_model --> src__env2llm__system_map_models___annotation_for_field
+    src__env2llm__system_map_models__build_command_registry --> src__env2llm__system_map_models__command_input_model
+    src__env2llm__system_map_models__validate_config_against_map --> src__env2llm__system_map_models__command_input_model
+    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_execution_header
+    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___execution_steps
+    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_workflow_id
+    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_execution_step
+    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___step_output
+    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___merge_send_invoice_output
+    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___merge_generate_invoice_output
+    src__env2llm__registry__merge_registry_observations --> src__env2llm__doql__parse__load_doql_context
+    src__env2llm__registry__merge_registry_observations --> src__env2llm__policy__invoice__is_invoice_example
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__doql__parse__load_doql_context
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__bridge__task_context_to_system_map
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__render__doql__render__render_system_map_doql
+    src__env2llm__registry__refresh_doql_registry_from_state --> src__env2llm__registry__refresh_doql_registry
+    src__env2llm__layout___force_remove_path --> src__env2llm__layout___chmod_writable
+    src__env2llm__layout__clean_artifact_root --> src__env2llm__layout__artifact_root
+    src__env2llm__layout__clean_artifact_root --> src__env2llm__layout___force_remove_path
+    src__env2llm__layout__clean_all_example_artifacts --> src__env2llm__layout__clean_artifact_root
+    src__env2llm__layout__resolve_registry_path --> src__env2llm__layout__artifact_root
+    src__env2llm__layout__write_registry --> src__env2llm__layout__ensure_layout
+    src__env2llm__layout__run_dir --> src__env2llm__layout__current_run_id
+    src__env2llm__layout__write_turn_snapshot --> src__env2llm__layout__run_dir
+    src__env2llm__layout__write_reflection_snapshot --> src__env2llm__layout__run_dir
+    src__env2llm__layout__write_last_run_report --> src__env2llm__layout__ensure_layout
+    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__runtimes__load_example_profile
+    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__policy__process__apply_process_policies
+    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__bridge___command_to_ir
+    src__env2llm__bridge___command_to_ir --> src__env2llm__runtimes__resolve_command_runtime
+    src__env2llm__bridge__doql_file_to_system_map --> src__env2llm__doql__parse__load_doql_context
+    src__env2llm__bridge__doql_file_to_system_map --> src__env2llm__bridge__task_context_to_system_map
     src__env2llm__env__collect_environment --> src__env2llm__env__mask_secret
     src__env2llm__formats__render_format --> src__env2llm__formats__normalize_format
     src__env2llm__formats__default_output_name --> src__env2llm__formats__normalize_format
@@ -204,49 +270,6 @@ flowchart LR
     src__env2llm__doql__context_blocks__render_context_process_access --> src__env2llm__render__doql__helpers__join_csv
     src__env2llm__doql__context_blocks__render_context_paths --> src__env2llm__render__doql__helpers__join_csv
     src__env2llm__doql__context_blocks__render_context_conversation --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__runtimes__build_runtimes_for_example --> src__env2llm__runtimes___repo_root_from_example
-    src__env2llm__layout___force_remove_path --> src__env2llm__layout___chmod_writable
-    src__env2llm__layout__clean_artifact_root --> src__env2llm__layout__artifact_root
-    src__env2llm__layout__clean_artifact_root --> src__env2llm__layout___force_remove_path
-    src__env2llm__layout__clean_all_example_artifacts --> src__env2llm__layout__clean_artifact_root
-    src__env2llm__layout__resolve_registry_path --> src__env2llm__layout__artifact_root
-    src__env2llm__layout__write_registry --> src__env2llm__layout__ensure_layout
-    src__env2llm__layout__run_dir --> src__env2llm__layout__current_run_id
-    src__env2llm__layout__write_turn_snapshot --> src__env2llm__layout__run_dir
-    src__env2llm__layout__write_reflection_snapshot --> src__env2llm__layout__run_dir
-    src__env2llm__layout__write_last_run_report --> src__env2llm__layout__ensure_layout
-    src__env2llm__cli__main --> src__env2llm__formats__normalize_format
-    src__env2llm__cli__main --> src__env2llm__bootstrap__ensure_environment_map
-    src__env2llm__cli__main --> src__env2llm__cli__build_parser
-    src__env2llm__system_map_models__command_input_model --> src__env2llm__system_map_models___annotation_for_field
-    src__env2llm__system_map_models__build_command_registry --> src__env2llm__system_map_models__command_input_model
-    src__env2llm__system_map_models__validate_config_against_map --> src__env2llm__system_map_models__command_input_model
-    src__env2llm__render__doql__helpers__data_value_line --> src__env2llm__render__doql__helpers__esc_str_full
-    src__env2llm__render__doql__helpers__data_value_line --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__render__doql__helpers__process_field_line --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__render__doql__blocks__render_environment_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__render__doql__blocks__render_data_block --> src__env2llm__render__doql__helpers__data_value_line
-    src__env2llm__render__doql__blocks__render_resources_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__render__doql__blocks__render_resources_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_access_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_capabilities_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_workflow_history_block --> src__env2llm__render__doql__helpers__history_value_line
-    src__env2llm__render__doql__blocks__render_conversation_block --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__render__doql__blocks__render_process_block --> src__env2llm__render__doql__helpers__process_field_line
-    src__env2llm__render__doql__blocks__render_process_access_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_paths_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_schedules_block --> src__env2llm__render__doql__helpers__esc_str_full
-    src__env2llm__render__doql__blocks__render_deploy_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_generated_services_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__render__doql__blocks__render_generated_services_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_validations_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__generate__build_introspection_payload --> src__env2llm__runtimes__load_example_profile
-    src__env2llm__generate___bootstrap_system_map --> src__env2llm__doql__parse__collect_task_context
-    src__env2llm__generate___bootstrap_system_map --> src__env2llm__bridge__task_context_to_system_map
-    src__env2llm__generate___bootstrap_system_map --> src__env2llm__doql__parse__enrich_task_context_from_client
-    src__env2llm__generate__generate_system_map --> src__env2llm__generate__build_introspection_payload
-    src__env2llm__generate__generate_system_map --> src__env2llm__generate___bootstrap_system_map
-    src__env2llm__generate__generate_system_map --> src__env2llm__generate___parse_llm_json
     src__env2llm__doql__parse___parse_block_body --> src__env2llm__doql__parse___parse_value
     src__env2llm__doql__parse___parse_command_body --> src__env2llm__doql__parse___parse_block_body
     src__env2llm__doql__parse___parse_command_body --> src__env2llm__doql__parse___split_csv
@@ -278,32 +301,93 @@ flowchart LR
     src__env2llm__doql__parse__collect_task_context --> src__env2llm__doql__parse__load_platform_map
     src__env2llm__doql__parse__collect_task_context --> src__env2llm__doql__parse__load_commands_from_services_yaml
     src__env2llm__doql__parse__collect_task_context --> src__env2llm__policy__invoice__apply_invoice_context
-    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_execution_header
-    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___execution_steps
-    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_workflow_id
-    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_execution_step
-    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___step_output
-    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___merge_send_invoice_output
-    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___merge_generate_invoice_output
-    src__env2llm__registry__merge_registry_observations --> src__env2llm__doql__parse__load_doql_context
-    src__env2llm__registry__merge_registry_observations --> src__env2llm__policy__invoice__is_invoice_example
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__doql__parse__load_doql_context
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__bridge__task_context_to_system_map
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__render__doql__render__render_system_map_doql
-    src__env2llm__registry__refresh_doql_registry_from_state --> src__env2llm__registry__refresh_doql_registry
-    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__runtimes__load_example_profile
-    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__policy__process__apply_process_policies
-    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__bridge___command_to_ir
-    src__env2llm__bridge___command_to_ir --> src__env2llm__runtimes__resolve_command_runtime
-    src__env2llm__bridge__doql_file_to_system_map --> src__env2llm__doql__parse__load_doql_context
-    src__env2llm__bridge__doql_file_to_system_map --> src__env2llm__bridge__task_context_to_system_map
+    src__env2llm__doql__models__DoqlTaskContext__runtime_for --> src__env2llm___runtime_health__runtime_id_for_intent
+    src__env2llm__render__doql__helpers__data_value_line --> src__env2llm__render__doql__helpers__esc_str_full
+    src__env2llm__render__doql__helpers__data_value_line --> src__env2llm__render__doql__helpers__bool_lit
+    src__env2llm__render__doql__helpers__process_field_line --> src__env2llm__render__doql__helpers__bool_lit
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__bootstrap__project_artifact_root
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__layout__ensure_layout
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__env__merge_environment
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__generate__generate_system_map
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__policy__process__apply_process_policies
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__policy__invoice__apply_invoice_policies
+    src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__policy__desktop__apply_desktop_probe
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__formats__render_format
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__formats__default_output_name
     src__env2llm__bootstrap__ensure_doql_registry --> src__env2llm__bootstrap__ensure_environment_map
-    src__env2llm__doql__models__DoqlTaskContext__runtime_for --> src__env2llm___runtime_health__runtime_id_for_intent
+    src__env2llm__cli__main --> src__env2llm__formats__normalize_format
+    src__env2llm__cli__main --> src__env2llm__bootstrap__ensure_environment_map
+    src__env2llm__cli__main --> src__env2llm__cli__build_parser
+    src__env2llm__generate__build_introspection_payload --> src__env2llm__runtimes__load_example_profile
+    src__env2llm__generate__build_introspection_payload --> src__env2llm__policy__desktop__desktop_probe_enabled
+    src__env2llm__generate___bootstrap_system_map --> src__env2llm__doql__parse__collect_task_context
+    src__env2llm__generate___bootstrap_system_map --> src__env2llm__bridge__task_context_to_system_map
+    src__env2llm__generate___bootstrap_system_map --> src__env2llm__doql__parse__enrich_task_context_from_client
+    src__env2llm__generate__generate_system_map --> src__env2llm__generate__build_introspection_payload
+    src__env2llm__generate__generate_system_map --> src__env2llm__generate___bootstrap_system_map
+    src__env2llm__generate__generate_system_map --> src__env2llm__generate___parse_llm_json
+    src__env2llm__runtimes__build_runtimes_for_example --> src__env2llm__runtimes___repo_root_from_example
+    src__env2llm__integrators__mqtt_bridge__run_bridge --> src__env2llm__integrators___service_factory__build_registry_service
+    src__env2llm__integrators__mqtt_bridge__run_bridge --> src__env2llm__integrators___service_factory__attach_mqtt_refresh_listener
+    src__env2llm__integrators__mqtt_bridge__run_bridge --> src__env2llm__transport__mqtt__mqtt_available
+    src__env2llm__integrators__mqtt_bridge__publish_once --> src__env2llm__integrators___service_factory__build_registry_service
+    src__env2llm__integrators__mqtt_bridge__publish_once --> src__env2llm__transport__mqtt__mqtt_available
+    src__env2llm__integrators__mqtt_bridge__publish_once --> src__env2llm__transport__mqtt__mqtt_missing_message
+    src__env2llm__integrators___service_factory__build_registry_service --> src__env2llm__transport__mqtt__mqtt_enabled
+    src__env2llm__integrators___service_factory__build_registry_service --> src__env2llm__transport__mqtt__mqtt_available
+    src__env2llm__integrators__rest_server__run_server --> src__env2llm__integrators___service_factory__build_registry_service
+    src__env2llm__integrators__rest_server__run_server --> src__env2llm__integrators___service_factory__attach_mqtt_refresh_listener
+    src__env2llm__integrators__rest_server__main --> src__env2llm__integrators__rest_server__run_server
+    src__env2llm__integrators__rest_server__main --> src__env2llm__transport__mqtt__mqtt_enabled
+    src__env2llm__integrators__mcp_server__handle_message --> src__env2llm__integrators__mcp_server___jsonrpc_error
+    src__env2llm__integrators__mcp_server__handle_message --> src__env2llm__integrators__mcp_server___jsonrpc_response
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators___service_factory__build_registry_service
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators___service_factory__attach_mqtt_refresh_listener
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators__mcp_server___log
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators__mcp_server__handle_message
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators__mcp_server___write_json
+    src__env2llm__integrators__mcp_server__main --> src__env2llm__integrators__mcp_server__run_stdio
+    src__env2llm__integrators__mcp_server__main --> src__env2llm__transport__mqtt__mqtt_enabled
+    src__env2llm__service__registry_service__RegistryService__registry_path --> src__env2llm__layout__resolve_registry_path
+    src__env2llm__service__registry_service__RegistryService__load --> src__env2llm__bridge__doql_file_to_system_map
+    src__env2llm__service__registry_service__RegistryService__refresh --> src__env2llm__bootstrap__ensure_environment_map
+    src__env2llm__service__registry_service__RegistryService__refresh --> src__env2llm__bridge__doql_file_to_system_map
+    src__env2llm__service__registry_service__RegistryService__render --> src__env2llm__formats__render_format
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__env__merge_environment
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__generate__generate_system_map
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__policy__process__apply_process_policies
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__policy__invoice__apply_invoice_policies
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__policy__desktop__apply_desktop_probe
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__bootstrap__ensure_environment_map
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__bridge__doql_file_to_system_map
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__env__collect_environment
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__registry__merge_registry_observations
+    src__env2llm__probes__desktop___probe_display_geometry --> src__env2llm__probes__desktop___run_text
+    src__env2llm__probes__desktop___probe_active_window_id --> src__env2llm__probes__desktop___run_text
+    src__env2llm__probes__desktop__collect_desktop_probe --> src__env2llm__probes__desktop___probe_display_geometry
+    src__env2llm__probes__desktop__collect_desktop_probe --> src__env2llm__probes__desktop___probe_active_window_id
+    src__env2llm__probes__desktop__collect_desktop_probe --> src__env2llm__probes__desktop___run_text
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__probes__desktop__collect_desktop_probe
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___ensure_desktop_runtime
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___ensure_desktop_resource
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___ensure_desktop_commands
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___ensure_desktop_access
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___mirror_desktop_summary
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop__desktop_probe_enabled
+    src__env2llm__adapters__mcp__McpAdapter__call_tool --> src__env2llm__adapters__mcp___mcp_error
+    src__env2llm__render__doql__blocks__render_environment_block --> src__env2llm__render__doql__helpers__esc_str
+    src__env2llm__render__doql__blocks__render_data_block --> src__env2llm__render__doql__helpers__data_value_line
+    src__env2llm__render__doql__blocks__render_resources_block --> src__env2llm__render__doql__helpers__esc_str
+    src__env2llm__render__doql__blocks__render_resources_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_access_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_capabilities_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_workflow_history_block --> src__env2llm__render__doql__helpers__history_value_line
+    src__env2llm__render__doql__blocks__render_conversation_block --> src__env2llm__render__doql__helpers__bool_lit
+    src__env2llm__render__doql__blocks__render_process_block --> src__env2llm__render__doql__helpers__process_field_line
+    src__env2llm__render__doql__blocks__render_process_access_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_paths_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_schedules_block --> src__env2llm__render__doql__helpers__esc_str_full
+    src__env2llm__render__doql__blocks__render_deploy_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_generated_services_block --> src__env2llm__render__doql__helpers__esc_str
+    src__env2llm__render__doql__blocks__render_generated_services_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_validations_block --> src__env2llm__render__doql__helpers__esc_str

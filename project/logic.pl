@@ -1,16 +1,19 @@
 % ── Project Metadata ─────────────────────────────────────
-project_metadata('env2llm', '0.1.2', 'python').
+project_metadata('env2llm', '0.1.5', 'python').
 
 % ── Project Files ────────────────────────────────────────
 project_file('app.doql.less', 231, 'less').
 project_file('project.sh', 59, 'shell').
-project_file('src/env2llm/__init__.py', 34, 'python').
+project_file('src/env2llm/__init__.py', 44, 'python').
 project_file('src/env2llm/__main__.py', 4, 'python').
-project_file('src/env2llm/_runtime_health.py', 30, 'python').
+project_file('src/env2llm/_runtime_health.py', 32, 'python').
+project_file('src/env2llm/adapters/__init__.py', 7, 'python').
+project_file('src/env2llm/adapters/mcp.py', 143, 'python').
+project_file('src/env2llm/adapters/rest.py', 107, 'python').
 project_file('src/env2llm/artifact_layout.py', 2, 'python').
-project_file('src/env2llm/bootstrap.py', 103, 'python').
+project_file('src/env2llm/bootstrap.py', 106, 'python').
 project_file('src/env2llm/bridge.py', 226, 'python').
-project_file('src/env2llm/cli.py', 58, 'python').
+project_file('src/env2llm/cli.py', 64, 'python').
 project_file('src/env2llm/doql/__init__.py', 49, 'python').
 project_file('src/env2llm/doql/context_blocks.py', 235, 'python').
 project_file('src/env2llm/doql/models.py', 135, 'python').
@@ -24,20 +27,30 @@ project_file('src/env2llm/formats/doql_less.py', 12, 'python').
 project_file('src/env2llm/formats/json_fmt.py', 14, 'python').
 project_file('src/env2llm/formats/markdown.py', 53, 'python').
 project_file('src/env2llm/formats/yaml_fmt.py', 14, 'python').
-project_file('src/env2llm/generate.py', 203, 'python').
-project_file('src/env2llm/ir.py', 275, 'python').
+project_file('src/env2llm/generate.py', 209, 'python').
+project_file('src/env2llm/integrators/__init__.py', 2, 'python').
+project_file('src/env2llm/integrators/_service_factory.py', 50, 'python').
+project_file('src/env2llm/integrators/mcp_server.py', 137, 'python').
+project_file('src/env2llm/integrators/mqtt_bridge.py', 146, 'python').
+project_file('src/env2llm/integrators/rest_server.py', 115, 'python').
+project_file('src/env2llm/ir.py', 316, 'python').
 project_file('src/env2llm/layout.py', 267, 'python').
 project_file('src/env2llm/policy/__init__.py', 5, 'python').
+project_file('src/env2llm/policy/desktop.py', 176, 'python').
 project_file('src/env2llm/policy/invoice.py', 53, 'python').
 project_file('src/env2llm/policy/process.py', 338, 'python').
 project_file('src/env2llm/policy/validations.py', 74, 'python').
+project_file('src/env2llm/probes/__init__.py', 6, 'python').
+project_file('src/env2llm/probes/desktop.py', 143, 'python').
 project_file('src/env2llm/registry.py', 231, 'python').
 project_file('src/env2llm/render/__init__.py', 4, 'python').
 project_file('src/env2llm/render/doql/__init__.py', 6, 'python').
-project_file('src/env2llm/render/doql/blocks.py', 301, 'python').
+project_file('src/env2llm/render/doql/blocks.py', 341, 'python').
 project_file('src/env2llm/render/doql/helpers.py', 46, 'python').
-project_file('src/env2llm/render/doql/render.py', 49, 'python').
-project_file('src/env2llm/runtimes.py', 175, 'python').
+project_file('src/env2llm/render/doql/render.py', 51, 'python').
+project_file('src/env2llm/runtimes.py', 178, 'python').
+project_file('src/env2llm/service/__init__.py', 6, 'python').
+project_file('src/env2llm/service/registry_service.py', 166, 'python').
 project_file('src/env2llm/sources.py', 68, 'python').
 project_file('src/env2llm/system_map_bridge.py', 2, 'python').
 project_file('src/env2llm/system_map_generator.py', 2, 'python').
@@ -45,16 +58,23 @@ project_file('src/env2llm/system_map_ir.py', 2, 'python').
 project_file('src/env2llm/system_map_models.py', 49, 'python').
 project_file('src/env2llm/system_map_render.py', 2, 'python').
 project_file('src/env2llm/system_map_runtimes.py', 2, 'python').
+project_file('src/env2llm/transport/__init__.py', 6, 'python').
+project_file('src/env2llm/transport/mqtt.py', 153, 'python').
 project_file('tests/conftest.py', 24, 'python').
+project_file('tests/test_desktop_probe.py', 69, 'python').
 project_file('tests/test_doql_context.py', 312, 'python').
 project_file('tests/test_formats.py', 24, 'python').
+project_file('tests/test_integrators.py', 91, 'python').
+project_file('tests/test_mqtt.py', 73, 'python').
+project_file('tests/test_registry_service.py', 92, 'python').
 project_file('tests/test_system_map_ir.py', 140, 'python').
 project_file('tree.sh', 2, 'shell').
 
 % ── Python Functions ─────────────────────────────────────
-python_function('src/env2llm/_runtime_health.py', 'runtime_id_for_intent', 1, 5, 1).
+python_function('src/env2llm/_runtime_health.py', 'runtime_id_for_intent', 1, 6, 1).
+python_function('src/env2llm/adapters/mcp.py', '_mcp_error', 1, 1, 0).
 python_function('src/env2llm/bootstrap.py', 'project_artifact_root', 1, 1, 2).
-python_function('src/env2llm/bootstrap.py', 'ensure_environment_map', 1, 9, 21).
+python_function('src/env2llm/bootstrap.py', 'ensure_environment_map', 1, 9, 22).
 python_function('src/env2llm/bootstrap.py', 'ensure_doql_registry', 1, 1, 1).
 python_function('src/env2llm/bridge.py', '_mime_for_artifact', 1, 4, 3).
 python_function('src/env2llm/bridge.py', '_process_from_ctx', 1, 12, 10).
@@ -129,11 +149,25 @@ python_function('src/env2llm/formats/doql_less.py', 'render_doql_less', 2, 1, 1)
 python_function('src/env2llm/formats/json_fmt.py', 'render_json', 2, 1, 2).
 python_function('src/env2llm/formats/markdown.py', 'render_markdown', 2, 22, 7).
 python_function('src/env2llm/formats/yaml_fmt.py', 'render_yaml', 2, 1, 2).
-python_function('src/env2llm/generate.py', 'build_introspection_payload', 1, 11, 16).
+python_function('src/env2llm/generate.py', 'build_introspection_payload', 1, 12, 19).
 python_function('src/env2llm/generate.py', '_bootstrap_system_map', 1, 2, 3).
 python_function('src/env2llm/generate.py', '_litellm_complete', 2, 3, 5).
 python_function('src/env2llm/generate.py', '_parse_llm_json', 1, 5, 7).
 python_function('src/env2llm/generate.py', 'generate_system_map', 1, 8, 14).
+python_function('src/env2llm/integrators/_service_factory.py', 'build_registry_service', 1, 4, 6).
+python_function('src/env2llm/integrators/_service_factory.py', 'attach_mqtt_refresh_listener', 1, 2, 5).
+python_function('src/env2llm/integrators/mcp_server.py', '_jsonrpc_response', 2, 1, 0).
+python_function('src/env2llm/integrators/mcp_server.py', '_jsonrpc_error', 4, 2, 0).
+python_function('src/env2llm/integrators/mcp_server.py', '_write_json', 1, 1, 3).
+python_function('src/env2llm/integrators/mcp_server.py', '_log', 1, 1, 1).
+python_function('src/env2llm/integrators/mcp_server.py', 'handle_message', 1, 9, 6).
+python_function('src/env2llm/integrators/mcp_server.py', 'run_stdio', 0, 6, 10).
+python_function('src/env2llm/integrators/mcp_server.py', 'main', 1, 3, 5).
+python_function('src/env2llm/integrators/mqtt_bridge.py', 'run_bridge', 0, 5, 10).
+python_function('src/env2llm/integrators/mqtt_bridge.py', 'publish_once', 0, 4, 8).
+python_function('src/env2llm/integrators/mqtt_bridge.py', 'main', 1, 4, 10).
+python_function('src/env2llm/integrators/rest_server.py', 'run_server', 0, 3, 9).
+python_function('src/env2llm/integrators/rest_server.py', 'main', 1, 3, 5).
 python_function('src/env2llm/layout.py', 'artifact_root', 1, 1, 2).
 python_function('src/env2llm/layout.py', '_chmod_writable', 1, 2, 1).
 python_function('src/env2llm/layout.py', '_force_remove_path', 1, 7, 10).
@@ -148,6 +182,13 @@ python_function('src/env2llm/layout.py', 'run_dir', 2, 2, 4).
 python_function('src/env2llm/layout.py', 'write_turn_snapshot', 1, 4, 13).
 python_function('src/env2llm/layout.py', 'write_reflection_snapshot', 1, 1, 7).
 python_function('src/env2llm/layout.py', 'write_last_run_report', 2, 1, 6).
+python_function('src/env2llm/policy/desktop.py', 'desktop_probe_enabled', 0, 2, 3).
+python_function('src/env2llm/policy/desktop.py', '_ensure_desktop_runtime', 1, 2, 3).
+python_function('src/env2llm/policy/desktop.py', '_ensure_desktop_resource', 1, 3, 3).
+python_function('src/env2llm/policy/desktop.py', '_ensure_desktop_commands', 1, 6, 6).
+python_function('src/env2llm/policy/desktop.py', '_ensure_desktop_access', 1, 5, 3).
+python_function('src/env2llm/policy/desktop.py', '_mirror_desktop_summary', 1, 12, 3).
+python_function('src/env2llm/policy/desktop.py', 'apply_desktop_probe', 1, 6, 11).
 python_function('src/env2llm/policy/invoice.py', 'is_invoice_example', 1, 2, 1).
 python_function('src/env2llm/policy/invoice.py', 'apply_invoice_policies', 1, 5, 5).
 python_function('src/env2llm/policy/invoice.py', 'apply_invoice_context', 1, 3, 6).
@@ -177,6 +218,12 @@ python_function('src/env2llm/policy/validations.py', '_parse_profile_validation_
 python_function('src/env2llm/policy/validations.py', 'parse_profile_validation', 1, 5, 4).
 python_function('src/env2llm/policy/validations.py', 'parse_profile_validations', 1, 4, 2).
 python_function('src/env2llm/policy/validations.py', 'apply_profile_validations', 2, 3, 2).
+python_function('src/env2llm/probes/desktop.py', '_run_text', 1, 4, 2).
+python_function('src/env2llm/probes/desktop.py', '_is_browser_title', 1, 1, 2).
+python_function('src/env2llm/probes/desktop.py', 'parse_wmctrl_listing', 1, 3, 8).
+python_function('src/env2llm/probes/desktop.py', '_probe_display_geometry', 0, 5, 6).
+python_function('src/env2llm/probes/desktop.py', '_probe_active_window_id', 0, 4, 5).
+python_function('src/env2llm/probes/desktop.py', 'collect_desktop_probe', 0, 15, 13).
 python_function('src/env2llm/registry.py', 'entities_to_data', 2, 5, 4).
 python_function('src/env2llm/registry.py', 'merge_execution_observation', 3, 2, 5).
 python_function('src/env2llm/registry.py', '_merge_execution_header', 2, 1, 4).
@@ -193,6 +240,7 @@ python_function('src/env2llm/render/doql/blocks.py', 'render_header', 1, 1, 2).
 python_function('src/env2llm/render/doql/blocks.py', 'render_environment_block', 1, 2, 5).
 python_function('src/env2llm/render/doql/blocks.py', 'render_data_block', 1, 3, 4).
 python_function('src/env2llm/render/doql/blocks.py', 'render_artifacts_block', 1, 6, 6).
+python_function('src/env2llm/render/doql/blocks.py', 'render_desktop_block', 1, 8, 7).
 python_function('src/env2llm/render/doql/blocks.py', 'render_runtimes_block', 1, 8, 4).
 python_function('src/env2llm/render/doql/blocks.py', 'render_commands_block', 1, 9, 5).
 python_function('src/env2llm/render/doql/blocks.py', 'render_resources_block', 1, 5, 5).
@@ -214,17 +262,22 @@ python_function('src/env2llm/render/doql/helpers.py', 'join_csv', 1, 1, 1).
 python_function('src/env2llm/render/doql/helpers.py', 'data_value_line', 2, 3, 3).
 python_function('src/env2llm/render/doql/helpers.py', 'history_value_line', 2, 4, 3).
 python_function('src/env2llm/render/doql/helpers.py', 'process_field_line', 2, 3, 2).
-python_function('src/env2llm/render/doql/render.py', 'render_system_map_doql', 1, 1, 20).
+python_function('src/env2llm/render/doql/render.py', 'render_system_map_doql', 1, 1, 21).
 python_function('src/env2llm/runtimes.py', '_repo_root_from_example', 1, 2, 0).
 python_function('src/env2llm/runtimes.py', 'load_example_profile', 2, 7, 6).
-python_function('src/env2llm/runtimes.py', 'resolve_command_runtime', 1, 7, 2).
+python_function('src/env2llm/runtimes.py', 'resolve_command_runtime', 1, 8, 2).
 python_function('src/env2llm/runtimes.py', 'build_runtimes_for_example', 1, 18, 12).
 python_function('src/env2llm/system_map_models.py', '_annotation_for_field', 1, 11, 2).
 python_function('src/env2llm/system_map_models.py', 'command_input_model', 1, 4, 5).
 python_function('src/env2llm/system_map_models.py', 'build_command_registry', 1, 2, 1).
 python_function('src/env2llm/system_map_models.py', 'validate_config_against_map', 3, 2, 5).
+python_function('src/env2llm/transport/mqtt.py', 'mqtt_available', 0, 1, 0).
+python_function('src/env2llm/transport/mqtt.py', 'mqtt_missing_message', 0, 2, 0).
+python_function('src/env2llm/transport/mqtt.py', 'mqtt_enabled', 0, 2, 3).
 python_function('tests/conftest.py', 'nlp2dsl_root', 0, 1, 1).
 python_function('tests/conftest.py', 'invoice_example_dir', 0, 2, 3).
+python_function('tests/test_desktop_probe.py', 'test_parse_wmctrl_listing_detects_geometry_and_browser', 0, 8, 2).
+python_function('tests/test_desktop_probe.py', 'test_apply_desktop_probe_adds_runtime_commands_and_doql_block', 1, 11, 8).
 python_function('tests/test_doql_context.py', 'test_load_doql_context_all_supported_blocks', 1, 34, 3).
 python_function('tests/test_doql_context.py', 'test_doql_roundtrip_preserves_core_fields', 1, 7, 5).
 python_function('tests/test_doql_context.py', 'test_autofill_entities_from_data_and_aliases', 0, 4, 2).
@@ -235,6 +288,14 @@ python_function('tests/test_doql_context.py', 'test_autofill_entities_disabled_r
 python_function('tests/test_doql_context.py', 'test_load_doql_context_parses_validations', 1, 6, 4).
 python_function('tests/test_doql_context.py', 'test_validations_doql_roundtrip_via_system_map', 1, 4, 6).
 python_function('tests/test_formats.py', 'test_render_json_yaml_markdown', 0, 5, 4).
+python_function('tests/test_integrators.py', '_fake_service', 1, 1, 5).
+python_function('tests/test_integrators.py', 'test_rest_adapter_routes', 1, 7, 3).
+python_function('tests/test_integrators.py', 'test_mcp_adapter_tools', 1, 4, 3).
+python_function('tests/test_integrators.py', 'test_rest_server_health', 1, 4, 20).
+python_function('tests/test_mqtt.py', '_install_fake_paho', 1, 1, 4).
+python_function('tests/test_mqtt.py', 'test_mqtt_publish_topics', 1, 8, 9).
+python_function('tests/test_registry_service.py', 'test_registry_service_render_and_desktop', 2, 7, 13).
+python_function('tests/test_registry_service.py', 'test_registry_service_refresh_publishes_mqtt', 2, 3, 8).
 python_function('tests/test_system_map_ir.py', 'test_system_map_validate_step_config', 0, 3, 5).
 python_function('tests/test_system_map_ir.py', 'test_dynamic_command_input_model', 0, 3, 7).
 python_function('tests/test_system_map_ir.py', 'test_task_context_to_system_map_and_render', 1, 12, 7).
@@ -244,6 +305,14 @@ python_function('tests/test_system_map_ir.py', 'test_doql_roundtrip_runtimes', 1
 python_function('tests/test_system_map_ir.py', 'test_generate_system_map_01_invoice', 1, 3, 2).
 
 % ── Python Classes ───────────────────────────────────────
+python_class('src/env2llm/adapters/mcp.py', 'McpAdapter').
+python_method('McpAdapter', '__init__', 1, 1, 0).
+python_method('McpAdapter', 'call_tool', 2, 13, 15).
+python_class('src/env2llm/adapters/rest.py', 'RestAdapter').
+python_method('RestAdapter', '__init__', 1, 1, 0).
+python_method('RestAdapter', 'match_route', 3, 5, 2).
+python_method('RestAdapter', 'dispatch', 1, 13, 18).
+python_method('RestAdapter', 'handle_http', 2, 4, 5).
 python_class('src/env2llm/doql/models.py', 'DoqlArtifact').
 python_class('src/env2llm/doql/models.py', 'DoqlRuntime').
 python_class('src/env2llm/doql/models.py', 'DoqlCommand').
@@ -255,6 +324,13 @@ python_method('DoqlTaskContext', 'entity_values', 1, 5, 3).
 python_method('DoqlTaskContext', 'command', 1, 3, 0).
 python_method('DoqlTaskContext', 'required_fields_for', 1, 3, 2).
 python_method('DoqlTaskContext', 'runtime_for', 1, 6, 3).
+python_class('src/env2llm/integrators/rest_server.py', 'Env2LLMRequestHandler').
+python_method('Env2LLMRequestHandler', 'log_message', 1, 1, 0).
+python_method('Env2LLMRequestHandler', '_read_body', 0, 3, 3).
+python_method('Env2LLMRequestHandler', '_send', 2, 1, 8).
+python_method('Env2LLMRequestHandler', '_handle', 1, 2, 3).
+python_method('Env2LLMRequestHandler', 'do_GET', 0, 1, 1).
+python_method('Env2LLMRequestHandler', 'do_POST', 0, 1, 1).
 python_class('src/env2llm/ir.py', 'MimeTypeSpec').
 python_class('src/env2llm/ir.py', 'RuntimeSpecIR').
 python_class('src/env2llm/ir.py', 'ProtocolSpec').
@@ -273,11 +349,28 @@ python_class('src/env2llm/ir.py', 'ScheduleSpecIR').
 python_class('src/env2llm/ir.py', 'GeneratedServiceIR').
 python_class('src/env2llm/ir.py', 'DeploySpecIR').
 python_class('src/env2llm/ir.py', 'ProfileValidationIR').
+python_class('src/env2llm/ir.py', 'DesktopWindowIR').
+python_class('src/env2llm/ir.py', 'DesktopDisplayIR').
+python_class('src/env2llm/ir.py', 'DesktopProbeIR').
 python_class('src/env2llm/ir.py', 'SystemMapIR').
 python_method('SystemMapIR', 'command', 1, 3, 0).
 python_method('SystemMapIR', 'runtime', 1, 3, 0).
 python_method('SystemMapIR', 'runtime_for_command', 1, 3, 2).
 python_method('SystemMapIR', 'validate_step_config', 2, 7, 5).
+python_class('src/env2llm/service/registry_service.py', 'RegistryService').
+python_method('RegistryService', '__post_init__', 0, 2, 2).
+python_method('RegistryService', 'registry_path', 0, 3, 2).
+python_method('RegistryService', 'load', 0, 2, 3).
+python_method('RegistryService', 'refresh', 0, 4, 4).
+python_method('RegistryService', 'get_ir', 0, 3, 2).
+python_method('RegistryService', 'render', 1, 1, 2).
+python_method('RegistryService', 'to_dict', 0, 1, 2).
+python_method('RegistryService', 'desktop_payload', 0, 2, 2).
+python_method('RegistryService', 'commands_payload', 0, 2, 2).
+python_method('RegistryService', 'uris_payload', 0, 2, 3).
+python_method('RegistryService', 'mqtt_status', 0, 2, 2).
+python_method('RegistryService', '_generate_ir', 0, 5, 11).
+python_method('RegistryService', '_publish_mqtt', 0, 5, 7).
 python_class('src/env2llm/sources.py', 'EnvironmentSources').
 python_method('EnvironmentSources', 'example_profile', 2, 7, 0).
 python_method('EnvironmentSources', 'platform_config', 1, 5, 0).
@@ -286,6 +379,27 @@ python_class('src/env2llm/sources.py', 'DefaultEnvironmentSources').
 python_method('DefaultEnvironmentSources', 'example_profile', 2, 7, 5).
 python_method('DefaultEnvironmentSources', 'platform_config', 1, 5, 5).
 python_method('DefaultEnvironmentSources', 'services_snapshot', 1, 12, 5).
+python_class('src/env2llm/transport/mqtt.py', 'MqttRegistryBridge').
+python_method('MqttRegistryBridge', '__init__', 0, 11, 8).
+python_method('MqttRegistryBridge', 'topic', 1, 3, 2).
+python_method('MqttRegistryBridge', 'connect', 0, 1, 2).
+python_method('MqttRegistryBridge', 'disconnect', 0, 1, 2).
+python_method('MqttRegistryBridge', 'publish_registry', 2, 1, 3).
+python_method('MqttRegistryBridge', 'publish_desktop', 2, 1, 3).
+python_method('MqttRegistryBridge', 'publish_event', 3, 1, 3).
+python_method('MqttRegistryBridge', 'subscribe_refresh', 1, 1, 1).
+python_method('MqttRegistryBridge', '_publish', 2, 2, 2).
+python_method('MqttRegistryBridge', '_on_connect', 5, 2, 1).
+python_method('MqttRegistryBridge', '_on_message', 3, 9, 7).
+python_class('tests/test_mqtt.py', '_FakeClient').
+python_method('_FakeClient', '__init__', 0, 1, 0).
+python_method('_FakeClient', 'username_pw_set', 2, 1, 0).
+python_method('_FakeClient', 'connect', 3, 1, 0).
+python_method('_FakeClient', 'loop_start', 0, 1, 0).
+python_method('_FakeClient', 'loop_stop', 0, 1, 0).
+python_method('_FakeClient', 'disconnect', 0, 1, 0).
+python_method('_FakeClient', 'publish', 4, 1, 1).
+python_method('_FakeClient', 'subscribe', 2, 1, 1).
 
 % ── Dependencies ─────────────────────────────────────────
 

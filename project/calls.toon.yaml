@@ -1,63 +1,66 @@
 # code2llm call graph | /home/tom/github/semcod/env2llm
-# generated in 0.08s
-# nodes: 149 | edges: 156 | modules: 23
-# CC̄=4.8
+# generated in 0.20s
+# nodes: 183 | edges: 206 | modules: 32
+# CC̄=4.5
 
 HUBS[20]:
   src.env2llm.render.doql.render.render_system_map_doql
-    CC=1  in:2  out:37  total:39
+    CC=1  in:2  out:39  total:41
   src.env2llm.runtimes.build_runtimes_for_example
     CC=18  in:1  out:35  total:36
+  src.env2llm.bridge.task_context_to_system_map
+    CC=25  in:3  out:30  total:33
   src.env2llm.doql.parse.load_platform_map
     CC=18  in:1  out:32  total:33
   src.env2llm.doql.parse.collect_task_context
     CC=19  in:1  out:32  total:33
-  src.env2llm.bridge.task_context_to_system_map
-    CC=25  in:3  out:30  total:33
+  src.env2llm.adapters.mcp.McpAdapter.call_tool
+    CC=13  in:0  out:32  total:32
   src.env2llm.doql.parse.enrich_task_context_from_client
     CC=19  in:1  out:29  total:30
   src.env2llm.doql.render.render_doql_context
     CC=1  in:1  out:29  total:30
   src.env2llm.bootstrap.ensure_environment_map
-    CC=9  in:2  out:24  total:26
+    CC=9  in:4  out:25  total:29
+  src.env2llm.render.doql.helpers.join_csv
+    CC=1  in:24  out:1  total:25
+  src.env2llm.generate.build_introspection_payload
+    CC=12  in:1  out:23  total:24
   src.env2llm.policy.process.process_policy_from_profile_block
     CC=5  in:1  out:23  total:24
-  src.env2llm.render.doql.helpers.join_csv
-    CC=1  in:23  out:1  total:24
   src.env2llm.doql.parse._parse_runtime_body
     CC=1  in:1  out:21  total:22
+  src.env2llm.probes.desktop.collect_desktop_probe
+    CC=15  in:2  out:19  total:21
   src.env2llm.layout.write_turn_snapshot
     CC=4  in:0  out:21  total:21
-  src.env2llm.generate.build_introspection_payload
-    CC=11  in:1  out:20  total:21
-  src.env2llm.doql.parse._parse_command_body
-    CC=1  in:1  out:19  total:20
   src.env2llm.doql.parse.load_commands_from_services_yaml
     CC=14  in:1  out:19  total:20
-  src.env2llm.doql.runtime.context_inline_payload
-    CC=14  in:1  out:18  total:19
+  src.env2llm.doql.parse._parse_command_body
+    CC=1  in:1  out:19  total:20
   src.env2llm.doql.parse._append_collection_blocks
     CC=12  in:1  out:18  total:19
+  src.env2llm.doql.runtime.context_inline_payload
+    CC=14  in:1  out:18  total:19
   src.env2llm.registry.refresh_doql_registry
     CC=10  in:1  out:17  total:18
-  src.env2llm.layout._force_remove_path
-    CC=7  in:1  out:15  total:16
-  src.env2llm.generate.generate_system_map
-    CC=8  in:1  out:15  total:16
 
 MODULES:
   src.env2llm._runtime_health  [1 funcs]
-    runtime_id_for_intent  CC=5  out:2
+    runtime_id_for_intent  CC=6  out:3
+  src.env2llm.adapters.mcp  [2 funcs]
+    call_tool  CC=13  out:32
+    _mcp_error  CC=1  out:0
   src.env2llm.bootstrap  [3 funcs]
     ensure_doql_registry  CC=1  out:1
-    ensure_environment_map  CC=9  out:24
+    ensure_environment_map  CC=9  out:25
     project_artifact_root  CC=1  out:2
   src.env2llm.bridge  [3 funcs]
     _command_to_ir  CC=12  out:10
     doql_file_to_system_map  CC=1  out:3
     task_context_to_system_map  CC=25  out:30
   src.env2llm.cli  [2 funcs]
-    build_parser  CC=1  out:7
+    build_parser  CC=1  out:8
     main  CC=1  out:6
   src.env2llm.doql.context_blocks  [9 funcs]
     render_context_access  CC=4  out:8
@@ -109,8 +112,25 @@ MODULES:
   src.env2llm.generate  [4 funcs]
     _bootstrap_system_map  CC=2  out:3
     _parse_llm_json  CC=5  out:8
-    build_introspection_payload  CC=11  out:20
+    build_introspection_payload  CC=12  out:23
     generate_system_map  CC=8  out:15
+  src.env2llm.integrators._service_factory  [2 funcs]
+    attach_mqtt_refresh_listener  CC=2  out:6
+    build_registry_service  CC=4  out:6
+  src.env2llm.integrators.mcp_server  [7 funcs]
+    _jsonrpc_error  CC=2  out:0
+    _jsonrpc_response  CC=1  out:0
+    _log  CC=1  out:1
+    _write_json  CC=1  out:3
+    handle_message  CC=9  out:13
+    main  CC=3  out:8
+    run_stdio  CC=6  out:12
+  src.env2llm.integrators.mqtt_bridge  [2 funcs]
+    publish_once  CC=4  out:9
+    run_bridge  CC=5  out:16
+  src.env2llm.integrators.rest_server  [2 funcs]
+    main  CC=3  out:10
+    run_server  CC=3  out:9
   src.env2llm.layout  [13 funcs]
     _chmod_writable  CC=2  out:1
     _force_remove_path  CC=7  out:15
@@ -122,6 +142,14 @@ MODULES:
     resolve_registry_path  CC=9  out:11
     run_dir  CC=2  out:4
     write_last_run_report  CC=1  out:6
+  src.env2llm.policy.desktop  [7 funcs]
+    _ensure_desktop_access  CC=5  out:3
+    _ensure_desktop_commands  CC=6  out:7
+    _ensure_desktop_resource  CC=3  out:3
+    _ensure_desktop_runtime  CC=2  out:3
+    _mirror_desktop_summary  CC=12  out:3
+    apply_desktop_probe  CC=6  out:11
+    desktop_probe_enabled  CC=2  out:3
   src.env2llm.policy.invoice  [3 funcs]
     apply_invoice_context  CC=3  out:8
     apply_invoice_policies  CC=5  out:6
@@ -144,6 +172,11 @@ MODULES:
     apply_profile_validations  CC=3  out:2
     parse_profile_validation  CC=5  out:4
     parse_profile_validations  CC=4  out:2
+  src.env2llm.probes.desktop  [4 funcs]
+    _probe_active_window_id  CC=4  out:5
+    _probe_display_geometry  CC=5  out:7
+    _run_text  CC=4  out:2
+    collect_desktop_probe  CC=15  out:19
   src.env2llm.registry  [11 funcs]
     _execution_steps  CC=4  out:3
     _merge_execution_header  CC=1  out:5
@@ -175,19 +208,61 @@ MODULES:
     join_csv  CC=1  out:1
     process_field_line  CC=3  out:3
   src.env2llm.render.doql.render  [1 funcs]
-    render_system_map_doql  CC=1  out:37
+    render_system_map_doql  CC=1  out:39
   src.env2llm.runtimes  [4 funcs]
     _repo_root_from_example  CC=2  out:0
     build_runtimes_for_example  CC=18  out:35
     load_example_profile  CC=7  out:7
-    resolve_command_runtime  CC=7  out:3
+    resolve_command_runtime  CC=8  out:4
+  src.env2llm.service.registry_service  [5 funcs]
+    _generate_ir  CC=5  out:11
+    load  CC=2  out:3
+    refresh  CC=4  out:4
+    registry_path  CC=3  out:2
+    render  CC=1  out:2
   src.env2llm.system_map_models  [4 funcs]
     _annotation_for_field  CC=11  out:3
     build_command_registry  CC=2  out:1
     command_input_model  CC=4  out:5
     validate_config_against_map  CC=2  out:5
+  src.env2llm.transport.mqtt  [3 funcs]
+    mqtt_available  CC=1  out:0
+    mqtt_enabled  CC=2  out:3
+    mqtt_missing_message  CC=2  out:0
 
 EDGES:
+  src.env2llm.system_map_models.command_input_model → src.env2llm.system_map_models._annotation_for_field
+  src.env2llm.system_map_models.build_command_registry → src.env2llm.system_map_models.command_input_model
+  src.env2llm.system_map_models.validate_config_against_map → src.env2llm.system_map_models.command_input_model
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_execution_header
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._execution_steps
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_workflow_id
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_execution_step
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._step_output
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._merge_send_invoice_output
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._merge_generate_invoice_output
+  src.env2llm.registry.merge_registry_observations → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.registry.merge_registry_observations → src.env2llm.policy.invoice.is_invoice_example
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.bridge.task_context_to_system_map
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.render.doql.render.render_system_map_doql
+  src.env2llm.registry.refresh_doql_registry_from_state → src.env2llm.registry.refresh_doql_registry
+  src.env2llm.layout._force_remove_path → src.env2llm.layout._chmod_writable
+  src.env2llm.layout.clean_artifact_root → src.env2llm.layout.artifact_root
+  src.env2llm.layout.clean_artifact_root → src.env2llm.layout._force_remove_path
+  src.env2llm.layout.clean_all_example_artifacts → src.env2llm.layout.clean_artifact_root
+  src.env2llm.layout.resolve_registry_path → src.env2llm.layout.artifact_root
+  src.env2llm.layout.write_registry → src.env2llm.layout.ensure_layout
+  src.env2llm.layout.run_dir → src.env2llm.layout.current_run_id
+  src.env2llm.layout.write_turn_snapshot → src.env2llm.layout.run_dir
+  src.env2llm.layout.write_reflection_snapshot → src.env2llm.layout.run_dir
+  src.env2llm.layout.write_last_run_report → src.env2llm.layout.ensure_layout
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.runtimes.load_example_profile
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.policy.process.apply_process_policies
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.bridge._command_to_ir
+  src.env2llm.bridge._command_to_ir → src.env2llm.runtimes.resolve_command_runtime
+  src.env2llm.bridge.doql_file_to_system_map → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.bridge.doql_file_to_system_map → src.env2llm.bridge.task_context_to_system_map
   src.env2llm.env.collect_environment → src.env2llm.env.mask_secret
   src.env2llm.formats.render_format → src.env2llm.formats.normalize_format
   src.env2llm.formats.default_output_name → src.env2llm.formats.normalize_format
@@ -206,35 +281,3 @@ EDGES:
   src.env2llm.policy.process.merge_process_config → src.env2llm.policy.process._deep_merge_process
   src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process.merge_process_config
   src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.validations.apply_profile_validations
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.runtimes.load_example_profile
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process.process_policy_from_profile_block
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process._merge_conversation_from_profile
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_shorthand
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_by_code
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_by_type
-  src.env2llm.policy.validations.parse_profile_validations → src.env2llm.policy.validations.parse_profile_validation
-  src.env2llm.policy.validations.apply_profile_validations → src.env2llm.policy.validations.parse_profile_validations
-  src.env2llm.policy.invoice.apply_invoice_policies → src.env2llm.policy.invoice.is_invoice_example
-  src.env2llm.policy.invoice.apply_invoice_context → src.env2llm.policy.invoice.is_invoice_example
-  src.env2llm.doql.runtime.resolve_doql_context_path → src.env2llm.layout.resolve_registry_path
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.runtime.resolve_doql_context_path
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.runtime.context_inline_payload
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.parse.load_doql_context
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._inline_data_key
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._add_short_inline_alias
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._apply_conversation_flag
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._split_missing_ref
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._autofill_value
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._needs_field
-  src.env2llm.doql.runtime._split_missing_ref → src.env2llm.doql.runtime._canonical_field
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._value_from_data
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._value_from_artifacts
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._candidate_data_keys
-  src.env2llm.doql.render.write_doql_context → src.env2llm.doql.render.render_doql_context
-  src.env2llm.doql.context_blocks.render_context_environment → src.env2llm.render.doql.helpers.esc_str
-  src.env2llm.doql.context_blocks.render_context_data → src.env2llm.render.doql.helpers.data_value_line
-  src.env2llm.doql.context_blocks.render_context_resources → src.env2llm.render.doql.helpers.esc_str
-  src.env2llm.doql.context_blocks.render_context_resources → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_access → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_capabilities → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_workflow_history → src.env2llm.render.doql.helpers.join_csv

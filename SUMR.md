@@ -16,7 +16,7 @@ SUMD - Structured Unified Markdown Descriptor for AI-aware project refactorizati
 ## Metadata
 
 - **name**: `env2llm`
-- **version**: `0.1.2`
+- **version**: `0.1.5`
 - **python_requires**: `>=3.10`
 - **license**: Apache-2.0
 - **ai_model**: `openrouter/qwen/qwen3-coder-next`
@@ -36,7 +36,7 @@ SUMD (description) → DOQL/source (code) → taskfile (automation) → testql (
 
 app {
   name: env2llm;
-  version: 0.1.2;
+  version: 0.1.5;
 }
 
 dependencies {
@@ -286,82 +286,85 @@ pfix>=0.1.60
 
 ## Call Graph
 
-*149 nodes · 156 edges · 23 modules · CC̄=4.8*
+*183 nodes · 206 edges · 32 modules · CC̄=4.5*
 
 ### Hubs (by degree)
 
 | Function | CC | in | out | total |
 |----------|----|----|-----|-------|
-| `render_system_map_doql` *(in src.env2llm.render.doql.render)* | 1 | 2 | 37 | **39** |
+| `render_system_map_doql` *(in src.env2llm.render.doql.render)* | 1 | 2 | 39 | **41** |
 | `build_runtimes_for_example` *(in src.env2llm.runtimes)* | 18 ⚠ | 1 | 35 | **36** |
+| `task_context_to_system_map` *(in src.env2llm.bridge)* | 25 ⚠ | 3 | 30 | **33** |
 | `load_platform_map` *(in src.env2llm.doql.parse)* | 18 ⚠ | 1 | 32 | **33** |
 | `collect_task_context` *(in src.env2llm.doql.parse)* | 19 ⚠ | 1 | 32 | **33** |
-| `task_context_to_system_map` *(in src.env2llm.bridge)* | 25 ⚠ | 3 | 30 | **33** |
+| `call_tool` *(in src.env2llm.adapters.mcp.McpAdapter)* | 13 ⚠ | 0 | 32 | **32** |
 | `enrich_task_context_from_client` *(in src.env2llm.doql.parse)* | 19 ⚠ | 1 | 29 | **30** |
 | `render_doql_context` *(in src.env2llm.doql.render)* | 1 | 1 | 29 | **30** |
-| `ensure_environment_map` *(in src.env2llm.bootstrap)* | 9 | 2 | 24 | **26** |
 
 ```toon markpact:analysis path=project/calls.toon.yaml
 # code2llm call graph | /home/tom/github/semcod/env2llm
-# generated in 0.08s
-# nodes: 149 | edges: 156 | modules: 23
-# CC̄=4.8
+# generated in 0.20s
+# nodes: 183 | edges: 206 | modules: 32
+# CC̄=4.5
 
 HUBS[20]:
   src.env2llm.render.doql.render.render_system_map_doql
-    CC=1  in:2  out:37  total:39
+    CC=1  in:2  out:39  total:41
   src.env2llm.runtimes.build_runtimes_for_example
     CC=18  in:1  out:35  total:36
+  src.env2llm.bridge.task_context_to_system_map
+    CC=25  in:3  out:30  total:33
   src.env2llm.doql.parse.load_platform_map
     CC=18  in:1  out:32  total:33
   src.env2llm.doql.parse.collect_task_context
     CC=19  in:1  out:32  total:33
-  src.env2llm.bridge.task_context_to_system_map
-    CC=25  in:3  out:30  total:33
+  src.env2llm.adapters.mcp.McpAdapter.call_tool
+    CC=13  in:0  out:32  total:32
   src.env2llm.doql.parse.enrich_task_context_from_client
     CC=19  in:1  out:29  total:30
   src.env2llm.doql.render.render_doql_context
     CC=1  in:1  out:29  total:30
   src.env2llm.bootstrap.ensure_environment_map
-    CC=9  in:2  out:24  total:26
+    CC=9  in:4  out:25  total:29
+  src.env2llm.render.doql.helpers.join_csv
+    CC=1  in:24  out:1  total:25
+  src.env2llm.generate.build_introspection_payload
+    CC=12  in:1  out:23  total:24
   src.env2llm.policy.process.process_policy_from_profile_block
     CC=5  in:1  out:23  total:24
-  src.env2llm.render.doql.helpers.join_csv
-    CC=1  in:23  out:1  total:24
   src.env2llm.doql.parse._parse_runtime_body
     CC=1  in:1  out:21  total:22
+  src.env2llm.probes.desktop.collect_desktop_probe
+    CC=15  in:2  out:19  total:21
   src.env2llm.layout.write_turn_snapshot
     CC=4  in:0  out:21  total:21
-  src.env2llm.generate.build_introspection_payload
-    CC=11  in:1  out:20  total:21
-  src.env2llm.doql.parse._parse_command_body
-    CC=1  in:1  out:19  total:20
   src.env2llm.doql.parse.load_commands_from_services_yaml
     CC=14  in:1  out:19  total:20
-  src.env2llm.doql.runtime.context_inline_payload
-    CC=14  in:1  out:18  total:19
+  src.env2llm.doql.parse._parse_command_body
+    CC=1  in:1  out:19  total:20
   src.env2llm.doql.parse._append_collection_blocks
     CC=12  in:1  out:18  total:19
+  src.env2llm.doql.runtime.context_inline_payload
+    CC=14  in:1  out:18  total:19
   src.env2llm.registry.refresh_doql_registry
     CC=10  in:1  out:17  total:18
-  src.env2llm.layout._force_remove_path
-    CC=7  in:1  out:15  total:16
-  src.env2llm.generate.generate_system_map
-    CC=8  in:1  out:15  total:16
 
 MODULES:
   src.env2llm._runtime_health  [1 funcs]
-    runtime_id_for_intent  CC=5  out:2
+    runtime_id_for_intent  CC=6  out:3
+  src.env2llm.adapters.mcp  [2 funcs]
+    call_tool  CC=13  out:32
+    _mcp_error  CC=1  out:0
   src.env2llm.bootstrap  [3 funcs]
     ensure_doql_registry  CC=1  out:1
-    ensure_environment_map  CC=9  out:24
+    ensure_environment_map  CC=9  out:25
     project_artifact_root  CC=1  out:2
   src.env2llm.bridge  [3 funcs]
     _command_to_ir  CC=12  out:10
     doql_file_to_system_map  CC=1  out:3
     task_context_to_system_map  CC=25  out:30
   src.env2llm.cli  [2 funcs]
-    build_parser  CC=1  out:7
+    build_parser  CC=1  out:8
     main  CC=1  out:6
   src.env2llm.doql.context_blocks  [9 funcs]
     render_context_access  CC=4  out:8
@@ -413,8 +416,25 @@ MODULES:
   src.env2llm.generate  [4 funcs]
     _bootstrap_system_map  CC=2  out:3
     _parse_llm_json  CC=5  out:8
-    build_introspection_payload  CC=11  out:20
+    build_introspection_payload  CC=12  out:23
     generate_system_map  CC=8  out:15
+  src.env2llm.integrators._service_factory  [2 funcs]
+    attach_mqtt_refresh_listener  CC=2  out:6
+    build_registry_service  CC=4  out:6
+  src.env2llm.integrators.mcp_server  [7 funcs]
+    _jsonrpc_error  CC=2  out:0
+    _jsonrpc_response  CC=1  out:0
+    _log  CC=1  out:1
+    _write_json  CC=1  out:3
+    handle_message  CC=9  out:13
+    main  CC=3  out:8
+    run_stdio  CC=6  out:12
+  src.env2llm.integrators.mqtt_bridge  [2 funcs]
+    publish_once  CC=4  out:9
+    run_bridge  CC=5  out:16
+  src.env2llm.integrators.rest_server  [2 funcs]
+    main  CC=3  out:10
+    run_server  CC=3  out:9
   src.env2llm.layout  [13 funcs]
     _chmod_writable  CC=2  out:1
     _force_remove_path  CC=7  out:15
@@ -426,6 +446,14 @@ MODULES:
     resolve_registry_path  CC=9  out:11
     run_dir  CC=2  out:4
     write_last_run_report  CC=1  out:6
+  src.env2llm.policy.desktop  [7 funcs]
+    _ensure_desktop_access  CC=5  out:3
+    _ensure_desktop_commands  CC=6  out:7
+    _ensure_desktop_resource  CC=3  out:3
+    _ensure_desktop_runtime  CC=2  out:3
+    _mirror_desktop_summary  CC=12  out:3
+    apply_desktop_probe  CC=6  out:11
+    desktop_probe_enabled  CC=2  out:3
   src.env2llm.policy.invoice  [3 funcs]
     apply_invoice_context  CC=3  out:8
     apply_invoice_policies  CC=5  out:6
@@ -448,6 +476,11 @@ MODULES:
     apply_profile_validations  CC=3  out:2
     parse_profile_validation  CC=5  out:4
     parse_profile_validations  CC=4  out:2
+  src.env2llm.probes.desktop  [4 funcs]
+    _probe_active_window_id  CC=4  out:5
+    _probe_display_geometry  CC=5  out:7
+    _run_text  CC=4  out:2
+    collect_desktop_probe  CC=15  out:19
   src.env2llm.registry  [11 funcs]
     _execution_steps  CC=4  out:3
     _merge_execution_header  CC=1  out:5
@@ -479,19 +512,61 @@ MODULES:
     join_csv  CC=1  out:1
     process_field_line  CC=3  out:3
   src.env2llm.render.doql.render  [1 funcs]
-    render_system_map_doql  CC=1  out:37
+    render_system_map_doql  CC=1  out:39
   src.env2llm.runtimes  [4 funcs]
     _repo_root_from_example  CC=2  out:0
     build_runtimes_for_example  CC=18  out:35
     load_example_profile  CC=7  out:7
-    resolve_command_runtime  CC=7  out:3
+    resolve_command_runtime  CC=8  out:4
+  src.env2llm.service.registry_service  [5 funcs]
+    _generate_ir  CC=5  out:11
+    load  CC=2  out:3
+    refresh  CC=4  out:4
+    registry_path  CC=3  out:2
+    render  CC=1  out:2
   src.env2llm.system_map_models  [4 funcs]
     _annotation_for_field  CC=11  out:3
     build_command_registry  CC=2  out:1
     command_input_model  CC=4  out:5
     validate_config_against_map  CC=2  out:5
+  src.env2llm.transport.mqtt  [3 funcs]
+    mqtt_available  CC=1  out:0
+    mqtt_enabled  CC=2  out:3
+    mqtt_missing_message  CC=2  out:0
 
 EDGES:
+  src.env2llm.system_map_models.command_input_model → src.env2llm.system_map_models._annotation_for_field
+  src.env2llm.system_map_models.build_command_registry → src.env2llm.system_map_models.command_input_model
+  src.env2llm.system_map_models.validate_config_against_map → src.env2llm.system_map_models.command_input_model
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_execution_header
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._execution_steps
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_workflow_id
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_execution_step
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._step_output
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._merge_send_invoice_output
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._merge_generate_invoice_output
+  src.env2llm.registry.merge_registry_observations → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.registry.merge_registry_observations → src.env2llm.policy.invoice.is_invoice_example
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.bridge.task_context_to_system_map
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.render.doql.render.render_system_map_doql
+  src.env2llm.registry.refresh_doql_registry_from_state → src.env2llm.registry.refresh_doql_registry
+  src.env2llm.layout._force_remove_path → src.env2llm.layout._chmod_writable
+  src.env2llm.layout.clean_artifact_root → src.env2llm.layout.artifact_root
+  src.env2llm.layout.clean_artifact_root → src.env2llm.layout._force_remove_path
+  src.env2llm.layout.clean_all_example_artifacts → src.env2llm.layout.clean_artifact_root
+  src.env2llm.layout.resolve_registry_path → src.env2llm.layout.artifact_root
+  src.env2llm.layout.write_registry → src.env2llm.layout.ensure_layout
+  src.env2llm.layout.run_dir → src.env2llm.layout.current_run_id
+  src.env2llm.layout.write_turn_snapshot → src.env2llm.layout.run_dir
+  src.env2llm.layout.write_reflection_snapshot → src.env2llm.layout.run_dir
+  src.env2llm.layout.write_last_run_report → src.env2llm.layout.ensure_layout
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.runtimes.load_example_profile
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.policy.process.apply_process_policies
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.bridge._command_to_ir
+  src.env2llm.bridge._command_to_ir → src.env2llm.runtimes.resolve_command_runtime
+  src.env2llm.bridge.doql_file_to_system_map → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.bridge.doql_file_to_system_map → src.env2llm.bridge.task_context_to_system_map
   src.env2llm.env.collect_environment → src.env2llm.env.mask_secret
   src.env2llm.formats.render_format → src.env2llm.formats.normalize_format
   src.env2llm.formats.default_output_name → src.env2llm.formats.normalize_format
@@ -510,38 +585,6 @@ EDGES:
   src.env2llm.policy.process.merge_process_config → src.env2llm.policy.process._deep_merge_process
   src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process.merge_process_config
   src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.validations.apply_profile_validations
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.runtimes.load_example_profile
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process.process_policy_from_profile_block
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process._merge_conversation_from_profile
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_shorthand
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_by_code
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_by_type
-  src.env2llm.policy.validations.parse_profile_validations → src.env2llm.policy.validations.parse_profile_validation
-  src.env2llm.policy.validations.apply_profile_validations → src.env2llm.policy.validations.parse_profile_validations
-  src.env2llm.policy.invoice.apply_invoice_policies → src.env2llm.policy.invoice.is_invoice_example
-  src.env2llm.policy.invoice.apply_invoice_context → src.env2llm.policy.invoice.is_invoice_example
-  src.env2llm.doql.runtime.resolve_doql_context_path → src.env2llm.layout.resolve_registry_path
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.runtime.resolve_doql_context_path
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.runtime.context_inline_payload
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.parse.load_doql_context
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._inline_data_key
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._add_short_inline_alias
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._apply_conversation_flag
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._split_missing_ref
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._autofill_value
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._needs_field
-  src.env2llm.doql.runtime._split_missing_ref → src.env2llm.doql.runtime._canonical_field
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._value_from_data
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._value_from_artifacts
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._candidate_data_keys
-  src.env2llm.doql.render.write_doql_context → src.env2llm.doql.render.render_doql_context
-  src.env2llm.doql.context_blocks.render_context_environment → src.env2llm.render.doql.helpers.esc_str
-  src.env2llm.doql.context_blocks.render_context_data → src.env2llm.render.doql.helpers.data_value_line
-  src.env2llm.doql.context_blocks.render_context_resources → src.env2llm.render.doql.helpers.esc_str
-  src.env2llm.doql.context_blocks.render_context_resources → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_access → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_capabilities → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_workflow_history → src.env2llm.render.doql.helpers.join_csv
 ```
 
 ## Test Contracts
@@ -564,65 +607,68 @@ EDGES:
 
 ```toon markpact:analysis path=project/calls.toon.yaml
 # code2llm call graph | /home/tom/github/semcod/env2llm
-# generated in 0.08s
-# nodes: 149 | edges: 156 | modules: 23
-# CC̄=4.8
+# generated in 0.20s
+# nodes: 183 | edges: 206 | modules: 32
+# CC̄=4.5
 
 HUBS[20]:
   src.env2llm.render.doql.render.render_system_map_doql
-    CC=1  in:2  out:37  total:39
+    CC=1  in:2  out:39  total:41
   src.env2llm.runtimes.build_runtimes_for_example
     CC=18  in:1  out:35  total:36
+  src.env2llm.bridge.task_context_to_system_map
+    CC=25  in:3  out:30  total:33
   src.env2llm.doql.parse.load_platform_map
     CC=18  in:1  out:32  total:33
   src.env2llm.doql.parse.collect_task_context
     CC=19  in:1  out:32  total:33
-  src.env2llm.bridge.task_context_to_system_map
-    CC=25  in:3  out:30  total:33
+  src.env2llm.adapters.mcp.McpAdapter.call_tool
+    CC=13  in:0  out:32  total:32
   src.env2llm.doql.parse.enrich_task_context_from_client
     CC=19  in:1  out:29  total:30
   src.env2llm.doql.render.render_doql_context
     CC=1  in:1  out:29  total:30
   src.env2llm.bootstrap.ensure_environment_map
-    CC=9  in:2  out:24  total:26
+    CC=9  in:4  out:25  total:29
+  src.env2llm.render.doql.helpers.join_csv
+    CC=1  in:24  out:1  total:25
+  src.env2llm.generate.build_introspection_payload
+    CC=12  in:1  out:23  total:24
   src.env2llm.policy.process.process_policy_from_profile_block
     CC=5  in:1  out:23  total:24
-  src.env2llm.render.doql.helpers.join_csv
-    CC=1  in:23  out:1  total:24
   src.env2llm.doql.parse._parse_runtime_body
     CC=1  in:1  out:21  total:22
+  src.env2llm.probes.desktop.collect_desktop_probe
+    CC=15  in:2  out:19  total:21
   src.env2llm.layout.write_turn_snapshot
     CC=4  in:0  out:21  total:21
-  src.env2llm.generate.build_introspection_payload
-    CC=11  in:1  out:20  total:21
-  src.env2llm.doql.parse._parse_command_body
-    CC=1  in:1  out:19  total:20
   src.env2llm.doql.parse.load_commands_from_services_yaml
     CC=14  in:1  out:19  total:20
-  src.env2llm.doql.runtime.context_inline_payload
-    CC=14  in:1  out:18  total:19
+  src.env2llm.doql.parse._parse_command_body
+    CC=1  in:1  out:19  total:20
   src.env2llm.doql.parse._append_collection_blocks
     CC=12  in:1  out:18  total:19
+  src.env2llm.doql.runtime.context_inline_payload
+    CC=14  in:1  out:18  total:19
   src.env2llm.registry.refresh_doql_registry
     CC=10  in:1  out:17  total:18
-  src.env2llm.layout._force_remove_path
-    CC=7  in:1  out:15  total:16
-  src.env2llm.generate.generate_system_map
-    CC=8  in:1  out:15  total:16
 
 MODULES:
   src.env2llm._runtime_health  [1 funcs]
-    runtime_id_for_intent  CC=5  out:2
+    runtime_id_for_intent  CC=6  out:3
+  src.env2llm.adapters.mcp  [2 funcs]
+    call_tool  CC=13  out:32
+    _mcp_error  CC=1  out:0
   src.env2llm.bootstrap  [3 funcs]
     ensure_doql_registry  CC=1  out:1
-    ensure_environment_map  CC=9  out:24
+    ensure_environment_map  CC=9  out:25
     project_artifact_root  CC=1  out:2
   src.env2llm.bridge  [3 funcs]
     _command_to_ir  CC=12  out:10
     doql_file_to_system_map  CC=1  out:3
     task_context_to_system_map  CC=25  out:30
   src.env2llm.cli  [2 funcs]
-    build_parser  CC=1  out:7
+    build_parser  CC=1  out:8
     main  CC=1  out:6
   src.env2llm.doql.context_blocks  [9 funcs]
     render_context_access  CC=4  out:8
@@ -674,8 +720,25 @@ MODULES:
   src.env2llm.generate  [4 funcs]
     _bootstrap_system_map  CC=2  out:3
     _parse_llm_json  CC=5  out:8
-    build_introspection_payload  CC=11  out:20
+    build_introspection_payload  CC=12  out:23
     generate_system_map  CC=8  out:15
+  src.env2llm.integrators._service_factory  [2 funcs]
+    attach_mqtt_refresh_listener  CC=2  out:6
+    build_registry_service  CC=4  out:6
+  src.env2llm.integrators.mcp_server  [7 funcs]
+    _jsonrpc_error  CC=2  out:0
+    _jsonrpc_response  CC=1  out:0
+    _log  CC=1  out:1
+    _write_json  CC=1  out:3
+    handle_message  CC=9  out:13
+    main  CC=3  out:8
+    run_stdio  CC=6  out:12
+  src.env2llm.integrators.mqtt_bridge  [2 funcs]
+    publish_once  CC=4  out:9
+    run_bridge  CC=5  out:16
+  src.env2llm.integrators.rest_server  [2 funcs]
+    main  CC=3  out:10
+    run_server  CC=3  out:9
   src.env2llm.layout  [13 funcs]
     _chmod_writable  CC=2  out:1
     _force_remove_path  CC=7  out:15
@@ -687,6 +750,14 @@ MODULES:
     resolve_registry_path  CC=9  out:11
     run_dir  CC=2  out:4
     write_last_run_report  CC=1  out:6
+  src.env2llm.policy.desktop  [7 funcs]
+    _ensure_desktop_access  CC=5  out:3
+    _ensure_desktop_commands  CC=6  out:7
+    _ensure_desktop_resource  CC=3  out:3
+    _ensure_desktop_runtime  CC=2  out:3
+    _mirror_desktop_summary  CC=12  out:3
+    apply_desktop_probe  CC=6  out:11
+    desktop_probe_enabled  CC=2  out:3
   src.env2llm.policy.invoice  [3 funcs]
     apply_invoice_context  CC=3  out:8
     apply_invoice_policies  CC=5  out:6
@@ -709,6 +780,11 @@ MODULES:
     apply_profile_validations  CC=3  out:2
     parse_profile_validation  CC=5  out:4
     parse_profile_validations  CC=4  out:2
+  src.env2llm.probes.desktop  [4 funcs]
+    _probe_active_window_id  CC=4  out:5
+    _probe_display_geometry  CC=5  out:7
+    _run_text  CC=4  out:2
+    collect_desktop_probe  CC=15  out:19
   src.env2llm.registry  [11 funcs]
     _execution_steps  CC=4  out:3
     _merge_execution_header  CC=1  out:5
@@ -740,19 +816,61 @@ MODULES:
     join_csv  CC=1  out:1
     process_field_line  CC=3  out:3
   src.env2llm.render.doql.render  [1 funcs]
-    render_system_map_doql  CC=1  out:37
+    render_system_map_doql  CC=1  out:39
   src.env2llm.runtimes  [4 funcs]
     _repo_root_from_example  CC=2  out:0
     build_runtimes_for_example  CC=18  out:35
     load_example_profile  CC=7  out:7
-    resolve_command_runtime  CC=7  out:3
+    resolve_command_runtime  CC=8  out:4
+  src.env2llm.service.registry_service  [5 funcs]
+    _generate_ir  CC=5  out:11
+    load  CC=2  out:3
+    refresh  CC=4  out:4
+    registry_path  CC=3  out:2
+    render  CC=1  out:2
   src.env2llm.system_map_models  [4 funcs]
     _annotation_for_field  CC=11  out:3
     build_command_registry  CC=2  out:1
     command_input_model  CC=4  out:5
     validate_config_against_map  CC=2  out:5
+  src.env2llm.transport.mqtt  [3 funcs]
+    mqtt_available  CC=1  out:0
+    mqtt_enabled  CC=2  out:3
+    mqtt_missing_message  CC=2  out:0
 
 EDGES:
+  src.env2llm.system_map_models.command_input_model → src.env2llm.system_map_models._annotation_for_field
+  src.env2llm.system_map_models.build_command_registry → src.env2llm.system_map_models.command_input_model
+  src.env2llm.system_map_models.validate_config_against_map → src.env2llm.system_map_models.command_input_model
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_execution_header
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._execution_steps
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_workflow_id
+  src.env2llm.registry.merge_execution_observation → src.env2llm.registry._merge_execution_step
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._step_output
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._merge_send_invoice_output
+  src.env2llm.registry._merge_execution_step → src.env2llm.registry._merge_generate_invoice_output
+  src.env2llm.registry.merge_registry_observations → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.registry.merge_registry_observations → src.env2llm.policy.invoice.is_invoice_example
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.bridge.task_context_to_system_map
+  src.env2llm.registry.refresh_doql_registry → src.env2llm.render.doql.render.render_system_map_doql
+  src.env2llm.registry.refresh_doql_registry_from_state → src.env2llm.registry.refresh_doql_registry
+  src.env2llm.layout._force_remove_path → src.env2llm.layout._chmod_writable
+  src.env2llm.layout.clean_artifact_root → src.env2llm.layout.artifact_root
+  src.env2llm.layout.clean_artifact_root → src.env2llm.layout._force_remove_path
+  src.env2llm.layout.clean_all_example_artifacts → src.env2llm.layout.clean_artifact_root
+  src.env2llm.layout.resolve_registry_path → src.env2llm.layout.artifact_root
+  src.env2llm.layout.write_registry → src.env2llm.layout.ensure_layout
+  src.env2llm.layout.run_dir → src.env2llm.layout.current_run_id
+  src.env2llm.layout.write_turn_snapshot → src.env2llm.layout.run_dir
+  src.env2llm.layout.write_reflection_snapshot → src.env2llm.layout.run_dir
+  src.env2llm.layout.write_last_run_report → src.env2llm.layout.ensure_layout
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.runtimes.load_example_profile
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.policy.process.apply_process_policies
+  src.env2llm.bridge.task_context_to_system_map → src.env2llm.bridge._command_to_ir
+  src.env2llm.bridge._command_to_ir → src.env2llm.runtimes.resolve_command_runtime
+  src.env2llm.bridge.doql_file_to_system_map → src.env2llm.doql.parse.load_doql_context
+  src.env2llm.bridge.doql_file_to_system_map → src.env2llm.bridge.task_context_to_system_map
   src.env2llm.env.collect_environment → src.env2llm.env.mask_secret
   src.env2llm.formats.render_format → src.env2llm.formats.normalize_format
   src.env2llm.formats.default_output_name → src.env2llm.formats.normalize_format
@@ -771,171 +889,201 @@ EDGES:
   src.env2llm.policy.process.merge_process_config → src.env2llm.policy.process._deep_merge_process
   src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process.merge_process_config
   src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.validations.apply_profile_validations
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.runtimes.load_example_profile
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process.process_policy_from_profile_block
-  src.env2llm.policy.process.apply_process_policies → src.env2llm.policy.process._merge_conversation_from_profile
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_shorthand
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_by_code
-  src.env2llm.policy.validations.parse_profile_validation → src.env2llm.policy.validations._parse_profile_validation_by_type
-  src.env2llm.policy.validations.parse_profile_validations → src.env2llm.policy.validations.parse_profile_validation
-  src.env2llm.policy.validations.apply_profile_validations → src.env2llm.policy.validations.parse_profile_validations
-  src.env2llm.policy.invoice.apply_invoice_policies → src.env2llm.policy.invoice.is_invoice_example
-  src.env2llm.policy.invoice.apply_invoice_context → src.env2llm.policy.invoice.is_invoice_example
-  src.env2llm.doql.runtime.resolve_doql_context_path → src.env2llm.layout.resolve_registry_path
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.runtime.resolve_doql_context_path
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.runtime.context_inline_payload
-  src.env2llm.doql.runtime.load_doql_inline_from_env → src.env2llm.doql.parse.load_doql_context
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._inline_data_key
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._add_short_inline_alias
-  src.env2llm.doql.runtime.merge_inline_context → src.env2llm.doql.runtime._apply_conversation_flag
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._split_missing_ref
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._autofill_value
-  src.env2llm.doql.runtime.autofill_entities → src.env2llm.doql.runtime._needs_field
-  src.env2llm.doql.runtime._split_missing_ref → src.env2llm.doql.runtime._canonical_field
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._value_from_data
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._value_from_artifacts
-  src.env2llm.doql.runtime._autofill_value → src.env2llm.doql.runtime._candidate_data_keys
-  src.env2llm.doql.render.write_doql_context → src.env2llm.doql.render.render_doql_context
-  src.env2llm.doql.context_blocks.render_context_environment → src.env2llm.render.doql.helpers.esc_str
-  src.env2llm.doql.context_blocks.render_context_data → src.env2llm.render.doql.helpers.data_value_line
-  src.env2llm.doql.context_blocks.render_context_resources → src.env2llm.render.doql.helpers.esc_str
-  src.env2llm.doql.context_blocks.render_context_resources → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_access → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_capabilities → src.env2llm.render.doql.helpers.join_csv
-  src.env2llm.doql.context_blocks.render_context_workflow_history → src.env2llm.render.doql.helpers.join_csv
 ```
 
 ### Code Analysis (`project/analysis.toon.yaml`)
 
 ```toon markpact:analysis path=project/analysis.toon.yaml
-# code2llm | 46f 4838L | python:41,shell:2,yaml:1,toml:1 | 2026-06-06
-# generated in 0.01s
-# CC̅=4.8 | critical:7/185 | dups:0 | cycles:0
+# code2llm | 65f 7258L | python:56,yaml:5,shell:2,toml:1 | 2026-06-06
+# generated in 0.02s
+# CC̅=4.5 | critical:8/253 | dups:0 | cycles:0
 
-HEALTH[7]:
+HEALTH[8]:
+  🟡 CC    task_context_to_system_map CC=25 (limit:15)
   🟡 CC    render_markdown CC=22 (limit:15)
   🟡 CC    render_context_process CC=18 (limit:15)
-  🟡 CC    build_runtimes_for_example CC=18 (limit:15)
   🟡 CC    load_platform_map CC=18 (limit:15)
   🟡 CC    enrich_task_context_from_client CC=19 (limit:15)
   🟡 CC    collect_task_context CC=19 (limit:15)
-  🟡 CC    task_context_to_system_map CC=25 (limit:15)
+  🟡 CC    build_runtimes_for_example CC=18 (limit:15)
+  🟡 CC    collect_desktop_probe CC=15 (limit:15)
 
 REFACTOR[1]:
-  1. split 7 high-CC methods  (CC>15)
+  1. split 8 high-CC methods  (CC>15)
 
-PIPELINES[30]:
-  [1] Src [render_markdown]: render_markdown
+PIPELINES[65]:
+  [1] Src [build_command_registry]: build_command_registry → command_input_model → _annotation_for_field
       PURITY: 100% pure
-  [2] Src [render_yaml]: render_yaml
+  [2] Src [validate_config_against_map]: validate_config_against_map → command_input_model → _annotation_for_field
       PURITY: 100% pure
-  [3] Src [render_json]: render_json
+  [3] Src [example_profile]: example_profile
       PURITY: 100% pure
-  [4] Src [render_doql_less]: render_doql_less → render_system_map_doql → render_header
+  [4] Src [platform_config]: platform_config
       PURITY: 100% pure
-  [5] Src [effective_nlp_parser_mode]: effective_nlp_parser_mode
+  [5] Src [services_snapshot]: services_snapshot
       PURITY: 100% pure
-  [6] Src [process_scope_denied]: process_scope_denied
+  [6] Src [refresh_doql_registry_from_state]: refresh_doql_registry_from_state → refresh_doql_registry → load_doql_context → _apply_context_metadata
       PURITY: 100% pure
-  [7] Src [load_doql_inline_from_env]: load_doql_inline_from_env → resolve_doql_context_path → resolve_registry_path → artifact_root
+  [7] Src [clean_all_example_artifacts]: clean_all_example_artifacts → clean_artifact_root → artifact_root
       PURITY: 100% pure
-  [8] Src [merge_inline_context]: merge_inline_context → _inline_data_key
+  [8] Src [example_fixtures_dir]: example_fixtures_dir
       PURITY: 100% pure
-  [9] Src [autofill_entities]: autofill_entities → _split_missing_ref → _canonical_field
+  [9] Src [write_turn_snapshot]: write_turn_snapshot → run_dir → current_run_id
       PURITY: 100% pure
-  [10] Src [write_doql_context]: write_doql_context → render_doql_context → render_context_header
+  [10] Src [write_reflection_snapshot]: write_reflection_snapshot → run_dir → current_run_id
       PURITY: 100% pure
-  [11] Src [clean_all_example_artifacts]: clean_all_example_artifacts → clean_artifact_root → artifact_root
+  [11] Src [write_last_run_report]: write_last_run_report → ensure_layout
       PURITY: 100% pure
-  [12] Src [example_fixtures_dir]: example_fixtures_dir
+  [12] Src [render_markdown]: render_markdown
       PURITY: 100% pure
-  [13] Src [write_turn_snapshot]: write_turn_snapshot → run_dir → current_run_id
+  [13] Src [render_yaml]: render_yaml
       PURITY: 100% pure
-  [14] Src [write_reflection_snapshot]: write_reflection_snapshot → run_dir → current_run_id
+  [14] Src [render_json]: render_json
       PURITY: 100% pure
-  [15] Src [write_last_run_report]: write_last_run_report → ensure_layout
+  [15] Src [render_doql_less]: render_doql_less → render_system_map_doql → render_header
       PURITY: 100% pure
-  [16] Src [main]: main → normalize_format
+  [16] Src [effective_nlp_parser_mode]: effective_nlp_parser_mode
       PURITY: 100% pure
-  [17] Src [build_command_registry]: build_command_registry → command_input_model → _annotation_for_field
+  [17] Src [process_scope_denied]: process_scope_denied
       PURITY: 100% pure
-  [18] Src [validate_config_against_map]: validate_config_against_map → command_input_model → _annotation_for_field
+  [18] Src [load_doql_inline_from_env]: load_doql_inline_from_env → resolve_doql_context_path → resolve_registry_path → artifact_root
       PURITY: 100% pure
-  [19] Src [_litellm_complete]: _litellm_complete
+  [19] Src [merge_inline_context]: merge_inline_context → _inline_data_key
       PURITY: 100% pure
-  [20] Src [example_profile]: example_profile
+  [20] Src [autofill_entities]: autofill_entities → _split_missing_ref → _canonical_field
       PURITY: 100% pure
-  [21] Src [platform_config]: platform_config
+  [21] Src [write_doql_context]: write_doql_context → render_doql_context → render_context_header
       PURITY: 100% pure
-  [22] Src [services_snapshot]: services_snapshot
+  [22] Src [entity_values]: entity_values
       PURITY: 100% pure
-  [23] Src [runtime_for_command]: runtime_for_command
+  [23] Src [required_fields_for]: required_fields_for
       PURITY: 100% pure
-  [24] Src [validate_step_config]: validate_step_config
+  [24] Src [runtime_for]: runtime_for → runtime_id_for_intent
       PURITY: 100% pure
-  [25] Src [refresh_doql_registry_from_state]: refresh_doql_registry_from_state → refresh_doql_registry → load_doql_context → _apply_context_metadata
+  [25] Src [ensure_doql_registry]: ensure_doql_registry → ensure_environment_map → project_artifact_root
       PURITY: 100% pure
-  [26] Src [doql_file_to_system_map]: doql_file_to_system_map → load_doql_context → _apply_context_metadata
+  [26] Src [main]: main → normalize_format
       PURITY: 100% pure
-  [27] Src [ensure_doql_registry]: ensure_doql_registry → ensure_environment_map → project_artifact_root
+  [27] Src [_litellm_complete]: _litellm_complete
       PURITY: 100% pure
-  [28] Src [entity_values]: entity_values
+  [28] Src [runtime_for_command]: runtime_for_command
       PURITY: 100% pure
-  [29] Src [required_fields_for]: required_fields_for
+  [29] Src [validate_step_config]: validate_step_config
       PURITY: 100% pure
-  [30] Src [runtime_for]: runtime_for → runtime_id_for_intent
+  [30] Src [main]: main → publish_once → build_registry_service → mqtt_enabled
+      PURITY: 100% pure
+  [31] Src [_read_body]: _read_body
+      PURITY: 100% pure
+  [32] Src [_send]: _send
+      PURITY: 100% pure
+  [33] Src [_handle]: _handle
+      PURITY: 100% pure
+  [34] Src [do_GET]: do_GET
+      PURITY: 100% pure
+  [35] Src [do_POST]: do_POST
+      PURITY: 100% pure
+  [36] Src [main]: main → run_server → build_registry_service → mqtt_enabled
+      PURITY: 100% pure
+  [37] Src [main]: main → run_stdio → build_registry_service → mqtt_enabled
+      PURITY: 100% pure
+  [38] Src [__init__]: __init__ → mqtt_missing_message
+      PURITY: 100% pure
+  [39] Src [topic]: topic
+      PURITY: 100% pure
+  [40] Src [connect]: connect
+      PURITY: 100% pure
+  [41] Src [disconnect]: disconnect
+      PURITY: 100% pure
+  [42] Src [publish_registry]: publish_registry
+      PURITY: 100% pure
+  [43] Src [publish_desktop]: publish_desktop
+      PURITY: 100% pure
+  [44] Src [publish_event]: publish_event
+      PURITY: 100% pure
+  [45] Src [subscribe_refresh]: subscribe_refresh
+      PURITY: 100% pure
+  [46] Src [_publish]: _publish
+      PURITY: 100% pure
+  [47] Src [_on_connect]: _on_connect
+      PURITY: 100% pure
+  [48] Src [_on_message]: _on_message
+      PURITY: 100% pure
+  [49] Src [__post_init__]: __post_init__
+      PURITY: 100% pure
+  [50] Src [registry_path]: registry_path → resolve_registry_path → artifact_root
       PURITY: 100% pure
 
 LAYERS:
-  src/                            CC̄=4.8    ←in:0  →out:0
+  src/                            CC̄=4.5    ←in:0  →out:0
   │ !! parse                      482L  0C   25m  CC=19     ←5
-  │ process                    337L  0C   20m  CC=12     ←2
-  │ blocks                     300L  0C   18m  CC=9      ←1
-  │ ir                         274L  17C    4m  CC=7      ←0
-  │ layout                     266L  0C   14m  CC=9      ←3
+  │ blocks                     340L  0C   19m  CC=9      ←1
+  │ process                    337L  0C   20m  CC=12     ←3
+  │ ir                         315L  20C    4m  CC=7      ←0
+  │ layout                     266L  0C   14m  CC=9      ←4
   │ !! context_blocks             234L  0C   14m  CC=18     ←1
-  │ registry                   230L  0C   12m  CC=11     ←1
-  │ !! bridge                     225L  0C    5m  CC=25     ←2
+  │ registry                   230L  0C   12m  CC=11     ←2
+  │ !! bridge                     225L  0C    5m  CC=25     ←3
+  │ generate                   208L  0C    5m  CC=12     ←2
   │ runtime                    206L  0C   15m  CC=14     ←0
-  │ generate                   202L  0C    5m  CC=11     ←1
-  │ !! runtimes                   174L  0C    4m  CC=18     ←3
+  │ !! runtimes                   177L  0C    4m  CC=18     ←4
+  │ desktop                    175L  0C    7m  CC=12     ←3
+  │ registry_service           165L  1C   13m  CC=5      ←0
+  │ mqtt                       152L  1C   14m  CC=11     ←4
+  │ mqtt_bridge                145L  0C    3m  CC=5      ←0
+  │ !! desktop                    142L  0C    6m  CC=15     ←2
+  │ mcp                        142L  1C    3m  CC=13     ←0
+  │ mcp_server                 136L  0C    7m  CC=9      ←0
   │ models                     134L  7C    4m  CC=6      ←0
-  │ bootstrap                  102L  0C    3m  CC=9      ←1
+  │ rest_server                114L  1C    8m  CC=3      ←0
+  │ rest                       106L  1C    4m  CC=13     ←0
+  │ bootstrap                  105L  0C    3m  CC=9      ←2
   │ validations                 73L  0C    6m  CC=10     ←1
-  │ env                         72L  0C    3m  CC=13     ←1
+  │ env                         72L  0C    3m  CC=13     ←2
   │ sources                     67L  2C    6m  CC=12     ←0
-  │ __init__                    59L  0C    3m  CC=2      ←2
-  │ cli                         57L  0C    2m  CC=1      ←0
+  │ cli                         63L  0C    2m  CC=1      ←0
+  │ __init__                    59L  0C    3m  CC=2      ←3
   │ !! markdown                    52L  0C    1m  CC=22     ←0
-  │ invoice                     52L  0C    3m  CC=5      ←3
+  │ invoice                     52L  0C    3m  CC=5      ←4
+  │ render                      50L  0C    1m  CC=1      ←2
   │ render                      49L  0C    2m  CC=1      ←0
-  │ render                      48L  0C    1m  CC=1      ←2
+  │ _service_factory            49L  0C    2m  CC=4      ←3
   │ system_map_models           48L  0C    4m  CC=11     ←0
   │ __init__                    48L  0C    0m  CC=0.0    ←0
   │ helpers                     45L  0C    7m  CC=4      ←2
-  │ __init__                    33L  0C    0m  CC=0.0    ←0
-  │ _runtime_health             29L  0C    1m  CC=5      ←1
+  │ __init__                    43L  0C    0m  CC=0.0    ←0
+  │ _runtime_health             31L  0C    1m  CC=6      ←1
   │ doql_context                26L  0C    0m  CC=0.0    ←0
   │ yaml_fmt                    13L  0C    1m  CC=1      ←0
   │ json_fmt                    13L  0C    1m  CC=1      ←0
   │ doql_less                   11L  0C    1m  CC=1      ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
   │ __init__                     5L  0C    0m  CC=0.0    ←0
   │ __init__                     4L  0C    0m  CC=0.0    ←0
-  │ __init__                     3L  0C    0m  CC=0.0    ←0
   │ __main__                     3L  0C    0m  CC=0.0    ←0
+  │ __init__                     3L  0C    0m  CC=0.0    ←0
   │ system_map_generator         1L  0C    0m  CC=0.0    ←0
+  │ system_map_runtimes          1L  0C    0m  CC=0.0    ←0
+  │ system_map_ir                1L  0C    0m  CC=0.0    ←0
+  │ system_map_bridge            1L  0C    0m  CC=0.0    ←0
   │ system_map_render            1L  0C    0m  CC=0.0    ←0
   │ artifact_layout              1L  0C    0m  CC=0.0    ←0
-  │ system_map_runtimes          1L  0C    0m  CC=0.0    ←0
-  │ system_map_bridge            1L  0C    0m  CC=0.0    ←0
-  │ system_map_ir                1L  0C    0m  CC=0.0    ←0
+  │ __init__                     1L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=0.0    ←in:0  →out:0
+  │ !! planfile.yaml              760L  0C    0m  CC=0.0    ←0
   │ !! goal.yaml                  511L  0C    0m  CC=0.0    ←0
   │ Makefile                   222L  0C    0m  CC=0.0    ←0
-  │ pyproject.toml              63L  0C    0m  CC=0.0    ←0
+  │ prefact.yaml                94L  0C    0m  CC=0.0    ←0
+  │ pyproject.toml              70L  0C    0m  CC=0.0    ←0
   │ project.sh                  59L  0C    0m  CC=0.0    ←0
   │ tree.sh                      1L  0C    0m  CC=0.0    ←0
+  │
+  testql-scenarios/               CC̄=0.0    ←in:0  →out:0
+  │ generated-from-pytests.testql.toon.yaml    78L  0C    0m  CC=0.0    ←0
+  │ generated-cli-tests.testql.toon.yaml    20L  0C    0m  CC=0.0    ←0
   │
 
 COUPLING: no cross-package imports detected
@@ -956,16 +1104,16 @@ SUMMARY:
   dup_groups:    0
   dup_fragments: 0
   saved_lines:   0
-  scan_ms:       2346
+  scan_ms:       4609
 ```
 
 ### Evolution / Churn (`project/evolution.toon.yaml`)
 
 ```toon markpact:analysis path=project/evolution.toon.yaml
-# code2llm/evolution | 185 func | 28f | 2026-06-06
+# code2llm/evolution | 253 func | 38f | 2026-06-06
 # generated in 0.00s
 
-NEXT[7] (ranked by impact):
+NEXT[9] (ranked by impact):
   [1] !! SPLIT-FUNC      task_context_to_system_map  CC=25  fan=20
       WHY: CC=25 exceeds 15
       EFFORT: ~1h  IMPACT: 500
@@ -986,23 +1134,32 @@ NEXT[7] (ranked by impact):
       WHY: CC=19 exceeds 15
       EFFORT: ~1h  IMPACT: 228
 
-  [6] !  SPLIT-FUNC      render_markdown  CC=22  fan=8
+  [6] !  SPLIT-FUNC      collect_desktop_probe  CC=15  fan=14
+      WHY: CC=15 exceeds 15
+      EFFORT: ~1h  IMPACT: 210
+
+  [7] !  SPLIT-FUNC      render_markdown  CC=22  fan=8
       WHY: CC=22 exceeds 15
       EFFORT: ~1h  IMPACT: 176
 
-  [7] !! SPLIT           goal.yaml
+  [8] !! SPLIT           planfile.yaml
+      WHY: 760L, 0 classes, max CC=0
+      EFFORT: ~4h  IMPACT: 0
+
+  [9] !! SPLIT           goal.yaml
       WHY: 511L, 0 classes, max CC=0
       EFFORT: ~4h  IMPACT: 0
 
 
-RISKS[1]:
+RISKS[2]:
+  ⚠ Splitting planfile.yaml may break 0 import paths
   ⚠ Splitting goal.yaml may break 0 import paths
 
 METRICS-TARGET:
-  CC̄:          4.8 → ≤3.4
+  CC̄:          4.5 → ≤3.1
   max-CC:      25 → ≤12
-  god-modules: 1 → 0
-  high-CC(≥15): 7 → ≤3
+  god-modules: 2 → 0
+  high-CC(≥15): 8 → ≤4
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -1030,7 +1187,7 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  (first run — no previous data)
+  prev CC̄=4.8 → now CC̄=4.5
 ```
 
 ## Intent

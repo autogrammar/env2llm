@@ -8,6 +8,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.10] - 2026-06-06
 
 ### Fixed
+- Fix unused-imports issues (ticket-dc000bc4)
+- Fix magic-numbers issues (ticket-516a277c)
+- Fix unused-imports issues (ticket-7edc2311)
+- Fix unused-imports issues (ticket-85487abf)
+- Fix string-concat issues (ticket-a5a2f4b9)
+- Fix unused-imports issues (ticket-9a39a720)
+- Fix magic-numbers issues (ticket-6f496464)
+- Fix ai-boilerplate issues (ticket-71eeb6cc)
+- Fix unused-imports issues (ticket-0286d247)
+- Fix ai-boilerplate issues (ticket-b9380f7a)
+- Fix unused-imports issues (ticket-1eb4a35f)
+- Fix magic-numbers issues (ticket-2eb1aa35)
+- Fix ai-boilerplate issues (ticket-3a8d142d)
+- Fix unused-imports issues (ticket-44a8b476)
+- Fix magic-numbers issues (ticket-285eee01)
+- Fix unused-imports issues (ticket-0db2d79a)
+- Fix unused-imports issues (ticket-13368205)
+- Fix unused-imports issues (ticket-c6f008a4)
+- Fix unused-imports issues (ticket-64208112)
+- Fix unused-imports issues (ticket-72e7a8fb)
+- Fix unused-imports issues (ticket-f60b72d5)
+- Fix unused-imports issues (ticket-be8738f3)
+
+## [0.1.10] - 2026-06-06
+
+### Fixed
 - Fix unused-imports issues (ticket-537f149b)
 - Fix unused-imports issues (ticket-8818c5fb)
 - Fix unused-imports issues (ticket-518cc4af)
@@ -67,6 +93,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix unused-imports issues (ticket-b52e3015)
 
 ## [Unreleased]
+
+## [0.1.8] - 2026-06-06
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update SUMD.md
+- Update SUMR.md
+- Update TODO.md
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/test_desktop_probe.py
+- Update tests/test_integrators.py
+- Update tests/test_mcp_probe.py
+- Update tests/test_mqtt.py
+- Update tests/test_registry_service.py
+- Update tests/test_testql_probe.py
+
+### Other
+- Update .code2llm_cache/__init___1780765130124183835_1002.pkl
+- Update .code2llm_cache/__init___1780777276762940030_174.pkl
+- Update .code2llm_cache/__init___1780777627299526946_128.pkl
+- Update .code2llm_cache/__init___1780777630007756103_180.pkl
+- Update .code2llm_cache/__init___1780777635077590514_202.pkl
+- Update .code2llm_cache/__init___1780777640931449685_51.pkl
+- Update .code2llm_cache/__init___1780777654181994886_1410.pkl
+- Update .code2llm_cache/_runtime_health_1780777303835115822_767.pkl
+- Update .code2llm_cache/_service_factory_1780777644157100674_1522.pkl
+- Update .code2llm_cache/blocks_1780777295629062016_11775.pkl
+- ... and 44 more files
 
 ## [0.1.3] - 2026-06-06
 

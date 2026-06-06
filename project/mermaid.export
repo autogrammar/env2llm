@@ -1,6 +1,47 @@
 flowchart TD
-%% generated in 0.00s
+%% generated in 0.01s
     subgraph src__env2llm
+        src__env2llm__system_map_models___annotation_for_field("_annotation_for_field CC=11")
+        src__env2llm__system_map_models__command_input_model["command_input_model"]
+        src__env2llm__system_map_models__build_command_registry["build_command_registry"]
+        src__env2llm__system_map_models__validate_config_against_map["validate_config_against_map"]
+        src__env2llm__sources__EnvironmentSources__example_profile["example_profile"]
+        src__env2llm__sources__EnvironmentSources__platform_config["platform_config"]
+        src__env2llm__sources__EnvironmentSources__services_snapshot["services_snapshot"]
+        src__env2llm__sources__DefaultEnvironmentSources__example_profile["example_profile"]
+        src__env2llm__sources__DefaultEnvironmentSources__platform_config["platform_config"]
+        src__env2llm__sources__DefaultEnvironmentSources__services_snapshot("services_snapshot CC=12")
+        src__env2llm__registry__entities_to_data["entities_to_data"]
+        src__env2llm__registry__merge_execution_observation["merge_execution_observation"]
+        src__env2llm__registry___merge_execution_header["_merge_execution_header"]
+        src__env2llm__registry___execution_steps["_execution_steps"]
+        src__env2llm__registry___merge_execution_step["_merge_execution_step"]
+        src__env2llm__registry___step_output["_step_output"]
+        src__env2llm__registry___merge_send_invoice_output["_merge_send_invoice_output"]
+        src__env2llm__registry___merge_generate_invoice_output["_merge_generate_invoice_output"]
+        src__env2llm__registry___merge_workflow_id["_merge_workflow_id"]
+        src__env2llm__registry__merge_registry_observations("merge_registry_observations CC=11")
+        src__env2llm__registry__refresh_doql_registry("refresh_doql_registry CC=10")
+        src__env2llm__registry__refresh_doql_registry_from_state["refresh_doql_registry_from_state"]
+        src__env2llm__layout__artifact_root["artifact_root"]
+        src__env2llm__layout___chmod_writable["_chmod_writable"]
+        src__env2llm__layout___force_remove_path["_force_remove_path"]
+        src__env2llm__layout__clean_artifact_root("clean_artifact_root CC=9")
+        src__env2llm__layout__clean_all_example_artifacts["clean_all_example_artifacts"]
+        src__env2llm__layout__example_fixtures_dir["example_fixtures_dir"]
+        src__env2llm__layout__ensure_layout["ensure_layout"]
+        src__env2llm__layout__resolve_registry_path("resolve_registry_path CC=9")
+        src__env2llm__layout__write_registry["write_registry"]
+        src__env2llm__layout__current_run_id["current_run_id"]
+        src__env2llm__layout__run_dir["run_dir"]
+        src__env2llm__layout__write_turn_snapshot["write_turn_snapshot"]
+        src__env2llm__layout__write_reflection_snapshot["write_reflection_snapshot"]
+        src__env2llm__layout__write_last_run_report["write_last_run_report"]
+        src__env2llm__bridge___mime_for_artifact["_mime_for_artifact"]
+        src__env2llm__bridge___process_from_ctx("_process_from_ctx CC=12")
+        src__env2llm__bridge__task_context_to_system_map{{task_context_to_system_map CC=25}}
+        src__env2llm__bridge___command_to_ir("_command_to_ir CC=12")
+        src__env2llm__bridge__doql_file_to_system_map["doql_file_to_system_map"]
         src__env2llm__env__mask_secret["mask_secret"]
         src__env2llm__env__collect_environment("collect_environment CC=13")
         src__env2llm__env__merge_environment["merge_environment"]
@@ -20,48 +61,43 @@ flowchart TD
         src__env2llm__policy__process__process_policy_from_profile_block["process_policy_from_profile_block"]
         src__env2llm__policy__process___mapping_block["_mapping_block"]
         src__env2llm__policy__process___apply_nlp_policy["_apply_nlp_policy"]
-        src__env2llm__policy__process___apply_autonomous_policy["_apply_autonomous_policy"]
-        src__env2llm__policy__process___apply_llm_policy["_apply_llm_policy"]
-        src__env2llm__policy__process___intract_flags["_intract_flags"]
-        src__env2llm__policy__process___normalized_mode["_normalized_mode"]
-        src__env2llm__policy__process___process_policy_from_parts["_process_policy_from_parts"]
-        src__env2llm__policy__process___merge_conversation_from_profile["_merge_conversation_from_profile"]
-        src__env2llm__policy__process__merge_process_config["merge_process_config"]
-        src__env2llm__policy__process__apply_process_policies("apply_process_policies CC=8")
-        src__env2llm__policy__process__effective_nlp_parser_mode["effective_nlp_parser_mode"]
-        src__env2llm__policy__process__process_policy_to_doql_dict["process_policy_to_doql_dict"]
-        src__env2llm__policy__process__process_scope_denied("process_scope_denied CC=12")
-        src__env2llm__policy__validations___parse_profile_validation_by_code["_parse_profile_validation_by_code"]
-        src__env2llm__policy__validations___parse_profile_validation_by_type["_parse_profile_validation_by_type"]
-        src__env2llm__policy__validations___parse_profile_validation_shorthand("_parse_profile_validation_shorthand CC=10")
-        src__env2llm__policy__validations__parse_profile_validation["parse_profile_validation"]
-        src__env2llm__policy__validations__parse_profile_validations["parse_profile_validations"]
-        src__env2llm__policy__validations__apply_profile_validations["apply_profile_validations"]
-        src__env2llm__policy__invoice__is_invoice_example["is_invoice_example"]
-        src__env2llm__policy__invoice__apply_invoice_policies["apply_invoice_policies"]
-        src__env2llm__policy__invoice__apply_invoice_context["apply_invoice_context"]
-        src__env2llm__doql__runtime__resolve_doql_context_path["resolve_doql_context_path"]
-        src__env2llm__doql__runtime__context_inline_payload("context_inline_payload CC=14")
-        src__env2llm__doql__runtime__load_doql_inline_from_env["load_doql_inline_from_env"]
-        src__env2llm__doql__runtime__merge_inline_context("merge_inline_context CC=8")
-        src__env2llm__doql__runtime__autofill_entities("autofill_entities CC=8")
-        src__env2llm__doql__runtime___inline_data_key["_inline_data_key"]
-        src__env2llm__doql__runtime___apply_conversation_flag["_apply_conversation_flag"]
-        src__env2llm__doql__runtime___add_short_inline_alias["_add_short_inline_alias"]
-        src__env2llm__doql__runtime___split_missing_ref["_split_missing_ref"]
-        src__env2llm__doql__runtime___canonical_field["_canonical_field"]
-        src__env2llm__doql__runtime___autofill_value["_autofill_value"]
-        src__env2llm__doql__runtime___candidate_data_keys["_candidate_data_keys"]
-        src__env2llm__doql__runtime___value_from_data["_value_from_data"]
-        src__env2llm__doql__runtime___value_from_artifacts["_value_from_artifacts"]
-        src__env2llm__doql__runtime___needs_field["_needs_field"]
-        src__env2llm__doql__render__render_doql_context["render_doql_context"]
-        src__env2llm__doql__render__write_doql_context["write_doql_context"]
-        src__env2llm__doql__context_blocks__render_context_header["render_context_header"]
-        src__env2llm__doql__context_blocks__render_context_environment["render_context_environment"]
-        src__env2llm__doql__context_blocks__render_context_data["render_context_data"]
-        src__env2llm__doql__context_blocks__render_context_artifacts["render_context_artifacts"]
     end
+    src__env2llm__system_map_models__command_input_model --> src__env2llm__system_map_models___annotation_for_field
+    src__env2llm__system_map_models__build_command_registry --> src__env2llm__system_map_models__command_input_model
+    src__env2llm__system_map_models__validate_config_against_map --> src__env2llm__system_map_models__command_input_model
+    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_execution_header
+    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___execution_steps
+    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_workflow_id
+    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_execution_step
+    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___step_output
+    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___merge_send_invoice_output
+    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___merge_generate_invoice_output
+    src__env2llm__registry__merge_registry_observations --> src__env2llm__doql__parse__load_doql_context
+    src__env2llm__registry__merge_registry_observations --> src__env2llm__policy__invoice__is_invoice_example
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__doql__parse__load_doql_context
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__bridge__task_context_to_system_map
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__render__doql__render__render_system_map_doql
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__registry__merge_execution_observation
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__layout__write_registry
+    src__env2llm__registry__refresh_doql_registry --> src__env2llm__registry__entities_to_data
+    src__env2llm__registry__refresh_doql_registry_from_state --> src__env2llm__registry__refresh_doql_registry
+    src__env2llm__layout___force_remove_path --> src__env2llm__layout___chmod_writable
+    src__env2llm__layout__clean_artifact_root --> src__env2llm__layout__artifact_root
+    src__env2llm__layout__clean_artifact_root --> src__env2llm__layout___force_remove_path
+    src__env2llm__layout__clean_all_example_artifacts --> src__env2llm__layout__clean_artifact_root
+    src__env2llm__layout__resolve_registry_path --> src__env2llm__layout__artifact_root
+    src__env2llm__layout__write_registry --> src__env2llm__layout__ensure_layout
+    src__env2llm__layout__run_dir --> src__env2llm__layout__current_run_id
+    src__env2llm__layout__write_turn_snapshot --> src__env2llm__layout__run_dir
+    src__env2llm__layout__write_reflection_snapshot --> src__env2llm__layout__run_dir
+    src__env2llm__layout__write_last_run_report --> src__env2llm__layout__ensure_layout
+    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__runtimes__load_example_profile
+    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__policy__process__apply_process_policies
+    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__bridge___command_to_ir
+    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__runtimes__build_runtimes_for_example
+    src__env2llm__bridge___command_to_ir --> src__env2llm__runtimes__resolve_command_runtime
+    src__env2llm__bridge__doql_file_to_system_map --> src__env2llm__doql__parse__load_doql_context
+    src__env2llm__bridge__doql_file_to_system_map --> src__env2llm__bridge__task_context_to_system_map
     src__env2llm__env__collect_environment --> src__env2llm__env__mask_secret
     src__env2llm__formats__render_format --> src__env2llm__formats__normalize_format
     src__env2llm__formats__default_output_name --> src__env2llm__formats__normalize_format
@@ -119,54 +155,6 @@ flowchart TD
     src__env2llm__doql__context_blocks__render_context_process_access --> src__env2llm__render__doql__helpers__join_csv
     src__env2llm__doql__context_blocks__render_context_paths --> src__env2llm__render__doql__helpers__join_csv
     src__env2llm__doql__context_blocks__render_context_conversation --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__runtimes__build_runtimes_for_example --> src__env2llm__runtimes___repo_root_from_example
-    src__env2llm__runtimes__build_runtimes_for_example --> src__env2llm__runtimes__load_example_profile
-    src__env2llm__layout___force_remove_path --> src__env2llm__layout___chmod_writable
-    src__env2llm__layout__clean_artifact_root --> src__env2llm__layout__artifact_root
-    src__env2llm__layout__clean_artifact_root --> src__env2llm__layout___force_remove_path
-    src__env2llm__layout__clean_all_example_artifacts --> src__env2llm__layout__clean_artifact_root
-    src__env2llm__layout__resolve_registry_path --> src__env2llm__layout__artifact_root
-    src__env2llm__layout__write_registry --> src__env2llm__layout__ensure_layout
-    src__env2llm__layout__run_dir --> src__env2llm__layout__current_run_id
-    src__env2llm__layout__write_turn_snapshot --> src__env2llm__layout__run_dir
-    src__env2llm__layout__write_reflection_snapshot --> src__env2llm__layout__run_dir
-    src__env2llm__layout__write_last_run_report --> src__env2llm__layout__ensure_layout
-    src__env2llm__cli__main --> src__env2llm__formats__normalize_format
-    src__env2llm__cli__main --> src__env2llm__bootstrap__ensure_environment_map
-    src__env2llm__cli__main --> src__env2llm__cli__build_parser
-    src__env2llm__system_map_models__command_input_model --> src__env2llm__system_map_models___annotation_for_field
-    src__env2llm__system_map_models__build_command_registry --> src__env2llm__system_map_models__command_input_model
-    src__env2llm__system_map_models__validate_config_against_map --> src__env2llm__system_map_models__command_input_model
-    src__env2llm__render__doql__helpers__data_value_line --> src__env2llm__render__doql__helpers__esc_str_full
-    src__env2llm__render__doql__helpers__data_value_line --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__render__doql__helpers__process_field_line --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__render__doql__blocks__render_environment_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__render__doql__blocks__render_data_block --> src__env2llm__render__doql__helpers__data_value_line
-    src__env2llm__render__doql__blocks__render_runtimes_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_commands_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__render__doql__blocks__render_commands_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_resources_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__render__doql__blocks__render_resources_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_access_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_capabilities_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_workflow_history_block --> src__env2llm__render__doql__helpers__history_value_line
-    src__env2llm__render__doql__blocks__render_conversation_block --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__render__doql__blocks__render_process_block --> src__env2llm__render__doql__helpers__process_field_line
-    src__env2llm__render__doql__blocks__render_process_access_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_paths_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_schedules_block --> src__env2llm__render__doql__helpers__esc_str_full
-    src__env2llm__render__doql__blocks__render_schedules_block --> src__env2llm__render__doql__helpers__bool_lit
-    src__env2llm__render__doql__blocks__render_deploy_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_generated_services_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__render__doql__blocks__render_generated_services_block --> src__env2llm__render__doql__helpers__join_csv
-    src__env2llm__render__doql__blocks__render_validations_block --> src__env2llm__render__doql__helpers__esc_str
-    src__env2llm__generate__build_introspection_payload --> src__env2llm__runtimes__load_example_profile
-    src__env2llm__generate___bootstrap_system_map --> src__env2llm__doql__parse__collect_task_context
-    src__env2llm__generate___bootstrap_system_map --> src__env2llm__bridge__task_context_to_system_map
-    src__env2llm__generate___bootstrap_system_map --> src__env2llm__doql__parse__enrich_task_context_from_client
-    src__env2llm__generate__generate_system_map --> src__env2llm__generate__build_introspection_payload
-    src__env2llm__generate__generate_system_map --> src__env2llm__generate___bootstrap_system_map
-    src__env2llm__generate__generate_system_map --> src__env2llm__generate___parse_llm_json
     src__env2llm__doql__parse___parse_block_body --> src__env2llm__doql__parse___parse_value
     src__env2llm__doql__parse___parse_command_body --> src__env2llm__doql__parse___parse_block_body
     src__env2llm__doql__parse___parse_command_body --> src__env2llm__doql__parse___split_csv
@@ -201,44 +189,114 @@ flowchart TD
     src__env2llm__doql__parse__collect_task_context --> src__env2llm__doql__parse__load_platform_map
     src__env2llm__doql__parse__collect_task_context --> src__env2llm__doql__parse__load_commands_from_services_yaml
     src__env2llm__doql__parse__collect_task_context --> src__env2llm__policy__invoice__apply_invoice_context
-    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_execution_header
-    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___execution_steps
-    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_workflow_id
-    src__env2llm__registry__merge_execution_observation --> src__env2llm__registry___merge_execution_step
-    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___step_output
-    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___merge_send_invoice_output
-    src__env2llm__registry___merge_execution_step --> src__env2llm__registry___merge_generate_invoice_output
-    src__env2llm__registry__merge_registry_observations --> src__env2llm__doql__parse__load_doql_context
-    src__env2llm__registry__merge_registry_observations --> src__env2llm__policy__invoice__is_invoice_example
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__doql__parse__load_doql_context
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__bridge__task_context_to_system_map
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__render__doql__render__render_system_map_doql
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__registry__merge_execution_observation
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__layout__write_registry
-    src__env2llm__registry__refresh_doql_registry --> src__env2llm__registry__entities_to_data
-    src__env2llm__registry__refresh_doql_registry_from_state --> src__env2llm__registry__refresh_doql_registry
-    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__runtimes__load_example_profile
-    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__policy__process__apply_process_policies
-    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__bridge___command_to_ir
-    src__env2llm__bridge__task_context_to_system_map --> src__env2llm__runtimes__build_runtimes_for_example
-    src__env2llm__bridge___command_to_ir --> src__env2llm__runtimes__resolve_command_runtime
-    src__env2llm__bridge__doql_file_to_system_map --> src__env2llm__doql__parse__load_doql_context
-    src__env2llm__bridge__doql_file_to_system_map --> src__env2llm__bridge__task_context_to_system_map
+    src__env2llm__doql__models__DoqlTaskContext__runtime_for --> src__env2llm___runtime_health__runtime_id_for_intent
+    src__env2llm__render__doql__helpers__data_value_line --> src__env2llm__render__doql__helpers__esc_str_full
+    src__env2llm__render__doql__helpers__data_value_line --> src__env2llm__render__doql__helpers__bool_lit
+    src__env2llm__render__doql__helpers__process_field_line --> src__env2llm__render__doql__helpers__bool_lit
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__bootstrap__project_artifact_root
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__layout__ensure_layout
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__env__merge_environment
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__generate__generate_system_map
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__policy__process__apply_process_policies
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__policy__invoice__apply_invoice_policies
+    src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__policy__desktop__apply_desktop_probe
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__formats__render_format
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__formats__default_output_name
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__env__collect_environment
     src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__registry__merge_registry_observations
-    src__env2llm__bootstrap__ensure_environment_map --> src__env2llm__layout__write_registry
     src__env2llm__bootstrap__ensure_doql_registry --> src__env2llm__bootstrap__ensure_environment_map
-    src__env2llm__doql__models__DoqlTaskContext__runtime_for --> src__env2llm___runtime_health__runtime_id_for_intent
+    src__env2llm__cli__main --> src__env2llm__formats__normalize_format
+    src__env2llm__cli__main --> src__env2llm__bootstrap__ensure_environment_map
+    src__env2llm__cli__main --> src__env2llm__cli__build_parser
+    src__env2llm__generate__build_introspection_payload --> src__env2llm__runtimes__load_example_profile
+    src__env2llm__generate__build_introspection_payload --> src__env2llm__policy__desktop__desktop_probe_enabled
+    src__env2llm__generate___bootstrap_system_map --> src__env2llm__doql__parse__collect_task_context
+    src__env2llm__generate___bootstrap_system_map --> src__env2llm__bridge__task_context_to_system_map
+    src__env2llm__generate___bootstrap_system_map --> src__env2llm__doql__parse__enrich_task_context_from_client
+    src__env2llm__generate__generate_system_map --> src__env2llm__generate__build_introspection_payload
+    src__env2llm__generate__generate_system_map --> src__env2llm__generate___bootstrap_system_map
+    src__env2llm__generate__generate_system_map --> src__env2llm__generate___parse_llm_json
+    src__env2llm__runtimes__build_runtimes_for_example --> src__env2llm__runtimes___repo_root_from_example
+    src__env2llm__runtimes__build_runtimes_for_example --> src__env2llm__runtimes__load_example_profile
+    src__env2llm__integrators__mqtt_bridge__run_bridge --> src__env2llm__integrators___service_factory__build_registry_service
+    src__env2llm__integrators__mqtt_bridge__run_bridge --> src__env2llm__integrators___service_factory__attach_mqtt_refresh_listener
+    src__env2llm__integrators__mqtt_bridge__run_bridge --> src__env2llm__transport__mqtt__mqtt_available
+    src__env2llm__integrators__mqtt_bridge__run_bridge --> src__env2llm__transport__mqtt__mqtt_missing_message
+    src__env2llm__integrators__mqtt_bridge__publish_once --> src__env2llm__integrators___service_factory__build_registry_service
+    src__env2llm__integrators__mqtt_bridge__publish_once --> src__env2llm__transport__mqtt__mqtt_available
+    src__env2llm__integrators__mqtt_bridge__publish_once --> src__env2llm__transport__mqtt__mqtt_missing_message
+    src__env2llm__integrators__mqtt_bridge__main --> src__env2llm__integrators__mqtt_bridge__publish_once
+    src__env2llm__integrators__mqtt_bridge__main --> src__env2llm__integrators__mqtt_bridge__run_bridge
+    src__env2llm__integrators___service_factory__build_registry_service --> src__env2llm__transport__mqtt__mqtt_enabled
+    src__env2llm__integrators___service_factory__build_registry_service --> src__env2llm__transport__mqtt__mqtt_available
+    src__env2llm__integrators__rest_server__run_server --> src__env2llm__integrators___service_factory__build_registry_service
+    src__env2llm__integrators__rest_server__run_server --> src__env2llm__integrators___service_factory__attach_mqtt_refresh_listener
+    src__env2llm__integrators__rest_server__main --> src__env2llm__integrators__rest_server__run_server
+    src__env2llm__integrators__rest_server__main --> src__env2llm__transport__mqtt__mqtt_enabled
+    src__env2llm__integrators__mcp_server__handle_message --> src__env2llm__integrators__mcp_server___jsonrpc_error
+    src__env2llm__integrators__mcp_server__handle_message --> src__env2llm__integrators__mcp_server___jsonrpc_response
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators___service_factory__build_registry_service
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators___service_factory__attach_mqtt_refresh_listener
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators__mcp_server___log
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators__mcp_server__handle_message
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators__mcp_server___write_json
+    src__env2llm__integrators__mcp_server__run_stdio --> src__env2llm__integrators__mcp_server___jsonrpc_error
+    src__env2llm__integrators__mcp_server__main --> src__env2llm__integrators__mcp_server__run_stdio
+    src__env2llm__integrators__mcp_server__main --> src__env2llm__transport__mqtt__mqtt_enabled
+    src__env2llm__transport__mqtt__MqttRegistryBridge____init__ --> src__env2llm__transport__mqtt__mqtt_missing_message
+    src__env2llm__service__registry_service__RegistryService__registry_path --> src__env2llm__layout__resolve_registry_path
+    src__env2llm__service__registry_service__RegistryService__load --> src__env2llm__bridge__doql_file_to_system_map
+    src__env2llm__service__registry_service__RegistryService__refresh --> src__env2llm__bootstrap__ensure_environment_map
+    src__env2llm__service__registry_service__RegistryService__refresh --> src__env2llm__bridge__doql_file_to_system_map
+    src__env2llm__service__registry_service__RegistryService__render --> src__env2llm__formats__render_format
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__env__merge_environment
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__generate__generate_system_map
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__policy__process__apply_process_policies
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__policy__invoice__apply_invoice_policies
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__policy__desktop__apply_desktop_probe
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__bootstrap__ensure_environment_map
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__bridge__doql_file_to_system_map
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__env__collect_environment
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__registry__merge_registry_observations
+    src__env2llm__service__registry_service__RegistryService___generate_ir --> src__env2llm__bootstrap__project_artifact_root
+    src__env2llm__probes__desktop__parse_wmctrl_listing --> src__env2llm__probes__desktop___is_browser_title
+    src__env2llm__probes__desktop___probe_display_geometry --> src__env2llm__probes__desktop___run_text
+    src__env2llm__probes__desktop___probe_active_window_id --> src__env2llm__probes__desktop___run_text
+    src__env2llm__probes__desktop__collect_desktop_probe --> src__env2llm__probes__desktop___probe_display_geometry
+    src__env2llm__probes__desktop__collect_desktop_probe --> src__env2llm__probes__desktop___probe_active_window_id
+    src__env2llm__probes__desktop__collect_desktop_probe --> src__env2llm__probes__desktop___run_text
+    src__env2llm__probes__desktop__collect_desktop_probe --> src__env2llm__probes__desktop__parse_wmctrl_listing
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__probes__desktop__collect_desktop_probe
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___ensure_desktop_runtime
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___ensure_desktop_resource
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___ensure_desktop_commands
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___ensure_desktop_access
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop___mirror_desktop_summary
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__policy__desktop__desktop_probe_enabled
+    src__env2llm__policy__desktop__apply_desktop_probe --> src__env2llm__runtimes__resolve_command_runtime
+    src__env2llm__adapters__mcp__McpAdapter__call_tool --> src__env2llm__adapters__mcp___mcp_error
+    src__env2llm__render__doql__blocks__render_environment_block --> src__env2llm__render__doql__helpers__esc_str
+    src__env2llm__render__doql__blocks__render_data_block --> src__env2llm__render__doql__helpers__data_value_line
+    src__env2llm__render__doql__blocks__render_runtimes_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_commands_block --> src__env2llm__render__doql__helpers__esc_str
+    src__env2llm__render__doql__blocks__render_commands_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_resources_block --> src__env2llm__render__doql__helpers__esc_str
+    src__env2llm__render__doql__blocks__render_resources_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_access_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_capabilities_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_workflow_history_block --> src__env2llm__render__doql__helpers__history_value_line
+    src__env2llm__render__doql__blocks__render_conversation_block --> src__env2llm__render__doql__helpers__bool_lit
+    src__env2llm__render__doql__blocks__render_process_block --> src__env2llm__render__doql__helpers__process_field_line
+    src__env2llm__render__doql__blocks__render_process_access_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_paths_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_schedules_block --> src__env2llm__render__doql__helpers__esc_str_full
+    src__env2llm__render__doql__blocks__render_schedules_block --> src__env2llm__render__doql__helpers__bool_lit
+    src__env2llm__render__doql__blocks__render_deploy_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_generated_services_block --> src__env2llm__render__doql__helpers__esc_str
+    src__env2llm__render__doql__blocks__render_generated_services_block --> src__env2llm__render__doql__helpers__join_csv
+    src__env2llm__render__doql__blocks__render_validations_block --> src__env2llm__render__doql__helpers__esc_str
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class src__env2llm__formats__markdown__render_markdown,src__env2llm__doql__context_blocks__render_context_process,src__env2llm__runtimes__build_runtimes_for_example,src__env2llm__doql__parse__load_platform_map,src__env2llm__doql__parse__enrich_task_context_from_client,src__env2llm__doql__parse__collect_task_context,src__env2llm__bridge__task_context_to_system_map highCC
-    class src__env2llm__env__collect_environment,src__env2llm__policy__process___as_list,src__env2llm__policy__process___load_nlp2dsl_payload,src__env2llm__policy__process__apply_process_policies,src__env2llm__policy__process__process_scope_denied,src__env2llm__policy__validations___parse_profile_validation_shorthand,src__env2llm__doql__runtime__context_inline_payload,src__env2llm__doql__runtime__merge_inline_context,src__env2llm__doql__runtime__autofill_entities,src__env2llm__doql__context_blocks__render_context_runtimes,src__env2llm__layout__clean_artifact_root,src__env2llm__layout__resolve_registry_path,src__env2llm__system_map_models___annotation_for_field,src__env2llm__render__doql__blocks__render_runtimes_block,src__env2llm__render__doql__blocks__render_commands_block,src__env2llm__generate__build_introspection_payload,src__env2llm__generate__generate_system_map,src__env2llm__sources__DefaultEnvironmentSources__services_snapshot,src__env2llm__doql__parse___parse_value,src__env2llm__doql__parse___apply_process_block,src__env2llm__doql__parse___apply_context_block,src__env2llm__doql__parse___append_collection_blocks,src__env2llm__doql__parse__load_commands_from_services_yaml,src__env2llm__doql__parse__parse_fixture_metadata,src__env2llm__registry__merge_registry_observations,src__env2llm__registry__refresh_doql_registry,src__env2llm__bridge___process_from_ctx,src__env2llm__bridge___command_to_ir,src__env2llm__bootstrap__ensure_environment_map medCC
+    class src__env2llm__bridge__task_context_to_system_map,src__env2llm__formats__markdown__render_markdown,src__env2llm__doql__context_blocks__render_context_process,src__env2llm__doql__parse__load_platform_map,src__env2llm__doql__parse__enrich_task_context_from_client,src__env2llm__doql__parse__collect_task_context,src__env2llm__runtimes__build_runtimes_for_example,src__env2llm__probes__desktop__collect_desktop_probe highCC
+    class src__env2llm__system_map_models___annotation_for_field,src__env2llm__sources__DefaultEnvironmentSources__services_snapshot,src__env2llm__registry__merge_registry_observations,src__env2llm__registry__refresh_doql_registry,src__env2llm__layout__clean_artifact_root,src__env2llm__layout__resolve_registry_path,src__env2llm__bridge___process_from_ctx,src__env2llm__bridge___command_to_ir,src__env2llm__env__collect_environment,src__env2llm__policy__process___as_list,src__env2llm__policy__process___load_nlp2dsl_payload,src__env2llm__policy__process__apply_process_policies,src__env2llm__policy__process__process_scope_denied,src__env2llm__policy__validations___parse_profile_validation_shorthand,src__env2llm__doql__runtime__context_inline_payload,src__env2llm__doql__runtime__merge_inline_context,src__env2llm__doql__runtime__autofill_entities,src__env2llm__doql__context_blocks__render_context_runtimes,src__env2llm__doql__parse___parse_value,src__env2llm__doql__parse___apply_process_block,src__env2llm__doql__parse___apply_context_block,src__env2llm__doql__parse___append_collection_blocks,src__env2llm__doql__parse__load_commands_from_services_yaml,src__env2llm__doql__parse__parse_fixture_metadata,src__env2llm__bootstrap__ensure_environment_map,src__env2llm__generate__build_introspection_payload,src__env2llm__generate__generate_system_map,src__env2llm__runtimes__resolve_command_runtime,src__env2llm__integrators__mcp_server__handle_message,src__env2llm__transport__mqtt__MqttRegistryBridge____init__ medCC

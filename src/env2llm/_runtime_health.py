@@ -20,6 +20,12 @@ _WORKER_ACTIONS = frozenset(
 def runtime_id_for_intent(intent: str | None) -> str | None:
     if not intent:
         return None
+    if intent.startswith("testql_"):
+        return "probe:testql"
+    if intent.startswith("koru_"):
+        return "mcp:koru"
+    if intent.startswith("desktop_"):
+        return "probe:desktop"
     if intent.startswith("mullm_"):
         return "delegate:mullm"
     if intent.startswith("system_"):

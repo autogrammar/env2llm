@@ -213,6 +213,46 @@ class ProfileValidationIR(BaseModel):
     path: str = ""
 
 
+class DesktopWindowIR(BaseModel):
+    """Single top-level window from a desktop probe (wmctrl/xdotool)."""
+
+    id: str = ""
+    title: str = ""
+    x: int = 0
+    y: int = 0
+    width: int = 0
+    height: int = 0
+    workspace: int = 0
+    is_browser: bool = False
+    active: bool = False
+
+
+class DesktopDisplayIR(BaseModel):
+    """Display geometry when available from the probe tools."""
+
+    id: str = "primary"
+    width: int = 0
+    height: int = 0
+
+
+class DesktopProbeIR(BaseModel):
+    """
+    Live GUI session snapshot for agents (GNOME/X11/Wayland).
+
+    Populated by ``env2llm.probes.desktop`` when ``ENV2LLM_DESKTOP_PROBE=1``.
+    """
+
+    platform: str = ""
+    session: str = ""
+    compositor: str | None = None
+    display_server: str | None = None
+    tools_used: list[str] = Field(default_factory=list)
+    displays: list[DesktopDisplayIR] = Field(default_factory=list)
+    windows: list[DesktopWindowIR] = Field(default_factory=list)
+    probed_at: str = ""
+    status: Literal["available", "unavailable", "unknown"] = "unknown"
+
+
 class SystemMapIR(BaseModel):
     """
     env2llm.system_map.v1 — canonical map of available system capabilities.
@@ -239,6 +279,7 @@ class SystemMapIR(BaseModel):
     deploy: DeploySpecIR | None = None
     generated_services: list[GeneratedServiceIR] = Field(default_factory=list)
     validations: list[ProfileValidationIR] = Field(default_factory=list)
+    desktop: DesktopProbeIR | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)
 
     def command(self, name: str) -> CommandSchemaIR | None:
