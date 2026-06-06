@@ -1,3 +1,76 @@
+.code2llm_cache/__init___1780758515999720150_29.pkl
+.code2llm_cache/__init___1780758706349665627_73.pkl
+.code2llm_cache/__init___1780758720285809395_645.pkl
+.code2llm_cache/_common_1780758285522318956_4816.pkl
+.code2llm_cache/ai_1780758523125792288_4867.pkl
+.code2llm_cache/app_1780758523966800805_1469.pkl
+.code2llm_cache/discover_1780758491464472251_3066.pkl
+.code2llm_cache/discover_artifacts_1780758487621789090_3598.pkl
+.code2llm_cache/discover_io_1780758488689111738_1913.pkl
+.code2llm_cache/discover_services_1780758490257460076_3265.pkl
+.code2llm_cache/dispatch_1780758498607544346_9167.pkl
+.code2llm_cache/docker_ops_1780758470657262616_8253.pkl
+.code2llm_cache/feedback_loop_1780758720326764898_13042.pkl
+.code2llm_cache/gateway_1780758727534188092_12183.pkl
+.code2llm_cache/intents_1780758752572143061_8897.pkl
+.code2llm_cache/main_1780758707305378084_3348.pkl
+.code2llm_cache/model_catalog_1780758560899175659_9927.pkl
+.code2llm_cache/models_1780758464056043492_2399.pkl
+.code2llm_cache/pactown_runtime_1780758486443037628_7594.pkl
+.code2llm_cache/pipeline_1780758721255819407_9774.pkl
+.code2llm_cache/plan_artifacts_1780758493890496729_1414.pkl
+.code2llm_cache/planfile_1780758407686631749_35914.pkl
+.code2llm_cache/pyproject_1780758305071010069_2537.pkl
+.code2llm_cache/registry_1780758516503725250_1122.pkl
+.code2llm_cache/runner_1780758706349371714_10876.pkl
+.code2llm_cache/runtime_stop_1780758484125398246_628.pkl
+.code2llm_cache/schemas_1780758515976719917_1330.pkl
+.code2llm_cache/shell_1780758713265359748_24436.pkl
+.code2llm_cache/validation_1780758705922661225_5978.pkl
+.code2llm_cache/Makefile_1780755568355196027_7781.pkl
+.code2llm_cache/_common_1780755175625802172_3024.pkl
+.code2llm_cache/_verify_1780755175839804589_4982.pkl
+.code2llm_cache/_verify_1780755565608165512_5142.pkl
+.code2llm_cache/contract_verify_1780755565163160569_7557.pkl
+.code2llm_cache/expectations_1780755177469822993_3539.pkl
+.code2llm_cache/pipeline_1780755183617892395_8828.pkl
+.code2llm_cache/planfile_1780755557914080033_28951.pkl
+.code2llm_cache/run_1780755182301877541_326.pkl
+.code2llm_cache/run_1780755182368878297_1463.pkl
+.code2llm_cache/runner_1780755180210817193_23191.pkl
+.code2llm_cache/schema_1780755177945828367_4874.pkl
+.code2llm_cache/testql_scenario_1780755177094139724_2102.pkl
+.code2llm_cache/Makefile_1766748982000000000_7684.pkl
+.code2llm_cache/__init___1766747252000000000_259.pkl
+.code2llm_cache/__init___1766747283000000000_179.pkl
+.code2llm_cache/__init___1766747324000000000_112.pkl
+.code2llm_cache/__init___1766747357000000000_157.pkl
+.code2llm_cache/__init___1766747417000000000_55.pkl
+.code2llm_cache/__init___1766747512000000000_66.pkl
+.code2llm_cache/__init___1766748307000000000_604.pkl
+.code2llm_cache/app_1780744339286299986_13769.pkl
+.code2llm_cache/config_1771510248700373942_5561.pkl
+.code2llm_cache/dsl_parser_1766747279000000000_8461.pkl
+.code2llm_cache/feedback_loop_1766748121000000000_13016.pkl
+.code2llm_cache/gateway_1775735611845264982_20543.pkl
+.code2llm_cache/goal_1780743992097245900_12351.pkl
+.code2llm_cache/main_1775735610941758024_28906.pkl
+.code2llm_cache/models_1766747247000000000_7410.pkl
+.code2llm_cache/planfile_1774941943980408809_12447.pkl
+.code2llm_cache/prefact_1774887951055113800_1345.pkl
+.code2llm_cache/project_1780485894912000000_1734.pkl
+.code2llm_cache/pyproject_1780744327375160622_2312.pkl
+.code2llm_cache/pyqual_1774885177161735628_1242.pkl
+.code2llm_cache/requirements_1766748251000000000_289.pkl
+.code2llm_cache/run_1766748918000000000_5300.pkl
+.code2llm_cache/runner_1775735612024264167_22421.pkl
+.code2llm_cache/simulator_1766747320000000000_11893.pkl
+.code2llm_cache/tree_1777298880917790642_186.pkl
+.code2llm_cache/user-api.intent_1766747518000000000_580.pkl
+.env.example
+.idea
+.vscode
+generated
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -27,8 +100,8 @@ share/python-wheels/
 MANIFEST
 
 # PyInstaller
-#   Usually these files are written by a python script from a template
-#   before PyInstaller builds the exe, so as to inject date/other infos into it.
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
@@ -92,34 +165,34 @@ ipython_config.py
 #   However, in case of collaboration, if having platform-specific dependencies or dependencies
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
-# Pipfile.lock
+#Pipfile.lock
 
 # UV
 #   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
-# uv.lock
+#uv.lock
 
 # poetry
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
 #   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
-# poetry.lock
-# poetry.toml
+#poetry.lock
+#poetry.toml
 
 # pdm
 #   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
 #   pdm recommends including project-wide configuration in pdm.toml, but excluding .pdm-python.
 #   https://pdm-project.org/en/latest/usage/project/#working-with-version-control
-# pdm.lock
-# pdm.toml
+#pdm.lock
+#pdm.toml
 .pdm-python
 .pdm-build/
 
 # pixi
 #   Similar to Pipfile.lock, it is generally recommended to include pixi.lock in version control.
-# pixi.lock
+#pixi.lock
 #   Pixi creates a virtual environment in the .pixi directory, just like venv module creates one
 #   in the .venv directory. It is recommended not to include this directory in version control.
 .pixi
@@ -130,19 +203,6 @@ __pypackages__/
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
-
-# Redis
-*.rdb
-*.aof
-*.pid
-
-# RabbitMQ
-mnesia/
-rabbitmq/
-rabbitmq-data/
-
-# ActiveMQ
-activemq-data/
 
 # SageMath parsed files
 *.sage.py
@@ -182,26 +242,24 @@ dmypy.json
 cython_debug/
 
 # PyCharm
-#   JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#   be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#   and can be added to the global gitignore or merged into this file.  For a more nuclear
-#   option (not recommended) you can uncomment the following to ignore the entire idea folder.
-# .idea/
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  and can be added to the global gitignore or merged into this file.  For a more nuclear
+#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+#.idea/
 
 # Abstra
-#   Abstra is an AI-powered process automation framework.
-#   Ignore directories containing user credentials, local state, and settings.
-#   Learn more at https://abstra.io/docs
+# Abstra is an AI-powered process automation framework.
+# Ignore directories containing user credentials, local state, and settings.
+# Learn more at https://abstra.io/docs
 .abstra/
 
 # Visual Studio Code
-#   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
-#   that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#   and can be added to the global gitignore or merged into this file. However, if you prefer, 
-#   you could uncomment the following to ignore the entire vscode folder
+#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#  that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
+#  and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#  you could uncomment the following to ignore the entire vscode folder
 # .vscode/
-# Temporary file for partial code execution
-tempCodeRunnerFile.py
 
 # Ruff stuff:
 .ruff_cache/
@@ -209,10 +267,17 @@ tempCodeRunnerFile.py
 # PyPI configuration file
 .pypirc
 
+# Cursor
+#  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
+#  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
+#  refer to https://docs.cursor.com/context/ignore-files
+.cursorignore
+.cursorindexingignore
+
+# Generated example artifacts
+examples/*/generated/
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-
-# Streamlit
-.streamlit/secrets.toml
