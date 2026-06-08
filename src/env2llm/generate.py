@@ -11,17 +11,16 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any, Mapping
 
-from env2llm.doql import collect_task_context, enrich_task_context_from_client
 from env2llm.bridge import task_context_to_system_map
+from env2llm.doql import collect_task_context, enrich_task_context_from_client
 from env2llm.ir import SystemMapIR
+from env2llm.llm_backend import LLMComplete
 from env2llm.policy.desktop import desktop_probe_enabled
 from env2llm.runtimes import load_example_profile
 
 log = logging.getLogger("nlp2dsl.system_map")
-
-LLMComplete = Callable[[str, str], str]
 
 _SYSTEM_PROMPT = """You are a system map generator for nlp2dsl.
 Given introspection data about an example environment, emit ONE JSON object
@@ -111,26 +110,6 @@ def _bootstrap_system_map(
     return task_context_to_system_map(ctx, example_dir=example_dir)
 
 
-def _litellm_complete(system: str, user: str) -> str:
-    import litellm
-
-    model = os.getenv("LLM_MODEL", "openrouter/openai/gpt-5-mini")
-    kwargs: dict[str, Any] = {
-        "model": model,
-        "messages": [
-            {"role": "system", "content": system},
-            {"role": "user", "content": user},
-        ],
-        "temperature": float(os.getenv("LLM_TEMPERATURE", "0")),
-        "max_tokens": int(os.getenv("LLM_MAX_TOKENS", "4096")),
-    }
-    api_base = os.getenv("LLM_API_BASE")
-    if api_base:
-        kwargs["api_base"] = api_base
-    response = litellm.completion(**kwargs)
-    return str(response.choices[0].message.content or "")
-
-
 def _parse_llm_json(raw: str) -> dict[str, Any]:
     text = raw.strip()
     if text.startswith("```"):
@@ -162,9 +141,9 @@ def generate_system_map(
     complete = llm_complete
     if use_llm and complete is None:
         try:
+            from env2llm.llm_backend import LitellmComplete
             import litellm  # noqa: F401
-
-            complete = _litellm_complete
+            complete = LitellmComplete()
         except ImportError:
             log.warning("NLP2DSL_SYSTEM_MAP_LLM set but litellm not installed; using bootstrap")
             use_llm = False
