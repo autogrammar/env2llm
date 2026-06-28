@@ -47,6 +47,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Attach MCP tool catalog (auto for Koru projects when koruapi installed)",
     )
+    parser.add_argument(
+        "--probe-host",
+        action="store_true",
+        help="Attach live host snapshot (cron, ports, examples test report)",
+    )
     return parser
 
 
@@ -60,6 +65,7 @@ def main(argv: list[str] | None = None) -> int:
         merge_existing=not args.no_merge,
         probe_desktop=args.probe_desktop,
         probe_mcp=args.probe_mcp,
+        probe_host=args.probe_host or None,
     )
     print(path)
     return 0

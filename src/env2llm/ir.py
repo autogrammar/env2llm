@@ -291,6 +291,104 @@ class DesktopProbeIR(BaseModel):
     status: Literal["available", "unavailable", "unknown"] = "unknown"
 
 
+class CronEntryIR(BaseModel):
+    """Single crontab line from the current user."""
+
+    raw: str = ""
+    schedule: str = ""
+    command: str = ""
+    marker: str = ""
+    enabled: bool = True
+
+
+class HostEndpointIR(BaseModel):
+    """HTTP/TCP reachability probe."""
+
+    id: str
+    url: str
+    ok: bool
+    detail: str = ""
+
+
+class HostPortIR(BaseModel):
+    """Listening TCP port observed on the host."""
+
+    port: int
+    address: str = ""
+    protocol: str = "tcp"
+    pid: int | None = None
+    process: str = ""
+    detail: str = ""
+
+
+class HostProcessIR(BaseModel):
+    """Relevant host process for automation/runtime debugging."""
+
+    pid: int
+    ppid: int | None = None
+    status: str = ""
+    elapsed: str = ""
+    command: str = ""
+    args: str = ""
+
+
+class HostContainerIR(BaseModel):
+    """Docker container snapshot."""
+
+    id: str = ""
+    name: str = ""
+    image: str = ""
+    state: str = ""
+    status: str = ""
+    ports: str = ""
+    project: str = ""
+    service: str = ""
+
+
+class HostAgentIR(BaseModel):
+    """Hypervisor deployment inspection summary."""
+
+    id: str = ""
+    agent_ref: str = ""
+    ok: bool = False
+    service_status: str = ""
+    runtime_status: str = ""
+    pid: int | None = None
+    process_running: bool = False
+    effective_port: int | None = None
+    effective_health_uri: str = ""
+    recommended_action: str = ""
+    incident_codes: list[str] = Field(default_factory=list)
+    log_uri: str = ""
+    process_log_uri: str = ""
+
+
+class HostProbeIR(BaseModel):
+    """
+    Live host snapshot: cron, ports, tooling, examples test summary.
+
+    Populated by ``env2llm.probes.host`` when ``ENV2LLM_HOST_PROBE=1``.
+    """
+
+    hostname: str = ""
+    platform: str = ""
+    probed_at: str = ""
+    status: Literal["available", "partial", "unknown"] = "unknown"
+    cron_available: bool = False
+    cron_taskinity_installed: bool = False
+    cron_entries: list[CronEntryIR] = Field(default_factory=list)
+    endpoints: list[HostEndpointIR] = Field(default_factory=list)
+    capabilities: dict[str, bool] = Field(default_factory=dict)
+    monitor_log_path: str = ""
+    monitor_log_tail: list[str] = Field(default_factory=list)
+    examples_report_path: str = ""
+    examples_test_summary: dict[str, Any] = Field(default_factory=dict)
+    ports: list[HostPortIR] = Field(default_factory=list)
+    processes: list[HostProcessIR] = Field(default_factory=list)
+    containers: list[HostContainerIR] = Field(default_factory=list)
+    agents: list[HostAgentIR] = Field(default_factory=list)
+
+
 class SystemMapIR(BaseModel):
     """
     env2llm.system_map.v1 — canonical map of available system capabilities.
@@ -318,6 +416,7 @@ class SystemMapIR(BaseModel):
     generated_services: list[GeneratedServiceIR] = Field(default_factory=list)
     validations: list[ProfileValidationIR] = Field(default_factory=list)
     desktop: DesktopProbeIR | None = None
+    host: HostProbeIR | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)
 
     def command(self, name: str) -> CommandSchemaIR | None:

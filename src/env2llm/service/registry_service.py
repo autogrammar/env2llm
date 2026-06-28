@@ -23,6 +23,7 @@ class RegistryService:
     probe_desktop: bool | None = None
     probe_mcp: bool | None = None
     probe_testql: bool | None = None
+    probe_host: bool | None = None
     mqtt: Any | None = field(default=None, repr=False)
     _cached_ir: SystemMapIR | None = field(default=None, init=False, repr=False)
 
@@ -61,6 +62,7 @@ class RegistryService:
                 probe_desktop=self.probe_desktop,
                 probe_mcp=self.probe_mcp,
                 probe_testql=self.probe_testql,
+                probe_host=self.probe_host,
             )
             # DOQL round-trip does not yet restore desktop probe blocks; keep
             # the freshly generated in-memory IR so API/MQTT slices stay live.
@@ -84,6 +86,10 @@ class RegistryService:
 
     def to_dict(self, *, refresh: bool = False) -> dict[str, Any]:
         return self.get_ir(refresh=refresh).model_dump()
+
+    def host_payload(self, *, refresh: bool = False) -> dict[str, Any] | None:
+        host = self.get_ir(refresh=refresh).host
+        return host.model_dump() if host is not None else None
 
     def desktop_payload(self, *, refresh: bool = False) -> dict[str, Any] | None:
         desktop = self.get_ir(refresh=refresh).desktop
@@ -124,6 +130,7 @@ class RegistryService:
                 probe_desktop=self.probe_desktop,
                 probe_mcp=self.probe_mcp,
                 probe_testql=self.probe_testql,
+                probe_host=self.probe_host,
             )
             return doql_file_to_system_map(path)
 
@@ -133,6 +140,7 @@ class RegistryService:
         from env2llm.policy.invoice import apply_invoice_policies
         from env2llm.policy.mcp import apply_mcp_probe
         from env2llm.policy.browser_stack import apply_browser_stack_probe
+        from env2llm.policy.host import apply_host_probe
         from env2llm.policy.testql import apply_testql_probe
         from env2llm.policy.process import apply_process_policies
         from env2llm.registry import merge_registry_observations
@@ -157,6 +165,7 @@ class RegistryService:
         apply_mcp_probe(ir, enabled=self.probe_mcp, project_dir=self.project_dir)
         apply_testql_probe(ir, enabled=self.probe_testql, project_dir=self.project_dir)
         apply_browser_stack_probe(ir)
+        apply_host_probe(ir, enabled=self.probe_host, project_dir=self.project_dir)
         return ir
 
     def _publish_mqtt(self) -> None:

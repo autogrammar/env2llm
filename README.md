@@ -74,6 +74,26 @@ When `--probe-desktop` or `ENV2LLM_DESKTOP_PROBE=1` is set, env2llm adds:
 **Requires** (Linux): `xrandr` (preferred) or Python `mss` for monitor layout; `xdotool` for pointer;
 `wmctrl` for window titles/geometry. Headless hosts get `status: unknown` without failing workflow maps.
 
+### Host probe (cron, ports, processes, containers, agents)
+
+When `--probe-host` or `ENV2LLM_HOST_PROBE=1` (default **on** for project dirs), env2llm adds:
+
+- `host { hostname, cron_taskinity_installed, capabilities_available, … }`
+- `host_cron[N] { schedule, command, marker }` — parsed from `crontab -l`
+- `host_endpoint[N] { id, url, ok }` — agents `:8101–8130`, WWW `:8788`
+- `host_port[N] { port, address, pid, process }` — selected listening ports from `ss -ltnp`
+- `host_process[N] { pid, command, args }` — relevant runtime processes (`uvicorn`, `docker`, `hypervisor`, monitors)
+- `host_container[N] { name, image, state, project, service }` — current `docker ps` snapshot
+- `host_agent[N] { id, ok, runtime_status, effective_health_uri, recommended_action }` — `hypervisor inspect-agent`
+- `host_examples_test { pass, fail, skip, … }` — from `output/examples/comprehensive_report.json` when present
+- `host_monitor_log_tail { line_N }` — tail of `/tmp/taskinity-monitor.log`
+- `schedules[N]` — cron lines mirrored for workflow planners
+
+```bash
+env2llm /path/to/hypervisor --probe-host
+ENV2LLM_HOST_PROBE=1 env2llm . -f json
+```
+
 **Browser window titles** are detected heuristically (Firefox, Chrome, Edge, …). Page DOM/content
 is not scraped — use **testql** / Playwright for that layer.
 

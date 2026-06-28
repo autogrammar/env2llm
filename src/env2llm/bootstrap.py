@@ -13,6 +13,7 @@ from env2llm.layout import ensure_layout, write_registry
 from env2llm.policy.desktop import apply_desktop_probe
 from env2llm.policy.mcp import apply_mcp_probe
 from env2llm.policy.browser_stack import apply_browser_stack_probe
+from env2llm.policy.host import apply_host_probe
 from env2llm.policy.testql import apply_testql_probe
 from env2llm.policy.invoice import apply_invoice_policies
 from env2llm.policy.process import apply_process_policies
@@ -36,6 +37,7 @@ def ensure_environment_map(
     probe_desktop: bool | None = None,
     probe_mcp: bool | None = None,
     probe_testql: bool | None = None,
+    probe_host: bool | None = None,
 ) -> Path:
     """
     Generate and write the environment map for LLM/orchestrator context.
@@ -76,6 +78,7 @@ def ensure_environment_map(
     apply_mcp_probe(ir, enabled=probe_mcp, project_dir=root)
     apply_testql_probe(ir, enabled=probe_testql, project_dir=root)
     apply_browser_stack_probe(ir)
+    apply_host_probe(ir, enabled=probe_host, project_dir=root)
 
     content = render_format(ir, output_format)
     out_name = default_output_name(output_format)

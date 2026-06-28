@@ -15,6 +15,7 @@ from .blocks import (
     render_environment_block,
     render_generated_services_block,
     render_header,
+    render_host_block,
     render_paths_block,
     render_process_access_block,
     render_process_block,
@@ -34,6 +35,7 @@ def render_system_map_doql(ir: SystemMapIR) -> str:
     lines.extend(render_artifacts_block(ir))
     lines.extend(render_runtimes_block(ir))
     lines.extend(render_desktop_block(ir))
+    lines.extend(render_host_block(ir))
     lines.extend(render_commands_block(ir))
     lines.extend(render_resources_block(ir))
     lines.extend(render_access_block(ir))
