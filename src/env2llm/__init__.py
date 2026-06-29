@@ -50,4 +50,4 @@ __all__ = [
     "write_registry",
 ]
 
-__version__ = "0.1.12"
+__version__ = "0.1.13"
