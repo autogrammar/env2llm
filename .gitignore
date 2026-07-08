@@ -48,3 +48,7 @@ build/
 
 # Environment variables
 .env
+.code2llm_cache/
+.github/
+.idea/
+.ruff_cache/
