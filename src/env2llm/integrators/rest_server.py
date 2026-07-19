@@ -8,7 +8,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 from env2llm import __version__
 from env2llm.adapters.rest import RestAdapter
-from env2llm.integrators._service_factory import attach_mqtt_refresh_listener, build_registry_service
+from env2llm.service import attach_mqtt_refresh_listener, build_registry_service
 from env2llm.transport.mqtt import mqtt_enabled
 
 

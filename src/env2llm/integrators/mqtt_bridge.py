@@ -7,10 +7,9 @@ import json
 import signal
 import sys
 import time
-from pathlib import Path
 from typing import Any
 
-from env2llm.integrators._service_factory import attach_mqtt_refresh_listener, build_registry_service
+from env2llm.service import attach_mqtt_refresh_listener, build_registry_service
 from env2llm.transport.mqtt import mqtt_available, mqtt_enabled, mqtt_missing_message
 
 

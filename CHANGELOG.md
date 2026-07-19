@@ -94,6 +94,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Add the public, cached `RegistryServiceFactory` with versioned request,
+  descriptor, typed error contracts, deterministic hashes, and packaged JSON
+  Schemas.
+
+### Changed
+- Route REST, MCP, and MQTT integrators through `env2llm.service`; retain the
+  former private factory module as a one-release compatibility shim.
+
+## [0.1.14] - 2026-07-19
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+
+### Test
+- Update tests/test_service_factory.py
+
+### Other
+- Update src/env2llm/data/service-descriptor-v1.schema.json
+- Update src/env2llm/data/service-factory-error-v1.schema.json
+- Update src/env2llm/data/service-factory-request-v1.schema.json
+
 ## [0.1.13] - 2026-06-29
 
 ### Docs
@@ -213,4 +236,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update .idea/modules.xml
 - Update .idea/vcs.xml
 - Update uv.lock
-

@@ -10,7 +10,7 @@ from typing import Any
 
 from env2llm import __version__
 from env2llm.adapters.mcp import MCP_TOOLS, McpAdapter
-from env2llm.integrators._service_factory import attach_mqtt_refresh_listener, build_registry_service
+from env2llm.service import attach_mqtt_refresh_listener, build_registry_service
 from env2llm.transport.mqtt import mqtt_enabled
 
 _PROTOCOL_VERSION = "2024-11-05"

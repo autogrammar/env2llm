@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semcod.github.io/env2llm/schemas/service-descriptor-v1.schema.json",
+  "title": "env2llm service descriptor v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "kind", "project_dir", "project_id", "capabilities", "mqtt_requested", "mqtt_connected", "request_hash", "descriptor_hash"],
+  "properties": {
+    "schema": {"const": "env2llm.service-descriptor.v1"},
+    "kind": {"const": "registry"},
+    "project_dir": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "mqtt_requested": {"type": ["boolean", "null"]},
+    "mqtt_connected": {"type": "boolean"},
+    "request_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "descriptor_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

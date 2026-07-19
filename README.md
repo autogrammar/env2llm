@@ -3,13 +3,13 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.1.13-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$1.76-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-9.9h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.1.14-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$1.76-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-11.9h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $1.7586 (11 commits)
-- 👤 **Human dev:** ~$994 (9.9h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $1.7600 (13 commits)
+- 👤 **Human dev:** ~$1194 (11.9h @ $100/h, 30min dedup)
 
-Generated on 2026-07-06 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
+Generated on 2026-07-19 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
 ---
 
@@ -109,7 +109,22 @@ yaml_text = render_format(ir, "yaml")
 # Live registry service (load / refresh / render / MQTT)
 service = RegistryService(".", project_id="my-app")
 registry_json = service.render("json")
+
+# Deterministic service construction for orchestrators
+from env2llm.service import RegistryServiceFactory, ServiceFactoryRequest
+
+result = RegistryServiceFactory().create(
+    ServiceFactoryRequest(project_dir=".", project_id="my-app", mqtt=False)
+)
+descriptor = result.descriptor.to_dict()
+# descriptor["schema"] == "env2llm.service-descriptor.v1"
+# descriptor["descriptor_hash"] is stable for the same normalized request/state
 ```
+
+The request, descriptor, and typed error contracts ship as JSON Schemas and
+can be loaded with `env2llm.service.service_contract_schema(...)`. Unknown
+service kinds fail closed with `UnknownServiceKindError`; no LLM text is parsed
+by the factory.
 
 ## REST API (`env2llm-serve`)
 

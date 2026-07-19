@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semcod.github.io/env2llm/schemas/service-factory-request-v1.schema.json",
+  "title": "env2llm service factory request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "kind", "project_dir", "project_id", "probe_desktop", "merge_existing", "mqtt", "request_hash"],
+  "properties": {
+    "schema": {"const": "env2llm.service-factory-request.v1"},
+    "kind": {"type": "string", "minLength": 1},
+    "project_dir": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "probe_desktop": {"type": ["boolean", "null"]},
+    "merge_existing": {"type": "boolean"},
+    "mqtt": {"type": ["boolean", "null"]},
+    "request_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

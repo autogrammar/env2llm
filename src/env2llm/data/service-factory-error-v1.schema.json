@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semcod.github.io/env2llm/schemas/service-factory-error-v1.schema.json",
+  "title": "env2llm service factory error v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "ok", "code", "kind", "message"],
+  "properties": {
+    "schema": {"const": "env2llm.service-factory-error.v1"},
+    "ok": {"const": false},
+    "code": {"type": "string", "minLength": 1},
+    "kind": {"type": ["string", "null"]},
+    "message": {"type": "string", "minLength": 1}
+  }
+}

@@ -21,6 +21,18 @@ from env2llm.probes.mcp import collect_koru_mcp_tools, collect_mcp_tools
 from env2llm.layout import resolve_registry_path, write_registry
 from env2llm.registry import refresh_doql_registry
 from env2llm.service.registry_service import RegistryService
+from env2llm.service.factory import (
+    SERVICE_DESCRIPTOR_V1,
+    SERVICE_FACTORY_ERROR_V1,
+    SERVICE_FACTORY_REQUEST_V1,
+    RegistryServiceFactory,
+    ServiceDescriptor,
+    ServiceFactoryError,
+    ServiceFactoryRequest,
+    ServiceFactoryResult,
+    UnknownServiceKindError,
+    service_contract_schema,
+)
 from env2llm.transport.mqtt import MqttRegistryBridge, mqtt_available
 
 __all__ = [
@@ -44,10 +56,20 @@ __all__ = [
     "MqttRegistryBridge",
     "project_artifact_root",
     "RegistryService",
+    "RegistryServiceFactory",
+    "SERVICE_DESCRIPTOR_V1",
+    "SERVICE_FACTORY_ERROR_V1",
+    "SERVICE_FACTORY_REQUEST_V1",
+    "ServiceDescriptor",
+    "ServiceFactoryError",
+    "ServiceFactoryRequest",
+    "ServiceFactoryResult",
+    "UnknownServiceKindError",
     "refresh_doql_registry",
     "render_format",
     "resolve_registry_path",
+    "service_contract_schema",
     "write_registry",
 ]
 
-__version__ = "0.1.13"
+__version__ = "0.1.14"
