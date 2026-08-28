@@ -3,10 +3,36 @@
 from __future__ import annotations
 
 import json
+import os
 import traceback
 from typing import Any
 
 from env2llm.service.registry_service import RegistryService
+
+_TRUE_VALUES = frozenset({"1", "true", "yes", "on"})
+
+
+def _enabled(name: str) -> bool:
+    return os.getenv(name, "").strip().lower() in _TRUE_VALUES
+
+
+def _require_permission(name: str, action: str) -> None:
+    if not _enabled(name):
+        raise PermissionError(f"{action} through MCP is disabled; set {name}=1 to enable it")
+
+
+def _guard_tool(tool_name: str, arguments: dict[str, Any]) -> None:
+    refresh_requested = tool_name == "env2llm_refresh_registry" or bool(
+        arguments.get("refresh", False)
+    )
+    if refresh_requested:
+        _require_permission("ENV2LLM_MCP_ALLOW_MUTATION", "registry refresh")
+
+    desktop_requested = tool_name == "env2llm_get_desktop" or (
+        tool_name == "env2llm_refresh_registry" and bool(arguments.get("probe_desktop"))
+    )
+    if desktop_requested:
+        _require_permission("ENV2LLM_MCP_ALLOW_DESKTOP", "desktop metadata access")
 
 MCP_TOOLS: list[dict[str, Any]] = [
     {
@@ -88,6 +114,7 @@ class McpAdapter:
 
     def call_tool(self, tool_name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         try:
+            _guard_tool(tool_name, arguments)
             if tool_name == "env2llm_get_registry":
                 payload = {
                     "ok": True,

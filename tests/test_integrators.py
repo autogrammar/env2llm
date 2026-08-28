@@ -6,6 +6,8 @@ import json
 import threading
 from http.client import HTTPConnection
 
+import pytest
+
 from env2llm.adapters.mcp import McpAdapter
 from env2llm.adapters.rest import RestAdapter
 from env2llm.ir import CommandSchemaIR, RuntimeSpecIR, SystemMapIR
@@ -53,6 +55,28 @@ def test_mcp_adapter_tools(tmp_path) -> None:
 
     result = adapter.call_tool("env2llm_list_commands", {})
     assert "ping" in result["content"][0]["text"]
+
+
+def test_mcp_refresh_requires_mutation_opt_in(tmp_path, monkeypatch: pytest.MonkeyPatch) -> None:
+    adapter = McpAdapter(_fake_service(tmp_path))
+    monkeypatch.delenv("ENV2LLM_MCP_ALLOW_MUTATION", raising=False)
+
+    result = adapter.call_tool("env2llm_get_registry", {"refresh": True})
+    assert result["isError"] is True
+    assert "ENV2LLM_MCP_ALLOW_MUTATION" in result["content"][0]["text"]
+
+
+def test_mcp_desktop_requires_separate_opt_in(tmp_path, monkeypatch: pytest.MonkeyPatch) -> None:
+    adapter = McpAdapter(_fake_service(tmp_path))
+    monkeypatch.delenv("ENV2LLM_MCP_ALLOW_DESKTOP", raising=False)
+
+    result = adapter.call_tool("env2llm_get_desktop", {})
+    assert result["isError"] is True
+    assert "ENV2LLM_MCP_ALLOW_DESKTOP" in result["content"][0]["text"]
+
+    monkeypatch.setenv("ENV2LLM_MCP_ALLOW_DESKTOP", "1")
+    result = adapter.call_tool("env2llm_get_desktop", {})
+    assert "isError" not in result
 
 
 def test_rest_server_health(tmp_path) -> None:

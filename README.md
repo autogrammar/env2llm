@@ -152,7 +152,11 @@ ENV2LLM_MQTT_ENABLED=1 env2llm-serve --project . --mqtt
     "env2llm": {
       "command": "env2llm-mcp",
       "args": ["--project", "/path/to/project"],
-      "env": { "ENV2LLM_MQTT_ENABLED": "1" }
+      "env": {
+        "ENV2LLM_MQTT_ENABLED": "1",
+        "ENV2LLM_MCP_ALLOW_MUTATION": "0",
+        "ENV2LLM_MCP_ALLOW_DESKTOP": "0"
+      }
     }
   }
 }
@@ -160,6 +164,11 @@ ENV2LLM_MQTT_ENABLED=1 env2llm-serve --project . --mqtt
 
 Tools: `env2llm_get_registry`, `env2llm_render_registry`, `env2llm_refresh_registry`,
 `env2llm_get_desktop`, `env2llm_list_commands`, `env2llm_list_uris`, `env2llm_mqtt_status`.
+
+Odświeżanie rejestru (także przez `refresh=true`) jest domyślnie zablokowane,
+ponieważ zapisuje artefakty i może publikować MQTT. Wymaga
+`ENV2LLM_MCP_ALLOW_MUTATION=1`. Odczyt metadanych pulpitu i włączenie jego
+sondy wymaga osobnego `ENV2LLM_MCP_ALLOW_DESKTOP=1`.
 
 ## MQTT (`env2llm-mqtt`)
 
