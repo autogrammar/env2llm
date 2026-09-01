@@ -260,6 +260,24 @@ def merge_process_config(
     return _deep_merge_process(platform, example_block)
 
 
+def _resolve_example_profile(
+    example_id: str,
+    repo_root: Path,
+    profile: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    if profile is not None:
+        return dict(profile)
+    loaded = load_example_profile(example_id, repo_root)
+    return dict(loaded) if loaded else {}
+
+
+def _apply_merged_process_block(ir: SystemMapIR, merged: Mapping[str, Any]) -> None:
+    if not merged:
+        return
+    ir.process = process_policy_from_profile_block(merged)
+    _merge_conversation_from_profile(ir, merged)
+
+
 def apply_process_policies(
     ir: SystemMapIR,
     *,
@@ -270,19 +288,19 @@ def apply_process_policies(
     """Merge nlp2dsl.yaml defaults + example-profiles process into SystemMapIR."""
     ex_id = example_id or ir.example_id
     root = Path(repo_root) if repo_root else Path.cwd()
-    if profile is None:
-        loaded = load_example_profile(ex_id, root)
-        profile = loaded or {}
+    resolved_profile = _resolve_example_profile(ex_id, root, profile)
 
-    example_block = profile.get("process") if isinstance(profile.get("process"), Mapping) else None
+    example_block = (
+        resolved_profile.get("process")
+        if isinstance(resolved_profile.get("process"), Mapping)
+        else None
+    )
     merged = merge_process_config(repo_root=root, example_block=example_block)
-    if merged:
-        ir.process = process_policy_from_profile_block(merged)
-        _merge_conversation_from_profile(ir, merged)
+    _apply_merged_process_block(ir, merged)
 
     from env2llm.policy.validations import apply_profile_validations
 
-    apply_profile_validations(ir, dict(profile) if profile else None)
+    apply_profile_validations(ir, resolved_profile)
 
 
 def effective_nlp_parser_mode(process: ProcessPolicyIR | None) -> str:

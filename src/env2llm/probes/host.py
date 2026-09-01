@@ -121,31 +121,44 @@ def _read_crontab() -> tuple[bool, list[str]]:
     return True, lines
 
 
+def _cron_marker_from_text(text: str, *, current: str = "") -> str:
+    if TASKINITY_CRON_MARKER in text:
+        return TASKINITY_CRON_MARKER
+    return current
+
+
+def _cron_command_and_marker(command: str, marker: str) -> tuple[str, str]:
+    if "#" not in command:
+        return command, marker
+    cmd_part, comment = command.split("#", 1)
+    command = cmd_part.strip()
+    comment = comment.strip()
+    if TASKINITY_CRON_MARKER in comment:
+        return command, TASKINITY_CRON_MARKER
+    if comment and not marker:
+        return command, comment
+    return command, marker
+
+
+def _parse_scheduled_cron_line(line: str, parts: list[str], marker: str) -> CronEntryIR:
+    schedule = " ".join(parts[:5])
+    command, marker = _cron_command_and_marker(parts[5], marker)
+    return CronEntryIR(
+        raw=line,
+        schedule=schedule,
+        command=command,
+        marker=marker,
+        enabled=True,
+    )
+
+
 def _parse_cron_line(line: str) -> CronEntryIR:
-    marker = ""
-    if TASKINITY_CRON_MARKER in line:
-        marker = TASKINITY_CRON_MARKER
+    marker = _cron_marker_from_text(line)
     if line.startswith("#"):
         return CronEntryIR(raw=line, enabled=False, marker=marker)
     parts = line.split(None, 5)
     if len(parts) >= 6:
-        schedule = " ".join(parts[:5])
-        command = parts[5]
-        if "#" in command:
-            cmd_part, comment = command.split("#", 1)
-            command = cmd_part.strip()
-            comment = comment.strip()
-            if TASKINITY_CRON_MARKER in comment:
-                marker = TASKINITY_CRON_MARKER
-            elif comment and not marker:
-                marker = comment
-        return CronEntryIR(
-            raw=line,
-            schedule=schedule,
-            command=command,
-            marker=marker,
-            enabled=True,
-        )
+        return _parse_scheduled_cron_line(line, parts, marker)
     return CronEntryIR(raw=line, command=line, enabled=True, marker=marker)
 
 
@@ -475,6 +488,50 @@ def _probe_www_endpoints() -> tuple[list[HostEndpointIR], bool, bool]:
     )
 
 
+def _host_cli_capabilities() -> dict[str, Any]:
+    return {
+        "docker": _docker_available(),
+        "playwright": _playwright_available(),
+        "cli_uri": _cli_available("uri") or _cli_available("urish"),
+        "cli_uri3": _cli_available("uri3"),
+        "cli_hypervisor": _cli_available("hypervisor"),
+        "cli_touri": _cli_available("touri"),
+        "cli_uri2flow": _cli_available("uri2flow"),
+        "cli_nl2uri": _cli_available("nl2uri"),
+        "curl": _cli_available("curl"),
+        "adb": _adb_device(),
+        "uia": _uia_available(),
+        "openrouter": bool(os.environ.get("OPENROUTER_API_KEY", "").strip()),
+    }
+
+
+def _host_probe_summaries(
+    *,
+    endpoints: list[HostEndpointIR],
+    containers: list[HostContainerIR],
+    processes: list[HostProcessIR],
+    ports: list[HostPortIR],
+    agents: list[HostAgentIR],
+    cron_ok: bool,
+    www_ok: bool,
+    api_ok: bool,
+) -> dict[str, Any]:
+    return {
+        "crontab": cron_ok,
+        "agent_http_any": any(ep.ok and ep.id.startswith("agent_http_") for ep in endpoints),
+        "agent_http_8101": next(
+            (ep.ok for ep in endpoints if ep.id == "agent_http_8101"),
+            False,
+        ),
+        "www_8788": www_ok,
+        "www_health": api_ok,
+        "docker_containers": bool(containers),
+        "processes": bool(processes),
+        "ports": bool(ports),
+        "agents": bool(agents),
+    }
+
+
 def _host_capabilities(
     *,
     endpoints: list[HostEndpointIR],
@@ -487,30 +544,17 @@ def _host_capabilities(
     api_ok: bool,
 ) -> dict[str, Any]:
     return {
-        "docker": _docker_available(),
-        "playwright": _playwright_available(),
-        "cli_uri": _cli_available("uri") or _cli_available("urish"),
-        "cli_uri3": _cli_available("uri3"),
-        "cli_hypervisor": _cli_available("hypervisor"),
-        "cli_touri": _cli_available("touri"),
-        "cli_uri2flow": _cli_available("uri2flow"),
-        "cli_nl2uri": _cli_available("nl2uri"),
-        "curl": _cli_available("curl"),
-        "crontab": cron_ok,
-        "adb": _adb_device(),
-        "uia": _uia_available(),
-        "openrouter": bool(os.environ.get("OPENROUTER_API_KEY", "").strip()),
-        "agent_http_any": any(ep.ok and ep.id.startswith("agent_http_") for ep in endpoints),
-        "agent_http_8101": next(
-            (ep.ok for ep in endpoints if ep.id == "agent_http_8101"),
-            False,
+        **_host_cli_capabilities(),
+        **_host_probe_summaries(
+            endpoints=endpoints,
+            containers=containers,
+            processes=processes,
+            ports=ports,
+            agents=agents,
+            cron_ok=cron_ok,
+            www_ok=www_ok,
+            api_ok=api_ok,
         ),
-        "www_8788": www_ok,
-        "www_health": api_ok,
-        "docker_containers": bool(containers),
-        "processes": bool(processes),
-        "ports": bool(ports),
-        "agents": bool(agents),
     }
 
 
