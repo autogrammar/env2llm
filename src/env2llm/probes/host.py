@@ -33,6 +33,7 @@ RELEVANT_PROCESS_RE = re.compile(
     r"(uvicorn|hypervisor|uri2ops|urish|weather|invoice|taskinity|monitor|docker)",
     re.IGNORECASE,
 )
+_AGENT_HTTP_ALWAYS_CHECK = frozenset({8101, 8103, 8110, 8118})
 
 
 def _http_ok(url: str, timeout: float = 2.5) -> tuple[bool, str]:
@@ -384,22 +385,21 @@ def _collect_agents(project_dir: Path, limit: int = 20) -> list[HostAgentIR]:
     ]
 
 
-def collect_host_probe(*, project_dir: Path | str | None = None) -> HostProbeIR:
-    """Snapshot cron, local services, and example-test readiness on this host."""
-    root = Path(project_dir).resolve() if project_dir is not None else Path.cwd()
-    now = datetime.now(UTC).isoformat()
-
+def _cron_probe_state() -> tuple[bool, list[CronEntryIR], bool]:
     cron_ok, cron_lines = _read_crontab()
     cron_entries = [_parse_cron_line(line) for line in cron_lines]
     taskinity_cron = any(
         entry.enabled and entry.marker == TASKINITY_CRON_MARKER for entry in cron_entries
     )
+    return cron_ok, cron_entries, taskinity_cron
 
+
+def _probe_agent_http_endpoints() -> list[HostEndpointIR]:
     endpoints: list[HostEndpointIR] = []
     for port in range(8101, 8131):
         url = f"http://localhost:{port}/health"
         ok, detail = _http_ok(url, timeout=1.5)
-        if ok or port in (8101, 8103, 8110, 8118):
+        if ok or port in _AGENT_HTTP_ALWAYS_CHECK:
             endpoints.append(
                 HostEndpointIR(
                     id=f"agent_http_{port}",
@@ -408,34 +408,44 @@ def collect_host_probe(*, project_dir: Path | str | None = None) -> HostProbeIR:
                     detail=detail if not ok else "healthy",
                 )
             )
+    return endpoints
+
+
+def _probe_www_endpoints() -> tuple[list[HostEndpointIR], bool, bool]:
     www_ok, www_detail = _http_ok("http://localhost:8788/www/", timeout=3.0)
-    endpoints.append(
-        HostEndpointIR(
-            id="www_8788",
-            url="http://localhost:8788/www/",
-            ok=www_ok,
-            detail=www_detail if not www_ok else "ok",
-        )
-    )
-    api_ok, api_detail = _http_ok(
-        "http://localhost:8788/health",
-        timeout=2.0,
-    )
-    endpoints.append(
-        HostEndpointIR(
-            id="www_health",
-            url="http://localhost:8788/health",
-            ok=api_ok,
-            detail=api_detail if not api_ok else "ok",
-        )
+    api_ok, api_detail = _http_ok("http://localhost:8788/health", timeout=2.0)
+    return (
+        [
+            HostEndpointIR(
+                id="www_8788",
+                url="http://localhost:8788/www/",
+                ok=www_ok,
+                detail=www_detail if not www_ok else "ok",
+            ),
+            HostEndpointIR(
+                id="www_health",
+                url="http://localhost:8788/health",
+                ok=api_ok,
+                detail=api_detail if not api_ok else "ok",
+            ),
+        ],
+        www_ok,
+        api_ok,
     )
 
-    ports = _collect_ports()
-    processes = _collect_processes()
-    containers = _collect_containers()
-    agents = _collect_agents(root)
 
-    capabilities = {
+def _host_capabilities(
+    *,
+    endpoints: list[HostEndpointIR],
+    containers: list[HostContainerIR],
+    processes: list[HostProcessIR],
+    ports: list[HostPortIR],
+    agents: list[HostAgentIR],
+    cron_ok: bool,
+    www_ok: bool,
+    api_ok: bool,
+) -> dict[str, Any]:
+    return {
         "docker": _docker_available(),
         "playwright": _playwright_available(),
         "cli_uri": _cli_available("uri") or _cli_available("urish"),
@@ -462,20 +472,52 @@ def collect_host_probe(*, project_dir: Path | str | None = None) -> HostProbeIR:
         "agents": bool(agents),
     }
 
-    report_path, examples_summary = _load_examples_summary(root)
-    monitor_log = Path(DEFAULT_MONITOR_LOG)
-    if not monitor_log.is_file():
-        alt = root / "output" / "monitoring" / "www-monitor.log"
-        monitor_log = alt if alt.is_file() else monitor_log
 
+def _host_probe_status(capabilities: dict[str, Any]) -> str:
     available_count = sum(1 for value in capabilities.values() if value)
-    status: str
     if available_count >= 4:
-        status = "available"
-    elif available_count > 0:
-        status = "partial"
-    else:
-        status = "unknown"
+        return "available"
+    if available_count > 0:
+        return "partial"
+    return "unknown"
+
+
+def _resolve_monitor_log(project_dir: Path) -> Path:
+    monitor_log = Path(DEFAULT_MONITOR_LOG)
+    if monitor_log.is_file():
+        return monitor_log
+    alt = project_dir / "output" / "monitoring" / "www-monitor.log"
+    return alt if alt.is_file() else monitor_log
+
+
+def collect_host_probe(*, project_dir: Path | str | None = None) -> HostProbeIR:
+    """Snapshot cron, local services, and example-test readiness on this host."""
+    root = Path(project_dir).resolve() if project_dir is not None else Path.cwd()
+    now = datetime.now(UTC).isoformat()
+
+    cron_ok, cron_entries, taskinity_cron = _cron_probe_state()
+    endpoints = _probe_agent_http_endpoints()
+    www_endpoints, www_ok, api_ok = _probe_www_endpoints()
+    endpoints.extend(www_endpoints)
+
+    ports = _collect_ports()
+    processes = _collect_processes()
+    containers = _collect_containers()
+    agents = _collect_agents(root)
+    capabilities = _host_capabilities(
+        endpoints=endpoints,
+        containers=containers,
+        processes=processes,
+        ports=ports,
+        agents=agents,
+        cron_ok=cron_ok,
+        www_ok=www_ok,
+        api_ok=api_ok,
+    )
+
+    report_path, examples_summary = _load_examples_summary(root)
+    monitor_log = _resolve_monitor_log(root)
+    status = _host_probe_status(capabilities)
 
     return HostProbeIR(
         hostname=platform.node(),
