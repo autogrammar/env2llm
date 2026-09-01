@@ -67,29 +67,39 @@ def _deep_merge_process(base: Mapping[str, Any], override: Mapping[str, Any]) ->
     return out
 
 
+def _read_nlp2dsl_yaml(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except OSError:
+        return None
+    return doc if isinstance(doc, dict) else None
+
+
+def _merge_nlp2dsl_defaults(payload: dict[str, Any], doc: Mapping[str, Any]) -> None:
+    defaults_block = doc.get("defaults")
+    if not isinstance(defaults_block, dict):
+        return
+    defaults = dict(payload.get("defaults") or {})
+    for key, value in defaults_block.items():
+        if isinstance(value, dict) and isinstance(defaults.get(key), dict):
+            defaults[key] = {**defaults[key], **value}
+        else:
+            defaults[key] = value
+    payload["defaults"] = defaults
+
+
 def _load_nlp2dsl_payload(repo_root: Path) -> dict[str, Any]:
     payload: dict[str, Any] = {}
     for name in ("nlp2dsl.yaml", "nlp2dsl.local.yaml"):
-        path = repo_root / name
-        if not path.is_file():
-            continue
-        try:
-            doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-        except OSError:
-            continue
-        if not isinstance(doc, dict):
+        doc = _read_nlp2dsl_yaml(repo_root / name)
+        if doc is None:
             continue
         if not payload:
             payload = doc
             continue
-        if isinstance(doc.get("defaults"), dict):
-            defaults = dict(payload.get("defaults") or {})
-            for dk, dv in doc["defaults"].items():
-                if isinstance(dv, dict) and isinstance(defaults.get(dk), dict):
-                    defaults[dk] = {**defaults[dk], **dv}
-                else:
-                    defaults[dk] = dv
-            payload["defaults"] = defaults
+        _merge_nlp2dsl_defaults(payload, doc)
     return payload
 
 
@@ -306,6 +316,27 @@ def process_policy_to_doql_dict(process: ProcessPolicyIR) -> dict[str, Any]:
     return out
 
 
+def _deny_area_message(action: str, area: str) -> str:
+    return (
+        f"Akcja `{action}` (obszar `{area}`) jest zablokowana polityką procesu "
+        f"(process_access.deny_areas)."
+    )
+
+
+def _mullm_denied_message(action: str) -> str:
+    return (
+        f"Akcja `{action}` wymaga delegacji Mullm, a proces ma wycięty obszar Mullm "
+        f"(process_access.deny_areas)."
+    )
+
+
+def _allow_scope_message(action: str, area: str, allow: set[str]) -> str:
+    return (
+        f"Akcja `{action}` (obszar `{area}`) nie należy do dozwolonych obszarów procesu "
+        f"({', '.join(sorted(allow))})."
+    )
+
+
 def process_scope_denied(
     process: ProcessPolicyIR,
     *,
@@ -320,18 +351,9 @@ def process_scope_denied(
     allow = set(process.access.allow_resource_areas or [])
 
     if area and area in deny:
-        return (
-            f"Akcja `{action}` (obszar `{area}`) jest zablokowana polityką procesu "
-            f"(process_access.deny_areas)."
-        )
+        return _deny_area_message(action, area)
     if action.startswith("mullm_") and deny.intersection({"mullm:rag", "mullm", "mullm:*"}):
-        return (
-            f"Akcja `{action}` wymaga delegacji Mullm, a proces ma wycięty obszar Mullm "
-            f"(process_access.deny_areas)."
-        )
+        return _mullm_denied_message(action)
     if allow and area and area not in allow:
-        return (
-            f"Akcja `{action}` (obszar `{area}`) nie należy do dozwolonych obszarów procesu "
-            f"({', '.join(sorted(allow))})."
-        )
+        return _allow_scope_message(action, area, allow)
     return None

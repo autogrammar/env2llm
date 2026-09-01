@@ -11,7 +11,7 @@ import socket
 import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 from urllib.request import Request, urlopen
 
 import yaml
@@ -189,6 +189,20 @@ def _parse_labels(labels: str) -> dict[str, str]:
     return out
 
 
+def _container_from_docker_row(row: dict[str, Any]) -> HostContainerIR:
+    labels = _parse_labels(str(row.get("Labels") or ""))
+    return HostContainerIR(
+        id=str(row.get("ID") or ""),
+        name=str(row.get("Names") or ""),
+        image=str(row.get("Image") or ""),
+        state=str(row.get("State") or ""),
+        status=str(row.get("Status") or ""),
+        ports=str(row.get("Ports") or ""),
+        project=labels.get("com.docker.compose.project", ""),
+        service=labels.get("com.docker.compose.service", ""),
+    )
+
+
 def _collect_containers(limit: int = 80) -> list[HostContainerIR]:
     if shutil.which("docker") is None:
         return []
@@ -203,19 +217,9 @@ def _collect_containers(limit: int = 80) -> list[HostContainerIR]:
             row = json.loads(line)
         except json.JSONDecodeError:
             continue
-        labels = _parse_labels(str(row.get("Labels") or ""))
-        containers.append(
-            HostContainerIR(
-                id=str(row.get("ID") or ""),
-                name=str(row.get("Names") or ""),
-                image=str(row.get("Image") or ""),
-                state=str(row.get("State") or ""),
-                status=str(row.get("Status") or ""),
-                ports=str(row.get("Ports") or ""),
-                project=labels.get("com.docker.compose.project", ""),
-                service=labels.get("com.docker.compose.service", ""),
-            )
-        )
+        if not isinstance(row, dict):
+            continue
+        containers.append(_container_from_docker_row(row))
     return containers
 
 
@@ -236,6 +240,42 @@ def _is_relevant_port(port: int, detail: str) -> bool:
     return bool(RELEVANT_PROCESS_RE.search(detail))
 
 
+def _port_from_ss_detail(detail: str) -> tuple[int | None, str]:
+    pid_match = re.search(r"pid=(\d+)", detail)
+    name_match = re.search(r'users:\(\("([^"]+)"', detail)
+    pid = int(pid_match.group(1)) if pid_match else None
+    process = name_match.group(1) if name_match else ""
+    return pid, process
+
+
+def _port_from_ss_line(
+    line: str,
+    *,
+    seen: set[tuple[str, int]],
+) -> HostPortIR | None:
+    parts = line.split(None, 5)
+    if len(parts) < 4:
+        return None
+    address, port = _parse_ss_port(parts[3])
+    if port is None:
+        return None
+    detail = parts[5] if len(parts) > 5 else ""
+    if not _is_relevant_port(port, detail):
+        return None
+    key = (address, port)
+    if key in seen:
+        return None
+    seen.add(key)
+    pid, process = _port_from_ss_detail(detail)
+    return HostPortIR(
+        port=port,
+        address=address,
+        pid=pid,
+        process=process,
+        detail=detail,
+    )
+
+
 def _collect_ports(limit: int = 100) -> list[HostPortIR]:
     if shutil.which("ss") is None:
         return []
@@ -245,30 +285,10 @@ def _collect_ports(limit: int = 100) -> list[HostPortIR]:
     ports: list[HostPortIR] = []
     seen: set[tuple[str, int]] = set()
     for line in probe.stdout.splitlines()[1:]:
-        parts = line.split(None, 5)
-        if len(parts) < 4:
-            continue
-        address, port = _parse_ss_port(parts[3])
+        port = _port_from_ss_line(line, seen=seen)
         if port is None:
             continue
-        detail = parts[5] if len(parts) > 5 else ""
-        if not _is_relevant_port(port, detail):
-            continue
-        key = (address, port)
-        if key in seen:
-            continue
-        seen.add(key)
-        pid_match = re.search(r"pid=(\d+)", detail)
-        name_match = re.search(r'users:\(\("([^"]+)"', detail)
-        ports.append(
-            HostPortIR(
-                port=port,
-                address=address,
-                pid=int(pid_match.group(1)) if pid_match else None,
-                process=name_match.group(1) if name_match else "",
-                detail=detail,
-            )
-        )
+        ports.append(port)
         if len(ports) >= limit:
             break
     return ports
@@ -332,26 +352,47 @@ def _failed_agent(deployment_id: str, service_status: str) -> HostAgentIR:
     )
 
 
+def _agent_process_pid(process: Mapping[str, Any]) -> int | None:
+    pid = process.get("pid")
+    return pid if isinstance(pid, int) else None
+
+
+def _agent_effective_port(readiness: Mapping[str, Any]) -> int | None:
+    port = readiness.get("effective_port")
+    return port if isinstance(port, int) else None
+
+
+def _agent_health_uri(
+    readiness: Mapping[str, Any],
+    agent_readiness: Mapping[str, Any],
+) -> str:
+    return str(
+        readiness.get("effective_health_uri")
+        or agent_readiness.get("effective_health_uri")
+        or ""
+    )
+
+
 def _agent_from_payload(deployment_id: str, payload: dict[str, Any]) -> HostAgentIR:
     readiness = payload.get("readiness") or {}
     agent_readiness = payload.get("agent_readiness") or {}
     process = payload.get("process") or {}
+    if not isinstance(readiness, dict):
+        readiness = {}
+    if not isinstance(agent_readiness, dict):
+        agent_readiness = {}
+    if not isinstance(process, dict):
+        process = {}
     return HostAgentIR(
         id=str(payload.get("id") or deployment_id),
         agent_ref=str(payload.get("agent_ref") or ""),
         ok=bool(payload.get("ok")),
         service_status=str(payload.get("service_status") or ""),
         runtime_status=str(payload.get("runtime_status") or ""),
-        pid=process.get("pid") if isinstance(process.get("pid"), int) else None,
+        pid=_agent_process_pid(process),
         process_running=bool(process.get("running")),
-        effective_port=readiness.get("effective_port")
-        if isinstance(readiness.get("effective_port"), int)
-        else None,
-        effective_health_uri=str(
-            readiness.get("effective_health_uri")
-            or agent_readiness.get("effective_health_uri")
-            or ""
-        ),
+        effective_port=_agent_effective_port(readiness),
+        effective_health_uri=_agent_health_uri(readiness, agent_readiness),
         recommended_action=str(agent_readiness.get("recommended_action") or ""),
         incident_codes=[str(code) for code in agent_readiness.get("incident_codes") or []],
         log_uri=str(payload.get("log_uri") or ""),
