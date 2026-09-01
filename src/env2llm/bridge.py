@@ -32,6 +32,12 @@ _COMMAND_FIELDS: dict[str, tuple[list[str], list[str]]] = {
     "crm_update": (["record_id"], ["fields"]),
 }
 
+_VALID_RUNTIME_KINDS = frozenset({
+    "orchestrator", "gateway", "worker", "llm", "database", "cache", "mock", "external",
+})
+_VALID_RUNTIME_STATUSES = frozenset({"available", "unavailable", "unknown"})
+_VALID_ACCESS_EFFECTS = frozenset({"allow", "deny", "approval"})
+
 
 def _mime_for_artifact(art: DoqlArtifact) -> MimeTypeSpec | None:
     path = art.path.lower()
@@ -82,101 +88,148 @@ def _process_from_ctx(ctx) -> ProcessPolicyIR:
     )
 
 
-def task_context_to_system_map(ctx: DoqlTaskContext, *, example_dir: Path | str | None = None) -> SystemMapIR:
-    """Convert hardcoded/bootstrap context into SystemMapIR (migration helper)."""
-    profile = None
-    if example_dir is not None:
-        root = Path(example_dir).resolve()
-        repo_root = root.parent.parent if root.parent.name == "examples" else root.parent
-        profile = load_example_profile(ctx.example_name, repo_root)
+def _repo_root_from_example_dir(example_dir: Path | str) -> Path:
+    root = Path(example_dir).resolve()
+    if root.parent.name == "examples":
+        return root.parent.parent
+    return root.parent
 
-    commands: list[CommandSchemaIR] = []
-    for cmd in ctx.commands or []:
-        commands.append(_command_to_ir(cmd, profile=profile))
-    if not commands and ctx.capabilities:
-        for name in ctx.capabilities:
-            commands.append(
-                CommandSchemaIR(
-                    name=name,
-                    runtime=resolve_command_runtime(name, profile=profile),
-                    protocol=ProtocolSpec(name="workflow/run", transport="backend→worker"),
-                )
-            )
 
-    runtimes: list[RuntimeSpecIR] = []
+def _commands_from_context(
+    ctx: DoqlTaskContext,
+    *,
+    profile: dict | None,
+) -> list[CommandSchemaIR]:
+    commands = [_command_to_ir(cmd, profile=profile) for cmd in ctx.commands or []]
+    if commands or not ctx.capabilities:
+        return commands
+    return [
+        CommandSchemaIR(
+            name=name,
+            runtime=resolve_command_runtime(name, profile=profile),
+            protocol=ProtocolSpec(name="workflow/run", transport="backend→worker"),
+        )
+        for name in ctx.capabilities
+    ]
+
+
+def _runtime_to_ir(runtime) -> RuntimeSpecIR:
+    return RuntimeSpecIR(
+        id=runtime.id,
+        kind=runtime.kind if runtime.kind in _VALID_RUNTIME_KINDS else "worker",
+        url=runtime.url or None,
+        uri=runtime.uri or None,
+        health=runtime.health or None,
+        docker_profile=runtime.docker_profile or None,
+        model=runtime.model or None,
+        roles=list(runtime.roles),
+        status=runtime.status if runtime.status in _VALID_RUNTIME_STATUSES else "unknown",
+    )
+
+
+def _runtimes_from_context(
+    ctx: DoqlTaskContext,
+    *,
+    example_dir: Path | str | None,
+) -> list[RuntimeSpecIR]:
     if ctx.runtimes:
-        runtimes = [
-            RuntimeSpecIR(
-                id=r.id,
-                kind=r.kind if r.kind in (
-                    "orchestrator", "gateway", "worker", "llm", "database", "cache", "mock", "external"
-                ) else "worker",
-                url=r.url or None,
-                uri=r.uri or None,
-                health=r.health or None,
-                docker_profile=r.docker_profile or None,
-                model=r.model or None,
-                roles=list(r.roles),
-                status=r.status if r.status in ("available", "unavailable", "unknown") else "unknown",
-            )
-            for r in ctx.runtimes
-        ]
-    elif example_dir is not None:
-        runtimes = build_runtimes_for_example(
+        return [_runtime_to_ir(runtime) for runtime in ctx.runtimes]
+    if example_dir is not None:
+        return build_runtimes_for_example(
             ctx.example_name,
             example_dir=example_dir,
             environment=ctx.environment,
         )
+    return []
 
-    ir = SystemMapIR(
+
+def _resources_from_context(ctx: DoqlTaskContext) -> list[ResourceSpecIR]:
+    return [
+        ResourceSpecIR(
+            id=resource.id,
+            title=resource.title,
+            connector=resource.connector,
+            uri_patterns=list(resource.uri_patterns),
+        )
+        for resource in ctx.resources
+    ]
+
+
+def _access_from_context(ctx: DoqlTaskContext) -> list[AccessGrantIR]:
+    return [
+        AccessGrantIR(
+            agent=grant.agent,
+            resource_area=grant.resource_area,
+            actions=list(grant.actions),
+            effect=grant.effect if grant.effect in _VALID_ACCESS_EFFECTS else "allow",
+        )
+        for grant in ctx.access
+    ]
+
+
+def _artifacts_from_context(ctx: DoqlTaskContext) -> list[ArtifactSpecIR]:
+    return [
+        ArtifactSpecIR(
+            path=artifact.path,
+            kind=artifact.kind,
+            mime=_mime_for_artifact(artifact),
+            values=dict(artifact.values),
+        )
+        for artifact in ctx.artifacts
+    ]
+
+
+def _conversation_from_ctx(ctx: DoqlTaskContext) -> ConversationPolicyIR:
+    return ConversationPolicyIR(
+        autofill=ctx.autofill,
+        attachment_required=ctx.attachment_required,
+        generate_invoice_if_missing=ctx.generate_invoice_if_missing,
+        sync_auto_execute=ctx.sync_auto_execute,
+        strict_pdf=ctx.strict_pdf,
+    )
+
+
+def _base_system_map(
+    ctx: DoqlTaskContext,
+    *,
+    runtimes: list[RuntimeSpecIR],
+    commands: list[CommandSchemaIR],
+) -> SystemMapIR:
+    return SystemMapIR(
         example_id=ctx.example_name,
         environment=dict(ctx.environment),
         data=dict(ctx.data),
         runtimes=runtimes,
         commands=commands,
-        resources=[
-            ResourceSpecIR(
-                id=r.id,
-                title=r.title,
-                connector=r.connector,
-                uri_patterns=list(r.uri_patterns),
-            )
-            for r in ctx.resources
-        ],
-        access=[
-            AccessGrantIR(
-                agent=a.agent,
-                resource_area=a.resource_area,
-                actions=list(a.actions),
-                effect=a.effect if a.effect in ("allow", "deny", "approval") else "allow",
-            )
-            for a in ctx.access
-        ],
-        artifacts=[
-            ArtifactSpecIR(
-                path=a.path,
-                kind=a.kind,
-                mime=_mime_for_artifact(a),
-                values=dict(a.values),
-            )
-            for a in ctx.artifacts
-        ],
+        resources=_resources_from_context(ctx),
+        access=_access_from_context(ctx),
+        artifacts=_artifacts_from_context(ctx),
         capabilities=list(ctx.capabilities),
         workflow_history=dict(ctx.workflow_history),
-        conversation=ConversationPolicyIR(
-            autofill=ctx.autofill,
-            attachment_required=ctx.attachment_required,
-            generate_invoice_if_missing=ctx.generate_invoice_if_missing,
-            sync_auto_execute=ctx.sync_auto_execute,
-            strict_pdf=ctx.strict_pdf,
-        ),
+        conversation=_conversation_from_ctx(ctx),
         process=_process_from_ctx(ctx),
         metadata={"source": "doql_context.bootstrap"},
     )
+
+
+def task_context_to_system_map(ctx: DoqlTaskContext, *, example_dir: Path | str | None = None) -> SystemMapIR:
+    """Convert hardcoded/bootstrap context into SystemMapIR (migration helper)."""
+    profile = None
     if example_dir is not None:
-        root = Path(example_dir).resolve()
-        repo_root = root.parent.parent if root.parent.name == "examples" else root.parent
-        apply_process_policies(ir, example_id=ctx.example_name, repo_root=repo_root)
+        profile = load_example_profile(ctx.example_name, _repo_root_from_example_dir(example_dir))
+
+    ir = _base_system_map(
+        ctx,
+        runtimes=_runtimes_from_context(ctx, example_dir=example_dir),
+        commands=_commands_from_context(ctx, profile=profile),
+    )
+
+    if example_dir is not None:
+        apply_process_policies(
+            ir,
+            example_id=ctx.example_name,
+            repo_root=_repo_root_from_example_dir(example_dir),
+        )
     if ctx.validations:
         ir.validations = list(ctx.validations)
     return ir
