@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+from typing import Any
 
 from env2llm.ir import (
+    HostProbeIR,
     RuntimeSpecIR,
     ScheduleSpecIR,
     SystemMapIR,
@@ -33,26 +35,15 @@ def host_probe_enabled(*, explicit: bool | None = None) -> bool:
     return True
 
 
-def apply_host_probe(
-    ir: SystemMapIR,
-    *,
-    enabled: bool | None = None,
-    project_dir: Path | str | None = None,
-) -> SystemMapIR:
-    """Attach cron, HTTP endpoints, and examples-test capability snapshot."""
-    if not host_probe_enabled(explicit=enabled):
-        return ir
-
-    probe = collect_host_probe(project_dir=project_dir)
-    ir.host = probe
-
+def _ensure_host_runtime(ir: SystemMapIR, probe: HostProbeIR) -> None:
     existing_rt = ir.runtime("probe:host")
     if existing_rt is not None:
         existing_rt.status = probe.status  # type: ignore[assignment]
-    else:
-        ir.runtimes.append(_HOST_RUNTIME.model_copy(update={"status": probe.status}))
+        return
+    ir.runtimes.append(_HOST_RUNTIME.model_copy(update={"status": probe.status}))
 
-    # Mirror into data + schedules (DOQL registry consumers read these blocks).
+
+def _mirror_host_core_data(ir: SystemMapIR, probe: HostProbeIR) -> None:
     ir.data["host.hostname"] = probe.hostname
     ir.data["host.platform"] = probe.platform
     ir.data["host.cron_taskinity_installed"] = probe.cron_taskinity_installed
@@ -63,6 +54,9 @@ def apply_host_probe(
         ir.data["host.examples_report_path"] = probe.examples_report_path
     if probe.examples_test_summary:
         ir.data["host.examples_test"] = probe.examples_test_summary
+
+
+def _mirror_host_inventory_counts(ir: SystemMapIR, probe: HostProbeIR) -> None:
     ir.data["host.port_count"] = len(probe.ports)
     ir.data["host.process_count"] = len(probe.processes)
     ir.data["host.container_count"] = len(probe.containers)
@@ -70,6 +64,8 @@ def apply_host_probe(
     ir.data["host.agent_healthy_count"] = sum(1 for agent in probe.agents if agent.ok)
     ir.data["host.agent_degraded_count"] = sum(1 for agent in probe.agents if not agent.ok)
 
+
+def _mirror_host_agent_data(ir: SystemMapIR, probe: HostProbeIR) -> None:
     for agent in probe.agents:
         if agent.effective_health_uri:
             ir.data[f"host.agent.{agent.id}.effective_health_uri"] = agent.effective_health_uri
@@ -77,15 +73,21 @@ def apply_host_probe(
         if agent.recommended_action:
             ir.data[f"host.agent.{agent.id}.recommended_action"] = agent.recommended_action
 
+
+def _mirror_host_capabilities(ir: SystemMapIR, probe: HostProbeIR) -> None:
     for key, value in probe.capabilities.items():
         ir.data[f"host.cap.{key}"] = value
         if value and key not in ir.capabilities:
             ir.capabilities.append(f"host_{key}")
 
+
+def _mirror_host_endpoints(ir: SystemMapIR, probe: HostProbeIR) -> None:
     for endpoint in probe.endpoints:
         if endpoint.ok:
             ir.data[f"host.endpoint.{endpoint.id}"] = endpoint.url
 
+
+def _merge_cron_schedules(ir: SystemMapIR, probe: HostProbeIR) -> None:
     existing_schedule_ids = {sched.id for sched in ir.schedules}
     for item in cron_entries_to_schedules(probe.cron_entries):
         sched_id = item["id"]
@@ -102,10 +104,14 @@ def apply_host_probe(
         )
         existing_schedule_ids.add(sched_id)
 
+
+def _append_taskinity_capability(ir: SystemMapIR, probe: HostProbeIR) -> None:
     if probe.cron_taskinity_installed and "www_monitor_cron" not in ir.capabilities:
         ir.capabilities.append("www_monitor_cron")
 
-    ir.metadata["host_probe"] = {
+
+def _host_probe_metadata(probe: HostProbeIR) -> dict[str, Any]:
+    return {
         "runtime_id": "probe:host",
         "status": probe.status,
         "cron_entries": len(probe.cron_entries),
@@ -116,8 +122,32 @@ def apply_host_probe(
         "containers": len(probe.containers),
         "agents": len(probe.agents),
         "agents_healthy": sum(1 for agent in probe.agents if agent.ok),
-        "capabilities_available": [k for k, v in probe.capabilities.items() if v],
+        "capabilities_available": [key for key, value in probe.capabilities.items() if value],
         "probed_at": probe.probed_at,
     }
+
+
+def apply_host_probe(
+    ir: SystemMapIR,
+    *,
+    enabled: bool | None = None,
+    project_dir: Path | str | None = None,
+) -> SystemMapIR:
+    """Attach cron, HTTP endpoints, and examples-test capability snapshot."""
+    if not host_probe_enabled(explicit=enabled):
+        return ir
+
+    probe = collect_host_probe(project_dir=project_dir)
+    ir.host = probe
+
+    _ensure_host_runtime(ir, probe)
+    _mirror_host_core_data(ir, probe)
+    _mirror_host_inventory_counts(ir, probe)
+    _mirror_host_agent_data(ir, probe)
+    _mirror_host_capabilities(ir, probe)
+    _mirror_host_endpoints(ir, probe)
+    _merge_cron_schedules(ir, probe)
+    _append_taskinity_capability(ir, probe)
+    ir.metadata["host_probe"] = _host_probe_metadata(probe)
 
     return ir
