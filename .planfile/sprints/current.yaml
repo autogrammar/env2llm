@@ -1,0 +1,65 @@
+sprint:
+  id: current
+  name: env2llm refactor — parse and host probe splits
+  status: active
+  tickets:
+    REFACTOR-001:
+      id: REFACTOR-001
+      name: Split doql/parse.py into focused modules
+      description: |
+        Extract entity parsing, DOQL loader, and task-context collection from
+        the monolithic parse.py. Keep parse.py as a thin re-export facade so
+        doql/__init__.py and downstream imports stay stable.
+      executor:
+        kind: shell
+        handler: PYTHONPATH=src pytest tests/test_doql_context.py -q
+        mode: automatic
+      execution:
+        queue: default
+        state: done
+        attempt: 1
+        max_attempts: 1
+      priority: high
+      sprint: current
+      status: done
+    REFACTOR-002:
+      id: REFACTOR-002
+      name: Split probes/host.py into runtime, cron, collectors, agents
+      description: |
+        Decompose host.py into host_runtime, host_cron, host_collectors, and
+        host_agents. host.py orchestrates collect_host_probe and re-exports
+        _parse_cron_line for tests.
+      executor:
+        kind: shell
+        handler: PYTHONPATH=src pytest tests/test_host_probe.py -q
+        mode: automatic
+      execution:
+        queue: default
+        state: done
+        attempt: 1
+        max_attempts: 1
+      priority: high
+      sprint: current
+      status: done
+      blocked_by: []
+    REFACTOR-003:
+      id: REFACTOR-003
+      name: Wire koru/planfile CI on env2llm
+      description: |
+        koru --init scaffold (koru.yaml, .planfile/config.yaml) and verify
+        koru ci run + pyqual gates pass after the refactor.
+      executor:
+        kind: shell
+        handler: koru ci run
+        mode: automatic
+      execution:
+        queue: default
+        state: ready
+        attempt: 0
+        max_attempts: 1
+      priority: normal
+      sprint: current
+      status: open
+      blocked_by:
+        - REFACTOR-001
+        - REFACTOR-002

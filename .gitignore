@@ -58,3 +58,8 @@ build/
 .github/
 .idea/
 .ruff_cache/
+
+# koru runtime artefacts (generated)
+.planfile/.koru/
+.koru/
+.planfile/sprints/*.bak-*
