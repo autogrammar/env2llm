@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from env2llm.render.doql.helpers import bool_lit, data_value_line, esc_str, join_csv
-from .models import DoqlTaskContext
+from .models import DoqlProcessPolicy, DoqlTaskContext
 
 
 def render_context_header(ctx: DoqlTaskContext) -> list[str]:
@@ -147,27 +147,44 @@ def render_context_workflow_history(ctx: DoqlTaskContext) -> list[str]:
     return lines
 
 
-def render_context_process(ctx: DoqlTaskContext) -> list[str]:
-    proc = ctx.process
-    if proc.mode == "balanced" and proc.nlp_parser == "auto" and proc.autonomous_max_rounds == 8:
-        if not (
-            proc.nlp_enrich_missing
-            or proc.llm_temperature is not None
-            or not proc.autonomous_enabled
-            or proc.ask_user != "when_exhausted"
-            or proc.intract_gate
-            or proc.intract_enforce_clarification
-            or proc.llm_reasoning != "shallow"
-        ):
-            return []
+def _process_has_non_default_overrides(proc: DoqlProcessPolicy) -> bool:
+    return bool(
+        proc.nlp_enrich_missing
+        or proc.llm_temperature is not None
+        or not proc.autonomous_enabled
+        or proc.ask_user != "when_exhausted"
+        or proc.intract_gate
+        or proc.intract_enforce_clarification
+        or proc.llm_reasoning != "shallow"
+    )
 
-    lines = ["", "process {"]
-    lines.append(f'  mode: "{proc.mode}";')
-    lines.append(f'  nlp_parser: "{proc.nlp_parser}";')
-    lines.append(f"  nlp_confidence_min: {proc.nlp_confidence_min};")
+
+def _process_is_default_profile(proc: DoqlProcessPolicy) -> bool:
+    return (
+        proc.mode == "balanced"
+        and proc.nlp_parser == "auto"
+        and proc.autonomous_max_rounds == 8
+    )
+
+
+def _should_omit_process_block(proc: DoqlProcessPolicy) -> bool:
+    return _process_is_default_profile(proc) and not _process_has_non_default_overrides(proc)
+
+
+def _process_core_lines(proc: DoqlProcessPolicy) -> list[str]:
+    lines = [
+        f'  mode: "{proc.mode}";',
+        f'  nlp_parser: "{proc.nlp_parser}";',
+        f"  nlp_confidence_min: {proc.nlp_confidence_min};",
+        f'  llm_reasoning: "{proc.llm_reasoning}";',
+    ]
     if proc.nlp_enrich_missing:
         lines.append("  nlp_enrich_missing: true;")
-    lines.append(f'  llm_reasoning: "{proc.llm_reasoning}";')
+    return lines
+
+
+def _process_override_lines(proc: DoqlProcessPolicy) -> list[str]:
+    lines: list[str] = []
     if proc.llm_temperature is not None:
         lines.append(f"  llm_temperature: {proc.llm_temperature};")
     if not proc.autonomous_enabled:
@@ -180,6 +197,17 @@ def render_context_process(ctx: DoqlTaskContext) -> list[str]:
         lines.append("  intract_gate: true;")
     if proc.intract_enforce_clarification:
         lines.append("  intract_enforce_clarification: true;")
+    return lines
+
+
+def render_context_process(ctx: DoqlTaskContext) -> list[str]:
+    proc = ctx.process
+    if _should_omit_process_block(proc):
+        return []
+
+    lines = ["", "process {"]
+    lines.extend(_process_core_lines(proc))
+    lines.extend(_process_override_lines(proc))
     lines.append("}")
     return lines
 
