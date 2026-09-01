@@ -386,16 +386,18 @@ def _agent_health_uri(
     )
 
 
+def _coerce_mapping(value: Any) -> dict[str, Any]:
+    return value if isinstance(value, dict) else {}
+
+
+def _agent_incident_codes(agent_readiness: Mapping[str, Any]) -> list[str]:
+    return [str(code) for code in agent_readiness.get("incident_codes") or []]
+
+
 def _agent_from_payload(deployment_id: str, payload: dict[str, Any]) -> HostAgentIR:
-    readiness = payload.get("readiness") or {}
-    agent_readiness = payload.get("agent_readiness") or {}
-    process = payload.get("process") or {}
-    if not isinstance(readiness, dict):
-        readiness = {}
-    if not isinstance(agent_readiness, dict):
-        agent_readiness = {}
-    if not isinstance(process, dict):
-        process = {}
+    readiness = _coerce_mapping(payload.get("readiness"))
+    agent_readiness = _coerce_mapping(payload.get("agent_readiness"))
+    process = _coerce_mapping(payload.get("process"))
     return HostAgentIR(
         id=str(payload.get("id") or deployment_id),
         agent_ref=str(payload.get("agent_ref") or ""),
@@ -407,7 +409,7 @@ def _agent_from_payload(deployment_id: str, payload: dict[str, Any]) -> HostAgen
         effective_port=_agent_effective_port(readiness),
         effective_health_uri=_agent_health_uri(readiness, agent_readiness),
         recommended_action=str(agent_readiness.get("recommended_action") or ""),
-        incident_codes=[str(code) for code in agent_readiness.get("incident_codes") or []],
+        incident_codes=_agent_incident_codes(agent_readiness),
         log_uri=str(payload.get("log_uri") or ""),
         process_log_uri=str(payload.get("process_log_uri") or ""),
     )
@@ -625,18 +627,21 @@ def collect_host_probe(*, project_dir: Path | str | None = None) -> HostProbeIR:
     )
 
 
+def _cron_schedule_from_entry(entry: CronEntryIR, idx: int) -> dict[str, str] | None:
+    if not entry.enabled or not entry.schedule:
+        return None
+    return {
+        "id": entry.marker or f"host_cron_{idx}",
+        "cron": entry.schedule,
+        "task": entry.command or entry.raw,
+    }
+
+
 def cron_entries_to_schedules(entries: list[CronEntryIR]) -> list[dict[str, str]]:
     """Convert enabled cron lines to schedule dicts for SystemMapIR.schedules."""
     out: list[dict[str, str]] = []
     for idx, entry in enumerate(entries):
-        if not entry.enabled or not entry.schedule:
-            continue
-        task = entry.command or entry.raw
-        out.append(
-            {
-                "id": entry.marker or f"host_cron_{idx}",
-                "cron": entry.schedule,
-                "task": task,
-            }
-        )
+        schedule = _cron_schedule_from_entry(entry, idx)
+        if schedule is not None:
+            out.append(schedule)
     return out

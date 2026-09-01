@@ -355,6 +355,29 @@ def _allow_scope_message(action: str, area: str, allow: set[str]) -> str:
     )
 
 
+_MULLM_DENY_AREAS = frozenset({"mullm:rag", "mullm", "mullm:*"})
+
+
+def _mullm_scope_denied(action: str, deny: set[str]) -> bool:
+    return action.startswith("mullm_") and bool(deny.intersection(_MULLM_DENY_AREAS))
+
+
+def _scope_denial_message(
+    action: str,
+    area: str,
+    *,
+    deny: set[str],
+    allow: set[str],
+) -> str | None:
+    if area and area in deny:
+        return _deny_area_message(action, area)
+    if _mullm_scope_denied(action, deny):
+        return _mullm_denied_message(action)
+    if allow and area and area not in allow:
+        return _allow_scope_message(action, area, allow)
+    return None
+
+
 def process_scope_denied(
     process: ProcessPolicyIR,
     *,
@@ -367,11 +390,4 @@ def process_scope_denied(
     area = (resource_area or "").strip()
     deny = set(process.access.deny_resource_areas or [])
     allow = set(process.access.allow_resource_areas or [])
-
-    if area and area in deny:
-        return _deny_area_message(action, area)
-    if action.startswith("mullm_") and deny.intersection({"mullm:rag", "mullm", "mullm:*"}):
-        return _mullm_denied_message(action)
-    if allow and area and area not in allow:
-        return _allow_scope_message(action, area, allow)
-    return None
+    return _scope_denial_message(action, area, deny=deny, allow=allow)
