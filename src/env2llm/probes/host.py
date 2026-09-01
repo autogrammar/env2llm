@@ -322,65 +322,66 @@ def _deployment_ids(project_dir: Path) -> list[str]:
     return ids
 
 
+def _failed_agent(deployment_id: str, service_status: str) -> HostAgentIR:
+    return HostAgentIR(
+        id=deployment_id,
+        ok=False,
+        service_status=service_status,
+        runtime_status="unknown",
+    )
+
+
+def _agent_from_payload(deployment_id: str, payload: dict[str, Any]) -> HostAgentIR:
+    readiness = payload.get("readiness") or {}
+    agent_readiness = payload.get("agent_readiness") or {}
+    process = payload.get("process") or {}
+    return HostAgentIR(
+        id=str(payload.get("id") or deployment_id),
+        agent_ref=str(payload.get("agent_ref") or ""),
+        ok=bool(payload.get("ok")),
+        service_status=str(payload.get("service_status") or ""),
+        runtime_status=str(payload.get("runtime_status") or ""),
+        pid=process.get("pid") if isinstance(process.get("pid"), int) else None,
+        process_running=bool(process.get("running")),
+        effective_port=readiness.get("effective_port")
+        if isinstance(readiness.get("effective_port"), int)
+        else None,
+        effective_health_uri=str(
+            readiness.get("effective_health_uri")
+            or agent_readiness.get("effective_health_uri")
+            or ""
+        ),
+        recommended_action=str(agent_readiness.get("recommended_action") or ""),
+        incident_codes=[str(code) for code in agent_readiness.get("incident_codes") or []],
+        log_uri=str(payload.get("log_uri") or ""),
+        process_log_uri=str(payload.get("process_log_uri") or ""),
+    )
+
+
+def _inspect_agent(deployment_id: str, project_dir: Path) -> HostAgentIR:
+    probe = _run(
+        ["hypervisor", "inspect-agent", deployment_id],
+        timeout=20,
+        cwd=project_dir,
+    )
+    if probe.returncode != 0:
+        return _failed_agent(deployment_id, "inspect_failed")
+    try:
+        payload = json.loads(probe.stdout)
+    except json.JSONDecodeError:
+        return _failed_agent(deployment_id, "inspect_non_json")
+    if not isinstance(payload, dict):
+        return _failed_agent(deployment_id, "inspect_non_json")
+    return _agent_from_payload(deployment_id, payload)
+
+
 def _collect_agents(project_dir: Path, limit: int = 20) -> list[HostAgentIR]:
     if shutil.which("hypervisor") is None:
         return []
-    agents: list[HostAgentIR] = []
-    for deployment_id in _deployment_ids(project_dir)[:limit]:
-        probe = _run(
-            ["hypervisor", "inspect-agent", deployment_id],
-            timeout=20,
-            cwd=project_dir,
-        )
-        if probe.returncode != 0:
-            agents.append(
-                HostAgentIR(
-                    id=deployment_id,
-                    ok=False,
-                    service_status="inspect_failed",
-                    runtime_status="unknown",
-                )
-            )
-            continue
-        try:
-            payload = json.loads(probe.stdout)
-        except json.JSONDecodeError:
-            agents.append(
-                HostAgentIR(
-                    id=deployment_id,
-                    ok=False,
-                    service_status="inspect_non_json",
-                    runtime_status="unknown",
-                )
-            )
-            continue
-        readiness = payload.get("readiness") or {}
-        agent_readiness = payload.get("agent_readiness") or {}
-        process = payload.get("process") or {}
-        agents.append(
-            HostAgentIR(
-                id=str(payload.get("id") or deployment_id),
-                agent_ref=str(payload.get("agent_ref") or ""),
-                ok=bool(payload.get("ok")),
-                service_status=str(payload.get("service_status") or ""),
-                runtime_status=str(payload.get("runtime_status") or ""),
-                pid=process.get("pid") if isinstance(process.get("pid"), int) else None,
-                process_running=bool(process.get("running")),
-                effective_port=readiness.get("effective_port")
-                if isinstance(readiness.get("effective_port"), int)
-                else None,
-                effective_health_uri=str(
-                    readiness.get("effective_health_uri")
-                    or agent_readiness.get("effective_health_uri")
-                    or ""
-                ),
-                recommended_action=str(agent_readiness.get("recommended_action") or ""),
-                incident_codes=[str(code) for code in agent_readiness.get("incident_codes") or []],
-                log_uri=str(payload.get("log_uri") or ""),
-                process_log_uri=str(payload.get("process_log_uri") or ""),
-            )
-        )
-    return agents
+    return [
+        _inspect_agent(deployment_id, project_dir)
+        for deployment_id in _deployment_ids(project_dir)[:limit]
+    ]
 
 
 def collect_host_probe(*, project_dir: Path | str | None = None) -> HostProbeIR:
