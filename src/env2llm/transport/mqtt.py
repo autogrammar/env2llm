@@ -44,6 +44,29 @@ def mqtt_enabled(*, explicit: bool | None = None) -> bool:
     )
 
 
+def _mqtt_env_str(key: str, fallback: str) -> str:
+    return os.environ.get(key, fallback)
+
+
+def _mqtt_env_int(key: str, fallback: int) -> int:
+    return int(os.environ.get(key, str(fallback)))
+
+
+def _create_mqtt_client(
+    *,
+    client_id: str,
+    username: str | None,
+    password: str | None,
+) -> Any:
+    client = mqtt.Client(
+        callback_api_version=mqtt.CallbackAPIVersion.VERSION2,
+        client_id=client_id,
+    )
+    if username:
+        client.username_pw_set(username, password)
+    return client
+
+
 class MqttRegistryBridge:
     """
     Publish registry snapshots and listen for remote refresh commands.
@@ -69,18 +92,17 @@ class MqttRegistryBridge:
         if not _MQTT_AVAILABLE:
             raise RuntimeError(mqtt_missing_message())
 
-        self.host = host or os.environ.get("ENV2LLM_MQTT_HOST", "127.0.0.1")
-        self.port = int(port or os.environ.get("ENV2LLM_MQTT_PORT", "1883"))
-        self.prefix = (prefix or os.environ.get("ENV2LLM_MQTT_TOPIC_PREFIX", "env2llm")).strip("/")
+        self.host = host or _mqtt_env_str("ENV2LLM_MQTT_HOST", "127.0.0.1")
+        self.port = port if port is not None else _mqtt_env_int("ENV2LLM_MQTT_PORT", 1883)
+        self.prefix = (prefix or _mqtt_env_str("ENV2LLM_MQTT_TOPIC_PREFIX", "env2llm")).strip("/")
         self.username = username or os.environ.get("ENV2LLM_MQTT_USERNAME") or None
         self.password = password or os.environ.get("ENV2LLM_MQTT_PASSWORD") or None
-        self._client_id = client_id or os.environ.get("ENV2LLM_MQTT_CLIENT_ID", "env2llm-registry")
-        self._client = mqtt.Client(
-            callback_api_version=mqtt.CallbackAPIVersion.VERSION2,
+        self._client_id = client_id or _mqtt_env_str("ENV2LLM_MQTT_CLIENT_ID", "env2llm-registry")
+        self._client = _create_mqtt_client(
             client_id=self._client_id,
+            username=self.username,
+            password=self.password,
         )
-        if self.username:
-            self._client.username_pw_set(self.username, self.password)
         self._client.on_connect = self._on_connect
         self._client.on_message = self._on_message
         self.connected = False

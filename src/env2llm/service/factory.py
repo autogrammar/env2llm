@@ -105,6 +105,42 @@ class UnknownServiceKindError(ServiceFactoryError):
         )
 
 
+def _validate_factory_schema(schema: Any) -> None:
+    if schema not in {None, SERVICE_FACTORY_REQUEST_V1}:
+        raise ServiceFactoryError(
+            f"unsupported service factory request schema {schema!r}",
+            kind="registry",
+        )
+
+
+def _validated_project_dir(project_dir: Any) -> str | Path:
+    if not isinstance(project_dir, (str, Path)) or not str(project_dir).strip():
+        raise ServiceFactoryError("project_dir must be a non-empty path")
+    return project_dir
+
+
+def _validated_merge_existing(value: Any) -> bool:
+    if not isinstance(value, bool):
+        raise ServiceFactoryError("merge_existing must be a boolean")
+    return value
+
+
+def _request_from_payload(payload: Mapping[str, Any]) -> ServiceFactoryRequest:
+    merge_existing = _validated_merge_existing(payload.get("merge_existing", True))
+    request = ServiceFactoryRequest(
+        project_dir=_validated_project_dir(payload.get("project_dir")),
+        kind=str(payload.get("kind") or "registry"),
+        project_id=(str(payload["project_id"]) if payload.get("project_id") else None),
+        probe_desktop=_optional_bool(payload, "probe_desktop"),
+        merge_existing=merge_existing,
+        mqtt=_optional_bool(payload, "mqtt"),
+    )
+    supplied_hash = payload.get("request_hash")
+    if supplied_hash is not None and supplied_hash != request.request_hash:
+        raise ServiceFactoryError("service factory request_hash does not match payload")
+    return request
+
+
 @dataclass(frozen=True)
 class ServiceFactoryRequest:
     """Versioned input for deterministic service construction."""
@@ -151,30 +187,8 @@ class ServiceFactoryRequest:
         unknown = sorted(set(payload) - _REQUEST_FIELDS)
         if unknown:
             raise ServiceFactoryError(f"unknown service factory request fields: {unknown}")
-        schema = payload.get("schema")
-        if schema not in {None, SERVICE_FACTORY_REQUEST_V1}:
-            raise ServiceFactoryError(
-                f"unsupported service factory request schema {schema!r}",
-                kind=str(payload.get("kind") or "registry"),
-            )
-        project_dir = payload.get("project_dir")
-        if not isinstance(project_dir, (str, Path)) or not str(project_dir).strip():
-            raise ServiceFactoryError("project_dir must be a non-empty path")
-        merge_existing = payload.get("merge_existing", True)
-        if not isinstance(merge_existing, bool):
-            raise ServiceFactoryError("merge_existing must be a boolean")
-        request = cls(
-            project_dir=project_dir,
-            kind=str(payload.get("kind") or "registry"),
-            project_id=(str(payload["project_id"]) if payload.get("project_id") else None),
-            probe_desktop=_optional_bool(payload, "probe_desktop"),
-            merge_existing=merge_existing,
-            mqtt=_optional_bool(payload, "mqtt"),
-        )
-        supplied_hash = payload.get("request_hash")
-        if supplied_hash is not None and supplied_hash != request.request_hash:
-            raise ServiceFactoryError("service factory request_hash does not match payload")
-        return request
+        _validate_factory_schema(payload.get("schema"))
+        return _request_from_payload(payload)
 
 
 @dataclass(frozen=True)

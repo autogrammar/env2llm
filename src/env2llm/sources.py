@@ -17,6 +17,20 @@ class EnvironmentSources(Protocol):
     def services_snapshot(self, artifact_root: Path) -> list[dict[str, Any]]: ...
 
 
+def _dict_rows(value: Any) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    return [row for row in value if isinstance(row, dict)]
+
+
+def _actions_from_services_doc(doc: Any) -> list[dict[str, Any]]:
+    if isinstance(doc, list):
+        return _dict_rows(doc)
+    if isinstance(doc, dict):
+        return _dict_rows(doc.get("actions") or doc.get("commands") or [])
+    return []
+
+
 @dataclass
 class DefaultEnvironmentSources:
     """Read nlp2dsl-style YAML layouts (example-profiles.yaml, nlp2dsl.yaml)."""
@@ -58,10 +72,4 @@ class DefaultEnvironmentSources:
         if not path.is_file():
             return []
         doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-        if isinstance(doc, list):
-            return [row for row in doc if isinstance(row, dict)]
-        if isinstance(doc, dict):
-            actions = doc.get("actions") or doc.get("commands") or []
-            if isinstance(actions, list):
-                return [row for row in actions if isinstance(row, dict)]
-        return []
+        return _actions_from_services_doc(doc)

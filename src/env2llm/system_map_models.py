@@ -9,18 +9,25 @@ from pydantic import BaseModel, Field, create_model
 from env2llm.ir import CommandSchemaIR, FieldSpec, SystemMapIR
 
 
-def _annotation_for_field(field: FieldSpec) -> tuple[type, Any]:
-    if field.mime and field.mime.type == "application/pdf":
-        base: type = str
-    elif field.mime and field.mime.type == "application/json":
-        base = dict[str, Any]
-    elif field.mime and field.mime.type.startswith("text/"):
-        base = str
-    elif field.name in ("amount", "total", "price", "quantity"):
-        base = float
-    else:
-        base = Any
+_NUMERIC_FIELD_NAMES = frozenset({"amount", "total", "price", "quantity"})
 
+
+def _base_type_for_field(field: FieldSpec) -> type:
+    if field.mime:
+        mime_type = field.mime.type
+        if mime_type == "application/pdf":
+            return str
+        if mime_type == "application/json":
+            return dict[str, Any]
+        if mime_type.startswith("text/"):
+            return str
+    if field.name in _NUMERIC_FIELD_NAMES:
+        return float
+    return Any
+
+
+def _annotation_for_field(field: FieldSpec) -> tuple[type, Any]:
+    base = _base_type_for_field(field)
     if field.required:
         return base, Field(description=field.description or None)
     return base | None, Field(default=None, description=field.description or None)

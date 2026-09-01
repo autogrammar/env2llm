@@ -168,17 +168,25 @@ def _mirror_desktop_ide_calibrations(ir: SystemMapIR, probe: DesktopProbeIR) -> 
         ir.data[f"desktop.ide_calibration.{entry.ide}"] = entry.model_dump()
 
 
+def _mirror_active_window(ir: SystemMapIR, probe: DesktopProbeIR) -> None:
+    active = next((window for window in probe.windows if window.active), None)
+    if active is not None:
+        ir.data["desktop.active_window"] = active.title
+
+
+def _mirror_browser_window_titles(ir: SystemMapIR, probe: DesktopProbeIR) -> None:
+    browsers = [window.title for window in probe.windows if window.is_browser][:8]
+    if browsers:
+        ir.data["desktop.browser_windows"] = browsers
+
+
 def _mirror_desktop_windows(ir: SystemMapIR, probe: DesktopProbeIR) -> None:
     ir.data["desktop.window_count"] = len(probe.windows)
     ir.data["desktop.browser_window_count"] = sum(1 for window in probe.windows if window.is_browser)
     if probe.windows:
         ir.data["desktop.window_titles"] = [window.title for window in probe.windows[:12]]
-    active = next((window for window in probe.windows if window.active), None)
-    if active is not None:
-        ir.data["desktop.active_window"] = active.title
-    browsers = [window.title for window in probe.windows if window.is_browser][:8]
-    if browsers:
-        ir.data["desktop.browser_windows"] = browsers
+    _mirror_active_window(ir, probe)
+    _mirror_browser_window_titles(ir, probe)
 
 
 def _mirror_desktop_summary(ir: SystemMapIR) -> None:
