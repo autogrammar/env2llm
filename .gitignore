@@ -59,7 +59,11 @@ build/
 .idea/
 .ruff_cache/
 
-# koru runtime artefacts (generated)
+# koru / planfile runtime artefacts (generated)
 .planfile/.koru/
+.planfile/.store.lock
+.planfile/events/
+.planfile/index/
+.planfile/sprints/*.fast.json
 .koru/
 .planfile/sprints/*.bak-*

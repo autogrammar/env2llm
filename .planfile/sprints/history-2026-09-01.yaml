@@ -1,0 +1,155 @@
+sprint:
+  id: history-2026-09-01
+  name: History 2026-09-01
+  status: archived
+  tickets:
+    REFACTOR-001:
+      description: 'Extract entity parsing, DOQL loader, and task-context collection
+        from
+
+        the monolithic parse.py. Keep parse.py as a thin re-export facade so
+
+        doql/__init__.py and downstream imports stay stable.
+
+        '
+      execution:
+        attempt: 1
+        max_attempts: 1
+        queue: default
+        state: done
+      executor:
+        handler: PYTHONPATH=src pytest tests/test_doql_context.py -q
+        kind: shell
+        mode: automatic
+      id: REFACTOR-001
+      name: Split doql/parse.py into focused modules
+      priority: high
+      sprint: history-2026-09-01
+      status: done
+    REFACTOR-002:
+      blocked_by: []
+      description: 'Decompose host.py into host_runtime, host_cron, host_collectors,
+        and
+
+        host_agents. host.py orchestrates collect_host_probe and re-exports
+
+        _parse_cron_line for tests.
+
+        '
+      execution:
+        attempt: 1
+        max_attempts: 1
+        queue: default
+        state: done
+      executor:
+        handler: PYTHONPATH=src pytest tests/test_host_probe.py -q
+        kind: shell
+        mode: automatic
+      id: REFACTOR-002
+      name: Split probes/host.py into runtime, cron, collectors, agents
+      priority: high
+      sprint: history-2026-09-01
+      status: done
+    REFACTOR-003:
+      blocked_by:
+      - REFACTOR-001
+      - REFACTOR-002
+      description: 'koru --init scaffold (koru.yaml, .planfile/config.yaml) and verify
+
+        koru ci run + pyqual gates pass after the refactor.
+
+
+        <!-- koru:living-status:start -->
+
+        ### Koru Living Status
+
+        - Ticket: `REFACTOR-003`
+
+        - State: `done`
+
+        - Actor: `koru-shell`
+
+        - Lease expires: `-`
+
+        - Control: planfile://ticket/REFACTOR-003
+
+        <!-- koru:living-status:end -->'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-01T18:35:35.643618+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: default
+        started_at: '2026-09-01T18:35:20.274557Z'
+        state: done
+      executor:
+        handler: koru ci run
+        kind: shell
+        mode: automatic
+      history:
+      - action: update
+        changes:
+        - execution
+        source: planfile.store
+        timestamp: '2026-09-01T18:35:19.571369+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: running
+        previous_execution_state: ready
+        previous_status: open
+        source: planfile.store
+        status: in_progress
+        timestamp: '2026-09-01T18:35:20.275294+00:00'
+      - action: update
+        changes:
+        - description
+        source: planfile.store
+        timestamp: '2026-09-01T18:35:21.583201+00:00'
+      - action: update
+        changes:
+        - outputs
+        source: planfile.store
+        timestamp: '2026-09-01T18:35:34.857449+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: done
+        previous_execution_state: running
+        previous_status: in_progress
+        source: planfile.store
+        status: done
+        timestamp: '2026-09-01T18:35:35.643800+00:00'
+      - action: update
+        changes:
+        - description
+        source: planfile.store
+        timestamp: '2026-09-01T18:35:37.069504+00:00'
+      id: REFACTOR-003
+      name: Wire koru/planfile CI on env2llm
+      outputs:
+        artifacts: []
+        notes:
+        - 'KORU-SHELL-RUN {"exit_code": 0, "run_id": "50ac9e8e7870487f", "stderr_chars":
+          0, "stdout_chars": 94, "truncated": false}
+
+          --- stdout ---
+
+          koru ci run: policy_ci: passed
+
+          koru ci run: quality_gates: passed
+
+          koru ci run: overall=passed
+
+
+
+          --- stderr ---
+
+          (empty)'
+      priority: normal
+      sprint: history-2026-09-01
+      status: done
+      updated_at: '2026-09-01T18:35:37.069462+00:00'

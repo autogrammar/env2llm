@@ -33,6 +33,15 @@ environment:
   # KORU_AUTOPILOT_IDE: "auto"           # auto | cursor | windsurf | vscode | jetbrains | zed
   # KORU_SUGGESTED_QUEUE_ACTOR: ""       # planfile queue actor hint (koru-<lane> from init)
 
+queue:
+  post_run_verify:
+    enabled: true
+    on_failure: reopen
+    after_ide_drive: true
+    ide_done_window_minutes: 30
+    commands:
+      - koru ci run --project .
+
 when:
   bootstrap:
     description: First-time planfile + koru runtime wiring.
