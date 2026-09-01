@@ -114,6 +114,52 @@ def _merge_workflow_id(history: dict[str, Any], execution: Mapping[str, Any]) ->
         history["last_workflow_id"] = str(wf_id)
 
 
+_REGISTRY_OBSERVATION_KEYS = (
+    "last_phase",
+    "last_observed_at",
+    "last_intent",
+    "last_status",
+    "last_invoice_id",
+    "last_workflow_id",
+    "conversation_id",
+)
+
+_INVOICE_ATTACHMENT_KEYS = frozenset({"attachment_path", "send_invoice.attachment_path"})
+
+
+def _merge_workflow_observations(ir: SystemMapIR, workflow_history: Mapping[str, Any]) -> None:
+    for key in _REGISTRY_OBSERVATION_KEYS:
+        if key in workflow_history:
+            ir.workflow_history[key] = workflow_history[key]
+
+
+def _should_skip_data_key(key: str, example_id: str) -> bool:
+    return is_invoice_example(example_id) and key in _INVOICE_ATTACHMENT_KEYS
+
+
+def _should_preserve_data_key(
+    key: str,
+    *,
+    preserve_data_prefixes: tuple[str, ...],
+) -> bool:
+    if any(key.startswith(prefix) for prefix in preserve_data_prefixes):
+        return True
+    return key.endswith(".last_invoice_id") or key == "attachment_path"
+
+
+def _merge_data_observations(
+    ir: SystemMapIR,
+    data: Mapping[str, Any],
+    *,
+    preserve_data_prefixes: tuple[str, ...],
+) -> None:
+    for key, value in data.items():
+        if _should_skip_data_key(key, ir.example_id):
+            continue
+        if _should_preserve_data_key(key, preserve_data_prefixes=preserve_data_prefixes):
+            ir.data.setdefault(key, value)
+
+
 def merge_registry_observations(
     ir: SystemMapIR,
     path: Path | str,
@@ -131,30 +177,12 @@ def merge_registry_observations(
         return ir
 
     ctx = load_doql_context(path)
-    observation_keys = (
-        "last_phase",
-        "last_observed_at",
-        "last_intent",
-        "last_status",
-        "last_invoice_id",
-        "last_workflow_id",
-        "conversation_id",
+    _merge_workflow_observations(ir, ctx.workflow_history)
+    _merge_data_observations(
+        ir,
+        ctx.data,
+        preserve_data_prefixes=preserve_data_prefixes,
     )
-    for key in observation_keys:
-        if key in ctx.workflow_history:
-            ir.workflow_history[key] = ctx.workflow_history[key]
-
-    for key, value in ctx.data.items():
-        if is_invoice_example(ir.example_id) and key in (
-            "attachment_path",
-            "send_invoice.attachment_path",
-        ):
-            continue
-        if any(key.startswith(prefix) for prefix in preserve_data_prefixes):
-            ir.data.setdefault(key, value)
-        elif key.endswith(".last_invoice_id") or key == "attachment_path":
-            ir.data.setdefault(key, value)
-
     return ir
 
 

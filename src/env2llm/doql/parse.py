@@ -230,29 +230,53 @@ def _apply_context_block(ctx: DoqlTaskContext, block_type: str, kv: dict[str, An
         _apply_paths_block(ctx, kv)
 
 
-def _append_collection_blocks(ctx: DoqlTaskContext, text: str) -> None:
+def _append_artifact_blocks(ctx: DoqlTaskContext, text: str) -> None:
     for body in _ARTIFACT_RE.findall(text):
         ctx.artifacts.append(_parse_artifact_body(body))
+
+
+def _append_command_blocks(ctx: DoqlTaskContext, text: str) -> None:
     for body in _COMMAND_RE.findall(text):
         cmd = _parse_command_body(body)
         if cmd.name:
             ctx.commands.append(cmd)
+
+
+def _append_resource_blocks(ctx: DoqlTaskContext, text: str) -> None:
     for body in _RESOURCE_RE.findall(text):
         res = _parse_resource_body(body)
         if res.id:
             ctx.resources.append(res)
+
+
+def _append_access_blocks(ctx: DoqlTaskContext, text: str) -> None:
     for body in _ACCESS_RE.findall(text):
         grant = _parse_access_body(body)
         if grant.agent:
             ctx.access.append(grant)
+
+
+def _append_runtime_blocks(ctx: DoqlTaskContext, text: str) -> None:
     for body in _RUNTIME_RE.findall(text):
         rt = _parse_runtime_body(body)
         if rt.id:
             ctx.runtimes.append(rt)
+
+
+def _append_validation_blocks(ctx: DoqlTaskContext, text: str) -> None:
     for body in _VALIDATION_RE.findall(text):
         spec = _parse_validation_body(body)
         if spec.code:
             ctx.validations.append(spec)
+
+
+def _append_collection_blocks(ctx: DoqlTaskContext, text: str) -> None:
+    _append_artifact_blocks(ctx, text)
+    _append_command_blocks(ctx, text)
+    _append_resource_blocks(ctx, text)
+    _append_access_blocks(ctx, text)
+    _append_runtime_blocks(ctx, text)
+    _append_validation_blocks(ctx, text)
 
 
 def load_doql_context(path: Path | str) -> DoqlTaskContext:
@@ -351,27 +375,14 @@ def load_commands_from_services_yaml(path: Path) -> list[DoqlCommand]:
         payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     except OSError:
         return []
-    out: list[DoqlCommand] = []
+    commands: list[DoqlCommand] = []
     for action in payload.get("actions") or []:
         if not isinstance(action, dict):
             continue
-        name = str(action.get("name", ""))
-        if not name:
-            continue
-        transport, endpoint = _command_transport(name)
-        req = action.get("required") or []
-        opt = action.get("optional") or {}
-        out.append(
-            DoqlCommand(
-                name=name,
-                description=str(action.get("description", "")),
-                required=[str(r) for r in req] if isinstance(req, list) else [],
-                optional=sorted(str(k) for k in opt) if isinstance(opt, dict) else [],
-                transport=transport,
-                endpoint=endpoint,
-            )
-        )
-    return out
+        command = _command_from_workflow_action(action)
+        if command is not None:
+            commands.append(command)
+    return commands
 
 
 def _command_from_workflow_action(action: dict[str, Any]) -> DoqlCommand | None:

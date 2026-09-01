@@ -36,6 +36,70 @@ Rules:
 - Return ONLY valid JSON, no markdown fences."""
 
 
+def _introspection_base_payload(
+    *,
+    example_id: str,
+    root: Path,
+    profile: dict[str, Any] | None,
+    environment: Mapping[str, str] | None,
+    queries: list[Mapping[str, Any]] | None,
+) -> dict[str, Any]:
+    return {
+        "example_id": example_id,
+        "example_dir": str(root),
+        "example_profile": profile,
+        "environment": dict(environment or {}),
+        "queries": list(queries or []),
+        "fixtures": [],
+        "services_yaml": None,
+        "nlp2dsl_yaml": None,
+        "workflow_actions": None,
+    }
+
+
+def _collect_fixture_introspection(artifact_root: Path) -> list[dict[str, str]]:
+    fixtures_dir = artifact_root / "fixtures"
+    if not fixtures_dir.is_dir():
+        return []
+    fixtures: list[dict[str, str]] = []
+    for path in sorted(fixtures_dir.iterdir()):
+        if path.is_file():
+            fixtures.append(
+                {"path": str(path.relative_to(artifact_root)), "suffix": path.suffix.lower()}
+            )
+    return fixtures
+
+
+def _attach_config_snapshots(
+    payload: dict[str, Any],
+    *,
+    artifact_root: Path,
+    repo_root: Path,
+) -> None:
+    services_path = artifact_root / "services.yaml"
+    if services_path.is_file():
+        payload["services_yaml"] = services_path.read_text(encoding="utf-8")[:8000]
+
+    config_path = repo_root / "nlp2dsl.yaml"
+    if config_path.is_file():
+        payload["nlp2dsl_yaml"] = config_path.read_text(encoding="utf-8")[:8000]
+
+
+def _attach_live_introspection(payload: dict[str, Any], client: Any | None) -> None:
+    if client is None:
+        return
+    try:
+        payload["workflow_actions"] = client.workflow_actions()
+    except Exception as exc:
+        log.debug("workflow_actions introspection failed: %s", exc)
+
+    if not desktop_probe_enabled():
+        return
+    from env2llm.probes.desktop import collect_desktop_probe
+
+    payload["desktop_probe"] = collect_desktop_probe().model_dump()
+
+
 def build_introspection_payload(
     example_dir: Path | str,
     *,
@@ -49,45 +113,16 @@ def build_introspection_payload(
     artifact_root = root / ".nlp2dsl"
     repo_root = root.parent.parent if root.parent.name == "examples" else root.parent
     profile = load_example_profile(example_id, repo_root)
-    payload: dict[str, Any] = {
-        "example_id": example_id,
-        "example_dir": str(root),
-        "example_profile": profile,
-        "environment": dict(environment or {}),
-        "queries": list(queries or []),
-        "fixtures": [],
-        "services_yaml": None,
-        "nlp2dsl_yaml": None,
-        "workflow_actions": None,
-    }
-
-    fixtures_dir = artifact_root / "fixtures"
-    if fixtures_dir.is_dir():
-        for path in sorted(fixtures_dir.iterdir()):
-            if path.is_file():
-                payload["fixtures"].append(
-                    {"path": str(path.relative_to(artifact_root)), "suffix": path.suffix.lower()}
-                )
-
-    services_path = artifact_root / "services.yaml"
-    if services_path.is_file():
-        payload["services_yaml"] = services_path.read_text(encoding="utf-8")[:8000]
-
-    config_path = repo_root / "nlp2dsl.yaml"
-    if config_path.is_file():
-        payload["nlp2dsl_yaml"] = config_path.read_text(encoding="utf-8")[:8000]
-
-    if client is not None:
-        try:
-            payload["workflow_actions"] = client.workflow_actions()
-        except Exception as exc:
-            log.debug("workflow_actions introspection failed: %s", exc)
-
-    if desktop_probe_enabled():
-        from env2llm.probes.desktop import collect_desktop_probe
-
-        payload["desktop_probe"] = collect_desktop_probe().model_dump()
-
+    payload = _introspection_base_payload(
+        example_id=example_id,
+        root=root,
+        profile=profile,
+        environment=environment,
+        queries=queries,
+    )
+    payload["fixtures"] = _collect_fixture_introspection(artifact_root)
+    _attach_config_snapshots(payload, artifact_root=artifact_root, repo_root=repo_root)
+    _attach_live_introspection(payload, client)
     return payload
 
 
