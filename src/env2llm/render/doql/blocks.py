@@ -4,7 +4,16 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from env2llm.ir import SystemMapIR
+from env2llm.ir import (
+    CronEntryIR,
+    HostAgentIR,
+    HostContainerIR,
+    HostEndpointIR,
+    HostPortIR,
+    HostProbeIR,
+    HostProcessIR,
+    SystemMapIR,
+)
 from .helpers import (
     bool_lit,
     data_value_line,
@@ -337,10 +346,10 @@ def render_schedules_block(ir: SystemMapIR) -> list[str]:
     return lines
 
 
-def render_host_block(ir: SystemMapIR) -> list[str]:
-    probe = ir.host
-    if probe is None:
-        return []
+    return lines
+
+
+def _render_host_header(probe: HostProbeIR) -> list[str]:
     lines = [
         "host {",
         f'  hostname: "{esc_str(probe.hostname)}";',
@@ -363,8 +372,12 @@ def render_host_block(ir: SystemMapIR) -> list[str]:
         if missing:
             lines.append(f'  capabilities_missing: "{join_csv(missing)}";')
     lines.extend(["}", ""])
+    return lines
 
-    for idx, entry in enumerate(probe.cron_entries):
+
+def _render_host_cron_entries(entries: list[CronEntryIR]) -> list[str]:
+    lines: list[str] = []
+    for idx, entry in enumerate(entries):
         lines.append(f"host_cron[{idx}] {{")
         if entry.schedule:
             lines.append(f'  schedule: "{esc_str(entry.schedule)}";')
@@ -374,8 +387,12 @@ def render_host_block(ir: SystemMapIR) -> list[str]:
             lines.append(f'  marker: "{esc_str(entry.marker)}";')
         lines.append(f"  enabled: {bool_lit(entry.enabled)};")
         lines.extend(["}", ""])
+    return lines
 
-    for idx, endpoint in enumerate(probe.endpoints):
+
+def _render_host_endpoints(endpoints: list[HostEndpointIR]) -> list[str]:
+    lines: list[str] = []
+    for idx, endpoint in enumerate(endpoints):
         lines.append(f"host_endpoint[{idx}] {{")
         lines.append(f'  id: "{esc_str(endpoint.id)}";')
         lines.append(f'  url: "{esc_str(endpoint.url)}";')
@@ -383,8 +400,12 @@ def render_host_block(ir: SystemMapIR) -> list[str]:
         if endpoint.detail:
             lines.append(f'  detail: "{esc_str(endpoint.detail)}";')
         lines.extend(["}", ""])
+    return lines
 
-    for idx, port in enumerate(probe.ports):
+
+def _render_host_ports(ports: list[HostPortIR]) -> list[str]:
+    lines: list[str] = []
+    for idx, port in enumerate(ports):
         lines.append(f"host_port[{idx}] {{")
         lines.append(f"  port: {port.port};")
         if port.address:
@@ -397,8 +418,12 @@ def render_host_block(ir: SystemMapIR) -> list[str]:
         if port.detail:
             lines.append(f'  detail: "{esc_str_full(port.detail)}";')
         lines.extend(["}", ""])
+    return lines
 
-    for idx, process in enumerate(probe.processes):
+
+def _render_host_processes(processes: list[HostProcessIR]) -> list[str]:
+    lines: list[str] = []
+    for idx, process in enumerate(processes):
         lines.append(f"host_process[{idx}] {{")
         lines.append(f"  pid: {process.pid};")
         if process.ppid is not None:
@@ -412,8 +437,12 @@ def render_host_block(ir: SystemMapIR) -> list[str]:
         if process.args:
             lines.append(f'  args: "{esc_str_full(process.args)}";')
         lines.extend(["}", ""])
+    return lines
 
-    for idx, container in enumerate(probe.containers):
+
+def _render_host_containers(containers: list[HostContainerIR]) -> list[str]:
+    lines: list[str] = []
+    for idx, container in enumerate(containers):
         lines.append(f"host_container[{idx}] {{")
         if container.id:
             lines.append(f'  id: "{esc_str(container.id)}";')
@@ -432,8 +461,12 @@ def render_host_block(ir: SystemMapIR) -> list[str]:
         if container.service:
             lines.append(f'  service: "{esc_str(container.service)}";')
         lines.extend(["}", ""])
+    return lines
 
-    for idx, agent in enumerate(probe.agents):
+
+def _render_host_agents(agents: list[HostAgentIR]) -> list[str]:
+    lines: list[str] = []
+    for idx, agent in enumerate(agents):
         lines.append(f"host_agent[{idx}] {{")
         if agent.id:
             lines.append(f'  id: "{esc_str(agent.id)}";')
@@ -460,23 +493,46 @@ def render_host_block(ir: SystemMapIR) -> list[str]:
         if agent.process_log_uri:
             lines.append(f'  process_log_uri: "{esc_str(agent.process_log_uri)}";')
         lines.extend(["}", ""])
+    return lines
 
-    if probe.monitor_log_tail:
-        lines.append("host_monitor_log_tail {")
-        for idx, row in enumerate(probe.monitor_log_tail):
-            lines.append(f'  line_{idx}: "{esc_str_full(row)}";')
-        lines.extend(["}", ""])
 
-    if probe.examples_test_summary:
-        summary = probe.examples_test_summary
-        lines.append("host_examples_test {")
-        for key, value in summary.items():
-            if isinstance(value, list):
-                lines.append(f'  {key}: "{join_csv(str(v) for v in value)}";')
-            else:
-                lines.append(f'  {key}: "{esc_str(str(value))}";')
-        lines.extend(["}", ""])
+def _render_host_monitor_tail(tail: list[str]) -> list[str]:
+    if not tail:
+        return []
+    lines = ["host_monitor_log_tail {"]
+    for idx, row in enumerate(tail):
+        lines.append(f'  line_{idx}: "{esc_str_full(row)}";')
+    lines.extend(["}", ""])
+    return lines
 
+
+def _render_host_examples_test(summary: dict) -> list[str]:
+    if not summary:
+        return []
+    lines = ["host_examples_test {"]
+    for key, value in summary.items():
+        if isinstance(value, list):
+            lines.append(f'  {key}: "{join_csv(str(v) for v in value)}";')
+        else:
+            lines.append(f'  {key}: "{esc_str(str(value))}";')
+    lines.extend(["}", ""])
+    return lines
+
+
+def render_host_block(ir: SystemMapIR) -> list[str]:
+    probe = ir.host
+    if probe is None:
+        return []
+    lines: list[str] = []
+    lines.extend(_render_host_header(probe))
+    lines.extend(_render_host_cron_entries(probe.cron_entries))
+    lines.extend(_render_host_endpoints(probe.endpoints))
+    lines.extend(_render_host_ports(probe.ports))
+    lines.extend(_render_host_processes(probe.processes))
+    lines.extend(_render_host_containers(probe.containers))
+    lines.extend(_render_host_agents(probe.agents))
+    lines.extend(_render_host_monitor_tail(probe.monitor_log_tail))
+    lines.extend(_render_host_examples_test(probe.examples_test_summary))
     return lines
 
 
