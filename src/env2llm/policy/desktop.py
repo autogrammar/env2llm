@@ -8,6 +8,7 @@ from pathlib import Path
 from env2llm.ir import (
     AccessGrantIR,
     CommandSchemaIR,
+    DesktopProbeIR,
     FieldSpec,
     ProtocolSpec,
     ResourceSpecIR,
@@ -127,47 +128,68 @@ def _ensure_desktop_access(ir: SystemMapIR) -> None:
     )
 
 
-def _mirror_desktop_summary(ir: SystemMapIR) -> None:
-    if ir.desktop is None:
-        return
-    probe = ir.desktop
+def _mirror_desktop_core(ir: SystemMapIR, probe: DesktopProbeIR) -> None:
     ir.data["desktop.session"] = probe.session
     ir.data["desktop.platform"] = probe.platform
     ir.data["desktop.display_count"] = len(probe.displays)
+
+
+def _mirror_desktop_canvas(ir: SystemMapIR, probe: DesktopProbeIR) -> None:
     if probe.canvas_width is not None:
         ir.data["desktop.canvas_width"] = probe.canvas_width
     if probe.canvas_height is not None:
         ir.data["desktop.canvas_height"] = probe.canvas_height
     if probe.displays:
         ir.data["desktop.displays"] = [display.model_dump() for display in probe.displays]
-    if probe.pointer is not None:
-        ir.data["desktop.pointer"] = probe.pointer.model_dump()
-        ir.data["desktop.pointer_x"] = probe.pointer.x
-        ir.data["desktop.pointer_y"] = probe.pointer.y
-        if probe.pointer.display_id:
-            ir.data["desktop.pointer_display"] = probe.pointer.display_id
-        if probe.pointer.display_x is not None:
-            ir.data["desktop.pointer_display_x"] = probe.pointer.display_x
-        if probe.pointer.display_y is not None:
-            ir.data["desktop.pointer_display_y"] = probe.pointer.display_y
-    if probe.ide_calibrations:
-        ir.data["desktop.ide_calibrations"] = [
-            entry.model_dump() for entry in probe.ide_calibrations
-        ]
-        ir.data["desktop.ide_calibration_count"] = len(probe.ide_calibrations)
-        for entry in probe.ide_calibrations:
-            ir.data[f"desktop.ide_calibration.{entry.ide}"] = entry.model_dump()
+
+
+def _mirror_desktop_pointer(ir: SystemMapIR, probe: DesktopProbeIR) -> None:
+    if probe.pointer is None:
+        return
+    ir.data["desktop.pointer"] = probe.pointer.model_dump()
+    ir.data["desktop.pointer_x"] = probe.pointer.x
+    ir.data["desktop.pointer_y"] = probe.pointer.y
+    if probe.pointer.display_id:
+        ir.data["desktop.pointer_display"] = probe.pointer.display_id
+    if probe.pointer.display_x is not None:
+        ir.data["desktop.pointer_display_x"] = probe.pointer.display_x
+    if probe.pointer.display_y is not None:
+        ir.data["desktop.pointer_display_y"] = probe.pointer.display_y
+
+
+def _mirror_desktop_ide_calibrations(ir: SystemMapIR, probe: DesktopProbeIR) -> None:
+    if not probe.ide_calibrations:
+        return
+    ir.data["desktop.ide_calibrations"] = [
+        entry.model_dump() for entry in probe.ide_calibrations
+    ]
+    ir.data["desktop.ide_calibration_count"] = len(probe.ide_calibrations)
+    for entry in probe.ide_calibrations:
+        ir.data[f"desktop.ide_calibration.{entry.ide}"] = entry.model_dump()
+
+
+def _mirror_desktop_windows(ir: SystemMapIR, probe: DesktopProbeIR) -> None:
     ir.data["desktop.window_count"] = len(probe.windows)
-    ir.data["desktop.browser_window_count"] = sum(1 for w in probe.windows if w.is_browser)
+    ir.data["desktop.browser_window_count"] = sum(1 for window in probe.windows if window.is_browser)
     if probe.windows:
-        titles = [w.title for w in probe.windows[:12]]
-        ir.data["desktop.window_titles"] = titles
-    active = next((w for w in probe.windows if w.active), None)
+        ir.data["desktop.window_titles"] = [window.title for window in probe.windows[:12]]
+    active = next((window for window in probe.windows if window.active), None)
     if active is not None:
         ir.data["desktop.active_window"] = active.title
-    browsers = [w.title for w in probe.windows if w.is_browser][:8]
+    browsers = [window.title for window in probe.windows if window.is_browser][:8]
     if browsers:
         ir.data["desktop.browser_windows"] = browsers
+
+
+def _mirror_desktop_summary(ir: SystemMapIR) -> None:
+    if ir.desktop is None:
+        return
+    probe = ir.desktop
+    _mirror_desktop_core(ir, probe)
+    _mirror_desktop_canvas(ir, probe)
+    _mirror_desktop_pointer(ir, probe)
+    _mirror_desktop_ide_calibrations(ir, probe)
+    _mirror_desktop_windows(ir, probe)
 
 
 def apply_desktop_probe(
