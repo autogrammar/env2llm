@@ -280,46 +280,68 @@ def _command_transport(action: str) -> tuple[str, str]:
     return "backend→worker", "POST /workflow/run"
 
 
-def load_platform_map(repo_root: Path) -> tuple[list[DoqlResource], list[DoqlAccess]]:
-    """Resources + access grants from nlp2dsl.yaml."""
-    resources: list[DoqlResource] = []
-    access: list[DoqlAccess] = []
+def _load_nlp2dsl_payload(repo_root: Path) -> dict[str, Any] | None:
     config_path = repo_root / "nlp2dsl.yaml"
     if not config_path.is_file():
-        return resources, access
+        return None
     try:
         payload = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
     except OSError:
-        return resources, access
+        return None
+    return payload if isinstance(payload, dict) else {}
 
+
+def _resource_from_area(area: dict[str, Any]) -> DoqlResource:
+    return DoqlResource(
+        id=str(area.get("id", "")),
+        title=str(area.get("title", "")),
+        connector=str(area.get("connector", "")),
+        uri_patterns=[str(u) for u in area.get("uri_patterns") or []],
+    )
+
+
+def _parse_resource_areas(payload: dict[str, Any]) -> list[DoqlResource]:
+    resources: list[DoqlResource] = []
     for area in payload.get("resource_areas") or []:
         if not isinstance(area, dict):
             continue
-        resources.append(
-            DoqlResource(
-                id=str(area.get("id", "")),
-                title=str(area.get("title", "")),
-                connector=str(area.get("connector", "")),
-                uri_patterns=[str(u) for u in area.get("uri_patterns") or []],
-            )
-        )
+        resources.append(_resource_from_area(area))
+    return resources
 
+
+def _normalize_grant_actions(actions_raw: Any) -> list[str]:
+    if isinstance(actions_raw, list):
+        return [str(action) for action in actions_raw]
+    return [str(actions_raw)]
+
+
+def _access_from_grant(agent_id: str, grant: dict[str, Any]) -> DoqlAccess:
+    return DoqlAccess(
+        agent=agent_id,
+        resource_area=str(grant.get("resource_area", grant.get("uri_pattern", ""))),
+        actions=_normalize_grant_actions(grant.get("actions") or []),
+        effect=str(grant.get("effect", "allow")),
+    )
+
+
+def _parse_access_grants(payload: dict[str, Any]) -> list[DoqlAccess]:
+    access: list[DoqlAccess] = []
     for agent_id, agent in (payload.get("agents") or {}).items():
         if not isinstance(agent, dict):
             continue
         for grant in agent.get("grants") or []:
             if not isinstance(grant, dict):
                 continue
-            actions_raw = grant.get("actions") or []
-            access.append(
-                DoqlAccess(
-                    agent=str(agent_id),
-                    resource_area=str(grant.get("resource_area", grant.get("uri_pattern", ""))),
-                    actions=[str(a) for a in actions_raw] if isinstance(actions_raw, list) else [str(actions_raw)],
-                    effect=str(grant.get("effect", "allow")),
-                )
-            )
-    return resources, access
+            access.append(_access_from_grant(str(agent_id), grant))
+    return access
+
+
+def load_platform_map(repo_root: Path) -> tuple[list[DoqlResource], list[DoqlAccess]]:
+    """Resources + access grants from nlp2dsl.yaml."""
+    payload = _load_nlp2dsl_payload(repo_root)
+    if payload is None:
+        return [], []
+    return _parse_resource_areas(payload), _parse_access_grants(payload)
 
 
 def load_commands_from_services_yaml(path: Path) -> list[DoqlCommand]:
