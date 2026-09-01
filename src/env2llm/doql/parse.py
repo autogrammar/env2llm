@@ -527,6 +527,33 @@ def _apply_query_hints(ctx: DoqlTaskContext, queries: list[Mapping[str, Any]] | 
             ctx.data.setdefault(f"{action}.from_query", query.get("query", ""))
 
 
+_INVOICE_COMMAND_FIELDS: dict[str, tuple[list[str], list[str]]] = {
+    "send_invoice": (["amount", "to"], ["currency", "attachment_path"]),
+}
+
+
+def _bootstrap_invoice_commands(ctx: DoqlTaskContext) -> None:
+    """Seed send_invoice when services.yaml is absent (bootstrap / CI without live API)."""
+    from env2llm.policy.invoice import is_invoice_example
+
+    if not is_invoice_example(ctx.example_name):
+        return
+    if any(cmd.name == "send_invoice" for cmd in ctx.commands):
+        return
+    required, optional = _INVOICE_COMMAND_FIELDS["send_invoice"]
+    transport, endpoint = _command_transport("send_invoice")
+    ctx.commands.append(
+        DoqlCommand(
+            name="send_invoice",
+            description="",
+            required=required,
+            optional=optional,
+            transport=transport,
+            endpoint=endpoint,
+        )
+    )
+
+
 def collect_task_context(
     example_dir: Path | str,
     *,
@@ -553,4 +580,5 @@ def collect_task_context(
     from env2llm.policy.invoice import apply_invoice_context
 
     apply_invoice_context(ctx)
+    _bootstrap_invoice_commands(ctx)
     return ctx

@@ -50,6 +50,31 @@ def _mime_for_artifact(art: DoqlArtifact) -> MimeTypeSpec | None:
     return None
 
 
+def _access_from_process_obj(proc) -> ProcessAccessScopeIR:
+    access = getattr(proc, "access", None)
+    return ProcessAccessScopeIR(
+        agent=str(getattr(proc, "agent", "") or getattr(access, "agent", "")),
+        allow_resource_areas=list(
+            getattr(proc, "allow_resource_areas", None)
+            or getattr(access, "allow_resource_areas", [])
+            or []
+        ),
+        deny_resource_areas=list(
+            getattr(proc, "deny_resource_areas", None)
+            or getattr(access, "deny_resource_areas", [])
+            or []
+        ),
+    )
+
+
+def _paths_from_process_obj(proc) -> ProcessPathsIR:
+    paths = getattr(proc, "paths", None)
+    return ProcessPathsIR(
+        read=list(getattr(proc, "paths_read", None) or getattr(paths, "read", []) or []),
+        write=list(getattr(proc, "paths_write", None) or getattr(paths, "write", []) or []),
+    )
+
+
 def _process_from_ctx(ctx) -> ProcessPolicyIR:
     proc = getattr(ctx, "process", None)
     if proc is None:
@@ -68,23 +93,8 @@ def _process_from_ctx(ctx) -> ProcessPolicyIR:
         ask_user=getattr(proc, "ask_user", "when_exhausted"),
         intract_gate=bool(getattr(proc, "intract_gate", False)),
         intract_enforce_clarification=bool(getattr(proc, "intract_enforce_clarification", False)),
-        access=ProcessAccessScopeIR(
-            agent=str(getattr(proc, "agent", "") or getattr(getattr(proc, "access", None), "agent", "")),
-            allow_resource_areas=list(
-                getattr(proc, "allow_resource_areas", None)
-                or getattr(getattr(proc, "access", None), "allow_resource_areas", [])
-                or []
-            ),
-            deny_resource_areas=list(
-                getattr(proc, "deny_resource_areas", None)
-                or getattr(getattr(proc, "access", None), "deny_resource_areas", [])
-                or []
-            ),
-        ),
-        paths=ProcessPathsIR(
-            read=list(getattr(proc, "paths_read", None) or getattr(getattr(proc, "paths", None), "read", []) or []),
-            write=list(getattr(proc, "paths_write", None) or getattr(getattr(proc, "paths", None), "write", []) or []),
-        ),
+        access=_access_from_process_obj(proc),
+        paths=_paths_from_process_obj(proc),
     )
 
 
@@ -235,37 +245,50 @@ def task_context_to_system_map(ctx: DoqlTaskContext, *, example_dir: Path | str 
     return ir
 
 
-def _command_to_ir(cmd: DoqlCommand, *, profile: dict | None = None) -> CommandSchemaIR:
+def _command_field_names(cmd: DoqlCommand) -> tuple[list[str], list[str]]:
     required = list(cmd.required)
     optional = list(cmd.optional)
     if not required and cmd.name in _COMMAND_FIELDS:
         required, optional = _COMMAND_FIELDS[cmd.name]
-    fields = [
-        *[FieldSpec(name=n, required=True) for n in required],
-        *[FieldSpec(name=n, required=False) for n in optional],
-    ]
+    return required, optional
+
+
+def _transport_for_runtime(cmd: DoqlCommand, runtime_id: str) -> str:
+    if runtime_id == "orchestrator:nlp-service":
+        return "nlp-service/system"
+    if runtime_id == "delegate:mullm":
+        return "nlp-service→mullm"
+    if runtime_id == "executor:worker":
+        return "gateway:backend→executor:worker"
+    return cmd.transport
+
+
+def _protocol_for_command(cmd: DoqlCommand, transport: str) -> ProtocolSpec:
     protocol_name = "workflow/run"
-    transport = cmd.transport
     if cmd.transport == "nlp-service/system":
         protocol_name = "propact:shell"
     elif "notify" in cmd.name:
         protocol_name = "workflow/run"
+    return ProtocolSpec(
+        name=protocol_name,
+        transport=transport,
+        endpoint=cmd.endpoint,
+    )
+
+
+def _command_to_ir(cmd: DoqlCommand, *, profile: dict | None = None) -> CommandSchemaIR:
+    required, optional = _command_field_names(cmd)
+    fields = [
+        *[FieldSpec(name=n, required=True) for n in required],
+        *[FieldSpec(name=n, required=False) for n in optional],
+    ]
     runtime_id = cmd.runtime or resolve_command_runtime(cmd.name, profile=profile)
-    if runtime_id == "orchestrator:nlp-service":
-        transport = "nlp-service/system"
-    elif runtime_id == "delegate:mullm":
-        transport = "nlp-service→mullm"
-    elif runtime_id == "executor:worker":
-        transport = "gateway:backend→executor:worker"
+    transport = _transport_for_runtime(cmd, runtime_id)
     return CommandSchemaIR(
         name=cmd.name,
         description=cmd.description,
         runtime=runtime_id,
-        protocol=ProtocolSpec(
-            name=protocol_name,
-            transport=transport,
-            endpoint=cmd.endpoint,
-        ),
+        protocol=_protocol_for_command(cmd, transport),
         fields=fields,
         input_model=f"{''.join(p.title() for p in cmd.name.split('_'))}Config",
     )

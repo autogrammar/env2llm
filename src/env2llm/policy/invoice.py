@@ -49,4 +49,5 @@ def apply_invoice_context(ctx: Any) -> None:
     ctx.data.pop("attachment_path", None)
     caps = set(getattr(ctx, "capabilities", []) or [])
     caps.add("generate_invoice")
+    caps.add("send_invoice")
     ctx.capabilities = sorted(caps)
