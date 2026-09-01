@@ -374,45 +374,63 @@ def load_commands_from_services_yaml(path: Path) -> list[DoqlCommand]:
     return out
 
 
+def _command_from_workflow_action(action: dict[str, Any]) -> DoqlCommand | None:
+    name = str(action.get("name", ""))
+    if not name:
+        return None
+    transport, endpoint = _command_transport(name)
+    req = action.get("required") or []
+    opt = action.get("optional") or {}
+    return DoqlCommand(
+        name=name,
+        description=str(action.get("description", "")),
+        required=[str(field) for field in req] if isinstance(req, list) else [],
+        optional=sorted(str(key) for key in opt) if isinstance(opt, dict) else [],
+        transport=transport,
+        endpoint=endpoint,
+    )
+
+
+def _merge_workflow_actions(ctx: DoqlTaskContext, client: Any) -> None:
+    actions = client.workflow_actions()
+    if not isinstance(actions, list):
+        return
+    ctx.capabilities = sorted(
+        str(action.get("name", action)) if isinstance(action, dict) else str(action)
+        for action in actions
+    )
+    if ctx.commands:
+        return
+    for action in actions:
+        if not isinstance(action, dict):
+            continue
+        command = _command_from_workflow_action(action)
+        if command is not None:
+            ctx.commands.append(command)
+
+
+def _merge_workflow_history(ctx: DoqlTaskContext, client: Any) -> None:
+    hist = client.workflow_history(limit=5)
+    if not isinstance(hist, list):
+        return
+    ctx.workflow_history = {
+        "count": len(hist),
+        "recent_ids": [
+            str(item.get("workflow_id", item.get("id", "")))
+            for item in hist[:5]
+            if isinstance(item, dict)
+        ],
+    }
+
+
 def enrich_task_context_from_client(ctx: DoqlTaskContext, client: Any) -> DoqlTaskContext:
     """Add live capabilities, command schemas, and workflow history when backend is online."""
     try:
-        actions = client.workflow_actions()
-        if isinstance(actions, list):
-            ctx.capabilities = sorted(
-                str(a.get("name", a)) if isinstance(a, dict) else str(a) for a in actions
-            )
-            if not ctx.commands:
-                for action in actions:
-                    if not isinstance(action, dict):
-                        continue
-                    name = str(action.get("name", ""))
-                    if not name:
-                        continue
-                    transport, endpoint = _command_transport(name)
-                    req = action.get("required") or []
-                    opt = action.get("optional") or {}
-                    ctx.commands.append(
-                        DoqlCommand(
-                            name=name,
-                            description=str(action.get("description", "")),
-                            required=[str(r) for r in req] if isinstance(req, list) else [],
-                            optional=sorted(str(k) for k in opt) if isinstance(opt, dict) else [],
-                            transport=transport,
-                            endpoint=endpoint,
-                        )
-                    )
+        _merge_workflow_actions(ctx, client)
     except Exception:
         pass
     try:
-        hist = client.workflow_history(limit=5)
-        if isinstance(hist, list):
-            ctx.workflow_history = {
-                "count": len(hist),
-                "recent_ids": [
-                    str(h.get("workflow_id", h.get("id", ""))) for h in hist[:5] if isinstance(h, dict)
-                ],
-            }
+        _merge_workflow_history(ctx, client)
     except Exception:
         pass
     return ctx
@@ -444,6 +462,71 @@ def parse_fixture_metadata(path: Path) -> dict[str, Any]:
     return out
 
 
+def _relative_fixture_path(fix_path: Path, root: Path, artifact_root: Path) -> str:
+    try:
+        return str(fix_path.relative_to(root))
+    except ValueError:
+        try:
+            return str(fix_path.relative_to(artifact_root))
+        except ValueError:
+            return fix_path.name
+
+
+def _artifact_from_fixture(
+    fix_path: Path,
+    *,
+    root: Path,
+    artifact_root: Path,
+    values: dict[str, Any],
+) -> DoqlArtifact:
+    rel = _relative_fixture_path(fix_path, root, artifact_root)
+    if fix_path.suffix.lower() in (".pdf", ".json"):
+        return DoqlArtifact(
+            path=rel,
+            kind="file",
+            values={},
+        )
+    return DoqlArtifact(
+        path=rel,
+        kind="metadata" if fix_path.suffix == ".txt" else "file",
+        values={k.split(".")[-1] if "." in k else k: v for k, v in values.items()},
+    )
+
+
+def _collect_fixture_artifacts(ctx: DoqlTaskContext, *, root: Path, artifact_root: Path) -> None:
+    fixture_dirs = [root / "fixtures", artifact_root / "fixtures"]
+    seen: set[Path] = set()
+    for fixtures_dir in fixture_dirs:
+        if not fixtures_dir.is_dir():
+            continue
+        for fix_path in sorted(fixtures_dir.iterdir()):
+            if not fix_path.is_file() or fix_path in seen:
+                continue
+            seen.add(fix_path)
+            values = parse_fixture_metadata(fix_path) if fix_path.suffix == ".txt" else {}
+            for key, value in values.items():
+                ctx.data.setdefault(key, value)
+            rel = _relative_fixture_path(fix_path, root, artifact_root)
+            if fix_path.suffix.lower() in (".pdf", ".json"):
+                ctx.data.setdefault("send_invoice.attachment_path", rel)
+            ctx.artifacts.append(
+                _artifact_from_fixture(
+                    fix_path,
+                    root=root,
+                    artifact_root=artifact_root,
+                    values=values,
+                )
+            )
+
+
+def _apply_query_hints(ctx: DoqlTaskContext, queries: list[Mapping[str, Any]] | None) -> None:
+    if not queries:
+        return
+    for query in queries:
+        for action in query.get("actions") or []:
+            ctx.data.setdefault(f"{action}.from_query", query.get("query", ""))
+
+
 def collect_task_context(
     example_dir: Path | str,
     *,
@@ -460,39 +543,8 @@ def collect_task_context(
         autofill=True,
     )
 
-    fixture_dirs = [root / "fixtures", artifact_root / "fixtures"]
-    seen: set[Path] = set()
-    for fixtures_dir in fixture_dirs:
-        if not fixtures_dir.is_dir():
-            continue
-        for fix_path in sorted(fixtures_dir.iterdir()):
-            if not fix_path.is_file() or fix_path in seen:
-                continue
-            seen.add(fix_path)
-            values = parse_fixture_metadata(fix_path) if fix_path.suffix == ".txt" else {}
-            for k, v in values.items():
-                ctx.data.setdefault(k, v)
-            try:
-                rel = str(fix_path.relative_to(root))
-            except ValueError:
-                try:
-                    rel = str(fix_path.relative_to(artifact_root))
-                except ValueError:
-                    rel = fix_path.name
-            if fix_path.suffix.lower() in (".pdf", ".json"):
-                ctx.data.setdefault("send_invoice.attachment_path", rel)
-            ctx.artifacts.append(
-                DoqlArtifact(
-                    path=rel,
-                    kind="metadata" if fix_path.suffix == ".txt" else "file",
-                    values={k.split(".")[-1] if "." in k else k: v for k, v in values.items()},
-                )
-            )
-
-    if queries:
-        for q in queries:
-            for action in q.get("actions") or []:
-                ctx.data.setdefault(f"{action}.from_query", q.get("query", ""))
+    _collect_fixture_artifacts(ctx, root=root, artifact_root=artifact_root)
+    _apply_query_hints(ctx, queries)
 
     repo_root = _repo_root_from_example(root)
     ctx.resources, ctx.access = load_platform_map(repo_root)
