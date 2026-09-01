@@ -209,6 +209,86 @@ def _probe_active_window_id() -> str | None:
     return window_id
 
 
+def _display_probe_tools(displays: list[DesktopDisplayIR]) -> list[str]:
+    if not displays:
+        return []
+    if shutil.which("xrandr"):
+        return ["xrandr"]
+    if any(display.left or display.top for display in displays):
+        return ["mss"]
+    return ["xdotool"]
+
+
+def _probe_pointer(
+    displays: list[DesktopDisplayIR],
+) -> tuple[DesktopPointerIR | None, list[str]]:
+    pointer = _probe_mouse_pointer()
+    if pointer is None:
+        return None, []
+    return resolve_pointer_display(pointer, displays), ["xdotool"]
+
+
+def _probe_windows() -> tuple[list[DesktopWindowIR], list[str]]:
+    if not shutil.which("wmctrl"):
+        return [], []
+    listing = _run_text(["wmctrl", "-l", "-G"])
+    if not listing:
+        return [], ["wmctrl"]
+    return parse_wmctrl_listing(listing), ["wmctrl"]
+
+
+def _mark_active_window(windows: list[DesktopWindowIR], active_id: str | None) -> None:
+    if not active_id:
+        return
+    lowered = active_id.lower()
+    for window in windows:
+        if window.id.lower() == lowered:
+            window.active = True
+
+
+def _session_metadata() -> tuple[str, str | None, str | None]:
+    session = (
+        os.environ.get("XDG_CURRENT_DESKTOP")
+        or os.environ.get("DESKTOP_SESSION")
+        or "unknown"
+    )
+    compositor = os.environ.get("XDG_SESSION_TYPE") or None
+    display_server: str | None = None
+    if os.environ.get("WAYLAND_DISPLAY"):
+        display_server = "wayland"
+    elif os.environ.get("DISPLAY"):
+        display_server = "x11"
+    return session, compositor, display_server
+
+
+def _ide_calibration_probe(
+    *,
+    project_dir: Path | str | None,
+    displays: list[DesktopDisplayIR],
+) -> tuple[list, list[str]]:
+    ide_calibrations = collect_ide_os_injector_calibrations(
+        project_dir=project_dir,
+        displays=displays,
+    )
+    if ide_calibrations:
+        return ide_calibrations, ["ide-os-injector"]
+    return ide_calibrations, []
+
+
+def _desktop_probe_status(
+    windows: list[DesktopWindowIR],
+    *,
+    displays: list[DesktopDisplayIR],
+    pointer: DesktopPointerIR | None,
+    canvas_width: int | None,
+    ide_calibrations: list,
+) -> str:
+    has_geometry = bool(displays or pointer is not None or canvas_width or ide_calibrations)
+    if windows or has_geometry:
+        return "available"
+    return "unknown"
+
+
 def collect_desktop_probe(*, project_dir: Path | str | None = None) -> DesktopProbeIR:
     """
     Snapshot the interactive desktop session when probe tools are available.
@@ -217,61 +297,30 @@ def collect_desktop_probe(*, project_dir: Path | str | None = None) -> DesktopPr
     display fallback, and active window; ``wmctrl -l -G`` for window geometry.
     Safe on headless hosts — returns empty windows.
     """
-    tools: list[str] = []
-    windows: list[DesktopWindowIR] = []
-
     canvas_width, canvas_height, displays = _probe_display_geometry()
-    if displays:
-        if shutil.which("xrandr"):
-            tools.append("xrandr")
-        elif any(display.left or display.top for display in displays):
-            tools.append("mss")
-        elif "xdotool" not in tools:
-            tools.append("xdotool")
+    tools = _display_probe_tools(displays)
 
-    pointer = _probe_mouse_pointer()
-    if pointer is not None:
-        tools.append("xdotool")
-        pointer = resolve_pointer_display(pointer, displays)
+    pointer, pointer_tools = _probe_pointer(displays)
+    tools.extend(pointer_tools)
 
-    if shutil.which("wmctrl"):
-        tools.append("wmctrl")
-        listing = _run_text(["wmctrl", "-l", "-G"])
-        if listing:
-            windows = parse_wmctrl_listing(listing)
+    windows, wmctrl_tools = _probe_windows()
+    tools.extend(wmctrl_tools)
+    _mark_active_window(windows, _probe_active_window_id())
 
-    active_id = _probe_active_window_id()
-    if active_id:
-        for window in windows:
-            if window.id.lower() == active_id.lower():
-                window.active = True
-
-    session = (
-        os.environ.get("XDG_CURRENT_DESKTOP")
-        or os.environ.get("DESKTOP_SESSION")
-        or "unknown"
-    )
-    compositor = os.environ.get("XDG_SESSION_TYPE") or None
-
-    display_server: str | None = None
-    if os.environ.get("WAYLAND_DISPLAY"):
-        display_server = "wayland"
-    elif os.environ.get("DISPLAY"):
-        display_server = "x11"
-
-    ide_calibrations = collect_ide_os_injector_calibrations(
+    session, compositor, display_server = _session_metadata()
+    ide_calibrations, ide_tools = _ide_calibration_probe(
         project_dir=project_dir,
         displays=displays,
     )
-    if ide_calibrations and "ide-os-injector" not in tools:
-        tools.append("ide-os-injector")
+    tools.extend(ide_tools)
 
-    has_geometry = bool(displays or pointer is not None or canvas_width or ide_calibrations)
-    status: str
-    if windows or has_geometry:
-        status = "available"
-    else:
-        status = "unknown"
+    status = _desktop_probe_status(
+        windows,
+        displays=displays,
+        pointer=pointer,
+        canvas_width=canvas_width,
+        ide_calibrations=ide_calibrations,
+    )
 
     return DesktopProbeIR(
         platform=sys.platform,
