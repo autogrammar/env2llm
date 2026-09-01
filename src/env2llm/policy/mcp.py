@@ -105,6 +105,84 @@ def _ensure_access(ir: SystemMapIR, *, agent: str, resource_id: str, actions: li
     )
 
 
+def _record_mcp_tool_aliases(ir: SystemMapIR, name: str, aliases: list[str]) -> None:
+    for alias in aliases:
+        ir.data[f"mcp.commands[{name}].alias.{alias.replace(' ', '_')}"] = alias
+    ir.data[f"mcp.commands[{name}].aliases"] = aliases
+
+
+def _command_from_mcp_tool(
+    tool: dict[str, Any],
+    *,
+    runtime_id: str,
+    server_id: str,
+) -> CommandSchemaIR | None:
+    name = str(tool.get("name") or "").strip()
+    if not name:
+        return None
+    schema = tool.get("inputSchema") or {}
+    if not isinstance(schema, dict):
+        schema = {}
+    return CommandSchemaIR(
+        name=name,
+        description=str(tool.get("description") or ""),
+        runtime=runtime_id,
+        protocol=ProtocolSpec(name="mcp", transport="stdio", endpoint=f"mcp://{server_id}"),
+        fields=_fields_from_schema(schema),
+    )
+
+
+def _merge_mcp_tools(
+    ir: SystemMapIR,
+    tools: list[dict[str, Any]],
+    *,
+    runtime_id: str,
+    server_id: str,
+) -> list[str]:
+    existing = {cmd.name for cmd in ir.commands}
+    added: list[str] = []
+    for tool in tools:
+        command = _command_from_mcp_tool(tool, runtime_id=runtime_id, server_id=server_id)
+        if command is None or command.name in existing:
+            continue
+        ir.commands.append(command)
+        existing.add(command.name)
+        added.append(command.name)
+        _record_mcp_tool_aliases(ir, command.name, _tool_aliases(command.name))
+    return added
+
+
+def _record_mcp_catalog_metadata(
+    ir: SystemMapIR,
+    *,
+    server_id: str,
+    runtime_id: str,
+    resource_id: str,
+    added: list[str],
+) -> None:
+    _ensure_access(ir, agent="mcp-agent", resource_id=resource_id, actions=added)
+    catalog = dict(ir.metadata.get("mcp_catalog") or {})
+    catalog.update(
+        {
+            "server_id": server_id,
+            "runtime_id": runtime_id,
+            "tool_count": len(added),
+            "tools": added,
+        }
+    )
+    ir.metadata["mcp_catalog"] = catalog
+    ir.data["mcp.tool_count"] = len(added)
+    ir.data["mcp.server"] = server_id
+    if "mcp_orchestration" not in ir.capabilities:
+        ir.capabilities.append("mcp_orchestration")
+
+
+def _resolve_mcp_command_runtimes(ir: SystemMapIR, added: list[str]) -> None:
+    for cmd in ir.commands:
+        if cmd.name in added and not cmd.runtime:
+            cmd.runtime = resolve_command_runtime(cmd.name)
+
+
 def apply_mcp_catalog(
     ir: SystemMapIR,
     tools: list[dict[str, Any]],
@@ -124,53 +202,22 @@ def apply_mcp_catalog(
         title=f"{server_id} MCP tool surface",
     )
 
-    existing = {cmd.name for cmd in ir.commands}
-    added: list[str] = []
-    for tool in tools:
-        name = str(tool.get("name") or "").strip()
-        if not name or name in existing:
-            continue
-        schema = tool.get("inputSchema") or {}
-        if not isinstance(schema, dict):
-            schema = {}
-        fields = _fields_from_schema(schema)
-        aliases = _tool_aliases(name)
-        ir.commands.append(
-            CommandSchemaIR(
-                name=name,
-                description=str(tool.get("description") or ""),
-                runtime=runtime_id,
-                protocol=ProtocolSpec(name="mcp", transport="stdio", endpoint=f"mcp://{server_id}"),
-                fields=fields,
-            )
-        )
-        existing.add(name)
-        added.append(name)
-        for alias in aliases:
-            ir.data[f"mcp.commands[{name}].alias.{alias.replace(' ', '_')}"] = alias
-        ir.data[f"mcp.commands[{name}].aliases"] = aliases
-
+    added = _merge_mcp_tools(
+        ir,
+        tools,
+        runtime_id=runtime_id,
+        server_id=server_id,
+    )
     if added:
-        _ensure_access(ir, agent="mcp-agent", resource_id=resource_id, actions=added)
-        catalog = dict(ir.metadata.get("mcp_catalog") or {})
-        catalog.update(
-            {
-                "server_id": server_id,
-                "runtime_id": runtime_id,
-                "tool_count": len(added),
-                "tools": added,
-            }
+        _record_mcp_catalog_metadata(
+            ir,
+            server_id=server_id,
+            runtime_id=runtime_id,
+            resource_id=resource_id,
+            added=added,
         )
-        ir.metadata["mcp_catalog"] = catalog
-        ir.data["mcp.tool_count"] = len(added)
-        ir.data["mcp.server"] = server_id
-        if "mcp_orchestration" not in ir.capabilities:
-            ir.capabilities.append("mcp_orchestration")
 
-    for cmd in ir.commands:
-        if cmd.name in added and not cmd.runtime:
-            cmd.runtime = resolve_command_runtime(cmd.name)
-
+    _resolve_mcp_command_runtimes(ir, added)
     return ir
 
 
