@@ -4,21 +4,8 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from env2llm.ir import (
-    CronEntryIR,
-    DesktopDisplayIR,
-    DesktopIdeCalibrationIR,
-    DesktopPointerIR,
-    DesktopProbeIR,
-    DesktopWindowIR,
-    HostAgentIR,
-    HostContainerIR,
-    HostEndpointIR,
-    HostPortIR,
-    HostProbeIR,
-    HostProcessIR,
-    SystemMapIR,
-)
+from env2llm.ir import SystemMapIR
+from .desktop_blocks import render_desktop_block
 from .helpers import (
     bool_lit,
     data_value_line,
@@ -28,6 +15,30 @@ from .helpers import (
     join_csv,
     process_field_line,
 )
+from .host_blocks import render_host_block
+
+__all__ = [
+    "render_access_block",
+    "render_artifacts_block",
+    "render_capabilities_block",
+    "render_commands_block",
+    "render_conversation_block",
+    "render_data_block",
+    "render_desktop_block",
+    "render_deploy_block",
+    "render_environment_block",
+    "render_generated_services_block",
+    "render_header",
+    "render_host_block",
+    "render_paths_block",
+    "render_process_access_block",
+    "render_process_block",
+    "render_resources_block",
+    "render_runtimes_block",
+    "render_schedules_block",
+    "render_validations_block",
+    "render_workflow_history_block",
+]
 
 
 def render_header(ir: SystemMapIR) -> list[str]:
@@ -74,123 +85,6 @@ def render_artifacts_block(ir: SystemMapIR) -> list[str]:
             else:
                 lines.append(f"  {k}: {v};")
         lines.extend(["}", ""])
-    return lines
-
-
-def _render_desktop_summary(probe: DesktopProbeIR) -> list[str]:
-    lines = ["desktop {"]
-    lines.append(f'  platform: "{esc_str(probe.platform)}";')
-    lines.append(f'  session: "{esc_str(probe.session)}";')
-    lines.append(f'  status: "{probe.status}";')
-    if probe.compositor:
-        lines.append(f'  compositor: "{esc_str(probe.compositor)}";')
-    if probe.display_server:
-        lines.append(f'  display_server: "{esc_str(probe.display_server)}";')
-    if probe.probed_at:
-        lines.append(f'  probed_at: "{esc_str(probe.probed_at)}";')
-    if probe.tools_used:
-        lines.append(f"  tools_used: {join_csv(probe.tools_used)};")
-    if probe.canvas_width is not None:
-        lines.append(f"  canvas_width: {probe.canvas_width};")
-    if probe.canvas_height is not None:
-        lines.append(f"  canvas_height: {probe.canvas_height};")
-    lines.extend(["}", ""])
-    return lines
-
-
-def _render_desktop_pointer_block(pointer: DesktopPointerIR) -> list[str]:
-    lines = ["desktop_pointer {"]
-    lines.append(f"  x: {pointer.x};")
-    lines.append(f"  y: {pointer.y};")
-    if pointer.screen is not None:
-        lines.append(f"  screen: {pointer.screen};")
-    if pointer.window_id:
-        lines.append(f'  window_id: "{esc_str(pointer.window_id)}";')
-    if pointer.display_id:
-        lines.append(f'  display_id: "{esc_str(pointer.display_id)}";')
-    if pointer.display_output:
-        lines.append(f'  display_output: "{esc_str(pointer.display_output)}";')
-    if pointer.display_x is not None:
-        lines.append(f"  display_x: {pointer.display_x};")
-    if pointer.display_y is not None:
-        lines.append(f"  display_y: {pointer.display_y};")
-    lines.extend(["}", ""])
-    return lines
-
-
-def _render_desktop_display_block(idx: int, display: DesktopDisplayIR) -> list[str]:
-    lines = [f"desktop_displays[{idx}] {{"]
-    lines.append(f'  id: "{esc_str(display.id)}";')
-    lines.append(f"  width: {display.width};")
-    lines.append(f"  height: {display.height};")
-    lines.append(f"  left: {display.left};")
-    lines.append(f"  top: {display.top};")
-    lines.append(f"  is_primary: {bool_lit(display.is_primary)};")
-    if display.output:
-        lines.append(f'  output: "{esc_str(display.output)}";')
-    if display.index is not None:
-        lines.append(f"  index: {display.index};")
-    lines.extend(["}", ""])
-    return lines
-
-
-def _render_desktop_ide_calibration_block(
-    idx: int,
-    calibration: DesktopIdeCalibrationIR,
-) -> list[str]:
-    lines = [f"desktop_ide_calibrations[{idx}] {{"]
-    lines.append(f'  ide: "{esc_str(calibration.ide)}";')
-    lines.append(f"  chat_x: {calibration.chat_x};")
-    lines.append(f"  chat_y: {calibration.chat_y};")
-    if calibration.config_path:
-        lines.append(f'  config_path: "{esc_str_full(calibration.config_path)}";')
-    if calibration.source:
-        lines.append(f'  source: "{esc_str(calibration.source)}";')
-    if calibration.display_id:
-        lines.append(f'  display_id: "{esc_str(calibration.display_id)}";')
-    if calibration.display_output:
-        lines.append(f'  display_output: "{esc_str(calibration.display_output)}";')
-    if calibration.display_x is not None:
-        lines.append(f"  display_x: {calibration.display_x};")
-    if calibration.display_y is not None:
-        lines.append(f"  display_y: {calibration.display_y};")
-    if calibration.window_id is not None:
-        lines.append(f"  window_id: {calibration.window_id};")
-    if calibration.calibrated_at:
-        lines.append(f'  calibrated_at: "{esc_str(calibration.calibrated_at)}";')
-    lines.extend(["}", ""])
-    return lines
-
-
-def _render_desktop_window_block(idx: int, window: DesktopWindowIR) -> list[str]:
-    lines = [f"desktop_windows[{idx}] {{"]
-    lines.append(f'  id: "{esc_str(window.id)}";')
-    lines.append(f'  title: "{esc_str_full(window.title)}";')
-    lines.append(f"  x: {window.x};")
-    lines.append(f"  y: {window.y};")
-    lines.append(f"  width: {window.width};")
-    lines.append(f"  height: {window.height};")
-    lines.append(f"  workspace: {window.workspace};")
-    lines.append(f"  is_browser: {bool_lit(window.is_browser)};")
-    lines.append(f"  active: {bool_lit(window.active)};")
-    lines.extend(["}", ""])
-    return lines
-
-
-def render_desktop_block(ir: SystemMapIR) -> list[str]:
-    if ir.desktop is None:
-        return []
-    probe = ir.desktop
-    lines: list[str] = []
-    lines.extend(_render_desktop_summary(probe))
-    if probe.pointer is not None:
-        lines.extend(_render_desktop_pointer_block(probe.pointer))
-    for idx, display in enumerate(probe.displays):
-        lines.extend(_render_desktop_display_block(idx, display))
-    for idx, calibration in enumerate(probe.ide_calibrations):
-        lines.extend(_render_desktop_ide_calibration_block(idx, calibration))
-    for idx, window in enumerate(probe.windows):
-        lines.extend(_render_desktop_window_block(idx, window))
     return lines
 
 
@@ -372,217 +266,6 @@ def render_schedules_block(ir: SystemMapIR) -> list[str]:
         lines.append(f"  enabled: {bool_lit(sched.enabled)};")
         lines.append(f'  timezone: "{sched.timezone}";')
         lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_capability_lines(probe: HostProbeIR) -> list[str]:
-    if not probe.capabilities:
-        return []
-    available = [key for key, ok in probe.capabilities.items() if ok]
-    missing = [key for key, ok in probe.capabilities.items() if not ok]
-    lines: list[str] = []
-    if available:
-        lines.append(f'  capabilities_available: "{join_csv(available)}";')
-    if missing:
-        lines.append(f'  capabilities_missing: "{join_csv(missing)}";')
-    return lines
-
-
-def _render_host_header(probe: HostProbeIR) -> list[str]:
-    lines = [
-        "host {",
-        f'  hostname: "{esc_str(probe.hostname)}";',
-        f'  platform: "{esc_str(probe.platform)}";',
-        f'  status: "{probe.status}";',
-        f"  cron_available: {bool_lit(probe.cron_available)};",
-        f"  cron_taskinity_installed: {bool_lit(probe.cron_taskinity_installed)};",
-    ]
-    if probe.probed_at:
-        lines.append(f'  probed_at: "{esc_str(probe.probed_at)}";')
-    if probe.monitor_log_path:
-        lines.append(f'  monitor_log_path: "{esc_str(probe.monitor_log_path)}";')
-    if probe.examples_report_path:
-        lines.append(f'  examples_report_path: "{esc_str(probe.examples_report_path)}";')
-    lines.extend(_render_host_capability_lines(probe))
-    lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_cron_entries(entries: list[CronEntryIR]) -> list[str]:
-    lines: list[str] = []
-    for idx, entry in enumerate(entries):
-        lines.append(f"host_cron[{idx}] {{")
-        if entry.schedule:
-            lines.append(f'  schedule: "{esc_str(entry.schedule)}";')
-        if entry.command:
-            lines.append(f'  command: "{esc_str_full(entry.command)}";')
-        if entry.marker:
-            lines.append(f'  marker: "{esc_str(entry.marker)}";')
-        lines.append(f"  enabled: {bool_lit(entry.enabled)};")
-        lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_endpoints(endpoints: list[HostEndpointIR]) -> list[str]:
-    lines: list[str] = []
-    for idx, endpoint in enumerate(endpoints):
-        lines.append(f"host_endpoint[{idx}] {{")
-        lines.append(f'  id: "{esc_str(endpoint.id)}";')
-        lines.append(f'  url: "{esc_str(endpoint.url)}";')
-        lines.append(f"  ok: {bool_lit(endpoint.ok)};")
-        if endpoint.detail:
-            lines.append(f'  detail: "{esc_str(endpoint.detail)}";')
-        lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_ports(ports: list[HostPortIR]) -> list[str]:
-    lines: list[str] = []
-    for idx, port in enumerate(ports):
-        lines.append(f"host_port[{idx}] {{")
-        lines.append(f"  port: {port.port};")
-        if port.address:
-            lines.append(f'  address: "{esc_str(port.address)}";')
-        lines.append(f'  protocol: "{esc_str(port.protocol)}";')
-        if port.pid is not None:
-            lines.append(f"  pid: {port.pid};")
-        if port.process:
-            lines.append(f'  process: "{esc_str(port.process)}";')
-        if port.detail:
-            lines.append(f'  detail: "{esc_str_full(port.detail)}";')
-        lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_processes(processes: list[HostProcessIR]) -> list[str]:
-    lines: list[str] = []
-    for idx, process in enumerate(processes):
-        lines.append(f"host_process[{idx}] {{")
-        lines.append(f"  pid: {process.pid};")
-        if process.ppid is not None:
-            lines.append(f"  ppid: {process.ppid};")
-        if process.status:
-            lines.append(f'  status: "{esc_str(process.status)}";')
-        if process.elapsed:
-            lines.append(f'  elapsed: "{esc_str(process.elapsed)}";')
-        if process.command:
-            lines.append(f'  command: "{esc_str(process.command)}";')
-        if process.args:
-            lines.append(f'  args: "{esc_str_full(process.args)}";')
-        lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_containers(containers: list[HostContainerIR]) -> list[str]:
-    lines: list[str] = []
-    for idx, container in enumerate(containers):
-        lines.append(f"host_container[{idx}] {{")
-        if container.id:
-            lines.append(f'  id: "{esc_str(container.id)}";')
-        if container.name:
-            lines.append(f'  name: "{esc_str(container.name)}";')
-        if container.image:
-            lines.append(f'  image: "{esc_str(container.image)}";')
-        if container.state:
-            lines.append(f'  state: "{esc_str(container.state)}";')
-        if container.status:
-            lines.append(f'  status: "{esc_str(container.status)}";')
-        if container.ports:
-            lines.append(f'  ports: "{esc_str_full(container.ports)}";')
-        if container.project:
-            lines.append(f'  project: "{esc_str(container.project)}";')
-        if container.service:
-            lines.append(f'  service: "{esc_str(container.service)}";')
-        lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_agent_identity(agent: HostAgentIR) -> list[str]:
-    lines: list[str] = []
-    if agent.id:
-        lines.append(f'  id: "{esc_str(agent.id)}";')
-    if agent.agent_ref:
-        lines.append(f'  agent_ref: "{esc_str(agent.agent_ref)}";')
-    lines.append(f"  ok: {bool_lit(agent.ok)};")
-    if agent.service_status:
-        lines.append(f'  service_status: "{esc_str(agent.service_status)}";')
-    if agent.runtime_status:
-        lines.append(f'  runtime_status: "{esc_str(agent.runtime_status)}";')
-    return lines
-
-
-def _render_host_agent_runtime(agent: HostAgentIR) -> list[str]:
-    lines: list[str] = []
-    if agent.pid is not None:
-        lines.append(f"  pid: {agent.pid};")
-    lines.append(f"  process_running: {bool_lit(agent.process_running)};")
-    if agent.effective_port is not None:
-        lines.append(f"  effective_port: {agent.effective_port};")
-    if agent.effective_health_uri:
-        lines.append(f'  effective_health_uri: "{esc_str(agent.effective_health_uri)}";')
-    if agent.recommended_action:
-        lines.append(f'  recommended_action: "{esc_str(agent.recommended_action)}";')
-    if agent.incident_codes:
-        lines.append(f'  incident_codes: "{join_csv(agent.incident_codes)}";')
-    if agent.log_uri:
-        lines.append(f'  log_uri: "{esc_str(agent.log_uri)}";')
-    if agent.process_log_uri:
-        lines.append(f'  process_log_uri: "{esc_str(agent.process_log_uri)}";')
-    return lines
-
-
-def _render_host_agent_block(idx: int, agent: HostAgentIR) -> list[str]:
-    lines = [f"host_agent[{idx}] {{"]
-    lines.extend(_render_host_agent_identity(agent))
-    lines.extend(_render_host_agent_runtime(agent))
-    lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_agents(agents: list[HostAgentIR]) -> list[str]:
-    lines: list[str] = []
-    for idx, agent in enumerate(agents):
-        lines.extend(_render_host_agent_block(idx, agent))
-    return lines
-
-
-def _render_host_monitor_tail(tail: list[str]) -> list[str]:
-    if not tail:
-        return []
-    lines = ["host_monitor_log_tail {"]
-    for idx, row in enumerate(tail):
-        lines.append(f'  line_{idx}: "{esc_str_full(row)}";')
-    lines.extend(["}", ""])
-    return lines
-
-
-def _render_host_examples_test(summary: dict) -> list[str]:
-    if not summary:
-        return []
-    lines = ["host_examples_test {"]
-    for key, value in summary.items():
-        if isinstance(value, list):
-            lines.append(f'  {key}: "{join_csv(str(v) for v in value)}";')
-        else:
-            lines.append(f'  {key}: "{esc_str(str(value))}";')
-    lines.extend(["}", ""])
-    return lines
-
-
-def render_host_block(ir: SystemMapIR) -> list[str]:
-    probe = ir.host
-    if probe is None:
-        return []
-    lines: list[str] = []
-    lines.extend(_render_host_header(probe))
-    lines.extend(_render_host_cron_entries(probe.cron_entries))
-    lines.extend(_render_host_endpoints(probe.endpoints))
-    lines.extend(_render_host_ports(probe.ports))
-    lines.extend(_render_host_processes(probe.processes))
-    lines.extend(_render_host_containers(probe.containers))
-    lines.extend(_render_host_agents(probe.agents))
-    lines.extend(_render_host_monitor_tail(probe.monitor_log_tail))
-    lines.extend(_render_host_examples_test(probe.examples_test_summary))
     return lines
 
 
