@@ -375,6 +375,16 @@ def render_schedules_block(ir: SystemMapIR) -> list[str]:
     return lines
 
 
+def _render_host_capability_lines(probe: HostProbeIR) -> list[str]:
+    if not probe.capabilities:
+        return []
+    available = [key for key, ok in probe.capabilities.items() if ok]
+    missing = [key for key, ok in probe.capabilities.items() if not ok]
+    lines: list[str] = []
+    if available:
+        lines.append(f'  capabilities_available: "{join_csv(available)}";')
+    if missing:
+        lines.append(f'  capabilities_missing: "{join_csv(missing)}";')
     return lines
 
 
@@ -393,13 +403,7 @@ def _render_host_header(probe: HostProbeIR) -> list[str]:
         lines.append(f'  monitor_log_path: "{esc_str(probe.monitor_log_path)}";')
     if probe.examples_report_path:
         lines.append(f'  examples_report_path: "{esc_str(probe.examples_report_path)}";')
-    if probe.capabilities:
-        available = [key for key, ok in probe.capabilities.items() if ok]
-        missing = [key for key, ok in probe.capabilities.items() if not ok]
-        if available:
-            lines.append(f'  capabilities_available: "{join_csv(available)}";')
-        if missing:
-            lines.append(f'  capabilities_missing: "{join_csv(missing)}";')
+    lines.extend(_render_host_capability_lines(probe))
     lines.extend(["}", ""])
     return lines
 
@@ -493,35 +497,40 @@ def _render_host_containers(containers: list[HostContainerIR]) -> list[str]:
     return lines
 
 
+def _render_host_agent_block(idx: int, agent: HostAgentIR) -> list[str]:
+    lines = [f"host_agent[{idx}] {{"]
+    if agent.id:
+        lines.append(f'  id: "{esc_str(agent.id)}";')
+    if agent.agent_ref:
+        lines.append(f'  agent_ref: "{esc_str(agent.agent_ref)}";')
+    lines.append(f"  ok: {bool_lit(agent.ok)};")
+    if agent.service_status:
+        lines.append(f'  service_status: "{esc_str(agent.service_status)}";')
+    if agent.runtime_status:
+        lines.append(f'  runtime_status: "{esc_str(agent.runtime_status)}";')
+    if agent.pid is not None:
+        lines.append(f"  pid: {agent.pid};")
+    lines.append(f"  process_running: {bool_lit(agent.process_running)};")
+    if agent.effective_port is not None:
+        lines.append(f"  effective_port: {agent.effective_port};")
+    if agent.effective_health_uri:
+        lines.append(f'  effective_health_uri: "{esc_str(agent.effective_health_uri)}";')
+    if agent.recommended_action:
+        lines.append(f'  recommended_action: "{esc_str(agent.recommended_action)}";')
+    if agent.incident_codes:
+        lines.append(f'  incident_codes: "{join_csv(agent.incident_codes)}";')
+    if agent.log_uri:
+        lines.append(f'  log_uri: "{esc_str(agent.log_uri)}";')
+    if agent.process_log_uri:
+        lines.append(f'  process_log_uri: "{esc_str(agent.process_log_uri)}";')
+    lines.extend(["}", ""])
+    return lines
+
+
 def _render_host_agents(agents: list[HostAgentIR]) -> list[str]:
     lines: list[str] = []
     for idx, agent in enumerate(agents):
-        lines.append(f"host_agent[{idx}] {{")
-        if agent.id:
-            lines.append(f'  id: "{esc_str(agent.id)}";')
-        if agent.agent_ref:
-            lines.append(f'  agent_ref: "{esc_str(agent.agent_ref)}";')
-        lines.append(f"  ok: {bool_lit(agent.ok)};")
-        if agent.service_status:
-            lines.append(f'  service_status: "{esc_str(agent.service_status)}";')
-        if agent.runtime_status:
-            lines.append(f'  runtime_status: "{esc_str(agent.runtime_status)}";')
-        if agent.pid is not None:
-            lines.append(f"  pid: {agent.pid};")
-        lines.append(f"  process_running: {bool_lit(agent.process_running)};")
-        if agent.effective_port is not None:
-            lines.append(f"  effective_port: {agent.effective_port};")
-        if agent.effective_health_uri:
-            lines.append(f'  effective_health_uri: "{esc_str(agent.effective_health_uri)}";')
-        if agent.recommended_action:
-            lines.append(f'  recommended_action: "{esc_str(agent.recommended_action)}";')
-        if agent.incident_codes:
-            lines.append(f'  incident_codes: "{join_csv(agent.incident_codes)}";')
-        if agent.log_uri:
-            lines.append(f'  log_uri: "{esc_str(agent.log_uri)}";')
-        if agent.process_log_uri:
-            lines.append(f'  process_log_uri: "{esc_str(agent.process_log_uri)}";')
-        lines.extend(["}", ""])
+        lines.extend(_render_host_agent_block(idx, agent))
     return lines
 
 

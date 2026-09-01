@@ -108,6 +108,82 @@ MCP_TOOLS: list[dict[str, Any]] = [
 ]
 
 
+def _mcp_error(message: str) -> dict[str, Any]:
+    return {
+        "content": [{"type": "text", "text": message}],
+        "isError": True,
+    }
+
+
+def _mcp_success(payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "content": [{"type": "text", "text": json.dumps(payload, indent=2, default=str)}],
+    }
+
+
+def _tool_get_registry(service: RegistryService, arguments: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "ok": True,
+        "registry": service.to_dict(refresh=bool(arguments.get("refresh"))),
+    }
+
+
+def _tool_render_registry(service: RegistryService, arguments: dict[str, Any]) -> dict[str, Any]:
+    fmt = str(arguments.get("format") or "json")
+    text = service.render(fmt, refresh=bool(arguments.get("refresh")))
+    return {"ok": True, "format": fmt, "content": text}
+
+
+def _tool_refresh_registry(service: RegistryService, arguments: dict[str, Any]) -> dict[str, Any]:
+    if "probe_desktop" in arguments:
+        service.probe_desktop = bool(arguments.get("probe_desktop"))
+    ir = service.refresh(
+        publish_mqtt=bool(arguments.get("publish_mqtt", True)),
+        output_format=str(arguments.get("format") or "doql.less"),
+    )
+    path = service.registry_path()
+    return {
+        "ok": True,
+        "example_id": ir.example_id,
+        "path": str(path) if path else None,
+        "command_count": len(ir.commands),
+    }
+
+
+def _tool_get_desktop(service: RegistryService, arguments: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "ok": True,
+        "desktop": service.desktop_payload(refresh=bool(arguments.get("refresh"))),
+    }
+
+
+def _tool_list_commands(service: RegistryService, arguments: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "ok": True,
+        "commands": service.commands_payload(refresh=bool(arguments.get("refresh"))),
+    }
+
+
+def _tool_list_uris(service: RegistryService, arguments: dict[str, Any]) -> dict[str, Any]:
+    return service.uris_payload(refresh=bool(arguments.get("refresh")))
+
+
+def _tool_mqtt_status(service: RegistryService, arguments: dict[str, Any]) -> dict[str, Any]:
+    del arguments
+    return {"ok": True, **service.mqtt_status()}
+
+
+_MCP_TOOL_HANDLERS: dict[str, Any] = {
+    "env2llm_get_registry": _tool_get_registry,
+    "env2llm_render_registry": _tool_render_registry,
+    "env2llm_refresh_registry": _tool_refresh_registry,
+    "env2llm_get_desktop": _tool_get_desktop,
+    "env2llm_list_commands": _tool_list_commands,
+    "env2llm_list_uris": _tool_list_uris,
+    "env2llm_mqtt_status": _tool_mqtt_status,
+}
+
+
 class McpAdapter:
     def __init__(self, service: RegistryService) -> None:
         self.service = service
@@ -115,55 +191,9 @@ class McpAdapter:
     def call_tool(self, tool_name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         try:
             _guard_tool(tool_name, arguments)
-            if tool_name == "env2llm_get_registry":
-                payload = {
-                    "ok": True,
-                    "registry": self.service.to_dict(refresh=bool(arguments.get("refresh"))),
-                }
-            elif tool_name == "env2llm_render_registry":
-                fmt = str(arguments.get("format") or "json")
-                text = self.service.render(fmt, refresh=bool(arguments.get("refresh")))
-                payload = {"ok": True, "format": fmt, "content": text}
-            elif tool_name == "env2llm_refresh_registry":
-                if "probe_desktop" in arguments:
-                    self.service.probe_desktop = bool(arguments.get("probe_desktop"))
-                ir = self.service.refresh(
-                    publish_mqtt=bool(arguments.get("publish_mqtt", True)),
-                    output_format=str(arguments.get("format") or "doql.less"),
-                )
-                path = self.service.registry_path()
-                payload = {
-                    "ok": True,
-                    "example_id": ir.example_id,
-                    "path": str(path) if path else None,
-                    "command_count": len(ir.commands),
-                }
-            elif tool_name == "env2llm_get_desktop":
-                payload = {
-                    "ok": True,
-                    "desktop": self.service.desktop_payload(refresh=bool(arguments.get("refresh"))),
-                }
-            elif tool_name == "env2llm_list_commands":
-                payload = {
-                    "ok": True,
-                    "commands": self.service.commands_payload(refresh=bool(arguments.get("refresh"))),
-                }
-            elif tool_name == "env2llm_list_uris":
-                payload = self.service.uris_payload(refresh=bool(arguments.get("refresh")))
-            elif tool_name == "env2llm_mqtt_status":
-                payload = {"ok": True, **self.service.mqtt_status()}
-            else:
+            handler = _MCP_TOOL_HANDLERS.get(tool_name)
+            if handler is None:
                 return _mcp_error(f"unknown tool: {tool_name}")
-
-            return {
-                "content": [{"type": "text", "text": json.dumps(payload, indent=2, default=str)}],
-            }
+            return _mcp_success(handler(self.service, arguments))
         except Exception as exc:
             return _mcp_error(f"Error in {tool_name}: {exc}\n{traceback.format_exc()}")
-
-
-def _mcp_error(message: str) -> dict[str, Any]:
-    return {
-        "content": [{"type": "text", "text": message}],
-        "isError": True,
-    }

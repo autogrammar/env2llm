@@ -16,23 +16,32 @@ def resolve_doql_context_path() -> Path | None:
     return resolve_registry_path()
 
 
-def context_inline_payload(ctx: DoqlTaskContext) -> dict[str, Any]:
-    """Serialize DOQL data for chat context_json (portable across client/server)."""
+def _inline_data_aliases(ctx: DoqlTaskContext) -> dict[str, Any]:
     inline = dict(ctx.data)
     for key, value in list(ctx.data.items()):
-        if "." in key:
-            _, field = key.split(".", 1)
-            if field == "attachment_path" and not ctx.attachment_required:
-                inline.pop(key, None)
-                continue
-            inline.setdefault(field, value)
+        if "." not in key:
+            continue
+        _, field = key.split(".", 1)
+        if field == "attachment_path" and not ctx.attachment_required:
+            inline.pop(key, None)
+            continue
+        inline.setdefault(field, value)
+    return inline
+
+
+def _inline_artifact_values(ctx: DoqlTaskContext, inline: dict[str, Any]) -> None:
     for art in ctx.artifacts:
         for key, value in art.values.items():
             inline.setdefault(f"send_invoice.{key}", value)
             inline.setdefault(key, value)
-    if not ctx.attachment_required:
-        inline.pop("attachment_path", None)
-        inline.pop("send_invoice.attachment_path", None)
+
+
+def _strip_optional_attachments(inline: dict[str, Any]) -> None:
+    inline.pop("attachment_path", None)
+    inline.pop("send_invoice.attachment_path", None)
+
+
+def _inline_conversation_flags(ctx: DoqlTaskContext, inline: dict[str, Any]) -> None:
     inline["conversation.autofill"] = ctx.autofill
     if ctx.attachment_required:
         inline["conversation.attachment_required"] = ctx.attachment_required
@@ -43,13 +52,27 @@ def context_inline_payload(ctx: DoqlTaskContext) -> dict[str, Any]:
     if ctx.sync_auto_execute:
         inline["conversation.sync_auto_execute"] = ctx.sync_auto_execute
         inline["sync_auto_execute"] = ctx.sync_auto_execute
+
+
+def _inline_example_dir(inline: dict[str, Any]) -> None:
     example_dir = os.environ.get("NLP2DSL_EXAMPLE_DIR", "").strip()
-    if example_dir:
-        mount = os.environ.get("NLP2DSL_EXAMPLES_MOUNT", "").strip()
-        if mount:
-            inline["example_dir"] = str(Path(mount) / Path(example_dir).name)
-        else:
-            inline["example_dir"] = example_dir
+    if not example_dir:
+        return
+    mount = os.environ.get("NLP2DSL_EXAMPLES_MOUNT", "").strip()
+    if mount:
+        inline["example_dir"] = str(Path(mount) / Path(example_dir).name)
+    else:
+        inline["example_dir"] = example_dir
+
+
+def context_inline_payload(ctx: DoqlTaskContext) -> dict[str, Any]:
+    """Serialize DOQL data for chat context_json (portable across client/server)."""
+    inline = _inline_data_aliases(ctx)
+    _inline_artifact_values(ctx, inline)
+    if not ctx.attachment_required:
+        _strip_optional_attachments(inline)
+    _inline_conversation_flags(ctx, inline)
+    _inline_example_dir(inline)
     return inline
 
 
