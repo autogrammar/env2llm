@@ -1,0 +1,34 @@
+regix:
+  workdir: .
+
+  gates:
+    hard:
+      cc: 15
+      mi: 3
+      coverage: 0
+      length: 150
+      docstring: 0
+      quality: 0.0
+    target:
+      cc: 12
+      mi: 25
+      coverage: 20
+      length: 80
+      docstring: 50
+      quality: 0.50
+    on_regression: warn
+    fail_exit_code: 1
+
+  exclude:
+    - "tests/*"
+    - "docs/*"
+    - ".venv/*"
+    - "venv/*"
+    - "**/__init__.py"
+    - ".intent-*/*"
+    - ".nlp2dsl/*"
+
+  output:
+    format: rich
+    dir: .regix/
+    show_improvements: true

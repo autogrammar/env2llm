@@ -497,8 +497,8 @@ def _render_host_containers(containers: list[HostContainerIR]) -> list[str]:
     return lines
 
 
-def _render_host_agent_block(idx: int, agent: HostAgentIR) -> list[str]:
-    lines = [f"host_agent[{idx}] {{"]
+def _render_host_agent_identity(agent: HostAgentIR) -> list[str]:
+    lines: list[str] = []
     if agent.id:
         lines.append(f'  id: "{esc_str(agent.id)}";')
     if agent.agent_ref:
@@ -508,6 +508,11 @@ def _render_host_agent_block(idx: int, agent: HostAgentIR) -> list[str]:
         lines.append(f'  service_status: "{esc_str(agent.service_status)}";')
     if agent.runtime_status:
         lines.append(f'  runtime_status: "{esc_str(agent.runtime_status)}";')
+    return lines
+
+
+def _render_host_agent_runtime(agent: HostAgentIR) -> list[str]:
+    lines: list[str] = []
     if agent.pid is not None:
         lines.append(f"  pid: {agent.pid};")
     lines.append(f"  process_running: {bool_lit(agent.process_running)};")
@@ -523,6 +528,13 @@ def _render_host_agent_block(idx: int, agent: HostAgentIR) -> list[str]:
         lines.append(f'  log_uri: "{esc_str(agent.log_uri)}";')
     if agent.process_log_uri:
         lines.append(f'  process_log_uri: "{esc_str(agent.process_log_uri)}";')
+    return lines
+
+
+def _render_host_agent_block(idx: int, agent: HostAgentIR) -> list[str]:
+    lines = [f"host_agent[{idx}] {{"]
+    lines.extend(_render_host_agent_identity(agent))
+    lines.extend(_render_host_agent_runtime(agent))
     lines.extend(["}", ""])
     return lines
 
