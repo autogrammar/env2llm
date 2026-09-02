@@ -178,21 +178,43 @@ def parse_fixture_metadata(path: Path) -> dict[str, Any]:
         if ":" not in line:
             continue
         key, _, value = line.partition(":")
-        key = key.strip().lower()
-        value = value.strip()
-        if key in ("odbiorca", "recipient", "to"):
-            out["send_invoice.to"] = value
-        elif key in ("kwota", "amount"):
-            num = re.search(r"[\d.]+", value.replace(",", "."))
-            if num:
-                out["send_invoice.amount"] = float(num.group())
-            if "PLN" in value.upper():
-                out["send_invoice.currency"] = "PLN"
-            elif "EUR" in value.upper():
-                out["send_invoice.currency"] = "EUR"
-        elif key in ("waluta", "currency"):
-            out["send_invoice.currency"] = value
+        _apply_fixture_field(out, key.strip().lower(), value.strip())
     return out
+
+
+_RECIPIENT_KEYS = frozenset({"odbiorca", "recipient", "to"})
+_AMOUNT_KEYS = frozenset({"kwota", "amount"})
+_CURRENCY_KEYS = frozenset({"waluta", "currency"})
+
+
+def _parse_amount_value(value: str) -> float | None:
+    num = re.search(r"[\d.]+", value.replace(",", "."))
+    return float(num.group()) if num else None
+
+
+def _infer_currency_from_value(value: str) -> str | None:
+    upper = value.upper()
+    if "PLN" in upper:
+        return "PLN"
+    if "EUR" in upper:
+        return "EUR"
+    return None
+
+
+def _apply_fixture_field(out: dict[str, Any], key: str, value: str) -> None:
+    if key in _RECIPIENT_KEYS:
+        out["send_invoice.to"] = value
+        return
+    if key in _AMOUNT_KEYS:
+        amount = _parse_amount_value(value)
+        if amount is not None:
+            out["send_invoice.amount"] = amount
+        currency = _infer_currency_from_value(value)
+        if currency:
+            out["send_invoice.currency"] = currency
+        return
+    if key in _CURRENCY_KEYS:
+        out["send_invoice.currency"] = value
 
 
 def _relative_fixture_path(fix_path: Path, root: Path, artifact_root: Path) -> str:

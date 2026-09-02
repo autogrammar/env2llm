@@ -309,3 +309,38 @@ def test_validations_doql_roundtrip_via_system_map(tmp_path: Path) -> None:
     assert len(loaded.validations) == 2
     assert loaded.validations[0].action == "send_invoice"
     assert loaded.validations[1].path == ".nlp2dsl/out.yaml"
+
+
+def test_parse_fixture_metadata_invoice_fields(tmp_path: Path) -> None:
+    from env2llm.doql.parse_task_context import parse_fixture_metadata
+
+    fixture = tmp_path / "invoice-request.txt"
+    fixture.write_text(
+        "Odbiorca: klient@firma.pl\nKwota: 1500 PLN\nWaluta: EUR\n",
+        encoding="utf-8",
+    )
+
+    meta = parse_fixture_metadata(fixture)
+
+    assert meta["send_invoice.to"] == "klient@firma.pl"
+    assert meta["send_invoice.amount"] == 1500.0
+    assert meta["send_invoice.currency"] == "EUR"
+
+
+def test_collect_task_context_loads_fixtures(tmp_path: Path) -> None:
+    from env2llm.doql.parse_task_context import collect_task_context
+
+    fixtures = tmp_path / "fixtures"
+    fixtures.mkdir()
+    (fixtures / "invoice-request.txt").write_text(
+        "recipient: test@example.com\namount: 99.5\n",
+        encoding="utf-8",
+    )
+
+    ctx = collect_task_context(tmp_path, example_name="01-invoice", environment={"K": "V"})
+
+    assert ctx.example_name == "01-invoice"
+    assert ctx.environment["K"] == "V"
+    assert ctx.data["send_invoice.to"] == "test@example.com"
+    assert ctx.data["send_invoice.amount"] == 99.5
+    assert len(ctx.artifacts) == 1

@@ -135,3 +135,193 @@ sprint:
       status: done
       sync: {}
       updated_at: '2026-09-02T06:13:10.046793+00:00'
+    REFACTOR-005:
+      blocked_by: []
+      blocks: []
+      created_at: '2026-09-02T06:18:31.758587+00:00'
+      description: 'BLOCKED: headless CI session — operator step deferred'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-02T06:19:10.880175+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: operator
+        state: blocked
+      executor:
+        kind: human
+        mode: interactive
+      files: []
+      history:
+      - action: created
+        message: '[OPERATOR] Autopilot: Connect + plugin w czacie
+
+
+          nie sprawdzono — uruchom diagnostykę mostu IDE
+
+
+          Wykonaj w IDE, potem zamknij ticket: `task tickets:done -- <id>` lub planfile
+          ticket done.
+
+
+          Weryfikacja (opcjonalnie): `koru ide doctor --ide cursor --fix --gc-sockets`'
+        source: koru task
+        timestamp: '2026-09-02T06:18:31.758587+00:00'
+      - action: status_change
+        changes:
+        - description
+        - execution
+        - status
+        execution_state: blocked
+        previous_execution_state: ready
+        previous_status: open
+        reason: headless CI session — operator step deferred
+        source: planfile.store
+        status: blocked
+        timestamp: '2026-09-02T06:19:10.880206+00:00'
+      id: REFACTOR-005
+      inputs:
+        api_headers: {}
+        api_method: GET
+        api_timeout_seconds: 30.0
+        env_keys: []
+        prompt: '[OPERATOR] Autopilot: Connect + plugin w czacie
+
+
+          nie sprawdzono — uruchom diagnostykę mostu IDE
+
+
+          Wykonaj w IDE, potem zamknij ticket: `task tickets:done -- <id>` lub planfile
+          ticket done.
+
+
+          Weryfikacja (opcjonalnie): `koru ide doctor --ide cursor --fix --gc-sockets`'
+      labels:
+      - koru
+      - nl-task
+      - llm-ready
+      - operator
+      - auto-pipeline
+      - step:autopilot_plugin
+      name: '[OPERATOR] Autopilot: Connect + plugin w czacie nie sprawdzono — uruchom
+        diagnostykę mostu IDE Wykonaj w IDE, potem z...'
+      outputs:
+        artifacts: []
+        notes: []
+      priority: high
+      source:
+        context:
+          dedupe_key: koru:operator-pipeline:autopilot-plugin:cursor
+          detail: nie sprawdzono — uruchom diagnostykę mostu IDE
+          input: '[OPERATOR] Autopilot: Connect + plugin w czacie
+
+
+            nie sprawdzono — uruchom diagnostykę mostu IDE
+
+
+            Wykonaj w IDE, potem zamknij ticket: `task tickets:done -- <id>` lub planfile
+            ticket done.
+
+
+            Weryfikacja (opcjonalnie): `koru ide doctor --ide cursor --fix --gc-sockets`'
+          step_id: autopilot_plugin
+          task_command: koru ide doctor --ide cursor --fix --gc-sockets
+        timestamp: '2026-09-02T06:18:31.758587+00:00'
+        tool: koru-operator-pipeline
+      sprint: history-2026-09-02
+      status: blocked
+      sync: {}
+      updated_at: '2026-09-02T06:19:10.880194+00:00'
+    REFACTOR-009:
+      blocked_by: []
+      blocks: []
+      created_at: '2026-09-02T06:18:34.886460+00:00'
+      description: '`project/analysis.toon.yaml` reports `collect_task_context` with
+        CC=19 (limit=15), defined in `src/env2llm/doql/parse.py:425`. Extract sub-functions,
+        simplify conditionals, or split into strategy pattern. Preserve behaviour
+        — this is a pure refactor.'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-02T06:26:14.755234+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: default
+        state: done
+      executor:
+        kind: human
+        mode: interactive
+      files:
+      - src/env2llm/doql/parse.py
+      history:
+      - action: created
+        message: '`project/analysis.toon.yaml` reports `collect_task_context` with
+          CC=19 (limit=15), defined in `src/env2llm/doql/parse.py:425`. Extract sub-functions,
+          simplify conditionals, or split into strategy pattern. Preserve behaviour
+          — this is a pure refactor.'
+        source: koru task
+        timestamp: '2026-09-02T06:18:34.886460+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - outputs
+        - status
+        execution_state: done
+        previous_execution_state: ready
+        previous_status: open
+        source: planfile.store
+        status: done
+        timestamp: '2026-09-02T06:26:14.755264+00:00'
+      id: REFACTOR-009
+      inputs:
+        api_headers: {}
+        api_method: GET
+        api_timeout_seconds: 30.0
+        env_keys: []
+        prompt: '`project/analysis.toon.yaml` reports `collect_task_context` with
+          CC=19 (limit=15), defined in `src/env2llm/doql/parse.py:425`. Extract sub-functions,
+          simplify conditionals, or split into strategy pattern. Preserve behaviour
+          — this is a pure refactor.'
+      labels:
+      - koru
+      - nl-task
+      - llm-ready
+      - code2llm
+      - complexity
+      - refactor
+      - scan
+      name: 'Reduce cyclomatic complexity: collect_task_context (CC=19, limit=15)'
+      outputs:
+        artifacts: []
+        notes:
+        - Resolved by parse_task_context split; CC=2; added fixture tests
+      priority: normal
+      source:
+        context:
+          dedupe_key: koru-scan:code2llm_cc:src/env2llm/doql/parse.py
+          evidence:
+            artifact:
+              mtime_ns: 1780777799356119287
+              path: project/analysis.toon.yaml
+              sha256: 3017961b577a3f24e7d4787c602eeafe27c7ce721e3c096cd6567b7bb69a1e97
+              size_bytes: 9581
+            kind: code2llm_analysis
+            regenerate_command: code2llm /home/tom/github/autogrammar/env2llm -f all
+              -o /home/tom/github/autogrammar/env2llm/project --no-chunk --exclude
+              '*.md' --planfile-apply --planfile-source koru-project-discovery --planfile-sprint
+              current --planfile-project /home/tom/github/autogrammar/env2llm --planfile-limit
+              20
+            schema: koru.ticket_evidence.v1
+            staleness_check: Regenerate the artifact and compare artifact.sha256 before
+              assuming this ticket still reflects the current code.
+          input: '`project/analysis.toon.yaml` reports `collect_task_context` with
+            CC=19 (limit=15), defined in `src/env2llm/doql/parse.py:425`. Extract
+            sub-functions, simplify conditionals, or split into strategy pattern.
+            Preserve behaviour — this is a pure refactor.'
+          signal: code2llm_cc
+        timestamp: '2026-09-02T06:18:34.886460+00:00'
+        tool: koru-scan
+      sprint: history-2026-09-02
+      status: done
+      sync: {}
+      updated_at: '2026-09-02T06:26:14.755250+00:00'
