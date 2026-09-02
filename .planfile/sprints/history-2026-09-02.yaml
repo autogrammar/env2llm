@@ -324,6 +324,188 @@ sprint:
       status: done
       sync: {}
       updated_at: '2026-09-02T06:58:30.525058+00:00'
+    REFACTOR-007:
+      blocked_by: []
+      blocks: []
+      created_at: '2026-09-02T06:18:34.839418+00:00'
+      description: '`project/analysis.toon.yaml` reports `build_runtimes_for_example`
+        with CC=18 (limit=15), defined in `src/env2llm/runtimes.py:65`. Extract sub-functions,
+        simplify conditionals, or split into strategy pattern. Preserve behaviour
+        — this is a pure refactor.'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-02T07:07:17.614736+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: default
+        state: done
+      executor:
+        kind: human
+        mode: interactive
+      files:
+      - src/env2llm/runtimes.py
+      history:
+      - action: created
+        message: '`project/analysis.toon.yaml` reports `build_runtimes_for_example`
+          with CC=18 (limit=15), defined in `src/env2llm/runtimes.py:65`. Extract
+          sub-functions, simplify conditionals, or split into strategy pattern. Preserve
+          behaviour — this is a pure refactor.'
+        source: koru task
+        timestamp: '2026-09-02T06:18:34.839418+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: done
+        previous_execution_state: ready
+        previous_status: open
+        source: planfile.store
+        status: done
+        timestamp: '2026-09-02T07:07:17.614769+00:00'
+      id: REFACTOR-007
+      inputs:
+        api_headers: {}
+        api_method: GET
+        api_timeout_seconds: 30.0
+        env_keys: []
+        prompt: '`project/analysis.toon.yaml` reports `build_runtimes_for_example`
+          with CC=18 (limit=15), defined in `src/env2llm/runtimes.py:65`. Extract
+          sub-functions, simplify conditionals, or split into strategy pattern. Preserve
+          behaviour — this is a pure refactor.'
+      labels:
+      - koru
+      - nl-task
+      - llm-ready
+      - code2llm
+      - complexity
+      - refactor
+      - scan
+      name: 'Reduce cyclomatic complexity: build_runtimes_for_example (CC=18, limit=15)'
+      outputs:
+        artifacts: []
+        notes: []
+      priority: normal
+      source:
+        context:
+          dedupe_key: koru-scan:code2llm_cc:src/env2llm/runtimes.py
+          evidence:
+            artifact:
+              mtime_ns: 1780777799356119287
+              path: project/analysis.toon.yaml
+              sha256: 3017961b577a3f24e7d4787c602eeafe27c7ce721e3c096cd6567b7bb69a1e97
+              size_bytes: 9581
+            kind: code2llm_analysis
+            regenerate_command: code2llm /home/tom/github/autogrammar/env2llm -f all
+              -o /home/tom/github/autogrammar/env2llm/project --no-chunk --exclude
+              '*.md' --planfile-apply --planfile-source koru-project-discovery --planfile-sprint
+              current --planfile-project /home/tom/github/autogrammar/env2llm --planfile-limit
+              20
+            schema: koru.ticket_evidence.v1
+            staleness_check: Regenerate the artifact and compare artifact.sha256 before
+              assuming this ticket still reflects the current code.
+          input: '`project/analysis.toon.yaml` reports `build_runtimes_for_example`
+            with CC=18 (limit=15), defined in `src/env2llm/runtimes.py:65`. Extract
+            sub-functions, simplify conditionals, or split into strategy pattern.
+            Preserve behaviour — this is a pure refactor.'
+          signal: code2llm_cc
+        timestamp: '2026-09-02T06:18:34.839418+00:00'
+        tool: koru-scan
+      sprint: history-2026-09-02
+      status: done
+      sync: {}
+      updated_at: '2026-09-02T07:07:17.614755+00:00'
+    REFACTOR-008:
+      blocked_by: []
+      blocks: []
+      created_at: '2026-09-02T06:18:34.859911+00:00'
+      description: '`project/analysis.toon.yaml` reports `collect_desktop_probe` with
+        CC=15 (limit=15), defined in `src/env2llm/probes/desktop.py:94`. Extract sub-functions,
+        simplify conditionals, or split into strategy pattern. Preserve behaviour
+        — this is a pure refactor.'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-02T07:07:18.466723+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: default
+        state: done
+      executor:
+        kind: human
+        mode: interactive
+      files:
+      - src/env2llm/probes/desktop.py
+      history:
+      - action: created
+        message: '`project/analysis.toon.yaml` reports `collect_desktop_probe` with
+          CC=15 (limit=15), defined in `src/env2llm/probes/desktop.py:94`. Extract
+          sub-functions, simplify conditionals, or split into strategy pattern. Preserve
+          behaviour — this is a pure refactor.'
+        source: koru task
+        timestamp: '2026-09-02T06:18:34.859911+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: done
+        previous_execution_state: ready
+        previous_status: open
+        source: planfile.store
+        status: done
+        timestamp: '2026-09-02T07:07:18.466749+00:00'
+      id: REFACTOR-008
+      inputs:
+        api_headers: {}
+        api_method: GET
+        api_timeout_seconds: 30.0
+        env_keys: []
+        prompt: '`project/analysis.toon.yaml` reports `collect_desktop_probe` with
+          CC=15 (limit=15), defined in `src/env2llm/probes/desktop.py:94`. Extract
+          sub-functions, simplify conditionals, or split into strategy pattern. Preserve
+          behaviour — this is a pure refactor.'
+      labels:
+      - koru
+      - nl-task
+      - llm-ready
+      - code2llm
+      - complexity
+      - refactor
+      - scan
+      name: 'Reduce cyclomatic complexity: collect_desktop_probe (CC=15, limit=15)'
+      outputs:
+        artifacts: []
+        notes: []
+      priority: normal
+      source:
+        context:
+          dedupe_key: koru-scan:code2llm_cc:src/env2llm/probes/desktop.py
+          evidence:
+            artifact:
+              mtime_ns: 1780777799356119287
+              path: project/analysis.toon.yaml
+              sha256: 3017961b577a3f24e7d4787c602eeafe27c7ce721e3c096cd6567b7bb69a1e97
+              size_bytes: 9581
+            kind: code2llm_analysis
+            regenerate_command: code2llm /home/tom/github/autogrammar/env2llm -f all
+              -o /home/tom/github/autogrammar/env2llm/project --no-chunk --exclude
+              '*.md' --planfile-apply --planfile-source koru-project-discovery --planfile-sprint
+              current --planfile-project /home/tom/github/autogrammar/env2llm --planfile-limit
+              20
+            schema: koru.ticket_evidence.v1
+            staleness_check: Regenerate the artifact and compare artifact.sha256 before
+              assuming this ticket still reflects the current code.
+          input: '`project/analysis.toon.yaml` reports `collect_desktop_probe` with
+            CC=15 (limit=15), defined in `src/env2llm/probes/desktop.py:94`. Extract
+            sub-functions, simplify conditionals, or split into strategy pattern.
+            Preserve behaviour — this is a pure refactor.'
+          signal: code2llm_cc
+        timestamp: '2026-09-02T06:18:34.859911+00:00'
+        tool: koru-scan
+      sprint: history-2026-09-02
+      status: done
+      sync: {}
+      updated_at: '2026-09-02T07:07:18.466738+00:00'
     REFACTOR-009:
       blocked_by: []
       blocks: []
@@ -417,6 +599,188 @@ sprint:
       status: done
       sync: {}
       updated_at: '2026-09-02T06:26:14.755250+00:00'
+    REFACTOR-010:
+      blocked_by: []
+      blocks: []
+      created_at: '2026-09-02T06:18:34.957349+00:00'
+      description: '`project/analysis.toon.yaml` reports `render_context_process`
+        with CC=18 (limit=15), defined in `src/env2llm/doql/context_blocks.py:150`.
+        Extract sub-functions, simplify conditionals, or split into strategy pattern.
+        Preserve behaviour — this is a pure refactor.'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-02T07:07:19.578131+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: default
+        state: done
+      executor:
+        kind: human
+        mode: interactive
+      files:
+      - src/env2llm/doql/context_blocks.py
+      history:
+      - action: created
+        message: '`project/analysis.toon.yaml` reports `render_context_process` with
+          CC=18 (limit=15), defined in `src/env2llm/doql/context_blocks.py:150`. Extract
+          sub-functions, simplify conditionals, or split into strategy pattern. Preserve
+          behaviour — this is a pure refactor.'
+        source: koru task
+        timestamp: '2026-09-02T06:18:34.957349+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: done
+        previous_execution_state: ready
+        previous_status: open
+        source: planfile.store
+        status: done
+        timestamp: '2026-09-02T07:07:19.578168+00:00'
+      id: REFACTOR-010
+      inputs:
+        api_headers: {}
+        api_method: GET
+        api_timeout_seconds: 30.0
+        env_keys: []
+        prompt: '`project/analysis.toon.yaml` reports `render_context_process` with
+          CC=18 (limit=15), defined in `src/env2llm/doql/context_blocks.py:150`. Extract
+          sub-functions, simplify conditionals, or split into strategy pattern. Preserve
+          behaviour — this is a pure refactor.'
+      labels:
+      - koru
+      - nl-task
+      - llm-ready
+      - code2llm
+      - complexity
+      - refactor
+      - scan
+      name: 'Reduce cyclomatic complexity: render_context_process (CC=18, limit=15)'
+      outputs:
+        artifacts: []
+        notes: []
+      priority: normal
+      source:
+        context:
+          dedupe_key: koru-scan:code2llm_cc:src/env2llm/doql/context_blocks.py
+          evidence:
+            artifact:
+              mtime_ns: 1780777799356119287
+              path: project/analysis.toon.yaml
+              sha256: 3017961b577a3f24e7d4787c602eeafe27c7ce721e3c096cd6567b7bb69a1e97
+              size_bytes: 9581
+            kind: code2llm_analysis
+            regenerate_command: code2llm /home/tom/github/autogrammar/env2llm -f all
+              -o /home/tom/github/autogrammar/env2llm/project --no-chunk --exclude
+              '*.md' --planfile-apply --planfile-source koru-project-discovery --planfile-sprint
+              current --planfile-project /home/tom/github/autogrammar/env2llm --planfile-limit
+              20
+            schema: koru.ticket_evidence.v1
+            staleness_check: Regenerate the artifact and compare artifact.sha256 before
+              assuming this ticket still reflects the current code.
+          input: '`project/analysis.toon.yaml` reports `render_context_process` with
+            CC=18 (limit=15), defined in `src/env2llm/doql/context_blocks.py:150`.
+            Extract sub-functions, simplify conditionals, or split into strategy pattern.
+            Preserve behaviour — this is a pure refactor.'
+          signal: code2llm_cc
+        timestamp: '2026-09-02T06:18:34.957349+00:00'
+        tool: koru-scan
+      sprint: history-2026-09-02
+      status: done
+      sync: {}
+      updated_at: '2026-09-02T07:07:19.578152+00:00'
+    REFACTOR-011:
+      blocked_by: []
+      blocks: []
+      created_at: '2026-09-02T06:18:34.996060+00:00'
+      description: '`project/analysis.toon.yaml` reports `render_markdown` with CC=22
+        (limit=15), defined in `src/env2llm/formats/markdown.py:9`. Extract sub-functions,
+        simplify conditionals, or split into strategy pattern. Preserve behaviour
+        — this is a pure refactor.'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-02T07:07:20.365643+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: default
+        state: done
+      executor:
+        kind: human
+        mode: interactive
+      files:
+      - src/env2llm/formats/markdown.py
+      history:
+      - action: created
+        message: '`project/analysis.toon.yaml` reports `render_markdown` with CC=22
+          (limit=15), defined in `src/env2llm/formats/markdown.py:9`. Extract sub-functions,
+          simplify conditionals, or split into strategy pattern. Preserve behaviour
+          — this is a pure refactor.'
+        source: koru task
+        timestamp: '2026-09-02T06:18:34.996060+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: done
+        previous_execution_state: ready
+        previous_status: open
+        source: planfile.store
+        status: done
+        timestamp: '2026-09-02T07:07:20.365671+00:00'
+      id: REFACTOR-011
+      inputs:
+        api_headers: {}
+        api_method: GET
+        api_timeout_seconds: 30.0
+        env_keys: []
+        prompt: '`project/analysis.toon.yaml` reports `render_markdown` with CC=22
+          (limit=15), defined in `src/env2llm/formats/markdown.py:9`. Extract sub-functions,
+          simplify conditionals, or split into strategy pattern. Preserve behaviour
+          — this is a pure refactor.'
+      labels:
+      - koru
+      - nl-task
+      - llm-ready
+      - code2llm
+      - complexity
+      - refactor
+      - scan
+      name: 'Reduce cyclomatic complexity: render_markdown (CC=22, limit=15)'
+      outputs:
+        artifacts: []
+        notes: []
+      priority: normal
+      source:
+        context:
+          dedupe_key: koru-scan:code2llm_cc:src/env2llm/formats/markdown.py
+          evidence:
+            artifact:
+              mtime_ns: 1780777799356119287
+              path: project/analysis.toon.yaml
+              sha256: 3017961b577a3f24e7d4787c602eeafe27c7ce721e3c096cd6567b7bb69a1e97
+              size_bytes: 9581
+            kind: code2llm_analysis
+            regenerate_command: code2llm /home/tom/github/autogrammar/env2llm -f all
+              -o /home/tom/github/autogrammar/env2llm/project --no-chunk --exclude
+              '*.md' --planfile-apply --planfile-source koru-project-discovery --planfile-sprint
+              current --planfile-project /home/tom/github/autogrammar/env2llm --planfile-limit
+              20
+            schema: koru.ticket_evidence.v1
+            staleness_check: Regenerate the artifact and compare artifact.sha256 before
+              assuming this ticket still reflects the current code.
+          input: '`project/analysis.toon.yaml` reports `render_markdown` with CC=22
+            (limit=15), defined in `src/env2llm/formats/markdown.py:9`. Extract sub-functions,
+            simplify conditionals, or split into strategy pattern. Preserve behaviour
+            — this is a pure refactor.'
+          signal: code2llm_cc
+        timestamp: '2026-09-02T06:18:34.996060+00:00'
+        tool: koru-scan
+      sprint: history-2026-09-02
+      status: done
+      sync: {}
+      updated_at: '2026-09-02T07:07:20.365660+00:00'
     REFACTOR-012:
       blocked_by: []
       blocks: []
@@ -508,3 +872,89 @@ sprint:
       status: done
       sync: {}
       updated_at: '2026-09-02T06:58:49.987753+00:00'
+    REFACTOR-013:
+      blocked_by: []
+      blocks: []
+      created_at: '2026-09-02T06:18:35.092573+00:00'
+      description: 'REFACTOR item from `project/analysis.toon.yaml`: **split 8 high-CC
+        methods** (CC>15). Execute this refactor step; re-run the source.context.evidence.regenerate_command
+        to verify.'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-02T07:07:21.167477+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: default
+        state: done
+      executor:
+        kind: human
+        mode: interactive
+      files:
+      - project/analysis.toon.yaml
+      history:
+      - action: created
+        message: 'REFACTOR item from `project/analysis.toon.yaml`: **split 8 high-CC
+          methods** (CC>15). Execute this refactor step; re-run the source.context.evidence.regenerate_command
+          to verify.'
+        source: koru task
+        timestamp: '2026-09-02T06:18:35.092573+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: done
+        previous_execution_state: ready
+        previous_status: open
+        source: planfile.store
+        status: done
+        timestamp: '2026-09-02T07:07:21.167504+00:00'
+      id: REFACTOR-013
+      inputs:
+        api_headers: {}
+        api_method: GET
+        api_timeout_seconds: 30.0
+        env_keys: []
+        prompt: 'REFACTOR item from `project/analysis.toon.yaml`: **split 8 high-CC
+          methods** (CC>15). Execute this refactor step; re-run the source.context.evidence.regenerate_command
+          to verify.'
+      labels:
+      - koru
+      - nl-task
+      - llm-ready
+      - code2llm
+      - refactor
+      - scan
+      name: 'code2llm refactor: split 8 high-CC methods'
+      outputs:
+        artifacts: []
+        notes: []
+      priority: normal
+      source:
+        context:
+          dedupe_key: semcod:code2llm:refactor:project/analysis.toon.yaml
+          evidence:
+            artifact:
+              mtime_ns: 1780777799356119287
+              path: project/analysis.toon.yaml
+              sha256: 3017961b577a3f24e7d4787c602eeafe27c7ce721e3c096cd6567b7bb69a1e97
+              size_bytes: 9581
+            kind: code2llm_analysis
+            regenerate_command: code2llm /home/tom/github/autogrammar/env2llm -f all
+              -o /home/tom/github/autogrammar/env2llm/project --no-chunk --exclude
+              '*.md' --planfile-apply --planfile-source koru-project-discovery --planfile-sprint
+              current --planfile-project /home/tom/github/autogrammar/env2llm --planfile-limit
+              20
+            schema: koru.ticket_evidence.v1
+            staleness_check: Regenerate the artifact and compare artifact.sha256 before
+              assuming this ticket still reflects the current code.
+          input: 'REFACTOR item from `project/analysis.toon.yaml`: **split 8 high-CC
+            methods** (CC>15). Execute this refactor step; re-run the source.context.evidence.regenerate_command
+            to verify.'
+          signal: code2llm_refactor
+        timestamp: '2026-09-02T06:18:35.092573+00:00'
+        tool: koru-scan
+      sprint: history-2026-09-02
+      status: done
+      sync: {}
+      updated_at: '2026-09-02T07:07:21.167493+00:00'
