@@ -1,0 +1,55 @@
+# wup.yaml — on-change regression watcher for env2llm (dev loop only; CI uses pyqual/regix).
+#
+# Quick start:
+#   wup status
+#   wup map-deps
+#   wup watch
+
+project:
+  name: env2llm
+  description: Environment map generator — watch src/ and run quick pytest on change.
+
+watch:
+  paths:
+    - src/**
+    - tests/**
+  file_types:
+    - .py
+  excludes:
+    - "**/__pycache__/**"
+    - "**/.venv/**"
+    - "**/venv/**"
+    - "**/.pytest_cache/**"
+    - "**/*.md"
+
+services:
+  - name: core
+    root: src/env2llm
+    paths:
+      - src/env2llm/**
+      - tests/**
+    type: auto
+    quick_tests:
+      scope: all
+      max_endpoints: 3
+    full_tests:
+      scenario: testql-scenarios/generated-from-pytests.testql.toon.yaml
+
+test_strategy:
+  quick:
+    debounce_s: 2
+    max_queue: 5
+    timeout_s: 15
+  full:
+    debounce_s: 5
+    timeout_s: 120
+    only_on_quick_fail: true
+
+reporting:
+  dashboard: true
+  blame_log: .wup/blame-history.jsonl
+  webhook_url: "${WUP_WEBHOOK_URL:-}"
+
+resources:
+  max_cpu_percent: 70
+  defer_below_idle_percent: 20

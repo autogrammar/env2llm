@@ -1,0 +1,137 @@
+sprint:
+  id: history-2026-09-02
+  name: History 2026-09-02
+  status: archived
+  tickets:
+    REFACTOR-004:
+      blocked_by: []
+      blocks: []
+      created_at: '2026-09-01T19:04:08.987197+00:00'
+      description: '`wup` is installed but no `wup.yaml` config exists in the project
+        root. Bootstrap with `task template:install:wup` (in koru) or follow `workflows/on-change-gates.md`.
+
+
+        Role: intelligent file watcher (3-layer: detect → quick → full).
+
+
+        <!-- koru:living-status:start -->
+
+        ### Koru Living Status
+
+        - Ticket: `REFACTOR-004`
+
+        - State: `done`
+
+        - Actor: `koru-shell`
+
+        - Lease expires: `-`
+
+        - Control: planfile://ticket/REFACTOR-004
+
+        <!-- koru:living-status:end -->'
+      execution:
+        assigned_to: null
+        attempt: 0
+        finished_at: '2026-09-02T06:13:09.137635+00:00'
+        lease_expires_at: null
+        max_attempts: 1
+        queue: default
+        started_at: '2026-09-02T06:12:59.002582Z'
+        state: done
+      executor:
+        handler: wup status && koru ci run
+        kind: shell
+        mode: automatic
+      files: []
+      history:
+      - action: created
+        message: '`wup` is installed but no `wup.yaml` config exists in the project
+          root. Bootstrap with `task template:install:wup` (in koru) or follow `workflows/on-change-gates.md`.
+
+
+          Role: intelligent file watcher (3-layer: detect → quick → full).'
+        source: koru task
+        timestamp: '2026-09-01T19:04:08.987197+00:00'
+      - action: update
+        changes:
+        - execution
+        source: planfile.store
+        timestamp: '2026-09-02T06:12:58.404702+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: running
+        previous_execution_state: ready
+        previous_status: open
+        source: planfile.store
+        status: in_progress
+        timestamp: '2026-09-02T06:12:59.003779+00:00'
+      - action: update
+        changes:
+        - description
+        source: planfile.store
+        timestamp: '2026-09-02T06:12:59.916475+00:00'
+      - action: update
+        changes:
+        - outputs
+        source: planfile.store
+        timestamp: '2026-09-02T06:13:08.644476+00:00'
+      - action: status_change
+        changes:
+        - execution
+        - status
+        execution_state: done
+        previous_execution_state: running
+        previous_status: in_progress
+        source: planfile.store
+        status: done
+        timestamp: '2026-09-02T06:13:09.137666+00:00'
+      - action: update
+        changes:
+        - description
+        source: planfile.store
+        timestamp: '2026-09-02T06:13:10.046832+00:00'
+      id: REFACTOR-004
+      inputs:
+        api_headers: {}
+        api_method: GET
+        api_timeout_seconds: 30.0
+        env_keys: []
+        prompt: '`wup` is installed but no `wup.yaml` config exists in the project
+          root. Bootstrap with `task template:install:wup` (in koru) or follow `workflows/on-change-gates.md`.
+
+
+          Role: intelligent file watcher (3-layer: detect → quick → full).'
+      labels:
+      - koru
+      - nl-task
+      - llm-ready
+      - bootstrap
+      - gates
+      - scan
+      name: Bootstrap wup on-change gate
+      outputs:
+        artifacts: []
+        notes:
+        - "KORU-SHELL-RUN {\"exit_code\": 0, \"run_id\": \"72bc6709cb614d57\", \"stderr_chars\":
+          0, \"stdout_chars\": 134, \"truncated\": false}\n--- stdout ---\n\U0001F4CA
+          WUP Status  env2llm  updated 08:13:00\nkoru ci run: policy_ci: passed\nkoru
+          ci run: quality_gates: passed\nkoru ci run: overall=passed\n\n\n--- stderr
+          ---\n(empty)"
+      priority: normal
+      source:
+        context:
+          dedupe_key: koru-scan:missing_gate:bootstrap wup on-change gate
+          input: '`wup` is installed but no `wup.yaml` config exists in the project
+            root. Bootstrap with `task template:install:wup` (in koru) or follow `workflows/on-change-gates.md`.
+
+
+            Role: intelligent file watcher (3-layer: detect → quick → full).'
+          signal: missing_gate
+        timestamp: '2026-09-01T19:04:08.987197+00:00'
+        tool: koru-scan
+      sprint: history-2026-09-02
+      status: done
+      sync: {}
+      updated_at: '2026-09-02T06:13:10.046793+00:00'

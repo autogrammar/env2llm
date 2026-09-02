@@ -66,4 +66,5 @@ build/
 .planfile/index/
 .planfile/sprints/*.fast.json
 .koru/
+.wup/
 .planfile/sprints/*.bak-*
