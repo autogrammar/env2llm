@@ -23,7 +23,6 @@ nlp2uri = ["nlp2uri[envmap]>=0.4.7"]
 dev = [
     "pytest>=8.0",
     "costs>=0.1.20",
-    "pfix>=0.1.60",
 ]
 
 [project.scripts]
