@@ -40,7 +40,7 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
-addopts = ["-v"]
+addopts = ["-p wellmanifest_governance", "-v"]
 
 [tool.costs]
 # AI Cost tracking configuration
@@ -60,3 +60,8 @@ requires-python = ">=3.12"
 
 [dependency-groups]
 automation = ["goal>=2.1.302"]
+
+[tool.wellmanifest]
+standard = "0.20.35"
+revision = "cfaa0bf0ea6b0e7349fed0bb62b5ce15792d687d"
+gate = "project/governance-check.sh"
