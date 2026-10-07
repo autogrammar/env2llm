@@ -56,6 +56,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    try:
+        from .autoupdate import check_for_updates
+        check_for_updates("env2llm")
+    except Exception:
+        pass
     args = build_parser().parse_args(argv)
     fmt = normalize_format(args.format)
     path = ensure_environment_map(
