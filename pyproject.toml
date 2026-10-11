@@ -39,7 +39,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = [".", "src"]
 addopts = ["-p wellmanifest_governance", "-v"]
 
 [tool.costs]
@@ -62,6 +62,6 @@ requires-python = ">=3.12"
 automation = ["goal>=2.1.302"]
 
 [tool.wellmanifest]
-standard = "0.20.35"
-revision = "cfaa0bf0ea6b0e7349fed0bb62b5ce15792d687d"
+standard = "0.20.92"
+revision = "fcbb13e0ae04c688d825d5a87e2d2721dfab483d"
 gate = "project/governance-check.sh"
