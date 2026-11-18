@@ -79,7 +79,7 @@
           "project/governance-check.*",
           "project/TICKETS.md",
           "project/ticket-*/**",
-          "githooks/commit-msg"
+          ".githooks/commit-msg"
         ]
       },
       "infrastructure": {
